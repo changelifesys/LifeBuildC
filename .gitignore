@@ -265,3 +265,6 @@ __pycache__/
 /LifeBuildC/Web.Release.config
 /LifeBuildC/Web.config
 /LifeBuildC/Web.Debug.config
+/LifeBuildC/Api/testGoogleADO.aspx
+/LifeBuildC/Api/testGoogleADO.aspx.cs
+/LifeBuildC/Api/testGoogleADO.aspx.designer.cs

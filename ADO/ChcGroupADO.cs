@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,15 +73,32 @@ namespace ADO
         public DataTable QueryGroupByChcGroup()
         {
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+
+            #region Access
+
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT GroupClass, MAX(GSort) FROM ChcGroup
+            //                                WHERE GroupClass <> ''
+            //                                GROUP BY GroupClass
+            //                                ORDER BY MAX(GSort)
+            //                                ";
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    //sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
+            //    sda.Fill(dt);
+            //}
+
+            #endregion
+
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT GroupClass, MAX(GSort) FROM ChcGroup
-                                            WHERE GroupClass <> ''
-                                            GROUP BY GroupClass
-                                            ORDER BY MAX(GSort)
-                                            ";
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-                //sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
+                                           WHERE GroupClass <> ''
+                                           GROUP BY GroupClass
+                                           ORDER BY MAX(GSort)
+                                          ";
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
             }
 
