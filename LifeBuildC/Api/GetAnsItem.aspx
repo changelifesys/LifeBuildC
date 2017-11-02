@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GetAnsItem.aspx.cs" Inherits="LifeBuildC.Api.GetAnsItem" %>

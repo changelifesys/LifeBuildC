@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GetSubSign.aspx.cs" Inherits="LifeBuildC.Api.GetSubSign" %>
