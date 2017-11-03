@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,31 @@ namespace ADO
 
         public void DelUserScore(string ExamCategory, string Egroup, string Ename, string CreateDate)
         {
-            using (OleDbConnection con = new OleDbConnection(condb))
+            #region Access
+
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"DELETE FROM UserScore
+            //                                WHERE ExamCategory = @ExamCategory
+            //                                AND Egroup = @Egroup
+            //                                AND Ename = @Ename
+            //                                AND (CreateDate LIKE @CreateDate + '%')";
+
+            //    OleDbCommand com = new OleDbCommand(sql, con);
+            //    com.Parameters.AddWithValue("@ExamCategory", ExamCategory);
+            //    com.Parameters.AddWithValue("@Egroup", Egroup);
+            //    com.Parameters.AddWithValue("@Ename", Ename);
+            //    com.Parameters.AddWithValue("@CreateDate", CreateDate);
+
+            //    con.Open();
+            //    com.ExecuteNonQuery();
+            //    con.Close();
+            //}
+
+            #endregion
+
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"DELETE FROM UserScore
                                             WHERE ExamCategory = @ExamCategory
@@ -45,7 +70,7 @@ namespace ADO
                                             AND Ename = @Ename
                                             AND (CreateDate LIKE @CreateDate + '%')";
 
-                OleDbCommand com = new OleDbCommand(sql, con);
+                SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@ExamCategory", ExamCategory);
                 com.Parameters.AddWithValue("@Egroup", Egroup);
                 com.Parameters.AddWithValue("@Ename", Ename);
@@ -55,6 +80,7 @@ namespace ADO
                 com.ExecuteNonQuery();
                 con.Close();
             }
+
         }
 
         public void DelUserScoreByUSID(string USID)
@@ -75,8 +101,31 @@ namespace ADO
 
         public DataTable QueryUserScore(string ExamCategory, string Egroup, string Ename, string CreateDate)
         {
+
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+
+            #region Access
+
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT * FROM UserScore
+            //                                WHERE ExamCategory = @ExamCategory
+            //                                AND Egroup = @Egroup
+            //                                AND Ename = @Ename
+            //                                AND (CreateDate LIKE @CreateDate + '%')";
+
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
+            //    sda.SelectCommand.Parameters.AddWithValue("@Egroup", Egroup);
+            //    sda.SelectCommand.Parameters.AddWithValue("@Ename", Ename);
+            //    sda.SelectCommand.Parameters.AddWithValue("@CreateDate", CreateDate);
+            //    sda.Fill(dt);
+            //}
+
+            #endregion
+
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM UserScore
                                             WHERE ExamCategory = @ExamCategory
@@ -84,7 +133,7 @@ namespace ADO
                                             AND Ename = @Ename
                                             AND (CreateDate LIKE @CreateDate + '%')";
 
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
                 sda.SelectCommand.Parameters.AddWithValue("@Egroup", Egroup);
                 sda.SelectCommand.Parameters.AddWithValue("@Ename", Ename);
@@ -98,14 +147,34 @@ namespace ADO
         public DataTable QueryUserScoreNoneExamCategory(string Egroup, string Ename, string CreateDate)
         {
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+
+            #region Access
+
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT * FROM UserScore
+            //                                WHERE Egroup = @Egroup
+            //                                AND Ename = @Ename
+            //                                AND (CreateDate LIKE @CreateDate + '%')";
+
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    sda.SelectCommand.Parameters.AddWithValue("@Egroup", Egroup);
+            //    sda.SelectCommand.Parameters.AddWithValue("@Ename", Ename);
+            //    sda.SelectCommand.Parameters.AddWithValue("@CreateDate", CreateDate);
+            //    sda.Fill(dt);
+            //}
+
+            #endregion
+
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM UserScore
                                             WHERE Egroup = @Egroup
                                             AND Ename = @Ename
                                             AND (CreateDate LIKE @CreateDate + '%')";
 
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@Egroup", Egroup);
                 sda.SelectCommand.Parameters.AddWithValue("@Ename", Ename);
                 sda.SelectCommand.Parameters.AddWithValue("@CreateDate", CreateDate);

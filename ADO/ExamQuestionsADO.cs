@@ -179,14 +179,32 @@ namespace ADO
         public DataTable QueryExamQuestionsByIsEnable(string ExamCategory)
         {
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+
+            #region Access
+
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT EQ.*, S.IsEnable FROM ExamQuestions EQ
+            //                                LEFT JOIN SystemSet S ON S.ExamCategory = EQ.ExamCategory
+            //                                WHERE EQ.ExamCategory = @ExamCategory
+            //                                AND IsEnable = 'True'";
+
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
+            //    sda.Fill(dt);
+            //}
+
+            #endregion
+
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT EQ.*, S.IsEnable FROM ExamQuestions EQ
                                             LEFT JOIN SystemSet S ON S.ExamCategory = EQ.ExamCategory
                                             WHERE EQ.ExamCategory = @ExamCategory
                                             AND IsEnable = 'True'";
-                
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
                 sda.Fill(dt);
             }
@@ -197,6 +215,9 @@ namespace ADO
         public DataTable QueryExamQuestionsByExamToTrue(string ExamCategory)
         {
             DataTable dt = new DataTable();
+
+            #region Access
+
             using (OleDbConnection con = new OleDbConnection(condb))
             {
                 string sql = @"SELECT * FROM ExamQuestions
@@ -204,6 +225,20 @@ namespace ADO
                                           ";
 
                 OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
+                sda.Fill(dt);
+            }
+
+            #endregion
+
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ExamQuestions
+                                            WHERE ExamCategory = @ExamCategory
+                                          ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
                 sda.Fill(dt);
             }

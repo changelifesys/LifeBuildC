@@ -25,9 +25,10 @@ namespace LifeBuildC.Api
 
         private void PageStart()
         {
-            string eclass = "C212";
-
+            string eclass = string.Empty;
+            
             eclass = CheckStringByRequest("eclass");
+            //eclass = "C212";
 
             PageData PageData = new PageData();
             DataTable dt = ansitem.QueryAnswerItem(eclass);

@@ -108,13 +108,30 @@ namespace ADO
         public DataTable QueryGroupNameByChcGroup(string GroupClass)
         {
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+
+            #region Access
+
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT * FROM ChcGroup
+            //                                WHERE GroupClass = @GroupClass
+            //                                ORDER BY GSort";
+
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    sda.SelectCommand.Parameters.AddWithValue("@GroupClass", GroupClass);
+            //    sda.Fill(dt);
+            //}
+
+            #endregion
+
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM ChcGroup
-                                            WHERE GroupClass = @GroupClass
-                                            ORDER BY GSort";
+                                           WHERE GroupClass = @GroupClass
+                                           ORDER BY GSort";
 
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@GroupClass", GroupClass);
                 sda.Fill(dt);
             }

@@ -13,7 +13,6 @@ namespace LifeBuildC.Api
     public partial class GetGroupItem : System.Web.UI.Page
     {
         //取得區牧小組群組
-
         ChcGroupADO chcgroup = new ChcGroupADO();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -36,7 +35,13 @@ namespace LifeBuildC.Api
                     DataTable dtlist = chcgroup.QueryGroupNameByChcGroup(dr["GroupClass"].ToString());
                     foreach (DataRow drlist in dtlist.Rows)
                     {
-                        dinfo.list.Add(drlist["GroupName"].ToString());
+                        string _GroupID = drlist["GroupID"].ToString();
+                        string _GroupCName = drlist["GroupCName"].ToString();
+                        string _GroupName = drlist["GroupName"].ToString();
+
+                        //出輸格式
+                        //AA101.永健牧區-永健小組
+                        dinfo.list.Add(_GroupID + "." + _GroupCName + "-" + _GroupName);
                     }
 
                     PageData.DataInfo.Add(dinfo);

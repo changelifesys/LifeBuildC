@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,12 +53,29 @@ namespace ADO
         public DataTable QueryAnswerItem(string ExamCategory)
         {
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+
+            #region Access
+
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT * FROM AnswerItem
+            //                                WHERE ExamCategory = @ExamCategory
+            //                                ORDER BY ID";
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
+            //    sda.Fill(dt);
+            //}
+
+            #endregion
+
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM AnswerItem
-                                            WHERE ExamCategory = @ExamCategory
-                                            ORDER BY ID";
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+                                           WHERE ExamCategory = @ExamCategory
+                                           ORDER BY ID";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
                 sda.Fill(dt);
             }
