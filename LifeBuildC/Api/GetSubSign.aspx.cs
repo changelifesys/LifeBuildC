@@ -42,7 +42,7 @@ namespace LifeBuildC.Api
 
             PageData PageData = JsonConvert.DeserializeObject<PageData>(ReqGetSubSign);
 
-            DataTable dtSID = SubjectDate.QuerySIDBySubjectDate(PageData.Category_ID, DateTime.Now.ToString("yyyy/MM/dd"));
+            DataTable dtSID = SubjectDate.QuerySIDBySubjectDate(PageData.Category_ID, DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"));
             if (dtSID.Rows.Count > 0)
             { //表示可以簽到
                 PageData.S_ID = int.Parse(dtSID.Rows[0]["SID"].ToString());

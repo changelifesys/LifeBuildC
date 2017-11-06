@@ -227,7 +227,7 @@ namespace LifeBuildC.Api
             #region 新增上課資訊
 
             //新增上課資訊
-            SubSignInfo.InsSubSignInfo(PageData.S_ID, MID, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+            SubSignInfo.InsSubSignInfo(PageData.S_ID, MID, DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd HH:mm:ss"));
             int SUID = SubSignInfo.QuerySUIDBySubSignInfo(MID);
 
             //新增簽到表
@@ -276,7 +276,7 @@ namespace LifeBuildC.Api
             foreach (DataRow dr in dtSubInfo.Rows)
             {
                 SBInfo SBInfo = new SBInfo();
-                SBInfo.SBDate = dr["SDate"].ToString().Replace(DateTime.Now.Year.ToString() + "/", "") + "(" + GetDayOfWeek(DateTime.Parse(dr["SDate"].ToString())) + ") " + dr["SubTime"].ToString();
+                SBInfo.SBDate = dr["SDate"].ToString().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") + "(" + GetDayOfWeek(DateTime.Parse(dr["SDate"].ToString())) + ") " + dr["SubTime"].ToString();
                 SBInfo.SBClass = dr["CategoryName"].ToString();
                 #region SBInfo.status
 
@@ -379,7 +379,7 @@ namespace LifeBuildC.Api
             //報名課程, 報名日期, 修課狀況, 小組,	姓名,	所屬教會, 補課狀況
             var oblist = new List<object>() {
                 PageData.Category,
-                DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
+                DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd HH:mm:ss"),
                 PageData.C_Pass,
                 PageData.group,
                 PageData.name,

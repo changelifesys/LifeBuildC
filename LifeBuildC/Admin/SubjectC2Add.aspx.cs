@@ -21,22 +21,22 @@ namespace LifeBuildC.Admin
             if (!IsPostBack)
             {
                 //報名條件
-                string y = DateTime.Now.Year.ToString();
+                string y = DateTime.UtcNow.AddHours(8).Year.ToString();
                 txtSUCondition.Text = y + "年1月~" + y + "年12月來的新朋友，或是還沒上過的會友。";
 
                 //上課時間
                 //C2 一、二課
-                txtSDate12.Text = DateTime.Now.ToString("yyyy/MM/dd");
+                txtSDate12.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
                 dropSubTime12.SelectedIndex = 1;
                 txtSubTime12.Text = "14:30~17:30";
 
                 //C2 三、四課
-                txtSDate34.Text = DateTime.Now.ToString("yyyy/MM/dd");
+                txtSDate34.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
                 dropSubTime34.SelectedIndex = 1;
                 txtSubTime34.Text = "14:30~17:30";
 
                 //C2 五課
-                txtSDate5.Text = DateTime.Now.ToString("yyyy/MM/dd");
+                txtSDate5.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
                 dropSubTime5.SelectedIndex = 1;
                 txtSubTime5.Text = "14:30~17:30";
 
@@ -44,10 +44,10 @@ namespace LifeBuildC.Admin
                 txtSubLocation.Text = "江子翠行道會主會堂";
 
                 //報名日期
-                txtSubStrDate.Text = DateTime.Now.ToString("yyyy/MM/dd");
+                txtSubStrDate.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
 
                 //報名截止
-                txtSubEndDate.Text = DateTime.Now.ToString("yyyy/MM/dd");
+                txtSubEndDate.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
 
             }
 

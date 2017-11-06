@@ -35,7 +35,7 @@ namespace LifeBuildC.Api
 
             PageData PageData = JsonConvert.DeserializeObject<PageData>(ReqGetSUBInfo);
 
-            DataTable dtSubject = SubjectInfo.GetSubjectInfo(DateTime.Now.ToString("yyyy/MM/dd"), PageData.Category_ID);
+            DataTable dtSubject = SubjectInfo.GetSubjectInfo(DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"), PageData.Category_ID);
             if (dtSubject.Rows.Count > 0)
             {
                 PageData.S_ID = int.Parse(dtSubject.Rows[0]["SID"].ToString());
@@ -46,7 +46,7 @@ namespace LifeBuildC.Api
                 string _SBDate = "";
                 foreach (DataRow dr in dtSubject.Rows)
                 {
-                    _SBDate += dr["SDate"].ToString().Replace(DateTime.Now.Year.ToString() + "/", "") + 
+                    _SBDate += dr["SDate"].ToString().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") + 
                         "(" + GetDayOfWeek(DateTime.Parse(dr["SDate"].ToString())) + ")、";
                 }
 
@@ -55,7 +55,7 @@ namespace LifeBuildC.Api
 
                 //即日起~2/9(四)截止報名，之後請現場報名。
                 PageData.SUDate = "即日起~" +
-                    dtSubject.Rows[0]["SubEndDate"].ToString().Replace(DateTime.Now.Year.ToString() + "/", "") + 
+                    dtSubject.Rows[0]["SubEndDate"].ToString().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") + 
                         "(" + GetDayOfWeek(DateTime.Parse(dtSubject.Rows[0]["SubEndDate"].ToString())) + ") " +
                     "截止報名，之後請現場報名。";
             }

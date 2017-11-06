@@ -80,13 +80,13 @@ namespace LifeBuildC.Api
             int SUID = int.Parse(dtSignInfo.Rows[0]["SUID"].ToString());
 
             //查詢當日課程
-            DataTable dtCategoryID = SubjectDate.QueryCategoryIDBySubjectDate(PageData.S_ID, DateTime.Now.ToString("yyyy/MM/dd"));
+            DataTable dtCategoryID = SubjectDate.QueryCategoryIDBySubjectDate(PageData.S_ID, DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"));
             if (dtCategoryID.Rows.Count > 0)
             { //當日有上課
                 PageData.CategoryID = dtCategoryID.Rows[0]["CategoryID"].ToString();
 
                 //更新上課資訊
-                SubSignUpDate.UpdDateBySubSignUpDate(SUID, PageData.CategoryID, DateTime.Now.ToString("yyyy/MM/dd"));
+                SubSignUpDate.UpdDateBySubSignUpDate(SUID, PageData.CategoryID, DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"));
 
                 PageData.Msg = "報到成功";
             }
@@ -147,7 +147,7 @@ namespace LifeBuildC.Api
             //報到課程, 報到日期, 小組, 姓名, 系統回應
             var oblist = new List<object>() {
                 PageData.CategoryID,
-                DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
+                DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd HH:mm:ss"),
                 PageData.group,
                 PageData.name,
                 PageData.Msg

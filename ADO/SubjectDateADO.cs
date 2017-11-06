@@ -161,7 +161,6 @@ namespace ADO
                                             ORDER BY SubjectDate.SID DESC, SubjectDate.SDate";
 
                 OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-                //sda.SelectCommand.Parameters.AddWithValue("@SDate", DateTime.Now.ToString("yyyy/MM/dd"));
                 sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
                 sda.Fill(dt);
             }

@@ -16,13 +16,33 @@ namespace ADO
 
         public void InsAnswerItem(string ExamCategory, string ItemName)
         {
-            using (OleDbConnection con = new OleDbConnection(condb))
+            #region Access
+
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"INSERT INTO
+            //                               AnswerItem(ExamCategory, ItemName)
+            //                               VALUES(@ExamCategory, @ItemName)";
+
+            //    OleDbCommand com = new OleDbCommand(sql, con);
+            //    com.Parameters.AddWithValue("@ExamCategory", ExamCategory);
+            //    com.Parameters.AddWithValue("@ItemName", ItemName);
+
+            //    con.Open();
+            //    com.ExecuteNonQuery();
+            //    con.Close();
+            //}
+
+            #endregion
+
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
                                            AnswerItem(ExamCategory, ItemName)
                                            VALUES(@ExamCategory, @ItemName)";
 
-                OleDbCommand com = new OleDbCommand(sql, con);
+                SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@ExamCategory", ExamCategory);
                 com.Parameters.AddWithValue("@ItemName", ItemName);
 
@@ -30,17 +50,38 @@ namespace ADO
                 com.ExecuteNonQuery();
                 con.Close();
             }
+
         }
 
         public void DelAnswerItem(string ExamCategory, string ItemName)
         {
-            using (OleDbConnection con = new OleDbConnection(condb))
+            #region Access
+
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"DELETE FROM AnswerItem
+            //                                WHERE ExamCategory = @ExamCategory
+            //                                AND ItemName = @ItemName";
+
+            //    OleDbCommand com = new OleDbCommand(sql, con);
+            //    com.Parameters.AddWithValue("@ExamCategory", ExamCategory);
+            //    com.Parameters.AddWithValue("@ItemName", ItemName);
+
+            //    con.Open();
+            //    com.ExecuteNonQuery();
+            //    con.Close();
+            //}
+
+            #endregion
+
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"DELETE FROM AnswerItem
                                             WHERE ExamCategory = @ExamCategory
                                             AND ItemName = @ItemName";
 
-                OleDbCommand com = new OleDbCommand(sql, con);
+                SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@ExamCategory", ExamCategory);
                 com.Parameters.AddWithValue("@ItemName", ItemName);
 
@@ -48,6 +89,7 @@ namespace ADO
                 com.ExecuteNonQuery();
                 con.Close();
             }
+
         }
 
         public DataTable QueryAnswerItem(string ExamCategory)

@@ -87,7 +87,7 @@ namespace LifeBuildC.Admin
                 //報名時間
                 ((Label)e.Row.FindControl("lblSubDate")).Text = DataBinder.Eval(e.Row.DataItem, "SubStrDate").ToString() + "~" + DataBinder.Eval(e.Row.DataItem, "SubEndDate").ToString();
 
-                if (DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SDate").ToString()) < DateTime.Now)
+                if (DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SDate").ToString()) < DateTime.UtcNow.AddHours(8))
                 {
                     ((LinkButton)e.Row.FindControl("btnEdit")).Visible = false; //隱藏編輯鈕
                     ((Button)e.Row.FindControl("btnDel")).Visible = false; //隱藏刪除鈕

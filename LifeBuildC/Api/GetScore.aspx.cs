@@ -217,11 +217,10 @@ namespace LifeBuildC.Api
                                                    AnswerData.user[0].group,
                                                    AnswerData.user[0].name,
                                                    AnswerData.user[0].mobile,
-                                                   _Score.ToString(),
-                                                   DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd HH:mm:ss"));
+                                                   _Score.ToString());
 
             //Google Excel
-            SendGoogleExcel(AnswerData, _Score.ToString());
+            //SendGoogleExcel(AnswerData, _Score.ToString());
 
             #endregion
 

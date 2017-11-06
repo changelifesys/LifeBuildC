@@ -119,7 +119,7 @@ namespace LifeBuildC.Admin
                                                             _IsField7, _Field7,
                                                             _IsField8, _Field8,
                                                             _IsField9, _Field9,
-                                                            _IsField10, _Field10, DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd HH:mm:ss"));
+                                                            _IsField10, _Field10);
 
             Response.Write("<script>alert('儲存成功');location.href='ExamList.aspx?ec=" + ec + "'</script>");
 

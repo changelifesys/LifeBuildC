@@ -14,26 +14,51 @@ namespace ADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
 
-        public void InsUserScore(string ExamCategory, string Egroup, string Ename, string Emobile, string EScore, string CreateDate)
+        public void InsUserScore(string ExamCategory, string Egroup, string Ename, string Emobile, string EScore)
         {
-            using (OleDbConnection con = new OleDbConnection(condb))
+
+            #region Access
+
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"INSERT INTO
+            //                               UserScore(ExamCategory, Egroup, Ename, Emobile, EScore, CreateDate)
+            //                               VALUES(@ExamCategory, @Egroup, @Ename, @Emobile, @EScore, @CreateDate)";
+
+            //    OleDbCommand com = new OleDbCommand(sql, con);
+            //    com.Parameters.AddWithValue("@ExamCategory", ExamCategory);
+            //    com.Parameters.AddWithValue("@Egroup", Egroup);
+            //    com.Parameters.AddWithValue("@Ename", Ename);
+            //    com.Parameters.AddWithValue("@Emobile", Emobile);
+            //    com.Parameters.AddWithValue("@EScore", EScore);
+            //    com.Parameters.AddWithValue("@CreateDate", CreateDate);
+
+            //    con.Open();
+            //    com.ExecuteNonQuery();
+            //    con.Close();
+            //}
+
+            #endregion
+
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
                                            UserScore(ExamCategory, Egroup, Ename, Emobile, EScore, CreateDate)
-                                           VALUES(@ExamCategory, @Egroup, @Ename, @Emobile, @EScore, @CreateDate)";
+                                           VALUES(@ExamCategory, @Egroup, @Ename, @Emobile, @EScore, GETDATE())";
 
-                OleDbCommand com = new OleDbCommand(sql, con);
+                SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@ExamCategory", ExamCategory);
                 com.Parameters.AddWithValue("@Egroup", Egroup);
                 com.Parameters.AddWithValue("@Ename", Ename);
                 com.Parameters.AddWithValue("@Emobile", Emobile);
                 com.Parameters.AddWithValue("@EScore", EScore);
-                com.Parameters.AddWithValue("@CreateDate", CreateDate);
 
                 con.Open();
                 com.ExecuteNonQuery();
                 con.Close();
             }
+
         }
 
         public void DelUserScore(string ExamCategory, string Egroup, string Ename, string CreateDate)
@@ -68,7 +93,7 @@ namespace ADO
                                             WHERE ExamCategory = @ExamCategory
                                             AND Egroup = @Egroup
                                             AND Ename = @Ename
-                                            AND (CreateDate LIKE @CreateDate + '%')";
+                                            AND CONVERT(varchar(100), CreateDate, 111) = @CreateDate";
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@ExamCategory", ExamCategory);
@@ -131,7 +156,7 @@ namespace ADO
                                             WHERE ExamCategory = @ExamCategory
                                             AND Egroup = @Egroup
                                             AND Ename = @Ename
-                                            AND (CreateDate LIKE @CreateDate + '%')";
+                                            AND CONVERT(varchar(100), CreateDate, 111) = @CreateDate";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
@@ -172,7 +197,7 @@ namespace ADO
                 string sql = @"SELECT * FROM UserScore
                                             WHERE Egroup = @Egroup
                                             AND Ename = @Ename
-                                            AND (CreateDate LIKE @CreateDate + '%')";
+                                            AND CONVERT(varchar(100), CreateDate, 111) = @CreateDate";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@Egroup", Egroup);
