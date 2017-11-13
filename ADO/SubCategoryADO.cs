@@ -22,7 +22,34 @@ namespace ADO
         public DataTable QueryCategoryID_DataBySubCategory(int MID, string CategoryID)
         {
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+            #region Access
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT * FROM SubCategory
+            //                                WHERE CategoryID NOT IN
+            //                                (
+            //                                  SELECT A.CategoryID FROM (
+            //                                    SELECT SubSignInfo.SUID, SubSignInfo.SID, SubSignInfo.MID, SubSignInfo.SUDate, SubSignUpDate.CategoryID, SubSignUpDate.SignDate
+            //                                    FROM SubSignInfo LEFT JOIN SubSignUpDate ON SubSignInfo.SUID = SubSignUpDate.SUID
+            //                                  ) A
+            //                                  LEFT JOIN SubjectDate ON SubjectDate.SID = A.SID 
+            //                                  AND SubjectDate.SDate = A.SignDate
+            //                                  AND SubjectDate.CategoryID = A.CategoryID
+            //                                  WHERE SubjectDate.SDate IS NOT NULL
+            //                                  AND LEFT(A.CategoryID, 2) = @CategoryID
+            //                                  AND A.MID = @MID
+            //                                  GROUP BY A.CategoryID
+            //                                )
+            //                                AND LEFT(CategoryID, 2) = @CategoryID";
+
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
+            //    sda.SelectCommand.Parameters.AddWithValue("@MID", MID);
+            //    sda.Fill(dt);
+            //}
+            #endregion
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM SubCategory
                                             WHERE CategoryID NOT IN
@@ -41,12 +68,11 @@ namespace ADO
                                             )
                                             AND LEFT(CategoryID, 2) = @CategoryID";
 
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
                 sda.SelectCommand.Parameters.AddWithValue("@MID", MID);
                 sda.Fill(dt);
             }
-
             return dt;
         }
 
