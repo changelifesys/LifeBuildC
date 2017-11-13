@@ -21,14 +21,31 @@ namespace ADO
         /// </summary>
         public void InsSubSignInfo(int SID, int MID, string SUDate)
         {
+            #region Access
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"INSERT INTO
+            //                               SubSignInfo(SID, MID, SUDate)
+            //                               VALUES(@SID, @MID, @SUDate)";
 
-            using (OleDbConnection con = new OleDbConnection(condb))
+            //    OleDbCommand com = new OleDbCommand(sql, con);
+            //    com.Parameters.AddWithValue("@SID", SID);
+            //    com.Parameters.AddWithValue("@MID", MID);
+            //    com.Parameters.AddWithValue("@SUDate", SUDate);
+
+            //    con.Open();
+            //    com.ExecuteNonQuery();
+            //    con.Close();
+            //}
+            #endregion
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
                                            SubSignInfo(SID, MID, SUDate)
                                            VALUES(@SID, @MID, @SUDate)";
 
-                OleDbCommand com = new OleDbCommand(sql, con);
+                SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@SID", SID);
                 com.Parameters.AddWithValue("@MID", MID);
                 com.Parameters.AddWithValue("@SUDate", SUDate);
@@ -37,7 +54,6 @@ namespace ADO
                 com.ExecuteNonQuery();
                 con.Close();
             }
-
         }
 
         /// <summary>
@@ -46,17 +62,29 @@ namespace ADO
         public int QuerySUIDBySubSignInfo(int MID)
         {
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+            #region Access
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT TOP 1 SUID FROM SubSignInfo
+            //                                WHERE MID = @MID
+            //                                ORDER BY SUID DESC";
+
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    sda.SelectCommand.Parameters.AddWithValue("@MID", MID);
+            //    sda.Fill(dt);
+            //}
+            #endregion
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT TOP 1 SUID FROM SubSignInfo
                                             WHERE MID = @MID
                                             ORDER BY SUID DESC";
 
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@MID", MID);
                 sda.Fill(dt);
             }
-
             return int.Parse(dt.Rows[0][0].ToString());
         }
 
@@ -66,7 +94,23 @@ namespace ADO
         public bool QueryFirstBySubSignInfo(int MID, string CategoryID)
         {
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+            #region Access
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT *
+            //                                FROM SubSignInfo LEFT JOIN SubSignUpDate ON SubSignInfo.SUID = SubSignUpDate.SUID
+            //                                WHERE SubSignInfo.MID = @MID
+            //                                AND LEFT(CategoryID, 2) = @CategoryID
+            //                                AND SignDate IS NOT NULL";
+
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    sda.SelectCommand.Parameters.AddWithValue("@MID", MID);
+            //    sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
+            //    sda.Fill(dt);
+            //}
+            #endregion
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT *
                                             FROM SubSignInfo LEFT JOIN SubSignUpDate ON SubSignInfo.SUID = SubSignUpDate.SUID
@@ -74,12 +118,11 @@ namespace ADO
                                             AND LEFT(CategoryID, 2) = @CategoryID
                                             AND SignDate IS NOT NULL";
 
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@MID", MID);
                 sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
                 sda.Fill(dt);
             }
-
             if (dt.Rows.Count > 0)
                 return false; //不是第一次上課
             else
@@ -93,14 +136,30 @@ namespace ADO
         public DataTable QuerySubSignInfo(int MID, int SID)
         {
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+            #region Access
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT TOP 1 * FROM SubSignInfo
+            //                                WHERE MID = @MID
+            //                                AND SID = @SID
+            //                                ORDER BY SUDate DESC";
+
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    sda.SelectCommand.Parameters.AddWithValue("@MID", MID);
+            //    sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
+
+            //    sda.Fill(dt);
+            //}
+            #endregion
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT TOP 1 * FROM SubSignInfo
                                             WHERE MID = @MID
                                             AND SID = @SID
                                             ORDER BY SUDate DESC";
 
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@MID", MID);
                 sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
 
@@ -113,18 +172,31 @@ namespace ADO
         public DataTable QuerySIDBySubSignInfo(int SID)
         {
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+           #region Access
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT TOP 1 * FROM SubSignInfo
+            //                                WHERE SID = @SID
+            //                              ";
+
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
+
+            //    sda.Fill(dt);
+            //}
+            #endregion
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT TOP 1 * FROM SubSignInfo
                                             WHERE SID = @SID
                                           ";
 
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
 
                 sda.Fill(dt);
             }
-
             return dt;
         }
 

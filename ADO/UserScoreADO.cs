@@ -110,12 +110,27 @@ namespace ADO
 
         public void DelUserScoreByUSID(string USID)
         {
-            using (OleDbConnection con = new OleDbConnection(condb))
+           #region Access
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"DELETE FROM UserScore
+            //                                WHERE USID = @USID";
+
+            //    OleDbCommand com = new OleDbCommand(sql, con);
+            //    com.Parameters.AddWithValue("@USID", USID);
+
+            //    con.Open();
+            //    com.ExecuteNonQuery();
+            //    con.Close();
+            //}
+            #endregion
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"DELETE FROM UserScore
                                             WHERE USID = @USID";
 
-                OleDbCommand com = new OleDbCommand(sql, con);
+                SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@USID", USID);
 
                 con.Open();
@@ -212,46 +227,81 @@ namespace ADO
         public DataTable QueryAllUserScore()
         {
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+            #region Access
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT * FROM UserScore
+            //                                ORDER BY CreateDate, ExamCategory, Egroup DESC";
+
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    sda.Fill(dt);
+            //}
+            #endregion
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM UserScore
                                             ORDER BY CreateDate, ExamCategory, Egroup DESC";
 
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
             }
-
             return dt;
         }
 
         public DataTable Getexamdate()
         {
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+            #region Access
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT Left(CreateDate, 10) AS CreateDate FROM UserScore
+            //                                GROUP BY Left(CreateDate, 10)
+            //                                ORDER BY Left(CreateDate, 10) DESC";
+
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    sda.Fill(dt);
+            //}
+            #endregion
+            //MS SQL
+            using (Sqlonnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT Left(CreateDate, 10) AS CreateDate FROM UserScore
                                             GROUP BY Left(CreateDate, 10)
                                             ORDER BY Left(CreateDate, 10) DESC";
 
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
             }
-
             return dt;
         }
 
         public DataTable ChkUserScoreByUSID(string USID)
         {
             DataTable dt = new DataTable();
-            using (OleDbConnection con = new OleDbConnection(condb))
+            #region Access
+            //using (OleDbConnection con = new OleDbConnection(condb))
+            //{
+            //    string sql = @"SELECT * FROM UserScore
+            //                                WHERE USID = @USID";
+
+            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+            //    sda.SelectCommand.Parameters.AddWithValue("@USID", USID);
+            //    sda.Fill(dt);
+            //}
+            #endregion
+            //MS SQL
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM UserScore
                                             WHERE USID = @USID";
 
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@USID", USID);
                 sda.Fill(dt);
             }
+
+            
 
             return dt;
         }
