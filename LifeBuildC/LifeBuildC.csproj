@@ -141,7 +141,9 @@
     <Content Include="Admin\SubjectC2Add.aspx" />
     <Content Include="Admin\SubjectC2Edit.aspx" />
     <Content Include="Admin\SubjectList.aspx" />
+    <Content Include="Api\AddFireSubSign.aspx" />
     <Content Include="Api\AddSubSign.aspx" />
+    <Content Include="Api\ChkFirePass.aspx" />
     <Content Include="Api\ChkMember.aspx" />
     <Content Include="Api\GetGroupItem.aspx" />
     <Content Include="Api\GetMember.aspx" />
@@ -192,6 +194,8 @@
     <Content Include="css\login.css" />
     <Content Include="css\sweetalert.css" />
     <Content Include="DB\LifeDB.mdb" />
+    <Content Include="File18SignUp.aspx" />
+    <Content Include="img\fire.jpg" />
     <Content Include="js\exam\build.js" />
     <Content Include="js\exam\gears.svg" />
     <Content Include="Exam.aspx" />
@@ -347,12 +351,26 @@
     <Compile Include="Admin\UserControl\menu.ascx.designer.cs">
       <DependentUpon>menu.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Api\AddFireSubSign.aspx.cs">
+      <DependentUpon>AddFireSubSign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Api\AddFireSubSign.aspx.designer.cs">
+      <DependentUpon>AddFireSubSign.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Api\AddSubSign.aspx.cs">
       <DependentUpon>AddSubSign.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Api\AddSubSign.aspx.designer.cs">
       <DependentUpon>AddSubSign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Api\ChkFirePass.aspx.cs">
+      <DependentUpon>ChkFirePass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Api\ChkFirePass.aspx.designer.cs">
+      <DependentUpon>ChkFirePass.aspx</DependentUpon>
     </Compile>
     <Compile Include="Api\ChkMember.aspx.cs">
       <DependentUpon>ChkMember.aspx</DependentUpon>
@@ -430,6 +448,13 @@
     </Compile>
     <Compile Include="Exam.aspx.designer.cs">
       <DependentUpon>Exam.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="File18SignUp.aspx.cs">
+      <DependentUpon>File18SignUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="File18SignUp.aspx.designer.cs">
+      <DependentUpon>File18SignUp.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
