@@ -46,7 +46,7 @@ namespace LifeBuildC.Api
 {
   S_ID: ""2"",
   gcroup: ""社青"",
-  group: ""彥伯小組"",
+  group: ""CA202.信豪牧區-彥伯小組"",
   name: ""流大丹""
 }
 ";
@@ -63,12 +63,15 @@ namespace LifeBuildC.Api
 
             PageData PageData = JsonConvert.DeserializeObject<PageData>(ReqUpdSubSign);
 
+            //小組
+            string[] arrg = PageData.group.Split('.');
+            string GroupCName = arrg[1].Split('-')[0];
+            string GroupName = arrg[1].Split('-')[1];
+
             #region 取得會友ID
 
-            //取得小組GID
-            int GID = ChcGroup.GetGIDByChcGroup(PageData.group, PageData.gcroup);
             //查詢會友資料
-            DataTable dtMem = ChcMember.QueryByChcMember(PageData.name, GID);
+            DataTable dtMem = ChcMember.QueryByChcMember(GroupCName, GroupName, PageData.name);
             int MID = int.Parse(dtMem.Rows[0]["MID"].ToString());
 
             #endregion
@@ -98,7 +101,7 @@ namespace LifeBuildC.Api
             }
 
             //傳送上課資訊給google excel
-            //SendGoogleExcel(PageData);
+            SendGoogleExcel(PageData);
 
             #endregion
 
@@ -168,7 +171,7 @@ namespace LifeBuildC.Api
     {
         public int S_ID { get; set; } //2
         public string gcroup { get; set; } //社青
-        public string group { get; set; } //彥伯小組
+        public string group { get; set; } //CA202.信豪牧區-彥伯小組
         public string name { get; set; } //流大丹
         public string CategoryID { get; set; }
         public string Msg { get; set; } //訊息顯示

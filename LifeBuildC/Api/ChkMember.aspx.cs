@@ -86,6 +86,11 @@ namespace LifeBuildC.Api
 
                 PageData PageData = JsonConvert.DeserializeObject<PageData>(strChkMember);
 
+                //小組
+                string[] arrg = PageData.GroupName.Split('.');
+                string GroupCName = arrg[1].Split('-')[0];
+                string GroupName1 = arrg[1].Split('-')[1];
+
                 PageData.ChkMsg = "";
 
                 //若都取不到資料就新增資料
@@ -99,11 +104,11 @@ namespace LifeBuildC.Api
                 if (dtMem.Rows.Count > 0)
                 {
                     //先用小組, 姓名取得資料
-                    DataRow[] drChk1 = dtMem.Select("GroupName='" + PageData.GroupName.Split('.')[1] + "' AND Ename='" + PageData.Ename + "'");
+                    DataRow[] drChk1 = dtMem.Select("GroupCName='" + GroupCName + "' AND GroupName='" + GroupName1 + "' AND Ename='" + PageData.Ename + "'");
                     //若取不到資料用手機, 姓名取資料
                     DataRow[] drChk2 = dtMem.Select("Phone='" + PageData.Phone + "' AND Ename='" + PageData.Ename + "'");
                     //若取不到資料用手機, 小組取資料
-                    DataRow[] drChk3 = dtMem.Select("Phone='" + PageData.Phone + "' AND GroupName='" + PageData.GroupName.Split('.')[1] + "'");
+                    DataRow[] drChk3 = dtMem.Select("Phone='" + PageData.Phone + "' AND GroupName='" + GroupName1 + "' AND GroupCName='" + GroupCName + "'");
 
                     if (drChk1.Count() > 0)
                     { //當用小組, 姓名可以取得資料時
@@ -130,7 +135,7 @@ namespace LifeBuildC.Api
 
                         //若判斷小組有錯(比對DB和輸入的資料不一樣)
                         //回傳「是否有更換小組為xx小組」的訊息
-                        if (PageData.GroupName != drChk2[0]["GroupName"].ToString())
+                        if (arrg[1] != (drChk2[0]["GroupCName"].ToString() + "-" + drChk2[0]["GroupName"].ToString()))
                         {
                             PageData.ChkMsg = "是否有更換小組為「" + PageData.GroupName + "」";
 

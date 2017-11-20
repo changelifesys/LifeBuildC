@@ -34,13 +34,13 @@ namespace LifeBuildC.Api
 
             #endregion
 
-            //using (Stream receiveStream = Request.InputStream)
-            //{
-            //    using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
-            //    {
-            //        ReqGetSubSign = readStream.ReadToEnd();
-            //    }
-            //}
+            using (Stream receiveStream = Request.InputStream)
+            {
+                using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
+                {
+                    ReqGetSubSign = readStream.ReadToEnd();
+                }
+            }
 
             PageData PageData = JsonConvert.DeserializeObject<PageData>(ReqGetSubSign);
 

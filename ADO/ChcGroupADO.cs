@@ -17,115 +17,6 @@ namespace ADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
 
-        public void InsChcGroup(int GSort, string GroupName, string GroupClass)
-        {
-            #region Access
-            using (OleDbConnection con = new OleDbConnection(condb))
-            {
-                string sql = @"INSERT INTO
-                                           ChcGroup(GSort, GroupName, GroupClass)
-                                           VALUES(@GSort, @GroupName, @GroupClass)";
-
-                OleDbCommand com = new OleDbCommand(sql, con);
-                com.Parameters.AddWithValue("@GSort", GSort);
-                com.Parameters.AddWithValue("@GroupName", GroupName);
-                com.Parameters.AddWithValue("@GroupClass", GroupClass);
-
-                con.Open();
-                com.ExecuteNonQuery();
-                con.Close();
-            }
-            #endregion
-            //MS SQL
-            using (SqlConnection con = new SqlConnection(condb))
-            {
-                string sql = @"INSERT INTO
-                                           ChcGroup(GSort, GroupName, GroupClass)
-                                           VALUES(@GSort, @GroupName, @GroupClass)";
-
-                SqlCommand com = new SqlCommand(sql, con);
-                com.Parameters.AddWithValue("@GSort", GSort);
-                com.Parameters.AddWithValue("@GroupName", GroupName);
-                com.Parameters.AddWithValue("@GroupClass", GroupClass);
-
-                con.Open();
-                com.ExecuteNonQuery();
-                con.Close();
-            }
-        }
-
-        public void UpdGSortByChcGroup(int GSort, string ID)
-        {
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"UPDATE ChcGroup
-            //                                SET GSort = @GSort
-            //                                WHERE ID = @ID";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@GSort", GSort);
-            //    com.Parameters.AddWithValue("@ID", ID);
-
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            #endregion
-
-            //MS SQL
-            using (SqlConnection con = new SqlConnection(condb))
-            {
-                string sql = @"UPDATE ChcGroup
-                                            SET GSort = @GSort
-                                            WHERE ID = @ID";
-
-                SqlCommand com = new SqlCommand(sql, con);
-                com.Parameters.AddWithValue("@GSort", GSort);
-                com.Parameters.AddWithValue("@ID", ID);
-
-                con.Open();
-                com.ExecuteNonQuery();
-                con.Close();
-            }
-        }
-
-
-
-
-
-
-
-        public DataTable QueryChcGroup()
-        {
-            DataTable dt = new DataTable();
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT * FROM ChcGroup
-            //                                ORDER BY GSort";
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    //sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
-            //    sda.Fill(dt);
-            //}
-            #endregion
-
-            //MS SQL
-            using (SqlConnection con = new SqlConnection(condb))
-            {
-                string sql = @"SELECT * FROM ChcGroup
-                                            ORDER BY GSort";
-                SqlDataAdapter sda = SqlDataAdapter(sql, con);
-                //sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
-                sda.Fill(dt);
-            }
-
-
-
-
-            return dt;
-        }
-
         public DataTable QueryGroupByChcGroup()
         {
             DataTable dt = new DataTable();
@@ -214,7 +105,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT TOP 1 * FROM ChcGroup
-                                            WHERE GroupName LIKE '%'+@GroupName+'%'
+                                            WHERE GroupName = @GroupName
                                            ";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
@@ -278,7 +169,7 @@ namespace ADO
             //}
             #endregion
             //MS SQL
-            using (SqlConnection con = new SqlDbConnection(condb))
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM ChcGroup
                                             WHERE GSort > @GSort";
@@ -288,52 +179,6 @@ namespace ADO
                 sda.Fill(dt);
             }
             return dt;
-        }
-
-        /// <summary>
-        /// 取得小組ID(GID)
-        /// </summary>
-        public int GetGIDByChcGroup(string GroupName, string GroupClass)
-        {
-            DataTable dt = new DataTable();
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    //string sql = @"SELECT ID FROM ChcGroup
-            //    //                            WHERE GroupName LIKE '%-'+@GroupName
-            //    //                            AND GroupClass = @GroupClass";
-
-            //    string sql = @"SELECT ID FROM ChcGroup
-            //                                WHERE GroupName = @GroupName
-            //                                AND GroupClass = @GroupClass";
-
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@GroupName", GroupName);
-            //    sda.SelectCommand.Parameters.AddWithValue("@GroupClass", GroupClass);
-            //    sda.Fill(dt);
-            //}
-            #endregion
-            //MS SQL
-            using (SqlConnection con = new SqlConnection(condb))
-            {
-                //string sql = @"SELECT ID FROM ChcGroup
-                //                            WHERE GroupName LIKE '%-'+@GroupName
-                //                            AND GroupClass = @GroupClass";
-
-                string sql = @"SELECT ID FROM ChcGroup
-                                            WHERE GroupName = @GroupName
-                                            AND GroupClass = @GroupClass";
-
-                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
-                sda.SelectCommand.Parameters.AddWithValue("@GroupName", GroupName);
-                sda.SelectCommand.Parameters.AddWithValue("@GroupClass", GroupClass);
-                sda.Fill(dt);
-            }
-            if (dt != null && dt.Rows.Count > 0)
-                return int.Parse(dt.Rows[0][0].ToString());
-            else
-                return 0;
-
         }
 
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,7 @@ namespace ADO
             //    con.Close();
             //}
             #endregion
+
             //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
@@ -159,6 +161,7 @@ namespace ADO
             //    sda.Fill(dt);
             //}
             #endregion
+
             //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
@@ -170,7 +173,7 @@ namespace ADO
                                             FROM SubjectInfo 
                                             LEFT JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
                                             WHERE SubjectInfo.SID = @SID
-                                            ORDER BY CDate(SubjectDate.SDate)";
+                                            ORDER BY SubjectDate.SDate";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
                 sda.Fill(dt);
@@ -202,11 +205,12 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT *, SubjectInfo.SID AS SID
-                                            FROM SubjectInfo INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
-                                            WHERE LEFT(SubjectInfo.SubName, 2) = @CategoryID
-                                            AND SubStrDate <= @SubStrDate
-                                            AND SubEndDate >= @SubStrDate
-                                            ORDER BY CDate(SubjectDate.SDate)";
+                                           FROM SubjectInfo 
+                                           INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
+                                           WHERE LEFT(SubjectInfo.SubName, 2) = @CategoryID
+                                           AND SubStrDate <= @SubStrDate
+                                           AND SubEndDate >= @SubStrDate
+                                           ORDER BY SubjectDate.SDate";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);

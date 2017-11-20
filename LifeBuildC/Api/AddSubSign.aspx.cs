@@ -84,6 +84,11 @@ namespace LifeBuildC.Api
             SignSuccessInfo SignSuccessInfo = new SignSuccessInfo();
             List<MakeUpInfo> listMakeUpInfo = new List<MakeUpInfo>();
 
+            //小組
+            string[] arrg = PageData.group.Split('.');
+            string GroupCName = arrg[1].Split('-')[0];
+            string GroupName = arrg[1].Split('-')[1];
+
             #region 檢查會友資訊
 
             //查詢會友資料
@@ -98,53 +103,36 @@ namespace LifeBuildC.Api
                     PageData.Phone = dtMem.Rows[0]["Phone"].ToString();
                     break;
                 case 1: //更新手機號碼
-                    ChcMember.UpdPhoneByChcMember(PageData.name, PageData.group.Split('.')[1], PageData.Phone);
-                    //dtMem = ChcMember.QueryNotPhoneByChcMember(PageData.group.Split('.')[1], PageData.name);
+                    //UpdPhoneByChcMember(string Phone, string GroupName, string GroupCName, string GroupClass, string Ename)
+                    ChcMember.UpdPhoneByChcMember(PageData.Phone, GroupName, GroupCName, PageData.gcroup, PageData.name);
                     break;
                 case 2: //更新小組資料
-                    ChcMember.UpdGroupNameByChcMember(PageData.name, PageData.group.Split('.')[1], PageData.Phone);
-                    //dtMem = ChcMember.QueryNotGroupNameByChcMember(PageData.Phone, PageData.name);
+                    //UpdGroupNameByChcMember(string GroupName, string GroupCName, string GroupClass,
+                    //                                                                   string Ename, string Phone)
+                    ChcMember.UpdGroupNameByChcMember(GroupName, GroupCName, PageData.gcroup, PageData.name, PageData.Phone);
                     break;
                 case 3: //更新會友姓名
-                    ChcMember.UpdEnameByChcMember(PageData.name, PageData.group.Split('.')[1], PageData.Phone);
-                    //dtMem = ChcMember.QueryNotEnameByChcMember(PageData.Phone, PageData.group.Split('.')[1]);
+                    //UpdEnameByChcMember(string Ename, string GroupName, string GroupCName, string GroupClass, string Phone)
+                    ChcMember.UpdEnameByChcMember(PageData.name, GroupName, GroupCName, PageData.gcroup, PageData.Phone);
                     break;
                 case 4: //新增會友資料
                     if (PageData.Category == "C1" || PageData.Category == "c1")
                     {
-                        ChcMember.InsChcMember2(PageData.group.Split('.')[1], PageData.name, PageData.G_mail, PageData.Church, "初次上課", "", PageData.Phone);
+                        //InsChcMember2(string GroupCName, string GroupName, string GroupClass, string Ename, string Gmail, string Church, string C1_Status, string C2_Status, string Phone)
+                        ChcMember.InsChcMember2(GroupCName, GroupName, PageData.gcroup, PageData.name, PageData.G_mail, PageData.Church, "初次上課", "", PageData.Phone);
                     }
                     else if (PageData.Category == "C2" || PageData.Category == "c2")
                     {
-                        ChcMember.InsChcMember2(PageData.group.Split('.')[1], PageData.name, PageData.G_mail, PageData.Church, "", "初次上課", PageData.Phone);
+                        //InsChcMember2(string GroupCName, string GroupName, string GroupClass, string Ename, string Gmail, string Church, string C1_Status, string C2_Status, string Phone)
+                        ChcMember.InsChcMember2(GroupCName, GroupName, PageData.gcroup, PageData.name, PageData.G_mail, PageData.Church, "", "初次上課", PageData.Phone);
                     }
 
-                    dtMem = ChcMember.QueryNotPhoneByChcMember(PageData.group.Split('.')[1], PageData.name);
+                    //QueryByChcMember(string GroupCName, string GroupName, string Ename)
+                    dtMem = ChcMember.QueryByChcMember(GroupCName, GroupName, PageData.name);
                     PageData.MID = int.Parse(dtMem.Rows[0]["MID"].ToString());
                     break;
             }
 
-            /*
-            //取得小組GID
-            int GID = ChcGroup.GetGIDByChcGroup(PageData.group, PageData.gcroup);
-            
-            //查詢會友資料
-            DataTable dtMem = ChcMember.QueryByChcMember(PageData.name, GID);
-            if (dtMem.Rows.Count == 0)
-            { //新增會友資訊
-                //若需要新增會友資訊，表示一定是初次上課
-                ChcMember.InsChcMember(GID, PageData.name, PageData.G_mail, PageData.Church, "初次上課", "初次上課", PageData.Phone);
-
-                dtMem = null;
-                dtMem = ChcMember.QueryByChcMember(PageData.name, GID);
-            }
-            else
-            { //更新會友資訊
-                ChcMember.UpdChcMember(PageData.Phone, PageData.G_mail, PageData.Church, int.Parse(dtMem.Rows[0]["MID"].ToString()));
-            }
-            */
-
-            //int MID = int.Parse(dtMem.Rows[0]["MID"].ToString());
             int MID = PageData.MID;
 
             #endregion

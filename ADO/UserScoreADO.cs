@@ -264,7 +264,7 @@ namespace ADO
             //}
             #endregion
             //MS SQL
-            using (Sqlonnection con = new SqlConnection(condb))
+            using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT Left(CreateDate, 10) AS CreateDate FROM UserScore
                                             GROUP BY Left(CreateDate, 10)
