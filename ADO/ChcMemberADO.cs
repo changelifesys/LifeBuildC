@@ -65,6 +65,9 @@ namespace ADO
             }
         }
 
+        #region Update Member
+
+
         public void UpdChcMember(string Phone, string Gmail, string Church, int MID)
         {
             #region Access
@@ -88,7 +91,7 @@ namespace ADO
             //    con.Close();
             //}
             #endregion
-            
+
             //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
@@ -103,6 +106,60 @@ namespace ADO
                 com.Parameters.AddWithValue("@Phone", Phone);
                 com.Parameters.AddWithValue("@Gmail", Gmail);
                 com.Parameters.AddWithValue("@Church", Church);
+                com.Parameters.AddWithValue("@MID", MID);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+        public void UpdChcMember2(int MID, string GroupCName, string GroupName, string GroupClass,
+            string Ename, string Church, string C1_Status, string C2_Status,
+            bool IsC112, bool IsC134, bool IsC212, bool IsC234, bool IsC25, int C1_Score, int C212_Score, int C234_Score,
+            string witness, bool Iswitness)
+        {
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"UPDATE ChcMember
+                                            SET GroupCName = @GroupCName,
+                                                    GroupName = @GroupName,
+                                                    GroupClass = @GroupClass,
+                                                    Ename = @Ename,
+                                                    Church = @Church,
+                                                    C1_Status = @C1_Status,
+                                                    C2_Status = @C2_Status,
+                                                    IsC112 = @IsC112,
+                                                    IsC134 = @IsC134,
+                                                    IsC212 = @IsC212,
+                                                    IsC234 = @IsC234,
+                                                    IsC25 = @IsC25,
+                                                    C1_Score = @C1_Score,
+                                                    C212_Score = @C212_Score,
+                                                    C234_Score = @C234_Score,
+                                                    witness = @witness,
+                                                    Iswitness = @Iswitness
+                                            WHERE MID = @MID
+                                          ";
+
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@GroupCName", GroupCName);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@GroupClass", GroupClass);
+                com.Parameters.AddWithValue("@Ename", Ename);
+                com.Parameters.AddWithValue("@Church", Church);
+                com.Parameters.AddWithValue("@C1_Status", C1_Status);
+                com.Parameters.AddWithValue("@C2_Status", C2_Status);
+                com.Parameters.AddWithValue("@IsC112", IsC112);
+                com.Parameters.AddWithValue("@IsC134", IsC134);
+                com.Parameters.AddWithValue("@IsC212", IsC212);
+                com.Parameters.AddWithValue("@IsC234", IsC234);
+                com.Parameters.AddWithValue("@IsC25", IsC25);
+                com.Parameters.AddWithValue("@C1_Score", C1_Score);
+                com.Parameters.AddWithValue("@C212_Score", C212_Score);
+                com.Parameters.AddWithValue("@C234_Score", C234_Score);
+                com.Parameters.AddWithValue("@witness", witness);
+                com.Parameters.AddWithValue("@Iswitness", Iswitness);
                 com.Parameters.AddWithValue("@MID", MID);
 
                 con.Open();
@@ -135,7 +192,7 @@ namespace ADO
             //    con.Close();
             //}
             #endregion
-            
+
             //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
@@ -263,7 +320,7 @@ namespace ADO
         /// </summary>
         public void UpdC1_StatusByChcMember(string C1_Status, int MID)
         {
-         #region Access
+            #region Access
             //using (OleDbConnection con = new OleDbConnection(condb))
             //{
 
@@ -339,6 +396,9 @@ namespace ADO
                 con.Close();
             }
         }
+
+
+        #endregion
 
         #region 會友條件查詢
 
@@ -462,24 +522,10 @@ namespace ADO
         public DataTable QueryAllByChcMember()
         {
             DataTable dt = new DataTable();
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT *
-            //                                FROM ChcMember M
-            //                               ";
 
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.Fill(dt);
-            //}
-
-            //return dt;
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT *
-                                            FROM ChcMember M
+                string sql = @"SELECT * FROM ChcMember M
                                            ";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
@@ -493,22 +539,6 @@ namespace ADO
         public DataTable QueryMIDByChcMember(int MID)
         {
             DataTable dt = new DataTable();
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT *
-            //                                FROM ChcMember M
-            //                                WHERE MID=@MID
-            //                               ";
-
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@MID", MID);
-            //    sda.Fill(dt);
-            //}
-
-            //return dt;
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT *

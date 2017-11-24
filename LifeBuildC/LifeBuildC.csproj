@@ -136,6 +136,8 @@
     <Content Include="Admin\js\menu.js" />
     <Content Include="Admin\js\subjectedit.js" />
     <Content Include="Admin\js\subjectlist.js" />
+    <Content Include="Admin\MemSubData\MemSubDataEdit.aspx" />
+    <Content Include="Admin\MemSubData\MemSubDataList.aspx" />
     <Content Include="Admin\SubjectC1Add.aspx" />
     <Content Include="Admin\SubjectC1Edit.aspx" />
     <Content Include="Admin\SubjectC2Add.aspx" />
@@ -301,6 +303,20 @@
     </Compile>
     <Compile Include="Admin\GroupAdd.aspx.designer.cs">
       <DependentUpon>GroupAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\MemSubData\MemSubDataEdit.aspx.cs">
+      <DependentUpon>MemSubDataEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MemSubData\MemSubDataEdit.aspx.designer.cs">
+      <DependentUpon>MemSubDataEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\MemSubData\MemSubDataList.aspx.cs">
+      <DependentUpon>MemSubDataList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MemSubData\MemSubDataList.aspx.designer.cs">
+      <DependentUpon>MemSubDataList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\SubjectC1Add.aspx.cs">
       <DependentUpon>SubjectC1Add.aspx</DependentUpon>
