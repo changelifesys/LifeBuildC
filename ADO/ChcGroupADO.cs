@@ -55,23 +55,6 @@ namespace ADO
         public DataTable QueryGroupNameByChcGroup(string GroupClass)
         {
             DataTable dt = new DataTable();
-
-            #region Access
-
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT * FROM ChcGroup
-            //                                WHERE GroupClass = @GroupClass
-            //                                ORDER BY GSort";
-
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@GroupClass", GroupClass);
-            //    sda.Fill(dt);
-            //}
-
-            #endregion
-
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM ChcGroup
