@@ -78,7 +78,7 @@ namespace LifeBuildC.Api
 
                     PageData.ApiMsg = "烈火特會報名成功!";
                 }
-                catch
+                catch (Exception ex)
                 {
                     PageData.ApiMsg = "報名失敗，資料填寫可能有錯誤!";
                 }
@@ -118,7 +118,7 @@ namespace LifeBuildC.Api
             });
 
             // Define request parameters.
-            String spreadsheetId = "11kkw-I0uhmaoam7HYAz1JLHmwgsuJMpo_vzcwbaZUIE";
+            String spreadsheetId = "106Y2tmI4RV3tJN_Ri4Xc91R3CZ1158GBJstlhfExjew";
 
             //String range = "工作表1!A:B";
             String range = "工作表1";
