@@ -149,6 +149,7 @@
     <Content Include="Api\ChkMember.aspx" />
     <Content Include="Api\GetGroupItem.aspx" />
     <Content Include="Api\GetMember.aspx" />
+    <Content Include="Api\GetMemSub.aspx" />
     <Content Include="Api\GetSUBInfo.aspx" />
     <Content Include="Api\GetSubSign.aspx" />
     <Content Include="Api\testGoogleADO.aspx" />
@@ -208,6 +209,7 @@
     <Content Include="js\subjectSignUp\app.f079bbba98fa6982ca09.js" />
     <Content Include="js\subjectSignUp\manifest.ba642eead6c945fa43da.js" />
     <Content Include="js\subjectSignUp\vendor.e04ba825f011a5e9dc6c.js" />
+    <Content Include="MemSubQuery.aspx" />
     <Content Include="obj\Debug\LifeBuildC.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\LifeBuildC.dll" />
     <Content Include="obj\Debug\LifeBuildC.pdb" />
@@ -423,6 +425,13 @@
     <Compile Include="Api\GetMember.aspx.designer.cs">
       <DependentUpon>GetMember.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Api\GetMemSub.aspx.cs">
+      <DependentUpon>GetMemSub.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Api\GetMemSub.aspx.designer.cs">
+      <DependentUpon>GetMemSub.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Api\GetScore.aspx.cs">
       <DependentUpon>GetScore.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -474,6 +483,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="MemSubQuery.aspx.cs">
+      <DependentUpon>MemSubQuery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MemSubQuery.aspx.designer.cs">
+      <DependentUpon>MemSubQuery.aspx</DependentUpon>
     </Compile>
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />

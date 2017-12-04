@@ -404,23 +404,6 @@ namespace ADO
 
         public DataTable QueryByChcMember(string GroupCName, string GroupName, string Ename)
         {
-            #region Access
-            //DataTable dt = new DataTable();
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT * FROM ChcMember
-            //                                WHERE Ename = @Ename
-            //                                AND GID = @GID";
-
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@Ename", Ename);
-            //    sda.SelectCommand.Parameters.AddWithValue("@GID", GID);
-            //    sda.Fill(dt);
-            //}
-
-            //return dt;
-            #endregion
-            //MYSQL
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
@@ -437,7 +420,6 @@ namespace ADO
             }
 
             return dt;
-
         }
 
         public DataTable QueryPhoneByChcMember(string Phone)
