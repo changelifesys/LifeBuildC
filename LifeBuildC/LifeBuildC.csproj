@@ -204,6 +204,8 @@
     <Content Include="Exam.aspx" />
     <Content Include="img\title.jpg" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\fire\build.js" />
+    <Content Include="js\fire\main.jpg" />
     <Content Include="js\jquery-3.1.1.min.js" />
     <Content Include="js\subjectCheck\build.js" />
     <Content Include="js\subjectSignUp\app.f079bbba98fa6982ca09.js" />
@@ -229,6 +231,8 @@
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="obj\Debug\LifeBuildC.csprojResolveAssemblyReference.cache" />
+    <Content Include="js\fire\6f0a76321d30f3c8120915e57f7bd77e.ttf" />
+    <Content Include="js\fire\build.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
