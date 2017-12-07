@@ -99,6 +99,7 @@
     <Compile Include="ClassStatusADO.cs" />
     <Compile Include="ExamQuestionsADO.cs" />
     <Compile Include="FireMemberADO.cs" />
+    <Compile Include="FirePassWADO.cs" />
     <Compile Include="GoogleSheetsADO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCategoryADO.cs" />

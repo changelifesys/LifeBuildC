@@ -37,7 +37,10 @@ namespace LifeBuildC.Api
                   ""Phone"": ""0919963322"",
                   ""gender"": ""男生"",
                   ""ClothesSize"": ""S"",
-                  ""Course"": ""生命突破""
+                  ""Course"": ""生命突破"",
+                  ""FirePass"": ""A12345"",
+                  ""IsMemData"": true,
+                  ""Birthday"": ""1984/09/11""
                 }
                 ";
 
@@ -55,8 +58,9 @@ namespace LifeBuildC.Api
 
                 try
                 {
-                    SendGoogleExcel(PageData);
+                    //SendGoogleExcel(PageData);
 
+                    //小組
                     string[] arrg = PageData.group.Split('.');
                     string GroupCName = arrg[1].Split('-')[0];
                     string GroupName = arrg[1].Split('-')[1];
@@ -73,8 +77,16 @@ namespace LifeBuildC.Api
                         Course = true;
                     }
 
-                    firemem.InsFireMember(GroupCName, GroupName, PageData.gcroup, PageData.Ename, PageData.Phone,
-                PageData.Gmail, gender, PageData.ClothesSize, Course);
+                    if (PageData.IsMemData)
+                    {
+                        firemem.UpdFireMember(PageData.Phone,
+    PageData.Gmail, gender, PageData.ClothesSize, Course, PageData.Birthday, PageData.FirePass);
+                    }
+                    else
+                    {
+                        firemem.InsFireMember(GroupCName, GroupName, PageData.gcroup, PageData.Ename, PageData.Phone,
+PageData.Gmail, gender, PageData.ClothesSize, Course);
+                    }
 
                     PageData.ApiMsg = "烈火特會報名成功!";
                 }
@@ -166,6 +178,14 @@ namespace LifeBuildC.Api
             public string Course { get; set; }
             //api功能訊息
             public string ApiMsg { get; set; }
+
+            //傳入的密碼
+            public string FirePass { get; set; }
+            //True: 有會友資料
+            //False: 沒有會友資料
+            public bool IsMemData { get; set; }
+            //生日
+            public string Birthday { get; set; }
         }
 
     }

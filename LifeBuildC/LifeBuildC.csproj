@@ -130,6 +130,7 @@
     <Content Include="Admin\Api\DelUserScore.aspx" />
     <Content Include="Admin\Demo.aspx" />
     <Content Include="Admin\ExamScore.aspx" />
+    <Content Include="Admin\FireClass\FireMem.aspx" />
     <Content Include="Admin\GroupAdd.aspx" />
     <Content Include="Admin\js\examedit.js" />
     <Content Include="Admin\js\examscore.js" />
@@ -302,6 +303,13 @@
     </Compile>
     <Compile Include="Admin\ExamScore.aspx.designer.cs">
       <DependentUpon>ExamScore.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\FireClass\FireMem.aspx.cs">
+      <DependentUpon>FireMem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\FireClass\FireMem.aspx.designer.cs">
+      <DependentUpon>FireMem.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\GroupAdd.aspx.cs">
       <DependentUpon>GroupAdd.aspx</DependentUpon>
