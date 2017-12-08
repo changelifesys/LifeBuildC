@@ -29,20 +29,21 @@ namespace LifeBuildC.Api
 
                 string strAddFireSubSign =
                 @"
-                {
-                  ""gcroup"": ""社青"",
-                  ""group"": ""CA202.信豪牧區-彥伯小組"",
-                  ""Ename"": ""大丹"",
-                  ""Gmail"": ""dennis866@gmail.com"",
-                  ""Phone"": ""0919963322"",
-                  ""gender"": ""男生"",
-                  ""ClothesSize"": ""S"",
-                  ""Course"": ""生命突破"",
-                  ""FirePass"": ""A12345"",
-                  ""IsMemData"": true,
-                  ""Birthday"": ""1984/09/11""
-                }
-                ";
+{
+  ""FirePass"": ""0cHzHN"",
+  ""IsPass"": true,
+  ""IsMemData"": true,
+  ""gcroup"": ""社青"",
+  ""group"": ""CA202.信豪牧區-彥伯小組"",
+  ""Ename"": ""流大丹"",
+  ""Phone"": ""0919963322"",
+  ""Gmail"": ""dennis866@gmail.com"",
+  ""gender"": ""男"",
+  ""ClothesSize"": ""S"",
+  ""Course"": ""教會突破"",
+  ""Birthday"": ""1984/09/11""
+}
+            ";
 
                 #endregion
 
@@ -88,7 +89,10 @@ namespace LifeBuildC.Api
 PageData.Gmail, gender, PageData.ClothesSize, Course);
                     }
 
+                    
                     PageData.ApiMsg = "烈火特會報名成功!";
+                    PageData.ApiMailMsg = "特會資訊已發送至您的Mail   " + PageData.Gmail;
+
                 }
                 catch (Exception ex)
                 {
@@ -178,6 +182,8 @@ PageData.Gmail, gender, PageData.ClothesSize, Course);
             public string Course { get; set; }
             //api功能訊息
             public string ApiMsg { get; set; }
+            //api功能訊息
+            public string ApiMailMsg { get; set; }
 
             //傳入的密碼
             public string FirePass { get; set; }

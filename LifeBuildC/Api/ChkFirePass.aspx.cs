@@ -26,7 +26,7 @@ namespace LifeBuildC.Api
                 string strChkFirePass =
                 @" 
                 {
-                   FirePass: ""12345""
+                   FirePass: ""0cHzHN""
                 }
                 ";
 
@@ -42,8 +42,6 @@ namespace LifeBuildC.Api
 
                 PageData PageData = JsonConvert.DeserializeObject<PageData>(strChkFirePass);
 
-                PageData.FirePass = strChkFirePass;
-
                 if (firePass.CheckPassKey(PageData.FirePass))
                 {
                     #region 密碼輸入正確
@@ -53,20 +51,8 @@ namespace LifeBuildC.Api
 
                     DataTable dt = fireMem.GetFireMemberWherePassKey(PageData.FirePass);
                     if (dt != null && dt.Rows.Count > 0)
-                    { //新表單
-                        PageData.IsMemData = false;
-                        PageData.gcroup = "";
-                        PageData.group = "";
-                        PageData.Ename = "";
-                        PageData.Phone = "";
-                        PageData.Gmail = "";
-                        PageData.gender = "";
-                        PageData.ClothesSize = "";
-                        PageData.Course = "";
-                        PageData.Birthday = "";
-                    }
-                    else
-                    { //修改表單
+                    {
+                        //修改表單
                         PageData.IsMemData = true;
                         PageData.gcroup = dt.Rows[0]["GroupClass"].ToString(); //社青
                         PageData.group = dt.Rows[0]["group2"].ToString(); //CA202.信豪牧區-彥伯小組
@@ -77,6 +63,23 @@ namespace LifeBuildC.Api
                         PageData.ClothesSize = dt.Rows[0]["ClothesSize"].ToString(); //S
                         PageData.Course = dt.Rows[0]["Course2"].ToString(); //生命突破
                         PageData.Birthday = DateTime.Parse(dt.Rows[0]["Birthday"].ToString()).ToString("yyyy/MM/dd"); //生日
+
+
+                    }
+                    else
+                    { 
+                        //新表單
+                        PageData.IsMemData = false;
+                        PageData.gcroup = "";
+                        PageData.group = "";
+                        PageData.Ename = "";
+                        PageData.Phone = "";
+                        PageData.Gmail = "";
+                        PageData.gender = "";
+                        PageData.ClothesSize = "";
+                        PageData.Course = "";
+                        PageData.Birthday = "";
+
                     }
 
                     #endregion
