@@ -199,7 +199,14 @@
     <Content Include="css\sweetalert.css" />
     <Content Include="DB\LifeDB.mdb" />
     <Content Include="File18SignUp.aspx" />
+    <Content Include="Fire18SignUp.aspx" />
+    <Content Include="Fire18SignUp02.aspx" />
+    <Content Include="Fire18SignUp02_1.aspx" />
+    <Content Include="Fire18SignUp03.aspx" />
+    <Content Include="img\close.jfif" />
     <Content Include="img\fire.jpg" />
+    <Content Include="img\fire01.png" />
+    <Content Include="img\fire02.jpg" />
     <Content Include="js\exam\build.js" />
     <Content Include="js\exam\gears.svg" />
     <Content Include="Exam.aspx" />
@@ -493,6 +500,34 @@
     </Compile>
     <Compile Include="File18SignUp.aspx.designer.cs">
       <DependentUpon>File18SignUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Fire18SignUp.aspx.cs">
+      <DependentUpon>Fire18SignUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fire18SignUp.aspx.designer.cs">
+      <DependentUpon>Fire18SignUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Fire18SignUp02.aspx.cs">
+      <DependentUpon>Fire18SignUp02.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fire18SignUp02.aspx.designer.cs">
+      <DependentUpon>Fire18SignUp02.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Fire18SignUp02_1.aspx.cs">
+      <DependentUpon>Fire18SignUp02_1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fire18SignUp02_1.aspx.designer.cs">
+      <DependentUpon>Fire18SignUp02_1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Fire18SignUp03.aspx.cs">
+      <DependentUpon>Fire18SignUp03.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fire18SignUp03.aspx.designer.cs">
+      <DependentUpon>Fire18SignUp03.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -14,13 +14,13 @@ namespace ADO
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
 
         public void InsFireMember(string GroupCName, string GroupName, string GroupClass, string Ename, string Phone,
-            string Gmail, bool gender, string ClothesSize, bool Course)
+            string Gmail, bool gender, string ClothesSize, bool Course, string PassKey, string Birthday)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           FireMember(GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, gender, ClothesSize, Course)
-                                           VALUES(@GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail, @gender, @ClothesSize, @Course)";
+                                           FireMember(GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, gender, ClothesSize, Course, PassKey, Birthday)
+                                           VALUES(@GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail, @gender, @ClothesSize, @Course, @PassKey, @Birthday)";
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@GroupCName", GroupCName);
@@ -32,6 +32,8 @@ namespace ADO
                 com.Parameters.AddWithValue("@gender", gender);
                 com.Parameters.AddWithValue("@ClothesSize", ClothesSize);
                 com.Parameters.AddWithValue("@Course", Course);
+                com.Parameters.AddWithValue("@PassKey", PassKey);
+                com.Parameters.AddWithValue("@Birthday", Birthday);
 
                 con.Open();
                 com.ExecuteNonQuery();

@@ -85,8 +85,8 @@ namespace LifeBuildC.Api
                     }
                     else
                     {
-                        firemem.InsFireMember(GroupCName, GroupName, PageData.gcroup, PageData.Ename, PageData.Phone,
-PageData.Gmail, gender, PageData.ClothesSize, Course);
+//                        firemem.InsFireMember(GroupCName, GroupName, PageData.gcroup, PageData.Ename, PageData.Phone,
+//PageData.Gmail, gender, PageData.ClothesSize, Course);
                     }
 
                     
