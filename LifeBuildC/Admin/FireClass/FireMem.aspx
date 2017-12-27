@@ -34,8 +34,10 @@
                     <asp:BoundField DataField="Phone2" HeaderText="電話" />
                     <asp:BoundField DataField="Gmail" HeaderText="Email" />
                     <asp:BoundField DataField="gender2" HeaderText="姓別" />
+                    <asp:BoundField DataField="Birthday" HeaderText="生日" DataFormatString="{0:d}" />
                     <asp:BoundField DataField="ClothesSize" HeaderText="衣服尺寸" />
                     <asp:BoundField DataField="Course2" HeaderText="下午場講座" />
+                    <asp:BoundField DataField="PassKey" HeaderText="密碼" />
                 </Columns>
             </asp:GridView>
         </div>

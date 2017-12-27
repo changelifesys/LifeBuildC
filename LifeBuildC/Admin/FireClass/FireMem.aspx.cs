@@ -21,7 +21,7 @@ namespace LifeBuildC.Admin.FireClass
 
         // Define request parameters.
         String spreadsheetId = "106Y2tmI4RV3tJN_Ri4Xc91R3CZ1158GBJstlhfExjew";
-        String sheetName = "test";
+        String sheetName = "工作表1";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -60,6 +60,7 @@ namespace LifeBuildC.Admin.FireClass
             PageData.Phone = "電話";
             PageData.Gmail = "Email";
             PageData.gender = "姓別";
+            PageData.Birthday = "生日";
             PageData.ClothesSize = "衣服尺寸";
             PageData.Course = "下午場講座";
 
@@ -79,6 +80,7 @@ namespace LifeBuildC.Admin.FireClass
                 PageData.Phone = dr["Phone2"].ToString();
                 PageData.Gmail = dr["Gmail"].ToString();
                 PageData.gender = dr["gender2"].ToString();
+                PageData.Birthday = DateTime.Parse(dr["Birthday"].ToString()).ToString("yyyy/MM/dd");
                 PageData.ClothesSize = dr["ClothesSize"].ToString();
                 PageData.Course = dr["Course2"].ToString();
                 AddDataByV4Sheets(PageData);
@@ -162,6 +164,7 @@ namespace LifeBuildC.Admin.FireClass
                 PageData.Phone,
                 PageData.Gmail,
                 PageData.gender,
+                PageData.Birthday,
                 PageData.ClothesSize,
                 PageData.Course
             };
@@ -218,6 +221,7 @@ namespace LifeBuildC.Admin.FireClass
             public string Gmail { get; set; }
             //男生
             public string gender { get; set; }
+            public string Birthday { get; set; }
             //S
             public string ClothesSize { get; set; }
             //生命突破

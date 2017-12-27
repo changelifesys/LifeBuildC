@@ -131,6 +131,7 @@
     <Content Include="Admin\Demo.aspx" />
     <Content Include="Admin\ExamScore.aspx" />
     <Content Include="Admin\FireClass\FireMem.aspx" />
+    <Content Include="Admin\FireClass\FireMemEdit.aspx" />
     <Content Include="Admin\GroupAdd.aspx" />
     <Content Include="Admin\js\examedit.js" />
     <Content Include="Admin\js\examscore.js" />
@@ -207,6 +208,7 @@
     <Content Include="img\fire.jpg" />
     <Content Include="img\fire01.png" />
     <Content Include="img\fire02.jpg" />
+    <Content Include="img\loading.gif" />
     <Content Include="js\exam\build.js" />
     <Content Include="js\exam\gears.svg" />
     <Content Include="Exam.aspx" />
@@ -318,6 +320,13 @@
     </Compile>
     <Compile Include="Admin\FireClass\FireMem.aspx.designer.cs">
       <DependentUpon>FireMem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\FireClass\FireMemEdit.aspx.cs">
+      <DependentUpon>FireMemEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\FireClass\FireMemEdit.aspx.designer.cs">
+      <DependentUpon>FireMemEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\GroupAdd.aspx.cs">
       <DependentUpon>GroupAdd.aspx</DependentUpon>

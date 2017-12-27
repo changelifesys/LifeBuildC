@@ -27,7 +27,11 @@ namespace LifeBuildC
                         lblEname.Text = dt.Rows[0]["Ename"].ToString();
                         lblPhone.Text = dt.Rows[0]["Phone"].ToString();
                         lblGmail.Text = dt.Rows[0]["Gmail"].ToString();
-                        lblGmail2.Text = dt.Rows[0]["Gmail"].ToString();
+
+                        if (lblGmail.Text.Trim() != "")
+                        {
+                            lblGmail2.Text = "特會資訊已發送至您的Mail   " + dt.Rows[0]["Gmail"].ToString();
+                        }
 
                         if (bool.Parse(dt.Rows[0]["gender"].ToString()))
                         {

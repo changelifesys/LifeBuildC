@@ -12365,7 +12365,7 @@
                         <i class="el-alert__icon el-icon-success is-big"></i>
                         <div class="el-alert__content">
                             <span class="el-alert__title is-bold">烈火特會報名成功</span>
-                            <p class="el-alert__description">特會資訊已發送至您的Mail&nbsp;&nbsp;&nbsp;<asp:Label ID="lblGmail2" runat="server" Text=""></asp:Label></p>
+                            <p class="el-alert__description"><asp:Label ID="lblGmail2" runat="server" Text=""></asp:Label></p>
                             <i class="el-alert__closebtn el-icon-close" style="display: none;"></i>
                         </div>
                     </div>

@@ -32,20 +32,34 @@ namespace LifeBuildC
                     { //修改表單
                         btnSend.Visible = false;
                         btnSave.Visible = true;
+                        btnSaveMail.Visible = true;
+
                         dropGroupClass.Enabled = false;
                         dropGroupName.Enabled = false;
                         txtEname.Enabled = false;
 
-
-                        dropGroupClass.SelectedItem.Text = dt.Rows[0]["GroupClass"].ToString();
-
                         ListItem li = new ListItem();
+
+                        dropGroupClass.Items.Clear();
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = dt.Rows[0]["GroupClass"].ToString();
+                        li.Value = "0";
+                        dropGroupClass.Items.Add(li);
+                        dropGroupClass.SelectedIndex = 0;
+
+
                         //出輸格式
                         //AA101.永健牧區-永健小組
+                        dropGroupName.Items.Clear();
+
+                        li = null;
+                        li = new ListItem();
                         li.Text = dt.Rows[0]["group2"].ToString();
                         li.Value = "0";
                         dropGroupName.Items.Add(li);
-                        dropGroupName.SelectedItem.Text = dt.Rows[0]["group2"].ToString();
+                        dropGroupName.SelectedIndex = 0;
 
                         txtEname.Text = dt.Rows[0]["Ename"].ToString();
                         txtPhone.Text = dt.Rows[0]["Phone"].ToString();
@@ -61,22 +75,99 @@ namespace LifeBuildC
                         }
 
                         txtBirthday.Text = DateTime.Parse(dt.Rows[0]["Birthday"].ToString()).ToString("yyyy/MM/dd");
-                        dropClothesSize.SelectedItem.Text = dt.Rows[0]["ClothesSize"].ToString();
+                        
+                        #region 大會T恤尺寸
+
+                        dropClothesSize.Items.Clear();
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "S";
+                        li.Value = "0";
+                        dropClothesSize.Items.Add(li);
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "M";
+                        li.Value = "1";
+                        dropClothesSize.Items.Add(li);
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "L";
+                        li.Value = "2";
+                        dropClothesSize.Items.Add(li);
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "XL";
+                        li.Value = "3";
+                        dropClothesSize.Items.Add(li);
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "XXL";
+                        li.Value = "4";
+                        dropClothesSize.Items.Add(li);
+
+                        switch (dt.Rows[0]["ClothesSize"].ToString())
+                        {
+                            case "S":
+                                dropClothesSize.SelectedIndex = 0;
+                                break;
+                            case "M":
+                                dropClothesSize.SelectedIndex = 1;
+                                break;
+                            case "L":
+                                dropClothesSize.SelectedIndex = 2;
+                                break;
+                            case "XL":
+                                dropClothesSize.SelectedIndex = 3;
+                                break;
+                            case "XXL":
+                                dropClothesSize.SelectedIndex = 4;
+                                break;
+                        }
+
+                        //dropClothesSize.SelectedItem.Text = dt.Rows[0]["ClothesSize"].ToString();
+
+                        #endregion
+
+                        #region 下午場講座
+
+                        dropCourse.Items.Clear();
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "生命突破";
+                        li.Value = "0";
+                        dropCourse.Items.Add(li);
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "教會突破";
+                        li.Value = "1";
+                        dropCourse.Items.Add(li);
 
                         if (bool.Parse(dt.Rows[0]["Course"].ToString()))
                         {
-                            dropCourse.SelectedItem.Text = "教會突破";
+                            //dropCourse.SelectedItem.Text = "教會突破";
+                            dropCourse.SelectedIndex = 1;
                         }
                         else
                         {
-                            dropCourse.SelectedItem.Text = "生命突破";
+                            //dropCourse.SelectedItem.Text = "生命突破";
+                            dropCourse.SelectedIndex = 0;
                         }
+
+                        #endregion
 
                     }
                     else
                     { //新表單
                         btnSend.Visible = true;
                         btnSave.Visible = false;
+                        btnSaveMail.Visible = false;
                     }
                 }
                 else
@@ -113,83 +204,7 @@ namespace LifeBuildC
             {
                 bool IsCheck = true;
                 string ErrMsg = string.Empty;
-
-                #region 資料檢查
-
-
-                if (!IsMobile(txtPhone.Text.Trim()))
-                {
-                    IsCheck = false;
-                    ErrMsg = "手機格式輸入不正確";
-                }
-
-                if (!IsEmail(txtGmail.Text.Trim()))
-                {
-                    IsCheck = false;
-                    ErrMsg = "Email格式輸入不正確";
-                }
-
-                if (!IsDate(txtBirthday.Text.Trim().Replace("/", "-")))
-                {
-                    IsCheck = false;
-                    ErrMsg = "生日格式輸入不正確";
-                }
-
-                if (dropGroupClass.SelectedValue == "")
-                {
-                    IsCheck = false;
-                    ErrMsg = "請選擇組別";
-                }
-
-                if (dropGroupName.SelectedValue == "")
-                {
-                    IsCheck = false;
-                    ErrMsg = "請選擇小組";
-                }
-
-                if (txtEname.Text.Trim() == "")
-                {
-                    IsCheck = false;
-                    ErrMsg = "請輸入姓名";
-                }
-
-                if (txtPhone.Text.Trim() == "")
-                {
-                    IsCheck = false;
-                    ErrMsg = "請輸入手機";
-                }
-
-                if (txtGmail.Text.Trim() == "")
-                {
-                    IsCheck = false;
-                    ErrMsg = "請輸入Email";
-                }
-
-                if (rdogender1.Checked == false && rdogender0.Checked == false)
-                {
-                    IsCheck = false;
-                    ErrMsg = "請選取姓別";
-                }
-
-                if (txtBirthday.Text.Trim() == "")
-                {
-                    IsCheck = false;
-                    ErrMsg = "請輸入生日";
-                }
-
-                if (dropClothesSize.SelectedValue == "")
-                {
-                    IsCheck = false;
-                    ErrMsg = "請選擇大會T恤尺寸";
-                }
-
-                if (dropCourse.SelectedValue == "")
-                {
-                    IsCheck = false;
-                    ErrMsg = "請選擇下午場講座";
-                }
-
-                #endregion
+                ChkPageData(ref IsCheck, ref ErrMsg);
 
                 if (IsCheck)
                 {
@@ -234,7 +249,10 @@ namespace LifeBuildC
 
                     try
                     {
-                        SendEmail(Email);
+                        if (Email != "")
+                        {
+                            SendEmail(Email);
+                        }
 
                         //Response.Redirect("Fire18SignUp03.aspx");
                         //Server.Transfer("Fire18SignUp03.aspx");
@@ -261,73 +279,35 @@ namespace LifeBuildC
         }
 
         /// <summary>
-        /// 修改
+        /// 儲存
         /// </summary>
         protected void btnSave_Click(object sender, EventArgs e)
+        {
+            PageDataSave(false);
+        }
+
+        /// <summary>
+        /// 儲存後重寄Mail
+        /// </summary>
+        protected void btnSaveMail_Click(object sender, EventArgs e)
+        {
+            if (txtGmail.Text.Trim() == "")
+            {
+                Response.Write("<script>alert('請輸入Email');</script>");
+            }
+            else
+            {
+                PageDataSave(true);
+            }
+        }
+
+        private void PageDataSave(bool IsSendMail)
         {
             try
             {
                 bool IsCheck = true;
                 string ErrMsg = string.Empty;
-
-                #region 資料檢查
-
-
-                if (!IsMobile(txtPhone.Text.Trim()))
-                {
-                    IsCheck = false;
-                    ErrMsg = "手機格式輸入不正確";
-                }
-
-                if (!IsEmail(txtGmail.Text.Trim()))
-                {
-                    IsCheck = false;
-                    ErrMsg = "Email格式輸入不正確";
-                }
-
-                if (!IsDate(txtBirthday.Text.Trim().Replace("/", "-")))
-                {
-                    IsCheck = false;
-                    ErrMsg = "生日格式輸入不正確";
-                }
-
-                if (txtPhone.Text.Trim() == "")
-                {
-                    IsCheck = false;
-                    ErrMsg = "請輸入手機";
-                }
-
-                if (txtGmail.Text.Trim() == "")
-                {
-                    IsCheck = false;
-                    ErrMsg = "請輸入Email";
-                }
-
-                if (rdogender1.Checked == false && rdogender0.Checked == false)
-                {
-                    IsCheck = false;
-                    ErrMsg = "請選取姓別";
-                }
-
-                if (txtBirthday.Text.Trim() == "")
-                {
-                    IsCheck = false;
-                    ErrMsg = "請輸入生日";
-                }
-
-                if (dropClothesSize.SelectedValue == "")
-                {
-                    IsCheck = false;
-                    ErrMsg = "請選擇大會T恤尺寸";
-                }
-
-                if (dropCourse.SelectedValue == "")
-                {
-                    IsCheck = false;
-                    ErrMsg = "請選擇下午場講座";
-                }
-
-                #endregion
+                ChkPageData(ref IsCheck, ref ErrMsg);
 
                 if (IsCheck)
                 {
@@ -370,9 +350,26 @@ namespace LifeBuildC
                     firemem.UpdFireMember(Phone,
                     Email, gender, ClothesSize, Course, Birthday, PassKey);
 
-                    //Response.Redirect("Fire18SignUp03.aspx");
-                    //Server.Transfer("Fire18SignUp03.aspx");
-                    Response.Write("<script>location.href='Fire18SignUp03.aspx'</script>");
+                    if (IsSendMail)
+                    {
+                        try
+                        {
+                            SendEmail(Email);
+
+                            //Response.Redirect("Fire18SignUp03.aspx");
+                            //Server.Transfer("Fire18SignUp03.aspx");
+                            Response.Write("<script>location.href='Fire18SignUp03.aspx'</script>");
+                        }
+                        catch
+                        {
+                            Response.Write("<script>alert('您可能會在Mail收不到報名資訊，請重掃QRCode輸入密碼後檢查您的Mail是否輸入正確');location.href='Fire18SignUp03.aspx'</script>");
+                        }
+                    }
+                    else
+                    {
+                        Response.Write("<script>location.href='Fire18SignUp03.aspx'</script>");
+                    }
+
                 }
                 else
                 {
@@ -381,8 +378,98 @@ namespace LifeBuildC
             }
             catch (Exception ex)
             {
-                Response.Write("<script>alert('無法報名，請洽櫃檯重新領取一組密碼輸入');</script>");
+                Response.Write("<script>alert('資料錯誤導致報名失敗，請洽櫃檯咨詢');</script>");
                 Response.Redirect("Fire18SignUp.aspx");
+            }
+        }
+
+        /// <summary>
+        /// 資料檢查
+        /// </summary>
+        private void ChkPageData(ref bool IsCheck, ref string ErrMsg)
+        {
+            if (!IsMobile(txtPhone.Text.Trim()))
+            {
+                IsCheck = false;
+                ErrMsg = "手機格式輸入不正確";
+                return;
+            }
+
+            if (txtGmail.Text.Trim() != "" && !IsEmail(txtGmail.Text.Trim()))
+            {
+                IsCheck = false;
+                ErrMsg = "Email格式輸入不正確";
+                return;
+            }
+
+            if (!IsDate(txtBirthday.Text.Trim().Replace("/", "-")))
+            {
+                IsCheck = false;
+                ErrMsg = "生日格式輸入不正確";
+                return;
+            }
+
+            if (dropGroupClass.SelectedValue == "")
+            {
+                IsCheck = false;
+                ErrMsg = "請選擇組別";
+                return;
+            }
+
+            if (dropGroupName.SelectedValue == "")
+            {
+                IsCheck = false;
+                ErrMsg = "請選擇小組";
+                return;
+            }
+
+            if (txtEname.Text.Trim() == "")
+            {
+                IsCheck = false;
+                ErrMsg = "請輸入姓名";
+                return;
+            }
+
+            if (txtPhone.Text.Trim() == "")
+            {
+                IsCheck = false;
+                ErrMsg = "請輸入手機";
+                return;
+            }
+
+            //if (txtGmail.Text.Trim() == "")
+            //{
+            //    IsCheck = false;
+            //    ErrMsg = "請輸入Email";
+            //    return;
+            //}
+
+            if (rdogender1.Checked == false && rdogender0.Checked == false)
+            {
+                IsCheck = false;
+                ErrMsg = "請選取姓別";
+                return;
+            }
+
+            if (txtBirthday.Text.Trim() == "")
+            {
+                IsCheck = false;
+                ErrMsg = "請輸入生日";
+                return;
+            }
+
+            if (dropClothesSize.SelectedValue == "")
+            {
+                IsCheck = false;
+                ErrMsg = "請選擇大會T恤尺寸";
+                return;
+            }
+
+            if (dropCourse.SelectedValue == "")
+            {
+                IsCheck = false;
+                ErrMsg = "請選擇下午場講座";
+                return;
             }
         }
 
@@ -483,6 +570,7 @@ namespace LifeBuildC
                 }
             }
         }
+
 
     }
 }
