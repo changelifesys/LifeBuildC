@@ -5,18 +5,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title></title>
+    <link href="../css/PageStyle.css" rel="stylesheet" />
+    <script src="../js/jquery-3.1.1.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-            組別
-            <asp:DropDownList ID="dropGroupClass" runat="server" AutoPostBack="True" OnSelectedIndexChanged="dropGroupClass_SelectedIndexChanged">
-                <asp:ListItem>家庭組弟兄</asp:ListItem>
-                <asp:ListItem>家庭組姊妹</asp:ListItem>
-                <asp:ListItem>社青</asp:ListItem>
-                <asp:ListItem>學生</asp:ListItem>
-            </asp:DropDownList>
+
+            <div class="FieldStyle">
+                <asp:Label ID="Label1" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label2" ForeColor="#5a5e66" runat="server" Text="組別"></asp:Label>
+            </div>
+
+            <div style="text-align: center; margin: 5px;">
+                <span class="FieldStyle2">
+                    <asp:Label ID="Label3" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                    &nbsp;
+                    <asp:Label ID="Label4" ForeColor="#5a5e66" runat="server" Text="組別"></asp:Label>
+                    &nbsp;&nbsp;&nbsp;
+                </span>
+                <asp:DropDownList ID="dropGroupClass" runat="server" AutoPostBack="True" OnSelectedIndexChanged="dropGroupClass_SelectedIndexChanged">
+                    <asp:ListItem>家庭組弟兄</asp:ListItem>
+                    <asp:ListItem>家庭組姊妹</asp:ListItem>
+                    <asp:ListItem>社青</asp:ListItem>
+                    <asp:ListItem>學生</asp:ListItem>
+                </asp:DropDownList>
+            </div>
+
+
             <br />
             小組
             <asp:DropDownList ID="dropGroupName" runat="server"></asp:DropDownList>

@@ -1,0 +1,31 @@
+﻿.inputStyle {
+    width: 95%;
+    font-size: 14px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.radioStyle {
+    font-size: 14px;
+    margin: 10px;
+}
+
+.buttonStyle {
+    width: 20%;
+    font-size: 14px;
+    height: 35px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: #85325d;
+    color: white;
+}
+
+.FieldStyle {
+    text-align: left;
+    margin: 5px;
+}
+
+.FieldStyle2 {
+    display: none;
+}
+
