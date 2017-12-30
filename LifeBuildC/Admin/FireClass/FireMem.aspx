@@ -5,7 +5,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>2018 烈火特會報名</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>2018 烈火特會報名-後台</title>
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script>
         $(function () {
@@ -26,7 +29,7 @@
             <asp:Button ID="btnExcel" runat="server" Visible="true" Text="匯出到google雲端" OnClick="btnExcel_Click" />
             <label id="lblSend" style="display: none;">資料匯出到雲端中，請稍後...</label>
             <p />
-            <asp:TextBox ID="txtPassKey" runat="server"></asp:TextBox>
+            密碼：<asp:TextBox ID="txtPassKey" runat="server"></asp:TextBox>
             <asp:Button ID="btnEditData" runat="server" Text="修改" OnClick="btnEditData_Click" />
             <br/>
                         <br/>

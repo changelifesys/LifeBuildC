@@ -70,7 +70,7 @@ namespace LifeBuildC
                         }
                         else
                         {
-                            rdogender0.Checked = false;
+                            rdogender0.Checked = true;
                         }
 
                         txtBirthday.Text = DateTime.Parse(dt.Rows[0]["Birthday"].ToString()).ToString("yyyy/MM/dd");
