@@ -17,7 +17,6 @@ namespace LifeBuildC
     public partial class Fire18SignUp02_1 : System.Web.UI.Page
     {
         ChcGroupADO group = new ChcGroupADO();
-        FireMemberADO firemem = new FireMemberADO();
         FirePassWADO firePass = new FirePassWADO();
         FireMemberADO fireMem = new FireMemberADO();
 
@@ -71,7 +70,7 @@ namespace LifeBuildC
                         }
                         else
                         {
-                            rdogender1.Checked = false;
+                            rdogender0.Checked = false;
                         }
 
                         txtBirthday.Text = DateTime.Parse(dt.Rows[0]["Birthday"].ToString()).ToString("yyyy/MM/dd");
@@ -244,7 +243,7 @@ namespace LifeBuildC
                     string PassKey = Session["PassKey"].ToString();
                     string Birthday = txtBirthday.Text.Trim();
 
-                    firemem.InsFireMember(GroupCName, GroupName, GroupClass, Ename, Phone,
+                    fireMem.InsFireMember(GroupCName, GroupName, GroupClass, Ename, Phone,
                         Email, gender, ClothesSize, Course, PassKey, Birthday);
 
                     try
@@ -347,7 +346,7 @@ namespace LifeBuildC
                     string PassKey = Session["PassKey"].ToString();
                     string Birthday = txtBirthday.Text.Trim();
 
-                    firemem.UpdFireMember(Phone,
+                    fireMem.UpdFireMember(Phone,
                     Email, gender, ClothesSize, Course, Birthday, PassKey);
 
                     if (IsSendMail)

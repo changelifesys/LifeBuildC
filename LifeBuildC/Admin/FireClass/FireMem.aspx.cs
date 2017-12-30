@@ -30,6 +30,8 @@ namespace LifeBuildC.Admin.FireClass
                 DataTable dt = firemem.QueryFireMember();
                 gvExcel.DataSource = dt;
                 gvExcel.DataBind();
+
+                lblCount.Text = "查詢共 " + dt.Rows.Count.ToString() + " 筆資料";
             }
         }
 
@@ -229,5 +231,36 @@ namespace LifeBuildC.Admin.FireClass
             public string Time { get; set; }
         }
 
+        protected void gvExcel_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            //滑鼠移入移出效果
+            if (e.Row.RowType == DataControlRowType.DataRow &&
+                ((e.Row.RowState & DataControlRowState.Edit) <= 0))
+            {
+                ((LinkButton)e.Row.FindControl("btnEdit")).PostBackUrl = "FireMemEdit.aspx?p=" + DataBinder.Eval(e.Row.DataItem, "PassKey").ToString();
+            }
+        }
+
+        /// <summary>
+        /// 修改會友資料
+        /// </summary>
+        protected void btnEditData_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("FireMemEdit.aspx?p=" + txtPassKey.Text.Trim().ToUpper());
+        }
+
+        protected void gvExcel_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            string PassKey = ((LinkButton)gvExcel.Rows[e.RowIndex].FindControl("btnDel")).Attributes["Pass"].ToString();
+
+            firemem.DelFireMember(PassKey);
+
+
+            DataTable dt = firemem.QueryFireMember();
+            gvExcel.DataSource = dt;
+            gvExcel.DataBind();
+
+            lblCount.Text = "查詢共 " + dt.Rows.Count.ToString() + " 筆資料";
+        }
     }
 }

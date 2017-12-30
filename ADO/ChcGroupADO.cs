@@ -21,23 +21,6 @@ namespace ADO
         {
             DataTable dt = new DataTable();
 
-            #region Access
-
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT GroupClass, MAX(GSort) FROM ChcGroup
-            //                                WHERE GroupClass <> ''
-            //                                GROUP BY GroupClass
-            //                                ORDER BY MAX(GSort)
-            //                                ";
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    //sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
-            //    sda.Fill(dt);
-            //}
-
-            #endregion
-
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT GroupClass, MAX(GSort) FROM ChcGroup

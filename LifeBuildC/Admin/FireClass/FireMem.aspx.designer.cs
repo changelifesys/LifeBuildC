@@ -31,6 +31,33 @@ namespace LifeBuildC.Admin.FireClass {
         protected global::System.Web.UI.WebControls.Button btnExcel;
         
         /// <summary>
+        /// txtPassKey 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPassKey;
+        
+        /// <summary>
+        /// btnEditData 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditData;
+        
+        /// <summary>
+        /// lblCount 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCount;
+        
+        /// <summary>
         /// gvExcel 控制項。
         /// </summary>
         /// <remarks>

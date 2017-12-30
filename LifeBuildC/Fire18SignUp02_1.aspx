@@ -150,6 +150,8 @@
             <div style="text-align: center; margin: 5px;">
                 <h2 class="center">2018 烈火特會報名</h2>
             </div>
+
+            <!--組別-->
             <div class="cssField">
                 <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">組別</font>
             </div>
@@ -166,6 +168,8 @@
                     <asp:ListItem Value="4">傳道人(配偶)</asp:ListItem>
                 </asp:DropDownList>
             </div>
+
+            <!--小組-->
             <div class="cssField">
                 <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">小組</font>
             </div>
@@ -179,6 +183,8 @@
                     <asp:ListItem Value="" disabled Selected hidden>請選擇組別</asp:ListItem>
                 </asp:DropDownList>
             </div>
+
+            <!--姓名-->
             <div class="cssField">
                 <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">姓名</font>
             </div>
@@ -190,6 +196,8 @@
 
                 <asp:TextBox CssClass="cssA" ID="txtEname" runat="server" MaxLength="5"></asp:TextBox>
             </div>
+
+            <!--手機-->
             <div class="cssField">
                 <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">手機</font>
             </div>
@@ -203,10 +211,12 @@
                 <br />
                 <font style="color: #fa5555;">範例：0919123456</font>
             </div>
+
+
+            <!--Email-->
             <div class="cssField">
                 <font style="color: #5a5e66;">Email</font>
             </div>
-
             <div style="text-align: center; margin: 5px;">
 
                 <span class="cssField800">
@@ -217,6 +227,9 @@
                 <br />
                 <font style="color: #fa5555;">範例：dennis@gmail.com，也可不填</font>
             </div>
+
+
+            <!--姓別-->
             <div class="cssField">
                 <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">姓別</font>&nbsp;
             </div>
@@ -229,23 +242,35 @@
                 <asp:RadioButton ID="rdogender1" GroupName="Sex" CssClass="cssB" runat="server" />男
             <asp:RadioButton ID="rdogender0" GroupName="Sex" CssClass="cssB" runat="server" />女
             </div>
+
+
+            <!--生日-->
             <div class="cssField">
                 <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;"> 生日</font>&nbsp;
             </div>
-
             <div style="text-align: center; margin: 5px;">
-                <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;"> 生日</font>&nbsp;&nbsp;&nbsp;
+
+                <span class="cssField800">
+                    <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;"> 生日</font>&nbsp;&nbsp;&nbsp;
+                </span>
 
                 <asp:TextBox CssClass="cssA" ID="txtBirthday" runat="server" MaxLength="10"></asp:TextBox>
                 <br />
                 <font style="color: #fa5555;">範例：1984/9/11</font>
             </div>
+
+
+            <!--大會T恤尺寸-->
             <div class="cssField">
                 <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">大會T恤尺寸</font>&nbsp;
             </div>
             <div style="text-align: center; margin: 5px;">
 
-                <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">大會T恤尺寸</font>&nbsp;&nbsp;&nbsp;
+                <span class="cssField800">
+                    <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">大會T恤尺寸</font>&nbsp;&nbsp;&nbsp;
+                </span>
+
+                
                 <asp:DropDownList CssClass="cssA" ID="dropClothesSize" runat="server">
                     <asp:ListItem Value="" disabled Selected hidden>請選擇尺寸</asp:ListItem>
                     <asp:ListItem Value="0">S</asp:ListItem>
@@ -274,11 +299,17 @@
 
                 <br />
             </div>
+
+
+            <!--下午場講座-->
             <div class="cssField">
                 <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">下午場講座</font>
             </div>
             <div style="text-align: center; margin: 5px;">
-                <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">下午場講座</font>&nbsp;&nbsp;&nbsp;
+
+                <span class="cssField800">
+                    <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">下午場講座</font>&nbsp;&nbsp;&nbsp;
+                </span>
 
                 <asp:DropDownList CssClass="cssA" ID="dropCourse" runat="server">
                     <asp:ListItem Value="" disabled Selected hidden>請選擇講座</asp:ListItem>
@@ -303,6 +334,7 @@
                 </span>
                 <br />
             </div>
+
             <hr />
             <div style="text-align: center; margin: 5px;">
                 <asp:Button ID="btnSend" CssClass="cssC" runat="server" Width="100px" Text="報名" OnClick="btnSend_Click" />
