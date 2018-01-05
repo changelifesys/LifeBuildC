@@ -136,6 +136,7 @@
     <Content Include="Admin\GroupAdd.aspx" />
     <Content Include="Admin\js\examedit.js" />
     <Content Include="Admin\js\examscore.js" />
+    <Content Include="Admin\js\MemSubDataEdit.js" />
     <Content Include="Admin\js\menu.js" />
     <Content Include="Admin\js\subjectedit.js" />
     <Content Include="Admin\js\subjectlist.js" />
@@ -497,6 +498,7 @@
     <Compile Include="Api\UpdSubSign.aspx.designer.cs">
       <DependentUpon>UpdSubSign.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Class\ChcGroupClass.cs" />
     <Compile Include="Exam.aspx.cs">
       <DependentUpon>Exam.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

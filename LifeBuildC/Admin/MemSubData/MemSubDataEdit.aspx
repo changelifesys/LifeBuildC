@@ -11,17 +11,21 @@
     <title></title>
     <link href="../css/PageStyle.css" rel="stylesheet" />
     <script src="../js/jquery-3.1.1.min.js"></script>
+    <script src="../js/MemSubDataEdit.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:HiddenField ID="hfChcGroup" runat="server" />
+        <asp:HiddenField ID="hfGroupClass" runat="server" />
+        <asp:HiddenField ID="hfGroupCName" runat="server" />
         <div>
 
+            <!--組別-->
             <div class="FieldStyle">
                 <asp:Label ID="Label1" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
                 &nbsp;
                 <asp:Label ID="Label2" ForeColor="#5a5e66" runat="server" Text="組別"></asp:Label>
             </div>
-
             <div style="text-align: center; margin: 5px;">
                 <span class="FieldStyle2">
                     <asp:Label ID="Label3" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
@@ -29,61 +33,161 @@
                     <asp:Label ID="Label4" ForeColor="#5a5e66" runat="server" Text="組別"></asp:Label>
                     &nbsp;&nbsp;&nbsp;
                 </span>
-                <asp:DropDownList ID="dropGroupClass" runat="server" AutoPostBack="True" OnSelectedIndexChanged="dropGroupClass_SelectedIndexChanged">
-                    <asp:ListItem>家庭組弟兄</asp:ListItem>
-                    <asp:ListItem>家庭組姊妹</asp:ListItem>
-                    <asp:ListItem>社青</asp:ListItem>
-                    <asp:ListItem>學生</asp:ListItem>
-                </asp:DropDownList>
+                <select id="dropGroupClass" runat="server">
+                </select>
             </div>
 
+            <!--小組-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label5" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label6" ForeColor="#5a5e66" runat="server" Text="小組"></asp:Label>
+            </div>
+            <div style="text-align: center; margin: 5px;">
+                <span class="FieldStyle2">
+                    <asp:Label ID="Label7" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                    &nbsp;
+                    <asp:Label ID="Label8" ForeColor="#5a5e66" runat="server" Text="小組"></asp:Label>
+                    &nbsp;&nbsp;&nbsp;
+                </span>
+                <select id="dropGroupName" runat="server">
+                </select>
+            </div>
 
-            <br />
-            小組
-            <asp:DropDownList ID="dropGroupName" runat="server"></asp:DropDownList>
-            <br />
-            姓名
-            <asp:TextBox ID="txtEname" runat="server"></asp:TextBox>
-            <br />
-            教會
-            <asp:DropDownList ID="dropChurch" runat="server">
-                <asp:ListItem>江子翠行道會會友</asp:ListItem>
-                <asp:ListItem>新莊幸福行道會會友</asp:ListItem>
-            </asp:DropDownList>
-            <br />
-            C1 第一、二課
+            <!--姓名-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label9" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label10" ForeColor="#5a5e66" runat="server" Text="姓名"></asp:Label>
+            </div>
+            <div style="text-align: center; margin: 5px;">
+                <span class="FieldStyle2">
+                    <asp:Label ID="Label11" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                    &nbsp;
+                    <asp:Label ID="Label12" ForeColor="#5a5e66" runat="server" Text="姓名"></asp:Label>
+                    &nbsp;&nbsp;&nbsp;
+                </span>
+                <asp:TextBox ID="txtEname" runat="server"></asp:TextBox>
+            </div>
+
+            <!--教會-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label13" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label14" ForeColor="#5a5e66" runat="server" Text="教會"></asp:Label>
+            </div>
+            <div style="text-align: center; margin: 5px;">
+                <span class="FieldStyle2">
+                    <asp:Label ID="Label15" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                    &nbsp;
+                    <asp:Label ID="Label16" ForeColor="#5a5e66" runat="server" Text="教會"></asp:Label>
+                    &nbsp;&nbsp;&nbsp;
+                </span>
+                <asp:DropDownList ID="dropChurch" runat="server">
+                    <asp:ListItem>江子翠行道會會友</asp:ListItem>
+                    <asp:ListItem>新莊幸福行道會會友</asp:ListItem>
+                </asp:DropDownList>
+                <br />
+            </div>
+
+            <!--C1 第一、二課-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label17" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label18" ForeColor="#5a5e66" runat="server" Text="C1 第一、二課"></asp:Label>
+            </div>
             <asp:CheckBox ID="chkIsC112" runat="server" />Pass
             <br />
-            C1 第三、四課
+
+            <!--C1 第三、四課-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label19" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label20" ForeColor="#5a5e66" runat="server" Text="C1 第三、四課"></asp:Label>
+            </div>
             <asp:CheckBox ID="chkIsC134" runat="server" />Pass
             <br />
-            C2 第一、二課
+
+            <!--C2 第一、二課-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label21" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label22" ForeColor="#5a5e66" runat="server" Text="C2 第一、二課"></asp:Label>
+            </div>
             <asp:CheckBox ID="chkIsC212" runat="server" />Pass
             <br />
-            C2 第三、四課
+
+            <!--C2 第三、四課-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label23" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label24" ForeColor="#5a5e66" runat="server" Text="C2 第三、四課"></asp:Label>
+            </div>
             <asp:CheckBox ID="chkIsC234" runat="server" />Pass
             <br />
-            C2 第五課
+
+            <!--C2 第五課-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label25" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label26" ForeColor="#5a5e66" runat="server" Text="C2 第五課"></asp:Label>
+            </div>
             <asp:CheckBox ID="chkIsC25" runat="server" />Pass
             <br />
-            C1 考試
+
+            <!--C1 考試-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label27" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label28" ForeColor="#5a5e66" runat="server" Text="C1 考試"></asp:Label>
+            </div>
             <asp:TextBox ID="txtC1_Score" Width="50px" runat="server"></asp:TextBox>分
             <br />
-            C2 第一、二課考試
+
+            <!--C2 第一、二課考試-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label29" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label30" ForeColor="#5a5e66" runat="server" Text="C2 第一、二課考試"></asp:Label>
+            </div>
             <asp:TextBox ID="txtC212_Score" Width="50px" runat="server"></asp:TextBox>分
             <br />
-            C2 第三、四課考試
+
+            <!--C2 第三、四課考試-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label31" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label32" ForeColor="#5a5e66" runat="server" Text="C2 第三、四課考試"></asp:Label>
+            </div>
             <asp:TextBox ID="txtC234_Score" Width="50px" runat="server"></asp:TextBox>分
             <br />
-            交見證
+
+            <!--交見證-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label33" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label34" ForeColor="#5a5e66" runat="server" Text="交見證"></asp:Label>
+            </div>
             <asp:CheckBox ID="chkIswitness" runat="server" />Pass
             <br />
             <asp:TextBox ID="txtwitness" runat="server"></asp:TextBox>
             <br />
-            C1 通過判定
+
+            <!--C1 通過判定-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label35" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label36" ForeColor="#5a5e66" runat="server" Text="C1 通過判定"></asp:Label>
+            </div>
             <asp:Label ID="lblC1_Status" runat="server" Text=""></asp:Label>
             <br />
-            C2 通過判定
+
+            <!--C2 通過判定-->
+            <div class="FieldStyle">
+                <asp:Label ID="Label37" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                &nbsp;
+                <asp:Label ID="Label38" ForeColor="#5a5e66" runat="server" Text="C2 通過判定"></asp:Label>
+            </div>
             <asp:Label ID="lblC2_Status" runat="server" Text=""></asp:Label>
             <br />
 

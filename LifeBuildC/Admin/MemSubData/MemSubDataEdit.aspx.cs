@@ -1,4 +1,5 @@
 ﻿using ADO;
+using LifeBuildC.Class;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,6 +15,7 @@ namespace LifeBuildC.Admin.MemSubData
         ChcMemberADO member = new ChcMemberADO();
         ChcGroupADO group = new ChcGroupADO();
         ClassStatusADO cstatus = new ClassStatusADO();
+        ChcGroupClass groupclass = new ChcGroupClass();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,6 +23,7 @@ namespace LifeBuildC.Admin.MemSubData
             {
                 if (CheckIntByRequest("id", 0) > 0)
                 {
+                    hfChcGroup.Value = groupclass.GetJsonByChcGroup();
                     PageDataLoad();
                 }
                 else
@@ -36,26 +39,26 @@ namespace LifeBuildC.Admin.MemSubData
             DataTable dt = member.QueryMIDByChcMember(int.Parse(Request.QueryString["id"].ToString()));
 
             //組別
-            dropGroupClass.SelectedValue = dt.Rows[0]["GroupClass"].ToString();
+            hfGroupClass.Value = dt.Rows[0]["GroupClass"].ToString();
 
             //小組
-            DataTable dtGroup = group.QueryGroupNameByChcGroup(dropGroupClass.SelectedItem.Text);
-            if (dtGroup != null && dtGroup.Rows.Count > 0)
-            {
-                for (int i = 0; i < dtGroup.Rows.Count; i++)
-                {
-                    //AA101.永健牧區-永健小組
-                    dropGroupName.Items.Insert(0, new ListItem(
-                        dtGroup.Rows[i]["GroupID"].ToString() + "." + dtGroup.Rows[i]["GroupCName"].ToString() + "-" + dtGroup.Rows[i]["GroupName"].ToString(),
-                        i.ToString()));
-                }
-            }
+            //DataTable dtGroup = group.QueryGroupNameByChcGroup(dropGroupClass.SelectedItem.Text);
+            //if (dtGroup != null && dtGroup.Rows.Count > 0)
+            //{
+            //    for (int i = 0; i < dtGroup.Rows.Count; i++)
+            //    {
+            //        //AA101.永健牧區-永健小組
+            //        dropGroupName.Items.Insert(0, new ListItem(
+            //            dtGroup.Rows[i]["GroupID"].ToString() + "." + dtGroup.Rows[i]["GroupCName"].ToString() + "-" + dtGroup.Rows[i]["GroupName"].ToString(),
+            //            i.ToString()));
+            //    }
+            //}
 
-            DataRow[] _drGroup = dtGroup.Select("GroupCName='" + dt.Rows[0]["GroupCName"].ToString() + "' AND GroupName='" + dt.Rows[0]["GroupName"].ToString() + "'");
-            string _GroupID = _drGroup[0]["GroupID"].ToString();
-            string _GroupCName = _drGroup[0]["GroupCName"].ToString();
-            string _GroupName = _drGroup[0]["GroupName"].ToString();
-            dropGroupName.Text = _GroupID + "." + _GroupCName + "-" + _GroupName;
+            //DataRow[] _drGroup = dtGroup.Select("GroupCName='" + dt.Rows[0]["GroupCName"].ToString() + "' AND GroupName='" + dt.Rows[0]["GroupName"].ToString() + "'");
+            //string _GroupID = _drGroup[0]["GroupID"].ToString();
+            //string _GroupCName = _drGroup[0]["GroupCName"].ToString();
+            //string _GroupName = _drGroup[0]["GroupName"].ToString();
+            //dropGroupName.Text = _GroupID + "." + _GroupCName + "-" + _GroupName;
 
             //姓名
             txtEname.Text = dt.Rows[0]["Ename"].ToString();
@@ -128,13 +131,13 @@ namespace LifeBuildC.Admin.MemSubData
             DataTable dtStatus = cstatus.QueryByClassStatus();
 
             //組別
-            string GroupClass = dropGroupClass.SelectedItem.Text;
+            //string GroupClass = dropGroupClass.SelectedItem.Text;
 
             //小組
-            string _group = dropGroupName.SelectedItem.Text;
-            string[] arrg = _group.Split('.');
-            string GroupCName = arrg[1].Split('-')[0];
-            string GroupName = arrg[1].Split('-')[1];
+            //string _group = dropGroupName.SelectedItem.Text;
+            //string[] arrg = _group.Split('.');
+            //string GroupCName = arrg[1].Split('-')[0];
+            //string GroupName = arrg[1].Split('-')[1];
 
             //姓名
             string Ename = txtEname.Text.Trim();
@@ -185,10 +188,10 @@ namespace LifeBuildC.Admin.MemSubData
                 C2_Status = dtStatus.Select("StatusID='C001'")[0]["ClassStatus"].ToString();
             }
 
-            member.UpdChcMember2(MID, GroupCName, GroupName, GroupClass,
-                                                             Ename, Church, C1_Status, C2_Status,
-                                                             IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score,
-                                                             witness, Iswitness);
+            //member.UpdChcMember2(MID, GroupCName, GroupName, GroupClass,
+            //                                                 Ename, Church, C1_Status, C2_Status,
+            //                                                 IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score,
+            //                                                 witness, Iswitness);
 
             Response.Write("<script>alert('儲存成功');location.href='MemSubDataList.aspx'</script>");
 
@@ -230,18 +233,18 @@ namespace LifeBuildC.Admin.MemSubData
         /// </summary>
         protected void dropGroupClass_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dt = group.QueryGroupNameByChcGroup(dropGroupClass.SelectedValue);
-            dropGroupName.Items.Clear();
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    //AA101.永健牧區-永健小組
-                    dropGroupName.Items.Insert(0, new ListItem(
-                        dt.Rows[i]["GroupID"].ToString() + "." + dt.Rows[i]["GroupCName"].ToString() + "-" + dt.Rows[i]["GroupName"].ToString(), 
-                        i.ToString()));
-                }
-            }
+            //DataTable dt = group.QueryGroupNameByChcGroup(dropGroupClass.SelectedValue);
+            //dropGroupName.Items.Clear();
+            //if (dt != null && dt.Rows.Count > 0)
+            //{
+            //    for (int i = 0; i < dt.Rows.Count; i++)
+            //    {
+            //        //AA101.永健牧區-永健小組
+            //        dropGroupName.Items.Insert(0, new ListItem(
+            //            dt.Rows[i]["GroupID"].ToString() + "." + dt.Rows[i]["GroupCName"].ToString() + "-" + dt.Rows[i]["GroupName"].ToString(), 
+            //            i.ToString()));
+            //    }
+            //}
 
         }
 
