@@ -154,6 +154,7 @@
     <Content Include="Api\GetGroupItem.aspx" />
     <Content Include="Api\GetMember.aspx" />
     <Content Include="Api\GetMemSub.aspx" />
+    <Content Include="Api\GetMemSubData.aspx" />
     <Content Include="Api\GetSUBInfo.aspx" />
     <Content Include="Api\GetSubSign.aspx" />
     <Content Include="Api\testGoogleADO.aspx" />
@@ -462,6 +463,13 @@
     </Compile>
     <Compile Include="Api\GetMemSub.aspx.designer.cs">
       <DependentUpon>GetMemSub.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Api\GetMemSubData.aspx.cs">
+      <DependentUpon>GetMemSubData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Api\GetMemSubData.aspx.designer.cs">
+      <DependentUpon>GetMemSubData.aspx</DependentUpon>
     </Compile>
     <Compile Include="Api\GetScore.aspx.cs">
       <DependentUpon>GetScore.aspx</DependentUpon>
