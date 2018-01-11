@@ -32,6 +32,5 @@
     });
 
     var a = $('#hfGroupClass').val();
-    $('#select').find(':selected').text(a);
-    $('#select').val(selectedValue);
+    $('#dropGroupClass').val(2);
 });
