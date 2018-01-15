@@ -221,6 +221,8 @@
     <Content Include="js\fire\clothSize.jpg" />
     <Content Include="js\fire\main.jpg" />
     <Content Include="js\jquery-3.1.1.min.js" />
+    <Content Include="js\memQuery\build.js" />
+    <Content Include="js\memQuery\title.jpg" />
     <Content Include="js\subjectCheck\build.js" />
     <Content Include="js\subjectSignUp\app.f079bbba98fa6982ca09.js" />
     <Content Include="js\subjectSignUp\manifest.ba642eead6c945fa43da.js" />
@@ -247,6 +249,8 @@
     <Content Include="obj\Debug\LifeBuildC.csprojResolveAssemblyReference.cache" />
     <Content Include="js\fire\6f0a76321d30f3c8120915e57f7bd77e.ttf" />
     <Content Include="js\fire\build.js.map" />
+    <Content Include="js\memQuery\6f0a76321d30f3c8120915e57f7bd77e.ttf" />
+    <Content Include="js\memQuery\build.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
