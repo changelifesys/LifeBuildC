@@ -204,8 +204,8 @@
     <Content Include="DB\LifeDB.mdb" />
     <Content Include="File18SignUp.aspx" />
     <Content Include="Fire18SignUp.aspx" />
-    <Content Include="Fire18SignUp02.aspx" />
     <Content Include="Fire18SignUp02_1.aspx" />
+    <Content Include="Fire18SignUp02_2.aspx" />
     <Content Include="Fire18SignUp03.aspx" />
     <Content Include="img\close.jfif" />
     <Content Include="img\fire.jpg" />
@@ -528,19 +528,19 @@
     <Compile Include="Fire18SignUp.aspx.designer.cs">
       <DependentUpon>Fire18SignUp.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Fire18SignUp02.aspx.cs">
-      <DependentUpon>Fire18SignUp02.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Fire18SignUp02.aspx.designer.cs">
-      <DependentUpon>Fire18SignUp02.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Fire18SignUp02_1.aspx.cs">
       <DependentUpon>Fire18SignUp02_1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Fire18SignUp02_1.aspx.designer.cs">
       <DependentUpon>Fire18SignUp02_1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Fire18SignUp02_2.aspx.cs">
+      <DependentUpon>Fire18SignUp02_2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fire18SignUp02_2.aspx.designer.cs">
+      <DependentUpon>Fire18SignUp02_2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Fire18SignUp03.aspx.cs">
       <DependentUpon>Fire18SignUp03.aspx</DependentUpon>

@@ -14,7 +14,10 @@ namespace LifeBuildC
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
 
+            }
         }
 
         protected void btnSend_Click(object sender, EventArgs e)
@@ -23,13 +26,17 @@ namespace LifeBuildC
             if (firePass.CheckPassKey(PassKey))
             {
                 Session["PassKey"] = PassKey;
-                //Server.Transfer("Fire18SignUp02_1.aspx");
                 Response.Redirect("Fire18SignUp02_1.aspx");
             }
             else
             {
                 Response.Write("<script>alert('密碼錯誤');</script>");
             }
+        }
+
+        protected void btnSend12_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Fire18SignUp02_2.aspx");
         }
     }
 }
