@@ -1,4 +1,9 @@
 ﻿using ADO;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Services;
+using Google.Apis.Sheets.v4;
+using Google.Apis.Sheets.v4.Data;
+using Google.Apis.Util.Store;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,6 +13,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -245,6 +251,8 @@ namespace LifeBuildC
 
                     fireMem.InsFireMember(GroupCName, GroupName, GroupClass, Ename, Phone,
                         Email, gender, ClothesSize, Course, PassKey, Birthday);
+
+                    SendGoogleExcel();
 
                     try
                     {
@@ -568,6 +576,65 @@ namespace LifeBuildC
                     smtp.Send(mail);
                 }
             }
+        }
+
+        private void SendGoogleExcel()
+        {
+            string[] Scopes = { SheetsService.Scope.Spreadsheets };
+
+            //應用程式的名字需要英文
+            string ApplicationName = "Get Google SheetData with Google Sheets API";
+
+            UserCredential credential;
+
+            var folder = System.Web.HttpContext.Current.Server.MapPath("/App_Data/MyGoogleStorage");
+
+            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+               new ClientSecrets
+               {
+                   ClientId = "117990626740-rptck4cro3bpbu3u7da3t4qlr20i3rsl.apps.googleusercontent.com",
+                   ClientSecret = "zcFr6UCqdX-jo29QFogCcyf1"
+               },
+               Scopes,
+               "user",
+               CancellationToken.None,
+               new FileDataStore(folder)).Result;
+
+            // Create Google Sheets API service.
+
+            var service = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName
+            });
+
+            // Define request parameters.
+            String spreadsheetId = "106Y2tmI4RV3tJN_Ri4Xc91R3CZ1158GBJstlhfExjew";
+
+            //String range = "工作表1!A:B";
+            String range = "工作表1";
+
+            var valueRange = new ValueRange();
+
+            var oblist = new List<object>() {
+                DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd HH:mm:ss"), //時間
+                dropGroupClass.SelectedItem.Text, //社青
+                dropGroupName.SelectedItem.Text, //CA202.信豪牧區-彥伯小組
+                txtEname.Text.Trim(), //流大丹
+                txtPhone.Text.Trim(), //0919963322
+                txtGmail.Text.Trim(), //dennis866@gmail.com
+                rdogender0.Checked ? "女" : "男", //男生
+                dropClothesSize.SelectedItem.Text, //S
+                dropCourse.SelectedItem.Text //生命突破
+            };
+
+            valueRange.Values = new List<IList<object>> { oblist };
+            valueRange.MajorDimension = "Rows"; //Rows or Columns
+
+            SpreadsheetsResource.ValuesResource.AppendRequest request = service.Spreadsheets.Values.Append(valueRange, spreadsheetId, range);
+            request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+
+            var appendReponse = request.Execute();
         }
 
 

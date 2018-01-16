@@ -60,6 +60,7 @@ namespace LifeBuildC
 
                     //組別
                     string GroupClass = dropGroupClass.SelectedItem.Text;
+                    GroupClass = "兒童";
 
                     //小組
                     string[] arrg = dropGroupName.SelectedItem.Text.Split('.');
