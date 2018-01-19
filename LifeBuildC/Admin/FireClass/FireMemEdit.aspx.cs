@@ -83,12 +83,12 @@ namespace LifeBuildC.Admin.FireClass
 
             //下午場講座
             if (bool.Parse(dt.Rows[0]["Course"].ToString()))
-            {
-                dropCourse.SelectedIndex = 1;
+            { //教會突破
+                dropCourse.SelectedIndex = 2;
             }
             else
-            {
-                dropCourse.SelectedIndex = 2;
+            { //生命突破
+                dropCourse.SelectedIndex = 1;
             }
 
         }
@@ -154,7 +154,7 @@ namespace LifeBuildC.Admin.FireClass
                     string ClothesSize = dropClothesSize.SelectedItem.Text;
 
                     bool Course = false; //生命突破
-                    if (dropCourse.SelectedValue == "0")
+                    if (dropCourse.SelectedIndex == 2)
                     {
                         Course = true;
                     }

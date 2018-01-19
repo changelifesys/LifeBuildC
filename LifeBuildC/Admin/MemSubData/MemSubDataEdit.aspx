@@ -198,7 +198,7 @@
                     <asp:Label ID="Label49" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
                     &nbsp;
                 <asp:Label ID="Label50" ForeColor="#5a5e66" runat="server" Text="C1 考試"></asp:Label>
-                &nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
                 </span>
                 <asp:TextBox class="inputStyle" ID="txtC1_Score" Width="50px" runat="server"></asp:TextBox>分
             </div>
@@ -214,7 +214,7 @@
                     <asp:Label ID="Label51" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
                     &nbsp;
                 <asp:Label ID="Label52" ForeColor="#5a5e66" runat="server" Text="C2 第一、二課考試"></asp:Label>
-                &nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
                 </span>
                 <asp:TextBox class="inputStyle" ID="txtC212_Score" Width="50px" runat="server"></asp:TextBox>分
             </div>
@@ -230,63 +230,63 @@
                     <asp:Label ID="Label53" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
                     &nbsp;
                 <asp:Label ID="Label54" ForeColor="#5a5e66" runat="server" Text="C2 第三、四課考試"></asp:Label>
-                &nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
                 </span>
                 <asp:TextBox class="inputStyle" ID="txtC234_Score" Width="50px" runat="server"></asp:TextBox>分
             </div>
 
             <!--交見證-->
-            <div style="background-color: rgb(220,230,241);margin: 5px;">
-                            <div class="FieldStyle">
-                <asp:Label ID="Label33" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
-                &nbsp;
+            <div style="background-color: rgb(220,230,241); margin: 5px;">
+                <div class="FieldStyle">
+                    <asp:Label ID="Label33" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                    &nbsp;
                 <asp:Label ID="Label34" ForeColor="#5a5e66" runat="server" Text="交見證"></asp:Label>
-            </div>
-            <div style="text-align: center; margin: 5px;">
-                <span class="FieldStyle2">
-                    <asp:Label ID="Label55" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
-                    &nbsp;
+                </div>
+                <div style="text-align: center; margin: 5px;">
+                    <span class="FieldStyle2">
+                        <asp:Label ID="Label55" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                        &nbsp;
                 <asp:Label ID="Label56" ForeColor="#5a5e66" runat="server" Text="交見證"></asp:Label>
-                &nbsp;&nbsp;&nbsp;
-                </span>
-                <asp:CheckBox ID="chkIswitness" runat="server" />已交見證
+                        &nbsp;&nbsp;&nbsp;
+                    </span>
+                    <asp:CheckBox ID="chkIswitness" runat="server" />已交見證
             <br />
-                <asp:TextBox ID="txtwitness" runat="server" Rows="50" TextMode="MultiLine" Height="50px" Width="400px"></asp:TextBox>
-            </div>
-            </div>
-            
-            <div style="background-color: rgb(253,233,217);margin: 5px;">
-                            <!--C1 通過判定-->
-            <div class="FieldStyle">
-                <asp:Label ID="Label35" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
-                &nbsp;
-                <asp:Label ID="Label36" ForeColor="#5a5e66" runat="server" Text="C1 通過判定"></asp:Label>
-            </div>
-            <div style="text-align: center; margin: 5px;">
-                <span class="FieldStyle2">
-                    <asp:Label ID="Label57" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
-                    &nbsp;
-                <asp:Label ID="Label58" ForeColor="#5a5e66" runat="server" Text="C1 通過判定"></asp:Label>
-                &nbsp;&nbsp;&nbsp;
-                </span>
-                <asp:Label ID="lblC1_Status" runat="server" Text=""></asp:Label>
+                    <asp:TextBox ID="txtwitness" runat="server" Rows="20" TextMode="MultiLine" Width="70%"></asp:TextBox>
+                </div>
             </div>
 
-            <!--C2 通過判定-->
-            <div class="FieldStyle">
-                <asp:Label ID="Label37" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
-                &nbsp;
-                <asp:Label ID="Label38" ForeColor="#5a5e66" runat="server" Text="C2 通過判定"></asp:Label>
-            </div>
-            <div style="text-align: center; margin: 5px;">
-                <span class="FieldStyle2">
-                    <asp:Label ID="Label59" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+            <div style="background-color: rgb(253,233,217); margin: 5px;">
+                <!--C1 通過判定-->
+                <div class="FieldStyle">
+                    <asp:Label ID="Label35" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
                     &nbsp;
+                <asp:Label ID="Label36" ForeColor="#5a5e66" runat="server" Text="C1 通過判定"></asp:Label>
+                </div>
+                <div style="text-align: center; margin: 5px;">
+                    <span class="FieldStyle2">
+                        <asp:Label ID="Label57" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                        &nbsp;
+                <asp:Label ID="Label58" ForeColor="#5a5e66" runat="server" Text="C1 通過判定"></asp:Label>
+                        &nbsp;&nbsp;&nbsp;
+                    </span>
+                    <asp:Label ID="lblC1_Status" runat="server" Text=""></asp:Label>
+                </div>
+
+                <!--C2 通過判定-->
+                <div class="FieldStyle">
+                    <asp:Label ID="Label37" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                    &nbsp;
+                <asp:Label ID="Label38" ForeColor="#5a5e66" runat="server" Text="C2 通過判定"></asp:Label>
+                </div>
+                <div style="text-align: center; margin: 5px;">
+                    <span class="FieldStyle2">
+                        <asp:Label ID="Label59" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
+                        &nbsp;
                 <asp:Label ID="Label60" ForeColor="#5a5e66" runat="server" Text="C2 通過判定"></asp:Label>
-                &nbsp;&nbsp;&nbsp;
-                </span>
-                <asp:Label ID="lblC2_Status" runat="server" Text=""></asp:Label>
-            </div>
+                        &nbsp;&nbsp;&nbsp;
+                    </span>
+                    <asp:Label ID="lblC2_Status" runat="server" Text=""></asp:Label>
+                </div>
             </div>
 
 
