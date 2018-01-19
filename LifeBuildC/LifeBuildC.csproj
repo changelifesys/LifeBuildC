@@ -137,6 +137,7 @@
     <Content Include="Admin\js\examedit.js" />
     <Content Include="Admin\js\examscore.js" />
     <Content Include="Admin\js\MemSubDataEdit.js" />
+    <Content Include="Admin\js\MemSubDataList.js" />
     <Content Include="Admin\js\menu.js" />
     <Content Include="Admin\js\subjectedit.js" />
     <Content Include="Admin\js\subjectlist.js" />

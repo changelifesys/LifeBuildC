@@ -40,13 +40,31 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.HiddenField hfGroupClass;
         
         /// <summary>
-        /// hfGroupCName 控制項。
+        /// hfGroupClassValue 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfGroupCName;
+        protected global::System.Web.UI.WebControls.HiddenField hfGroupClassValue;
+        
+        /// <summary>
+        /// hfGroupName 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfGroupName;
+        
+        /// <summary>
+        /// hfGroupNameValue 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfGroupNameValue;
         
         /// <summary>
         /// Label1 控制項。
@@ -247,6 +265,24 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.Label Label18;
         
         /// <summary>
+        /// Label39 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label39;
+        
+        /// <summary>
+        /// Label40 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label40;
+        
+        /// <summary>
         /// chkIsC112 控制項。
         /// </summary>
         /// <remarks>
@@ -272,6 +308,24 @@ namespace LifeBuildC.Admin.MemSubData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label20;
+        
+        /// <summary>
+        /// Label41 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label41;
+        
+        /// <summary>
+        /// Label42 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label42;
         
         /// <summary>
         /// chkIsC134 控制項。
@@ -301,6 +355,24 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.Label Label22;
         
         /// <summary>
+        /// Label43 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label43;
+        
+        /// <summary>
+        /// Label44 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label44;
+        
+        /// <summary>
         /// chkIsC212 控制項。
         /// </summary>
         /// <remarks>
@@ -326,6 +398,24 @@ namespace LifeBuildC.Admin.MemSubData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label24;
+        
+        /// <summary>
+        /// Label45 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label45;
+        
+        /// <summary>
+        /// Label46 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label46;
         
         /// <summary>
         /// chkIsC234 控制項。
@@ -355,6 +445,24 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.Label Label26;
         
         /// <summary>
+        /// Label47 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label47;
+        
+        /// <summary>
+        /// Label48 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label48;
+        
+        /// <summary>
         /// chkIsC25 控制項。
         /// </summary>
         /// <remarks>
@@ -380,6 +488,24 @@ namespace LifeBuildC.Admin.MemSubData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label28;
+        
+        /// <summary>
+        /// Label49 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label49;
+        
+        /// <summary>
+        /// Label50 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label50;
         
         /// <summary>
         /// txtC1_Score 控制項。
@@ -409,6 +535,24 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.Label Label30;
         
         /// <summary>
+        /// Label51 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label51;
+        
+        /// <summary>
+        /// Label52 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label52;
+        
+        /// <summary>
         /// txtC212_Score 控制項。
         /// </summary>
         /// <remarks>
@@ -436,6 +580,24 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.Label Label32;
         
         /// <summary>
+        /// Label53 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label53;
+        
+        /// <summary>
+        /// Label54 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label54;
+        
+        /// <summary>
         /// txtC234_Score 控制項。
         /// </summary>
         /// <remarks>
@@ -461,6 +623,24 @@ namespace LifeBuildC.Admin.MemSubData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label34;
+        
+        /// <summary>
+        /// Label55 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label55;
+        
+        /// <summary>
+        /// Label56 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label56;
         
         /// <summary>
         /// chkIswitness 控制項。
@@ -499,6 +679,24 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.Label Label36;
         
         /// <summary>
+        /// Label57 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label57;
+        
+        /// <summary>
+        /// Label58 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label58;
+        
+        /// <summary>
         /// lblC1_Status 控制項。
         /// </summary>
         /// <remarks>
@@ -524,6 +722,24 @@ namespace LifeBuildC.Admin.MemSubData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label38;
+        
+        /// <summary>
+        /// Label59 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label59;
+        
+        /// <summary>
+        /// Label60 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label60;
         
         /// <summary>
         /// lblC2_Status 控制項。

@@ -523,7 +523,12 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT *
+                string sql = @"SELECT *,
+
+    (SELECT TOP 1 GroupID FROM ChcGroup 
+	WHERE GroupCName = M.GroupCName 
+	AND GroupName = M.GroupName)+'.'+GroupCName+'-'+GroupName group2
+
                                             FROM ChcMember M
                                             WHERE MID=@MID
                                            ";

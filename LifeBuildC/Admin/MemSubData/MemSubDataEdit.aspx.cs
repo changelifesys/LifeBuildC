@@ -42,6 +42,8 @@ namespace LifeBuildC.Admin.MemSubData
             hfGroupClass.Value = dt.Rows[0]["GroupClass"].ToString();
 
             //小組
+            hfGroupName.Value = dt.Rows[0]["group2"].ToString();
+
             //DataTable dtGroup = group.QueryGroupNameByChcGroup(dropGroupClass.SelectedItem.Text);
             //if (dtGroup != null && dtGroup.Rows.Count > 0)
             //{
@@ -131,13 +133,13 @@ namespace LifeBuildC.Admin.MemSubData
             DataTable dtStatus = cstatus.QueryByClassStatus();
 
             //組別
-            //string GroupClass = dropGroupClass.SelectedItem.Text;
+            string GroupClass = hfGroupClassValue.Value;
 
             //小組
-            //string _group = dropGroupName.SelectedItem.Text;
-            //string[] arrg = _group.Split('.');
-            //string GroupCName = arrg[1].Split('-')[0];
-            //string GroupName = arrg[1].Split('-')[1];
+            string _group = hfGroupNameValue.Value;
+            string[] arrg = _group.Split('.');
+            string GroupCName = arrg[1].Split('-')[0];
+            string GroupName = arrg[1].Split('-')[1];
 
             //姓名
             string Ename = txtEname.Text.Trim();
@@ -188,10 +190,10 @@ namespace LifeBuildC.Admin.MemSubData
                 C2_Status = dtStatus.Select("StatusID='C001'")[0]["ClassStatus"].ToString();
             }
 
-            //member.UpdChcMember2(MID, GroupCName, GroupName, GroupClass,
-            //                                                 Ename, Church, C1_Status, C2_Status,
-            //                                                 IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score,
-            //                                                 witness, Iswitness);
+            member.UpdChcMember2(MID, GroupCName, GroupName, GroupClass,
+                                                             Ename, Church, C1_Status, C2_Status,
+                                                             IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score,
+                                                             witness, Iswitness);
 
             Response.Write("<script>alert('儲存成功');location.href='MemSubDataList.aspx'</script>");
 

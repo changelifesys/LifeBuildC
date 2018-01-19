@@ -1,9 +1,15 @@
 ﻿using ADO;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Services;
+using Google.Apis.Sheets.v4;
+using Google.Apis.Sheets.v4.Data;
+using Google.Apis.Util.Store;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -60,7 +66,6 @@ namespace LifeBuildC
 
                     //組別
                     string GroupClass = dropGroupClass.SelectedItem.Text;
-                    GroupClass = "兒童";
 
                     //小組
                     string[] arrg = dropGroupName.SelectedItem.Text.Split('.');
@@ -78,6 +83,9 @@ namespace LifeBuildC
                     {
                         fireMem.InsFireMember(GroupCName, GroupName, GroupClass, Ename, "",
     "", true, "", true, PassKey, Birthday);
+
+                        SendGoogleExcel();
+                        SendGoogleExcelByClass();
 
                         Response.Write("<script>location.href='Fire18SignUp03.aspx'</script>");
                     }
@@ -195,6 +203,125 @@ namespace LifeBuildC
             public const string UpperLetter = "^[A-Z]+$";
             public const string Url = @"^http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?$";
             public const string Birthday = @"^(19|20)\d{2}-(1[0-2]|0?[1-9])-(0?[1-9]|[1-2][0-9]|3[0-1])$";
+        }
+
+        //大會用
+        private void SendGoogleExcel()
+        {
+            string[] Scopes = { SheetsService.Scope.Spreadsheets };
+
+            //應用程式的名字需要英文
+            string ApplicationName = "Get Google SheetData with Google Sheets API";
+
+            UserCredential credential;
+
+            var folder = System.Web.HttpContext.Current.Server.MapPath("/App_Data/MyGoogleStorage");
+
+            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+               new ClientSecrets
+               {
+                   ClientId = "117990626740-rptck4cro3bpbu3u7da3t4qlr20i3rsl.apps.googleusercontent.com",
+                   ClientSecret = "zcFr6UCqdX-jo29QFogCcyf1"
+               },
+               Scopes,
+               "user",
+               CancellationToken.None,
+               new FileDataStore(folder)).Result;
+
+            // Create Google Sheets API service.
+
+            var service = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName
+            });
+
+            // Define request parameters.
+            String spreadsheetId = "106Y2tmI4RV3tJN_Ri4Xc91R3CZ1158GBJstlhfExjew";
+
+            //String range = "工作表1!A:B";
+            String range = "工作表1";
+
+            var valueRange = new ValueRange();
+
+            var oblist = new List<object>() {
+                DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd HH:mm:ss"), //時間
+                "兒童", //社青
+                dropGroupName.SelectedItem.Text, //CA202.信豪牧區-彥伯小組
+                txtEname2.Text.Trim(), //流大丹
+                "", //手機
+                "", //gmail
+                "", //男生
+                "", //生日
+                "", //S
+                "" //生命突破
+            };
+
+            valueRange.Values = new List<IList<object>> { oblist };
+            valueRange.MajorDimension = "Rows"; //Rows or Columns
+
+            SpreadsheetsResource.ValuesResource.AppendRequest request = service.Spreadsheets.Values.Append(valueRange, spreadsheetId, range);
+            request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+
+            var appendReponse = request.Execute();
+        }
+
+        //小組長用
+        private void SendGoogleExcelByClass()
+        {
+            string[] Scopes = { SheetsService.Scope.Spreadsheets };
+
+            //應用程式的名字需要英文
+            string ApplicationName = "Get Google SheetData with Google Sheets API";
+
+            UserCredential credential;
+
+            var folder = System.Web.HttpContext.Current.Server.MapPath("/App_Data/MyGoogleStorage");
+
+            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+               new ClientSecrets
+               {
+                   ClientId = "117990626740-rptck4cro3bpbu3u7da3t4qlr20i3rsl.apps.googleusercontent.com",
+                   ClientSecret = "zcFr6UCqdX-jo29QFogCcyf1"
+               },
+               Scopes,
+               "user",
+               CancellationToken.None,
+               new FileDataStore(folder)).Result;
+
+            // Create Google Sheets API service.
+
+            var service = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName
+            });
+
+            // Define request parameters.
+            String spreadsheetId = "1IzuEudxNvaO44mTZgXbvcxAfQ21FfxnPeW12PB3jW2M";
+
+            //String range = "工作表1!A:B";
+            String range = "工作表1";
+
+            var valueRange = new ValueRange();
+
+            var oblist = new List<object>() {
+                DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd HH:mm:ss"), //時間
+                "兒童", //社青
+                dropGroupName.SelectedItem.Text, //CA202.信豪牧區-彥伯小組
+                txtEname2.Text.Trim(), //流大丹
+                "", //男生
+                "", //S
+                "" //生命突破
+            };
+
+            valueRange.Values = new List<IList<object>> { oblist };
+            valueRange.MajorDimension = "Rows"; //Rows or Columns
+
+            SpreadsheetsResource.ValuesResource.AppendRequest request = service.Spreadsheets.Values.Append(valueRange, spreadsheetId, range);
+            request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+
+            var appendReponse = request.Execute();
         }
 
     }

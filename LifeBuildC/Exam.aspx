@@ -17,7 +17,7 @@
 </head>
 <body>
 
-    <img src="./src/assets/title.jpg" alt="" id="mainBg">
+    <img src="./img/title.jpg" alt="" id="mainBg">
       <div class="container">
         <div class="row">
           <div id="app"></div>

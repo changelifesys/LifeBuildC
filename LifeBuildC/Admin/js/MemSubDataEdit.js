@@ -1,5 +1,11 @@
 ﻿$(function () {
 
+    if ($(window).width() > 800) {
+        $(".inputStyle").css('width', 300);
+        $(".FieldStyle2").removeClass();
+        $(".FieldStyle").css('display', 'none');
+    }
+
     var _json = $('#hfChcGroup').val();
     //console.log(_json);
 
@@ -7,30 +13,53 @@
     //console.log(_obj.DataInfo[0]);
     //console.log(_obj.DataInfo.length);
 
+    //組別
     for (var i = 0; i < _obj.DataInfo.length; i++) {
         //console.log(_obj.DataInfo[i]);
         $('#dropGroupClass').append($('<option></option>').attr('value', i).text(_obj.DataInfo[i].group));
-    }
 
-    //var _GroupClassID = $('#GroupClassID').val();
-    //$('#dropGroupClass option[value=' + _GroupClassID + ']').attr('selected', 'selected');
+        if (_obj.DataInfo[i].group == $('#hfGroupClass').val())
+        {
+            $("#dropGroupClass").val(i);
+            getGroupName();
 
-    $('#dropGroupClass').change(function () {
-
-        $('#dropGroupName option').remove();
-
-        var _i = $('#dropGroupClass').find(':selected').val();
-        console.log(_i);
-
-        for (var i = 0; i < _obj.DataInfo[_i].list.length; i++) {
-
-            console.log(_obj.DataInfo[_i].list[i]);
-            $('#dropGroupName').append($('<option></option>').attr('value', i).text(_obj.DataInfo[_i].list[i]));
+            $('#hfGroupClassValue').val($('#dropGroupClass :selected').text());
+            $('#hfGroupNameValue').val($('#dropGroupName :selected').text());
 
         }
 
+    }
+
+    //組別
+    $('#dropGroupClass').change(function () {
+        getGroupName();
+        $('#hfGroupClassValue').val($('#dropGroupClass :selected').text());
+        $('#hfGroupNameValue').val($('#dropGroupName :selected').text());
     });
 
-    var a = $('#hfGroupClass').val();
-    $('#dropGroupClass').val(2);
+    //小組
+    $('#dropGroupName').change(function () {
+        $('#hfGroupNameValue').val($('#dropGroupName :selected').text());
+    });
+
+    function getGroupName()
+    {
+        //清空 option
+        $('#dropGroupName option').remove();
+
+        var _i = $('#dropGroupClass').find(':selected').val();
+        //console.log(_i);
+
+        for (var i = 0; i < _obj.DataInfo[_i].list.length; i++) {
+            //console.log(_obj.DataInfo[_i].list[i]);
+            $('#dropGroupName').append($('<option></option>').attr('value', i).text(_obj.DataInfo[_i].list[i]));
+
+            if (_obj.DataInfo[_i].list[i] == $('#hfGroupName').val())
+            {
+                $('#dropGroupName').val(i);
+            }
+
+        }
+    }
+
 });

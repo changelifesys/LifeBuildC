@@ -13,8 +13,9 @@
     <script>
         $(function () {
 
-            $('#btnExcel').click(function () {
+            $('#btnExcel,#btnExcelClass').click(function () {
                 $('#btnExcel').css('display', 'none');
+                $('#btnExcelClass').css('display', 'none');
                 $('#lblSend').removeAttr('style');
                 $('#lblSend').css('color', 'red');
             });
@@ -26,7 +27,9 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Button ID="btnExcel" runat="server" Visible="true" Text="匯出到google雲端" OnClick="btnExcel_Click" />
+            <asp:Button ID="btnExcel" runat="server" Visible="true" Text="匯出到google雲端(大會用)" OnClick="btnExcel_Click" />
+            &nbsp;&nbsp;&nbsp;
+            <asp:Button ID="btnExcelClass" runat="server" Visible="true" Text="匯出到google雲端(小組長用)" OnClick="btnExcelClass_Click" />
             <label id="lblSend" style="display: none;">資料匯出到雲端中，請稍後...</label>
             <p />
             密碼：<asp:TextBox ID="txtPassKey" runat="server"></asp:TextBox>

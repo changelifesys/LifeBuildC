@@ -220,7 +220,7 @@ namespace LifeBuildC.Api
                                                    _Score.ToString());
 
             //Google Excel
-            //SendGoogleExcel(AnswerData, _Score.ToString());
+            SendGoogleExcel(AnswerData, _Score.ToString());
 
             #endregion
 

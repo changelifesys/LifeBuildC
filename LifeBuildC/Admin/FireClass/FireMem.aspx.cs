@@ -76,7 +76,16 @@ namespace LifeBuildC.Admin.FireClass
             foreach (DataRow dr in dt.Rows)
             {
                 PageData.Time = dr["CreateTime"].ToString();
-                PageData.gcroup = dr["GroupClass"].ToString();
+
+                if (dr["Ename"].ToString().IndexOf('-') > 0)
+                {
+                    PageData.gcroup = "兒童";
+                }
+                else
+                {
+                    PageData.gcroup = dr["GroupClass"].ToString();
+                }
+
                 PageData.group = dr["group2"].ToString();
                 PageData.Ename = dr["Ename"].ToString();
                 PageData.Phone = dr["Phone2"].ToString();
@@ -179,6 +188,34 @@ namespace LifeBuildC.Admin.FireClass
             var appendReponse = request.Execute();
         }
 
+        private void AddDataByV4Sheets2(PageData PageData)
+        {
+            SheetsService sheetsService = new SheetsService(new BaseClientService.Initializer
+            {
+                HttpClientInitializer = GetCredential(),
+                ApplicationName = "Get Google SheetData with Google Sheets API",
+            });
+
+            var valueRange = new ValueRange();
+
+            var oblist = new List<object>() {
+                PageData.Time,
+                PageData.gcroup,
+                PageData.group,
+                PageData.Ename,
+                PageData.gender,
+                PageData.ClothesSize,
+                PageData.Course
+            };
+
+            valueRange.Values = new List<IList<object>> { oblist };
+            valueRange.MajorDimension = "Rows"; //Rows or Columns
+
+            SpreadsheetsResource.ValuesResource.AppendRequest request = sheetsService.Spreadsheets.Values.Append(valueRange, spreadsheetId, sheetName);
+            request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+            var appendReponse = request.Execute();
+        }
+
         private UserCredential GetCredential()
         {
             // TODO: Change placeholder below to generate authentication credentials. See:
@@ -261,6 +298,69 @@ namespace LifeBuildC.Admin.FireClass
             gvExcel.DataBind();
 
             lblCount.Text = "查詢共 " + dt.Rows.Count.ToString() + " 筆資料";
+        }
+
+        protected void btnExcelClass_Click(object sender, EventArgs e)
+        {
+            spreadsheetId = "1IzuEudxNvaO44mTZgXbvcxAfQ21FfxnPeW12PB3jW2M";
+
+            #region google Sheets
+
+            //先創建工作表, 若有存在就清空資料
+            try
+            {
+                CreateV4Sheets();
+            }
+            catch
+            {
+                ClearV4Sheets();
+            }
+
+            #endregion
+
+            #region Header
+
+            PageData PageData = new PageData();
+            PageData.Time = "報名時間";
+            PageData.gcroup = "組別";
+            PageData.group = "小組";
+            PageData.Ename = "姓名";
+            PageData.gender = "姓別";
+            PageData.ClothesSize = "衣服尺寸";
+            PageData.Course = "下午場講座";
+
+            AddDataByV4Sheets2(PageData);
+
+            #endregion
+
+            #region Data
+
+            DataTable dt = firemem.QueryFireMember();
+            foreach (DataRow dr in dt.Rows)
+            {
+                PageData.Time = dr["CreateTime"].ToString();
+
+                if (dr["Ename"].ToString().IndexOf('-') > 0)
+                {
+                    PageData.gcroup = "兒童";
+                }
+                else
+                {
+                    PageData.gcroup = dr["GroupClass"].ToString();
+                }
+
+                PageData.group = dr["group2"].ToString();
+                PageData.Ename = dr["Ename"].ToString();
+                PageData.gender = dr["gender2"].ToString();
+                PageData.ClothesSize = dr["ClothesSize"].ToString();
+                PageData.Course = dr["Course2"].ToString();
+                AddDataByV4Sheets2(PageData);
+            }
+
+            #endregion
+
+            Response.Redirect("https://docs.google.com/spreadsheets/d/1IzuEudxNvaO44mTZgXbvcxAfQ21FfxnPeW12PB3jW2M/edit#gid=0");
+
         }
     }
 }
