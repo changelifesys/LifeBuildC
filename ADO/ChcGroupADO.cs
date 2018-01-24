@@ -35,6 +35,27 @@ namespace ADO
             return dt;
         }
 
+        public DataTable QueryGroupCNameByChcGroup(string GroupClass)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT GroupCName FROM ChcGroup
+                                            WHERE GroupClass = @GroupClass
+                                            AND GSort > 0
+                                            GROUP BY GroupCName
+                                            ORDER BY MAX(GSort)
+                                          ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupClass", GroupClass);
+                sda.Fill(dt);
+            }
+
+            return dt;
+        }
+
         public DataTable QueryGroupNameByChcGroup(string GroupClass)
         {
             DataTable dt = new DataTable();
@@ -55,19 +76,7 @@ namespace ADO
         public DataTable QueryGroupClassByChcGroup(string GroupName)
         {
             DataTable dt = new DataTable();
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT TOP 1 * FROM ChcGroup
-            //                                WHERE GroupName LIKE '%'+@GroupName+'%'
-            //                               ";
 
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@GroupName", GroupName);
-            //    sda.Fill(dt);
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT TOP 1 * FROM ChcGroup
@@ -89,20 +98,7 @@ namespace ADO
         public DataTable QueryGroupName12ByChcGroup(string GroupName12)
         {
             DataTable dt = new DataTable();
-            #region Access
-            using (OleDbConnection con = new OleDbConnection(condb))
-            {
-                string sql = @"SELECT MAX(GSort), mid(GroupName, 1, 2) 
-                                            FROM ChcGroup
-                                            GROUP BY mid(GroupName, 1, 2)
-                                            HAVING mid(GroupName, 1, 2) = @GroupName12";
 
-                OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-                sda.SelectCommand.Parameters.AddWithValue("@GroupName12", GroupName12);
-                sda.Fill(dt);
-            }
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT MAX(GSort), mid(GroupName, 1, 2) 
@@ -123,18 +119,7 @@ namespace ADO
         public DataTable QueryGSortByChcGroup(int GSort)
         {
             DataTable dt = new DataTable();
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT * FROM ChcGroup
-            //                                WHERE GSort > @GSort";
 
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@GSort", GSort);
-            //    sda.Fill(dt);
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM ChcGroup

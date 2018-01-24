@@ -19,29 +19,6 @@ namespace ADO
 
         public void InsChcMember2(string GroupCName, string GroupName, string GroupClass, string Ename, string Gmail, string Church, string C1_Status, string C2_Status, string Phone)
         {
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"INSERT INTO
-            //                               ChcMember(GroupName, Ename, Gmail, Church, C1_Status, C2_Status, Phone)
-            //                               VALUES(@GroupName, @Ename, @Gmail, @Church, @C1_Status, @C2_Status, @Phone)";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@GroupName", GroupName);
-            //    com.Parameters.AddWithValue("@Ename", Ename);
-            //    com.Parameters.AddWithValue("@Gmail", Gmail);
-            //    com.Parameters.AddWithValue("@Church", Church);
-            //    com.Parameters.AddWithValue("@C1_Status", C1_Status);
-            //    com.Parameters.AddWithValue("@C2_Status", C2_Status);
-            //    com.Parameters.AddWithValue("@Phone", Phone);
-
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            #endregion
-            
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
@@ -70,29 +47,6 @@ namespace ADO
 
         public void UpdChcMember(string Phone, string Gmail, string Church, int MID)
         {
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"UPDATE ChcMember
-            //                                SET Phone = @Phone,
-            //                                        Gmail = @Gmail,
-            //                                        Church = @Church
-            //                                WHERE MID = @MID
-            //                              ";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@Phone", Phone);
-            //    com.Parameters.AddWithValue("@Gmail", Gmail);
-            //    com.Parameters.AddWithValue("@Church", Church);
-            //    com.Parameters.AddWithValue("@MID", MID);
-
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            #endregion
-
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"UPDATE ChcMember
@@ -173,27 +127,6 @@ namespace ADO
         /// </summary>
         public void UpdPhoneByChcMember(string Phone, string GroupName, string GroupCName, string GroupClass, string Ename)
         {
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"UPDATE ChcMember
-            //                                SET Phone = @Phone
-            //                                WHERE GroupName = @GroupName
-            //                                AND Ename = @Ename
-            //                              ";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@Phone", Phone);
-            //    com.Parameters.AddWithValue("@GroupName", GroupName);
-            //    com.Parameters.AddWithValue("@Ename", Ename);
-
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            #endregion
-
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"UPDATE ChcMember
@@ -223,26 +156,6 @@ namespace ADO
         public void UpdGroupNameByChcMember(string GroupName, string GroupCName, string GroupClass,
                                                                                        string Ename, string Phone)
         {
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"UPDATE ChcMember
-            //                                SET GroupName = @GroupName
-            //                                WHERE Ename = @Ename
-            //                                AND Phone = @Phone
-            //                              ";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@GroupName", GroupName);
-            //    com.Parameters.AddWithValue("@Ename", Ename);
-            //    com.Parameters.AddWithValue("@Phone", Phone);
-
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"UPDATE ChcMember
@@ -271,26 +184,6 @@ namespace ADO
         /// </summary>
         public void UpdEnameByChcMember(string Ename, string GroupName, string GroupCName, string GroupClass, string Phone)
         {
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"UPDATE ChcMember
-            //                                SET Ename = @Ename
-            //                                WHERE GroupName = @GroupName
-            //                                AND Phone = @Phone
-            //                              ";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@Ename", Ename);
-            //    com.Parameters.AddWithValue("@GroupName", GroupName);
-            //    com.Parameters.AddWithValue("@Phone", Phone);
-
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"UPDATE ChcMember
@@ -320,25 +213,6 @@ namespace ADO
         /// </summary>
         public void UpdC1_StatusByChcMember(string C1_Status, int MID)
         {
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-
-            //    string sql = @"UPDATE ChcMember 
-            //                                SET C1_Status = @C1_Status
-            //                                WHERE MID = @MID
-            //                              ";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@C1_Status", C1_Status);
-            //    com.Parameters.AddWithValue("@MID", MID);
-
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
 
@@ -362,24 +236,6 @@ namespace ADO
         /// </summary>
         public void UpdC2_StatusByChcMember(string C2_Status, int MID)
         {
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"UPDATE ChcMember 
-            //                                SET C2_Status = @C2_Status
-            //                                WHERE MID = @MID
-            //                              ";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@C2_Status", C2_Status);
-            //    com.Parameters.AddWithValue("@MID", MID);
-
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"UPDATE ChcMember 
@@ -400,7 +256,7 @@ namespace ADO
 
         #endregion
 
-        #region 會友條件查詢
+        #region 條件查詢
 
         public DataTable QueryByChcMember(string GroupCName, string GroupName, string Ename)
         {
@@ -425,33 +281,9 @@ namespace ADO
         public DataTable QueryPhoneByChcMember(string Phone)
         {
             DataTable dt = new DataTable();
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    //string sql = @"SELECT TOP 1 M.*, G.GroupName, G.GroupClass
-            //    //                            FROM ChcMember M
-            //    //                            LEFT JOIN ChcGroup G ON M.GID = G.ID
-            //    //                            WHERE M.Phone = @Phone
-            //    //                           ";
 
-            //    string sql = @"SELECT TOP 1 *
-            //                                FROM ChcMember
-            //                                WHERE Phone = @Phone
-            //                               ";
-
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@Phone", Phone);
-            //    sda.Fill(dt);
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
-                //string sql = @"SELECT TOP 1 M.*, G.GroupName, G.GroupClass
-                //                            FROM ChcMember M
-                //                            LEFT JOIN ChcGroup G ON M.GID = G.ID
-                //                            WHERE M.Phone = @Phone
-                //                           ";
 
                 string sql = @"SELECT TOP 1 *
                                             FROM ChcMember
@@ -470,22 +302,7 @@ namespace ADO
         public DataTable QueryEnameByChcMember(string Ename)
         {
             DataTable dt = new DataTable();
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT TOP 1 *
-            //                                FROM ChcMember
-            //                                WHERE Ename = @Ename
-            //                               ";
 
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@Ename", Ename);
-            //    sda.Fill(dt);
-            //}
-
-            //return dt;
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT TOP 1 *
@@ -518,6 +335,23 @@ namespace ADO
 
         }
 
+        public DataTable QueryTop100ByChcMember()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT TOP 100 * FROM ChcMember M
+                                           ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.Fill(dt);
+            }
+
+            return dt;
+
+        }
+
         public DataTable QueryMIDByChcMember(int MID)
         {
             DataTable dt = new DataTable();
@@ -539,6 +373,44 @@ namespace ADO
             }
 
             return dt;
+        }
+
+        public DataTable QueryGroupCNameByChcMember(string GroupCName)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcMember
+                                           WHERE GroupCName = @GroupCName
+                                           ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupCName", GroupCName);
+                sda.Fill(dt);
+            }
+
+            return dt;
+
+        }
+
+        public DataTable QueryGroupNameByChcMember(string GroupName)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcMember
+                                           WHERE GroupName = @GroupName
+                                           ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupName", GroupName);
+                sda.Fill(dt);
+            }
+
+            return dt;
+
         }
 
         #endregion

@@ -195,7 +195,8 @@ namespace LifeBuildC.Admin.MemSubData
                                                              IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score,
                                                              witness, Iswitness);
 
-            Response.Write("<script>alert('儲存成功');location.href='MemSubDataList.aspx'</script>");
+            //Response.Write("<script>alert('儲存成功');location.href='MemSubDataList.aspx'</script>");
+            Response.Write("<script>alert('儲存成功');javascript:window.close();</script>");
 
         }
 
@@ -255,7 +256,8 @@ namespace LifeBuildC.Admin.MemSubData
         /// </summary>
         protected void btnCel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("MemSubDataList.aspx");
+            Response.Write("<script>javascript:window.close();</script>");
+            //Response.Redirect("MemSubDataList.aspx");
         }
     }
 }
