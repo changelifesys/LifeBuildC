@@ -78,9 +78,7 @@
         <div style="text-align: center; margin: 5px;">
             <asp:Label ID="lblDataCnt" ForeColor="#fa5555" runat="server" Text="請選擇組別查詢員組修課資料"></asp:Label>
         </div>
-
-        <div>
-            <asp:GridView ID="gvChcMember" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvChcMember_RowDataBound">
+        <asp:GridView ID="gvChcMember" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvChcMember_RowDataBound" HorizontalAlign="Center">
                 <Columns>
                     <asp:TemplateField>
                         <ItemTemplate>
@@ -173,13 +171,12 @@
 
                         <FooterStyle BorderColor="Black" />
 
-                        <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" />
+                        <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                     </asp:BoundField>
 
                 </Columns>
             </asp:GridView>
-        </div>
     </form>
 </body>
 </html>
