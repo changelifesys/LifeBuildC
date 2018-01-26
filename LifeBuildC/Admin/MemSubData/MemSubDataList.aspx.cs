@@ -25,7 +25,7 @@ namespace LifeBuildC.Admin.MemSubData
 
                 #region 組別
 
-                DataTable dtGClass = group.QueryGroupByChcGroup();
+                DataTable dtGClass = group.QueryGroupClassByMemSubData();
                 foreach (DataRow dr in dtGClass.Rows)
                 {
                     ListItem li = new ListItem();

@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>生命建造修課資料</title>
+    <title>生命建造資料查詢系統</title>
     <link href="../css/PageStyle.css" rel="stylesheet" />
     <script src="../../js/jquery-3.1.1.min.js"></script>
     <script src="../js/MemSubDataList.js"></script>
@@ -17,23 +17,18 @@
     <form id="form1" runat="server">
 
         <div style="text-align: center; margin: 5px;">
-            <h1>生命建造修課資料</h1>
+            <h1>生命建造資料查詢系統</h1>
         </div>
 
             <!--組別-->
             <div class="FieldStyle">
-                <asp:Label ID="Label1" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
-                &nbsp;
                 <asp:Label ID="Label2" ForeColor="#5a5e66" runat="server" Text="組別"></asp:Label>
             </div>
             <div style="text-align: center; margin: 5px;">
                 <span class="FieldStyle2">
-                    <asp:Label ID="Label3" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
-                    &nbsp;
                     <asp:Label ID="Label4" ForeColor="#5a5e66" runat="server" Text="組別"></asp:Label>
-                    &nbsp;&nbsp;&nbsp;
                 </span>
-                
+                &nbsp;&nbsp;&nbsp;
                 <asp:DropDownList CssClass="inputStyle" ID="dropGroupClass" runat="server" AutoPostBack="True" OnSelectedIndexChanged="dropGroupClass_SelectedIndexChanged">
                     <asp:ListItem Value="" disabled Selected hidden>請選擇組別</asp:ListItem>
                 </asp:DropDownList>
@@ -41,17 +36,13 @@
 
             <!--小組-->
             <div id="gid1_1" class="FieldStyle" runat="server">
-                <asp:Label ID="Label5" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
-                &nbsp;
                 <asp:Label ID="Label6" ForeColor="#5a5e66" runat="server" Text="小組"></asp:Label>
             </div>
             <div id="gid1_2" style="text-align: center; margin: 5px;" runat="server">
                 <span class="FieldStyle2">
-                    <asp:Label ID="Label7" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
-                    &nbsp;
                     <asp:Label ID="Label8" ForeColor="#5a5e66" runat="server" Text="小組"></asp:Label>
-                    &nbsp;&nbsp;&nbsp;
                 </span>
+                                &nbsp;&nbsp;&nbsp;
                 <asp:DropDownList CssClass="inputStyle" ID="dropGroupName" runat="server" AutoPostBack="True" OnSelectedIndexChanged="dropGroupName_SelectedIndexChanged">
                     <asp:ListItem Value="" disabled Selected hidden>請選擇組別</asp:ListItem>
                 </asp:DropDownList>
@@ -59,17 +50,13 @@
 
             <!--區長-->
             <div id="gid2_1" class="FieldStyle" runat="server">
-                <asp:Label ID="Label9" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
-                &nbsp;
                 <asp:Label ID="Label10" ForeColor="#5a5e66" runat="server" Text="區長"></asp:Label>
             </div>
             <div id="gid2_2" style="text-align: center; margin: 5px;" runat="server">
                 <span class="FieldStyle2">
-                    <asp:Label ID="Label11" ForeColor="#fa5555" runat="server" Text="*"></asp:Label>
-                    &nbsp;
                     <asp:Label ID="Label12" ForeColor="#5a5e66" runat="server" Text="區長"></asp:Label>
-                    &nbsp;&nbsp;&nbsp;
                 </span>
+                                &nbsp;&nbsp;&nbsp;
                 <asp:DropDownList CssClass="inputStyle" ID="dropGroupCName" runat="server" AutoPostBack="True" OnSelectedIndexChanged="dropGroupCName_SelectedIndexChanged">
                     <asp:ListItem Value="" disabled Selected hidden>請選擇區長</asp:ListItem>
                 </asp:DropDownList>

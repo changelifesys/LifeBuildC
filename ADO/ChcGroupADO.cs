@@ -35,6 +35,25 @@ namespace ADO
             return dt;
         }
 
+        public DataTable QueryGroupClassByMemSubData()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT GroupClass, MAX(GSort) FROM ChcGroup
+                                           WHERE GroupClass <> ''
+                                           AND GSort <> 0
+                                           GROUP BY GroupClass
+                                           ORDER BY MAX(GSort)
+                                          ";
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.Fill(dt);
+            }
+
+            return dt;
+        }
+
         public DataTable QueryGroupCNameByChcGroup(string GroupClass)
         {
             DataTable dt = new DataTable();

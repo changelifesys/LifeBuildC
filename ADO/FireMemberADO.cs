@@ -143,7 +143,9 @@ namespace ADO
 	                                             AND GroupName = FireMember.GroupName)+'.'+GroupCName+'-'+GroupName group2
 
                                             FROM FireMember
-                                            ORDER BY CreateTime DESC";
+                                            --ORDER BY CreateTime DESC
+                                            ORDER BY group2
+                                         ";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);

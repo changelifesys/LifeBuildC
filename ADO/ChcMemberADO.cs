@@ -383,6 +383,7 @@ namespace ADO
             {
                 string sql = @"SELECT * FROM ChcMember
                                            WHERE GroupCName = @GroupCName
+                                           ORDER BY GroupName, MID
                                            ";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
@@ -402,6 +403,7 @@ namespace ADO
             {
                 string sql = @"SELECT * FROM ChcMember
                                            WHERE GroupName = @GroupName
+                                           ORDER BY GroupName, MID
                                            ";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
