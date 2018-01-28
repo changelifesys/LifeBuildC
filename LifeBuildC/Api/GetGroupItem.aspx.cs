@@ -24,7 +24,7 @@ namespace LifeBuildC.Api
         private void PageStart()
         {
             PageData PageData = new PageData();
-            DataTable dt = chcgroup.QueryGroupByChcGroup();
+            DataTable dt = chcgroup.QueryGroupByChcGroup_1();
             if (dt != null && dt.Rows.Count > 0)
             {
                 foreach (DataRow dr in dt.Rows)
@@ -32,7 +32,7 @@ namespace LifeBuildC.Api
                     DataInfo dinfo = new DataInfo();
                     dinfo.group = dr["GroupClass"].ToString();
 
-                    DataTable dtlist = chcgroup.QueryGroupNameByChcGroup(dr["GroupClass"].ToString());
+                    DataTable dtlist = chcgroup.QueryGroupNameByChcGroup_1(dr["GroupClass"].ToString());
                     foreach (DataRow drlist in dtlist.Rows)
                     {
                         string _GroupID = drlist["GroupID"].ToString();

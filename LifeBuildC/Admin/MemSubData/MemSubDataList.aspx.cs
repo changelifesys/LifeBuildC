@@ -164,7 +164,7 @@ namespace LifeBuildC.Admin.MemSubData
             {
                 #region 中央同工&小組長
 
-                DataTable dtGroup = group.QueryGroupNameByChcGroup(dropGroupClass.SelectedItem.Text);
+                DataTable dtGroup = group.QueryGroupNameByChcGroup_1(dropGroupClass.SelectedItem.Text);
 
                 dropGroupName.Items.Clear();
                 foreach (DataRow dr in dtGroup.Rows)

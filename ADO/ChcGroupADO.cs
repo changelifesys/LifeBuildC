@@ -35,6 +35,25 @@ namespace ADO
             return dt;
         }
 
+        public DataTable QueryGroupByChcGroup_1()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT GroupClass, MAX(GSort) FROM ChcGroup
+                                           WHERE GroupClass <> ''
+                                           AND GSort > 0
+                                           GROUP BY GroupClass
+                                           ORDER BY MAX(GSort)
+                                          ";
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.Fill(dt);
+            }
+
+            return dt;
+        }
+
         public DataTable QueryGroupClassByMemSubData()
         {
             DataTable dt = new DataTable();
@@ -82,6 +101,24 @@ namespace ADO
             {
                 string sql = @"SELECT * FROM ChcGroup
                                            WHERE GroupClass = @GroupClass
+                                           ORDER BY GSort";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupClass", GroupClass);
+                sda.Fill(dt);
+            }
+
+            return dt;
+        }
+
+        public DataTable QueryGroupNameByChcGroup_1(string GroupClass)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcGroup
+                                           WHERE GroupClass = @GroupClass
+                                           AND GSort > 0
                                            ORDER BY GSort";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
