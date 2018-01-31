@@ -96,7 +96,9 @@
     <Compile Include="AnswerItemADO.cs" />
     <Compile Include="ChcGroupADO.cs" />
     <Compile Include="ChcMemberADO.cs" />
+    <Compile Include="ChcMemberSub_TempADO.cs" />
     <Compile Include="ClassStatusADO.cs" />
+    <Compile Include="CLC_FinancialSys_ID_Temp_1ADO.cs" />
     <Compile Include="ExamQuestionsADO.cs" />
     <Compile Include="FireMemberADO.cs" />
     <Compile Include="FirePassWADO.cs" />

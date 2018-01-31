@@ -78,6 +78,9 @@
       <HintPath>..\packages\Google.Apis.Sheets.v4.1.25.0.841\lib\net45\Google.Apis.Sheets.v4.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -91,6 +94,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="OfficeApi, Version=1.7.3.0, Culture=neutral, PublicKeyToken=7c1c3e9d16cace88, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOffice.Core.Net45.1.7.3.0\lib\net45\OfficeApi.dll</HintPath>
@@ -141,6 +156,7 @@
     <Content Include="Admin\js\menu.js" />
     <Content Include="Admin\js\subjectedit.js" />
     <Content Include="Admin\js\subjectlist.js" />
+    <Content Include="Admin\MemSubData\ChcMemberSub_Temp.aspx" />
     <Content Include="Admin\MemSubData\MemSubDataEdit.aspx" />
     <Content Include="Admin\MemSubData\MemSubDataList.aspx" />
     <Content Include="Admin\SubjectC1Add.aspx" />
@@ -277,6 +293,7 @@
     <Content Include="SubjectCheck.aspx" />
     <Content Include="SubjectSignUp.aspx" />
     <Content Include="test\RegularExpression_Test.aspx" />
+    <Content Include="Tool\Tool001.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -342,6 +359,13 @@
     </Compile>
     <Compile Include="Admin\GroupAdd.aspx.designer.cs">
       <DependentUpon>GroupAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\MemSubData\ChcMemberSub_Temp.aspx.cs">
+      <DependentUpon>ChcMemberSub_Temp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MemSubData\ChcMemberSub_Temp.aspx.designer.cs">
+      <DependentUpon>ChcMemberSub_Temp.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\MemSubData\MemSubDataEdit.aspx.cs">
       <DependentUpon>MemSubDataEdit.aspx</DependentUpon>
@@ -588,6 +612,13 @@
     </Compile>
     <Compile Include="test\RegularExpression_Test.aspx.designer.cs">
       <DependentUpon>RegularExpression_Test.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Tool001.aspx.cs">
+      <DependentUpon>Tool001.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tool\Tool001.aspx.designer.cs">
+      <DependentUpon>Tool001.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
