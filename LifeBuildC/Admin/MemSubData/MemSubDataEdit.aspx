@@ -292,7 +292,7 @@
 
             <div style="text-align: center; margin: 5px;">
                 <asp:Button ID="btnSave" runat="server" Text="儲存" OnClick="btnSave_Click" />&nbsp;&nbsp;
-            <asp:Button ID="btnCel" runat="server" Text="關閉" OnClick="btnCel_Click" />
+                <asp:Button ID="btnCel" runat="server" Text="關閉" PostBackUrl="~/Admin/MemSubData/MemSubDataList.aspx"/>
             </div>
 
         </div>

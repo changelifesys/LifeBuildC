@@ -335,16 +335,18 @@ namespace ADO
 
         }
 
-        public DataTable QueryTop100ByChcMember()
+        public DataTable QueryLikeEnameByChcMember(string Ename)
         {
             DataTable dt = new DataTable();
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT TOP 100 * FROM ChcMember M
+                string sql = @"SELECT * FROM ChcMember M
+                                           WHERE Ename LIKE @Ename+'%'
                                            ";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@Ename", Ename);
                 sda.Fill(dt);
             }
 

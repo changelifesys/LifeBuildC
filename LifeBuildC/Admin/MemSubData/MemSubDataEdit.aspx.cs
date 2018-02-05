@@ -44,24 +44,6 @@ namespace LifeBuildC.Admin.MemSubData
             //小組
             hfGroupName.Value = dt.Rows[0]["group2"].ToString();
 
-            //DataTable dtGroup = group.QueryGroupNameByChcGroup(dropGroupClass.SelectedItem.Text);
-            //if (dtGroup != null && dtGroup.Rows.Count > 0)
-            //{
-            //    for (int i = 0; i < dtGroup.Rows.Count; i++)
-            //    {
-            //        //AA101.永健牧區-永健小組
-            //        dropGroupName.Items.Insert(0, new ListItem(
-            //            dtGroup.Rows[i]["GroupID"].ToString() + "." + dtGroup.Rows[i]["GroupCName"].ToString() + "-" + dtGroup.Rows[i]["GroupName"].ToString(),
-            //            i.ToString()));
-            //    }
-            //}
-
-            //DataRow[] _drGroup = dtGroup.Select("GroupCName='" + dt.Rows[0]["GroupCName"].ToString() + "' AND GroupName='" + dt.Rows[0]["GroupName"].ToString() + "'");
-            //string _GroupID = _drGroup[0]["GroupID"].ToString();
-            //string _GroupCName = _drGroup[0]["GroupCName"].ToString();
-            //string _GroupName = _drGroup[0]["GroupName"].ToString();
-            //dropGroupName.Text = _GroupID + "." + _GroupCName + "-" + _GroupName;
-
             //姓名
             txtEname.Text = dt.Rows[0]["Ename"].ToString();
 
@@ -195,9 +177,8 @@ namespace LifeBuildC.Admin.MemSubData
                                                              IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score,
                                                              witness, Iswitness);
 
-            //Response.Write("<script>alert('儲存成功');location.href='MemSubDataList.aspx'</script>");
-            Response.Write("<script>alert('儲存成功');javascript:window.close();</script>");
-
+            Response.Write("<script>alert('儲存成功，請按關閉鈕返回清單');</script>");
+            
         }
 
         private int CheckIntByRequest(string Request_Name, int initial_value)
@@ -229,35 +210,6 @@ namespace LifeBuildC.Admin.MemSubData
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// 組別
-        /// </summary>
-        protected void dropGroupClass_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //DataTable dt = group.QueryGroupNameByChcGroup(dropGroupClass.SelectedValue);
-            //dropGroupName.Items.Clear();
-            //if (dt != null && dt.Rows.Count > 0)
-            //{
-            //    for (int i = 0; i < dt.Rows.Count; i++)
-            //    {
-            //        //AA101.永健牧區-永健小組
-            //        dropGroupName.Items.Insert(0, new ListItem(
-            //            dt.Rows[i]["GroupID"].ToString() + "." + dt.Rows[i]["GroupCName"].ToString() + "-" + dt.Rows[i]["GroupName"].ToString(), 
-            //            i.ToString()));
-            //    }
-            //}
-
-        }
-
-        /// <summary>
-        /// 取消
-        /// </summary>
-        protected void btnCel_Click(object sender, EventArgs e)
-        {
-            Response.Write("<script>javascript:window.close();</script>");
-            //Response.Redirect("MemSubDataList.aspx");
         }
     }
 }

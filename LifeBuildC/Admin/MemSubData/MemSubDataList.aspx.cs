@@ -18,9 +18,6 @@ namespace LifeBuildC.Admin.MemSubData
         {
             if (!IsPostBack)
             {
-                //gvChcMember.DataSource = member.QueryTop100ByChcMember();
-                //gvChcMember.DataBind();
-
                 int _cnt = 0;
 
                 #region 組別
@@ -49,6 +46,33 @@ namespace LifeBuildC.Admin.MemSubData
                     gid1_2.Visible = false;
                 }
 
+                //組別
+                if (Request.Form["hfGroupClassValue"] != null)
+                {
+                    for (int i = 0; i < dropGroupClass.Items.Count; i++)
+                    {
+                        if (dropGroupClass.Items[i].Text == Request.Form["hfGroupClassValue"].ToString())
+                        {
+                            dropGroupClass.SelectedIndex = i;
+                            dropGroupClass_SelectedIndexChanged(null, null);
+                            break;
+                        }
+                    }
+                }
+
+                //小組
+                if (Request.Form["hfGroupNameValue"] != null)
+                {
+                    for (int i = 0; i < dropGroupName.Items.Count; i++)
+                    {
+                        if (dropGroupName.Items[i].Text == Request.Form["hfGroupNameValue"].ToString())
+                        {
+                            dropGroupName.SelectedIndex = i;
+                            dropGroupName_SelectedIndexChanged(null, null);
+                            break;
+                        }
+                    }
+                }
 
             }
         }
@@ -59,7 +83,7 @@ namespace LifeBuildC.Admin.MemSubData
             if (e.Row.RowType == DataControlRowType.DataRow &&
                 ((e.Row.RowState & DataControlRowState.Edit) <= 0))
             {
-                ((Button)e.Row.FindControl("btnView")).OnClientClick = "window.open('MemSubDataEdit.aspx?id=" + DataBinder.Eval(e.Row.DataItem, "MID").ToString() + "')";
+                ((Button)e.Row.FindControl("btnView")).PostBackUrl = "MemSubDataEdit.aspx?id=" + DataBinder.Eval(e.Row.DataItem, "MID").ToString();
                 
 
                 if (Request.QueryString["gid"] != null)
@@ -237,6 +261,16 @@ namespace LifeBuildC.Admin.MemSubData
             gvChcMember.DataBind();
 
             lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
+        }
+
+        protected void txtEname_TextChanged(object sender, EventArgs e)
+        {
+            if (txtEname.Text.Trim() != "")
+            {
+                gvChcMember.DataSource = member.QueryLikeEnameByChcMember(txtEname.Text.Trim());
+                gvChcMember.DataBind();
+            }
+
         }
     }
 }
