@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SendMemSubQuestion.aspx.cs" Inherits="LifeBuildC.Api.SendMemSubQuestion" %>

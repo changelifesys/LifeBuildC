@@ -249,8 +249,17 @@ namespace LifeBuildC.Api
 
         public class PageData
         {
+            /// <summary>
+            /// 組別
+            /// </summary>
             public string gcroup { get; set; }
+            /// <summary>
+            /// 小組
+            /// </summary>
             public string group { get; set; }
+            /// <summary>
+            /// 姓名
+            /// </summary>
             public string Ename { get; set; }
             public bool IsC112 { get; set; }
             public string TxtC112 { get; set; }
@@ -274,6 +283,9 @@ namespace LifeBuildC.Api
             public string TxtC1_Status { get; set; }
             public bool IsC2_Status { get; set; }
             public string TxtC2_Status { get; set; }
+            /// <summary>
+            /// API 訊息
+            /// </summary>
             public string ApiMsg { get; set; }
         }
 

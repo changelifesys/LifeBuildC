@@ -173,8 +173,9 @@
     <Content Include="Api\GetMemSub.aspx" />
     <Content Include="Api\GetMemSubData.aspx" />
     <Content Include="Api\GetSUBInfo.aspx" />
+    <Content Include="Api\GetSubjectLine.aspx" />
     <Content Include="Api\GetSubSign.aspx" />
-    <Content Include="Api\testGoogleADO.aspx" />
+    <Content Include="Api\SendMemSubQuestion.aspx" />
     <Content Include="Api\UpdSubSign.aspx" />
     <Content Include="bin\ADO.dll" />
     <Content Include="bin\CData.GoogleSheets.System.dll" />
@@ -218,7 +219,6 @@
     <Content Include="css\index.css" />
     <Content Include="css\login.css" />
     <Content Include="css\sweetalert.css" />
-    <Content Include="DB\LifeDB.mdb" />
     <Content Include="File18SignUp.aspx" />
     <Content Include="Fire18SignUp.aspx" />
     <Content Include="Fire18SignUp02_1.aspx" />
@@ -292,7 +292,6 @@
     <Content Include="static\img\title.eb480c9.jpg" />
     <Content Include="SubjectCheck.aspx" />
     <Content Include="SubjectSignUp.aspx" />
-    <Content Include="test\RegularExpression_Test.aspx" />
     <Content Include="Tool\Tool001.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -514,6 +513,13 @@
     <Compile Include="Api\GetSUBInfo.aspx.designer.cs">
       <DependentUpon>GetSUBInfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Api\GetSubjectLine.aspx.cs">
+      <DependentUpon>GetSubjectLine.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Api\GetSubjectLine.aspx.designer.cs">
+      <DependentUpon>GetSubjectLine.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Api\GetSubSign.aspx.cs">
       <DependentUpon>GetSubSign.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -521,12 +527,12 @@
     <Compile Include="Api\GetSubSign.aspx.designer.cs">
       <DependentUpon>GetSubSign.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Api\testGoogleADO.aspx.cs">
-      <DependentUpon>testGoogleADO.aspx</DependentUpon>
+    <Compile Include="Api\SendMemSubQuestion.aspx.cs">
+      <DependentUpon>SendMemSubQuestion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Api\testGoogleADO.aspx.designer.cs">
-      <DependentUpon>testGoogleADO.aspx</DependentUpon>
+    <Compile Include="Api\SendMemSubQuestion.aspx.designer.cs">
+      <DependentUpon>SendMemSubQuestion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Api\UpdSubSign.aspx.cs">
       <DependentUpon>UpdSubSign.aspx</DependentUpon>
@@ -605,13 +611,6 @@
     </Compile>
     <Compile Include="SubjectSignUp.aspx.designer.cs">
       <DependentUpon>SubjectSignUp.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="test\RegularExpression_Test.aspx.cs">
-      <DependentUpon>RegularExpression_Test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="test\RegularExpression_Test.aspx.designer.cs">
-      <DependentUpon>RegularExpression_Test.aspx</DependentUpon>
     </Compile>
     <Compile Include="Tool\Tool001.aspx.cs">
       <DependentUpon>Tool001.aspx</DependentUpon>
