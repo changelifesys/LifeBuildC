@@ -15,8 +15,12 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <input id="hidGroupClass" name="hidGroupClass" value="aaa" type="hidden" />
+        <input id="hidGroupName" name="hidGroupName" type="hidden" />
+        <input id="hidEname" name="hidEname" type="hidden" />
 
         <div style="text-align: center; margin: 5px;">
+            <img alt="" src="../../img/CLC_Logo.gif" />
             <h1>生命建造資料查詢系統</h1>
         </div>
 
@@ -78,6 +82,8 @@
             <asp:Label ID="lblDataCnt" ForeColor="#fa5555" runat="server" Text="請選擇組別查詢員組修課資料"></asp:Label>
             <p/>
             <asp:Button CssClass="inputStyle" ID="Button1" runat="server" Text="查詢" />
+            <p/>
+            <asp:LinkButton ID="blkQ" PostBackUrl="~/Admin/MemSubData/MemSubDataQuestion.aspx" runat="server">問題反應</asp:LinkButton>
         </div>
         <asp:GridView ID="gvChcMember" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvChcMember_RowDataBound" HorizontalAlign="Center">
             <Columns>
