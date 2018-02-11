@@ -6,4 +6,10 @@
         $(".FieldStyle").css('display', 'none');
     }
 
+    $('#blkQ').click(function () {
+        $('#hidGroupClass').val($('#dropGroupClass').find(':selected').text());
+        $('#hidGroupName').val($('#dropGroupName').find(':selected').text());
+        $('#hidEname').val($('#txtEname').val());
+    });
+
 });

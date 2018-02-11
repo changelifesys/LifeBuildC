@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SendQuestion.aspx.cs" Inherits="LifeBuildC.Admin.Api.SendQuestion" %>
