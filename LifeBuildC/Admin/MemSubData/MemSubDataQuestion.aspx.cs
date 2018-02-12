@@ -16,11 +16,13 @@ namespace LifeBuildC.Admin.MemSubData
                 if (Request.Form["hidGroupClass"] != null)
                 {
                     lblGroupClass.Text = Request.Form["hidGroupClass"].ToString();
+                    hfGroupClassValue.Value = lblGroupClass.Text;
                 }
 
                 if (Request.Form["hidGroupName"] != null)
                 {
                     lblGroupName.Text = Request.Form["hidGroupName"].ToString();
+                    hfGroupNameValue.Value = lblGroupName.Text;
                 }
 
                 if (Request.Form["hidEname"] != null)

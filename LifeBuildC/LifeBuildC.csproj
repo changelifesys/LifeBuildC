@@ -233,6 +233,7 @@
     <Content Include="img\fire02.jpg" />
     <Content Include="img\loading.gif" />
     <Content Include="img\CLC_Logo.gif" />
+    <Content Include="img\loading2.gif" />
     <Content Include="js\exam\build.js" />
     <Content Include="js\exam\gears.svg" />
     <Content Include="Exam.aspx" />

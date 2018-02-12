@@ -15,7 +15,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <input id="hidGroupClass" name="hidGroupClass" value="aaa" type="hidden" />
+        <input id="hidGroupClass" name="hidGroupClass" type="hidden" />
         <input id="hidGroupName" name="hidGroupName" type="hidden" />
         <input id="hidEname" name="hidEname" type="hidden" />
 
