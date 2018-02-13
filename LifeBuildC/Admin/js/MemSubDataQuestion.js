@@ -1,9 +1,25 @@
 ﻿$(function () {
 
+    if ($(window).width() > 800) {
+
+
+    } else {
+        $('#tableMem').css('width', 350);
+
+
+    }
+
     $("#btnSendQ").css('width', 300);
     $("#btnSendQ").css('background-color', 'rgb(204,204,204)');
     $("#btnCel").css('width', 300);
     $("#btnCel").css('background-color', 'white');
+
+    if ($('#lblGroupClass').text() == '請選擇組別')
+    {
+        alert('請先選擇組別&小組，再反應問題');
+        $("#btnCel").click();
+
+    }
 
 
     $('#chkCategoryName1, #chkCategoryName2').change(function () {
@@ -26,8 +42,6 @@
     });
 
     $('#btnSendQ').click(function () {
-
-        //$("#btnCel").click();
 
         var IsSend = true;
         var Msg;

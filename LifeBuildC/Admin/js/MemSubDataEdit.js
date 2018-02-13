@@ -1,7 +1,12 @@
 ﻿$(function () {
 
 
-    $(".inputStyle").css('width', '450px');
+    if ($(window).width() > 800) {
+        //$(".inputStyle").css('width', 450);
+
+    } else {
+        $('#tableMem').css('width', 350);
+    }
 
     $("#btnSave").css('width', 300);
     $("#btnSave").css('background-color', 'rgb(204,204,204)');

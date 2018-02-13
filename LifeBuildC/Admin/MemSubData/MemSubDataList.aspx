@@ -5,7 +5,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>生命建造 - 查詢系統</title>
@@ -25,7 +24,7 @@
             <h1>生命建造 - 查詢系統</h1>
         </div>
 
-        <table style="width: 500px;" align="center" border="1">
+        <table id="tableMem" style="width: 500px;" align="center" border="1">
             <!--組別-->
             <tr style="height: 40px;">
                 <td style="width: 100px; background-color: rgb(204,204,204); text-align: center;">

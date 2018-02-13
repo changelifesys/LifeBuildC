@@ -206,9 +206,15 @@ namespace LifeBuildC.Admin.MemSubData
                 dropGroupName.SelectedIndex = 0;
 
                 //小組
-                string[] arrg = dropGroupName.SelectedItem.Text.Split('.');
-                string GroupCName = arrg[1].Split('-')[0];
-                string GroupName = arrg[1].Split('-')[1];
+                string GroupCName = "";
+                string GroupName = "";
+                if (dropGroupName.SelectedItem != null)
+                {
+                    string[] arrg = dropGroupName.SelectedItem.Text.Split('.');
+                    GroupCName = arrg[1].Split('-')[0];
+                    GroupName = arrg[1].Split('-')[1];
+                }
+
 
                 DataTable dtGName = member.QueryGroupNameByChcMember(GroupName);
                 gvChcMember.DataSource = dtGName;
@@ -253,9 +259,14 @@ namespace LifeBuildC.Admin.MemSubData
             txtEname.Text = "";
 
             //小組
+            string GroupCName = "";
+            string GroupName = "";
             string[] arrg = dropGroupName.SelectedItem.Text.Split('.');
-            string GroupCName = arrg[1].Split('-')[0];
-            string GroupName = arrg[1].Split('-')[1];
+            if (dropGroupName.SelectedItem != null)
+            {
+                GroupCName = arrg[1].Split('-')[0];
+                GroupName = arrg[1].Split('-')[1];
+            }
 
             DataTable dt = member.QueryGroupNameByChcMember(GroupName);
             gvChcMember.DataSource = dt;

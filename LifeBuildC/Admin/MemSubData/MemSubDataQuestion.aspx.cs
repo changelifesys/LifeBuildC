@@ -25,11 +25,6 @@ namespace LifeBuildC.Admin.MemSubData
                     hfGroupNameValue.Value = lblGroupName.Text;
                 }
 
-                if (Request.Form["hidEname"] != null)
-                {
-                    lblEname.Text = Request.Form["hidEname"].ToString();
-                }
-
             }
         }
     }

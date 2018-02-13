@@ -36,7 +36,7 @@
             <div style="text-align: center; margin: 5px;">
                 <asp:Label ID="Label1" ForeColor="#fa5555" runat="server" Text="「*」為必填欄位"></asp:Label>
             </div>
-            <table style="width: 600px;" align="center" border="1">
+            <table id="tableMem" style="width: 600px;" align="center" border="1">
                 <!--課程-->
                 <tr style="height: 40px;">
                     <td style="width: 150px; background-color: rgb(204,204,204)">

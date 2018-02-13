@@ -1,10 +1,13 @@
 ﻿$(function () {
 
-    //if ($(window).width() > 800) {
-    //    $(".inputStyle").css('width', 300);
-    //    $(".FieldStyle2").removeClass();
-    //    $(".FieldStyle").css('display', 'none');
-    //}
+    if ($(window).width() > 800) {
+
+
+    } else {
+        $('#tableMem').css('width', 350);
+
+
+    }
 
     $("#btnQuery").css('width', 300);
     $("#btnQuery").css('background-color', 'rgb(204,204,204)');
