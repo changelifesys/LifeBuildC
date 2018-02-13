@@ -3,6 +3,10 @@
 
     $(".inputStyle").css('width', '450px');
 
+    $("#btnSave").css('width', 300);
+    $("#btnSave").css('background-color', 'rgb(204,204,204)');
+    $("#btnCel").css('width', 300);
+    $("#btnCel").css('background-color', 'white');
 
     var _json = $('#hfChcGroup').val();
     //console.log(_json);

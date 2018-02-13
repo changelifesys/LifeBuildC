@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>組員上課資料維護</title>
+    <title>生命建造 - 資料維護</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="../css/PageStyle.css" rel="stylesheet" />
     <script src="../js/jquery-3.1.1.min.js"></script>
@@ -26,7 +26,7 @@
 
         <div style="text-align: center; margin: 5px;">
             <img alt="" src="../../img/CLC_Logo.gif" />
-            <h1>組員上課資料維護</h1>
+            <h1>生命建造 - 資料維護</h1>
             <div style="text-align: center; margin: 5px;">
                 <asp:Label ID="Label61" ForeColor="#fa5555" runat="server" Text="「*」為必填欄位"></asp:Label>
             </div>
@@ -206,10 +206,9 @@
         </div>
 
             <div style="text-align: center; margin: 5px;">
-                  <button type="button" class="btn btn-default">儲存</button>&nbsp;&nbsp;
-                <button type="button" class="btn btn-default">取消</button>
-                <asp:Button ID="btnSave" runat="server" Text="儲存" OnClick="btnSave_Click" />&nbsp;&nbsp;
-                <asp:Button ID="btnCel" runat="server" Text="關閉" PostBackUrl="~/Admin/MemSubData/MemSubDataList.aspx" />
+                <asp:Button CssClass="buttonStyle" ID="btnSave" runat="server" Text="儲存資料" OnClick="btnSave_Click" />
+                <br/>
+                <asp:Button CssClass="buttonStyle" ID="btnCel" runat="server" Text="上一頁" PostBackUrl="~/Admin/MemSubData/MemSubDataList.aspx" />
             </div>
     </form>
 </body>

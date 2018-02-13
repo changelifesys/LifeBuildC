@@ -27,6 +27,8 @@
 
     $('#btnSendQ').click(function () {
 
+        //$("#btnCel").click();
+
         var IsSend = true;
         var Msg;
 
@@ -75,6 +77,7 @@
                     if (!data.IsPageError)
                     {
                         alert('問題已反應給中央同工');
+                        $("#btnCel").click();
                     }
                     else
                     {

@@ -31,15 +31,6 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// Label4 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
-        
-        /// <summary>
         /// dropGroupClass 控制項。
         /// </summary>
         /// <remarks>
@@ -47,15 +38,6 @@ namespace LifeBuildC.Admin.MemSubData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList dropGroupClass;
-        
-        /// <summary>
-        /// gid1_1 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl gid1_1;
         
         /// <summary>
         /// Label6 控制項。
@@ -67,42 +49,6 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.Label Label6;
         
         /// <summary>
-        /// gid1_2 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl gid1_2;
-        
-        /// <summary>
-        /// Label8 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
-        
-        /// <summary>
-        /// dropGroupName 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList dropGroupName;
-        
-        /// <summary>
-        /// gid2_1 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl gid2_1;
-        
-        /// <summary>
         /// Label10 控制項。
         /// </summary>
         /// <remarks>
@@ -112,22 +58,13 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.Label Label10;
         
         /// <summary>
-        /// gid2_2 控制項。
+        /// dropGroupName 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl gid2_2;
-        
-        /// <summary>
-        /// Label12 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label12;
+        protected global::System.Web.UI.WebControls.DropDownList dropGroupName;
         
         /// <summary>
         /// dropGroupCName 控制項。
@@ -148,15 +85,6 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// Label3 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-        
-        /// <summary>
         /// txtEname 控制項。
         /// </summary>
         /// <remarks>
@@ -175,13 +103,13 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.Label lblDataCnt;
         
         /// <summary>
-        /// Button1 控制項。
+        /// btnQuery 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btnQuery;
         
         /// <summary>
         /// blkQ 控制項。
@@ -190,7 +118,7 @@ namespace LifeBuildC.Admin.MemSubData {
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton blkQ;
+        protected global::System.Web.UI.WebControls.Button blkQ;
         
         /// <summary>
         /// gvChcMember 控制項。

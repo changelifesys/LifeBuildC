@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>生命建造資料查詢系統 - 問題反應</title>
+    <title>生命建造 - 問題反應</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link href="../css/PageStyle.css" rel="stylesheet" />
     <script src="../js/jquery-3.1.1.min.js"></script>
@@ -21,7 +21,7 @@
 
         <div style="text-align: center; margin: 5px;">
             <img alt="" src="../../img/CLC_Logo.gif" />
-            <h1>生命建造資料查詢系統 - 問題反應</h1>
+            <h1>生命建造 - 問題反應</h1>
 
             <div style="text-align: center; margin: 5px;">
                 <!--組別-->

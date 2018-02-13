@@ -37,13 +37,13 @@ namespace LifeBuildC.Admin.MemSubData
 
                 if (Request.QueryString["gid"] == null || Request.QueryString["gid"].ToString() == "1")
                 { //中央同工&小組長
-                    gid2_1.Visible = false;
-                    gid2_2.Visible = false;
+                    Label10.Visible = false;
+                    dropGroupCName.Visible = false;
                 }
                 else if (Request.QueryString["gid"].ToString() == "2")
                 { //區長
-                    gid1_1.Visible = false;
-                    gid1_2.Visible = false;
+                    Label6.Visible = false;
+                    dropGroupName.Visible = false;
                 }
 
                 //組別
@@ -182,6 +182,8 @@ namespace LifeBuildC.Admin.MemSubData
         //組別
         protected void dropGroupClass_SelectedIndexChanged(object sender, EventArgs e)
         {
+            txtEname.Text = "";
+
             int _cnt = 0;
 
             if (Request.QueryString["gid"] == null || Request.QueryString["gid"].ToString() == "1")
@@ -202,7 +204,13 @@ namespace LifeBuildC.Admin.MemSubData
                 }
 
                 dropGroupName.SelectedIndex = 0;
-                DataTable dtGName = member.QueryGroupCNameByChcMember(dropGroupName.SelectedItem.Text);
+
+                //小組
+                string[] arrg = dropGroupName.SelectedItem.Text.Split('.');
+                string GroupCName = arrg[1].Split('-')[0];
+                string GroupName = arrg[1].Split('-')[1];
+
+                DataTable dtGName = member.QueryGroupNameByChcMember(GroupName);
                 gvChcMember.DataSource = dtGName;
                 gvChcMember.DataBind();
 
@@ -227,6 +235,7 @@ namespace LifeBuildC.Admin.MemSubData
                 }
 
                 dropGroupCName.SelectedIndex = 0;
+
                 DataTable dtGCName = member.QueryGroupCNameByChcMember(dropGroupCName.SelectedItem.Text);
                 gvChcMember.DataSource = dtGCName;
                 gvChcMember.DataBind();
@@ -241,6 +250,8 @@ namespace LifeBuildC.Admin.MemSubData
         //小組
         protected void dropGroupName_SelectedIndexChanged(object sender, EventArgs e)
         {
+            txtEname.Text = "";
+
             //小組
             string[] arrg = dropGroupName.SelectedItem.Text.Split('.');
             string GroupCName = arrg[1].Split('-')[0];
@@ -256,6 +267,8 @@ namespace LifeBuildC.Admin.MemSubData
         //區長
         protected void dropGroupCName_SelectedIndexChanged(object sender, EventArgs e)
         {
+            txtEname.Text = "";
+
             DataTable dt = member.QueryGroupCNameByChcMember(dropGroupCName.SelectedItem.Text);
             gvChcMember.DataSource = dt;
             gvChcMember.DataBind();
