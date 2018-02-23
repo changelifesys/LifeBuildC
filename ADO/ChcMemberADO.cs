@@ -122,9 +122,6 @@ namespace ADO
             }
         }
 
-        /// <summary>
-        /// 更新手機號碼
-        /// </summary>
         public void UpdPhoneByChcMember(string Phone, string GroupName, string GroupCName, string GroupClass, string Ename)
         {
             using (SqlConnection con = new SqlConnection(condb))
@@ -150,9 +147,6 @@ namespace ADO
             }
         }
 
-        /// <summary>
-        /// 更新小組資料
-        /// </summary>
         public void UpdGroupNameByChcMember(string GroupName, string GroupCName, string GroupClass,
                                                                                        string Ename, string Phone)
         {
@@ -179,9 +173,6 @@ namespace ADO
             }
         }
 
-        /// <summary>
-        /// 更新會友姓名
-        /// </summary>
         public void UpdEnameByChcMember(string Ename, string GroupName, string GroupCName, string GroupClass, string Phone)
         {
             using (SqlConnection con = new SqlConnection(condb))
@@ -207,10 +198,6 @@ namespace ADO
             }
         }
 
-
-        /// <summary>
-        /// 更新會友C1補課狀況
-        /// </summary>
         public void UpdC1_StatusByChcMember(string C1_Status, int MID)
         {
             using (SqlConnection con = new SqlConnection(condb))
@@ -231,9 +218,6 @@ namespace ADO
             }
         }
 
-        /// <summary>
-        /// 更新會友C2補課狀況
-        /// </summary>
         public void UpdC2_StatusByChcMember(string C2_Status, int MID)
         {
             using (SqlConnection con = new SqlConnection(condb))

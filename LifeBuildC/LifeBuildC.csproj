@@ -180,6 +180,7 @@
     <Content Include="Api\GetSubSign.aspx" />
     <Content Include="Api\SendMemSubQuestion.aspx" />
     <Content Include="Api\UpdSubSign.aspx" />
+    <Content Include="Api\UpdWitness.aspx" />
     <Content Include="bin\ADO.dll" />
     <Content Include="bin\CData.GoogleSheets.System.dll" />
     <Content Include="bin\Google.Apis.Auth.dll" />
@@ -250,6 +251,7 @@
     <Content Include="js\subjectSignUp\manifest.ba642eead6c945fa43da.js" />
     <Content Include="js\subjectSignUp\vendor.e04ba825f011a5e9dc6c.js" />
     <Content Include="MemSubQuery.aspx" />
+    <Content Include="MemWitness.aspx" />
     <Content Include="obj\Debug\LifeBuildC.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\LifeBuildC.dll" />
     <Content Include="obj\Debug\LifeBuildC.pdb" />
@@ -560,6 +562,13 @@
     <Compile Include="Api\UpdSubSign.aspx.designer.cs">
       <DependentUpon>UpdSubSign.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Api\UpdWitness.aspx.cs">
+      <DependentUpon>UpdWitness.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Api\UpdWitness.aspx.designer.cs">
+      <DependentUpon>UpdWitness.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Class\ChcGroupClass.cs" />
     <Compile Include="Exam.aspx.cs">
       <DependentUpon>Exam.aspx</DependentUpon>
@@ -612,6 +621,13 @@
     </Compile>
     <Compile Include="MemSubQuery.aspx.designer.cs">
       <DependentUpon>MemSubQuery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemWitness.aspx.cs">
+      <DependentUpon>MemWitness.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MemWitness.aspx.designer.cs">
+      <DependentUpon>MemWitness.aspx</DependentUpon>
     </Compile>
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />

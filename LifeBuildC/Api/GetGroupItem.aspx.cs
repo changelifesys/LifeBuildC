@@ -1,4 +1,8 @@
-﻿using ADO;
+﻿/*
+ 所有小組
+ - 下拉選單
+ */
+using ADO;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
