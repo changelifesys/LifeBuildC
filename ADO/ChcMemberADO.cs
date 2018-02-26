@@ -237,6 +237,29 @@ namespace ADO
             }
         }
 
+        public void UpdWitness(string GroupCName, string GroupName, string Ename, string witness)
+        {
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"UPDATE ChcMember 
+                                            SET witness = @witness
+                                            WHERE GroupCName = @GroupCName
+                                            AND GroupName = @GroupName
+                                            AND Ename = @Ename
+                                          ";
+
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@witness", witness);
+                com.Parameters.AddWithValue("@GroupCName", GroupCName);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@Ename", Ename);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
 
         #endregion
 

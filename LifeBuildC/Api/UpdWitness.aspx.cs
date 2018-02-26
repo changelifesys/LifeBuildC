@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿/*
+ 生命建造成績查詢 - 見證繳交
+ */
+using ADO;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +16,8 @@ namespace LifeBuildC.Api
 {
     public partial class UpdWitness : System.Web.UI.Page
     {
+        ChcMemberADO member = new ChcMemberADO();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -46,6 +52,25 @@ namespace LifeBuildC.Api
 
                 if (PageData != null)
                 {
+                    try
+                    {
+                        //小組
+                        string[] arrg = PageData.group.Split('.');
+                        string GroupCName = arrg[1].Split('-')[0];
+                        string GroupName = arrg[1].Split('-')[1];
+                        string witness = PageData.witness1 + "\n" +
+                                                      PageData.witness2 + "\n" +
+                                                      PageData.witness3 + "\n" +
+                                                      PageData.witness4;
+
+                        //member.UpdWitness(GroupCName, GroupName, PageData.Ename, witness);
+                        PageData.ApiMsg = "已收到您見證繳交";
+                    }
+                    catch
+                    {
+                        PageData.ApiMsg = "網路斷線或填寫的資料內容有誤，請重新填寫繳交您的見證";
+                    }
+
 
                 }
 
@@ -84,6 +109,10 @@ namespace LifeBuildC.Api
             /// 見證 - 信主後，我的生命有那些改變。
             /// </summary>
             public string witness4 { get; set; }
+            /// <summary>
+            /// API 訊息
+            /// </summary>
+            public string ApiMsg { get; set; }
         }
 
     }
