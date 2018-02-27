@@ -12,6 +12,12 @@
     <link href="../css/PageStyle.css" rel="stylesheet" />
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script src="../js/MemSubDataEdit.js"></script>
+    <script type="text/javascript">
+        function clickSave() {
+            alert('儲存成功');
+            $('#btnSave').click();
+        };
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -207,7 +213,7 @@
         <div style="text-align: center; margin: 5px;">
             <asp:Button CssClass="buttonStyle" ID="btnSave" runat="server" Text="儲存資料" OnClick="btnSave_Click" />
             <br />
-            <asp:Button CssClass="buttonStyle" ID="btnCel" runat="server" Text="上一頁" PostBackUrl="~/Admin/MemSubData/MemSubDataList.aspx" />
+            <asp:Button CssClass="buttonStyle" ID="btnCel" runat="server" Text="上一頁" PostBackUrl="~/Admin/MemSubData/MemSubDataList.aspx" OnClick="btnCel_Click"/>
         </div>
     </form>
 </body>

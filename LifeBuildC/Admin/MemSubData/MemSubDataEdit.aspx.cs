@@ -32,6 +32,7 @@ namespace LifeBuildC.Admin.MemSubData
                 }
 
             }
+
         }
 
         private void PageDataLoad()
@@ -177,8 +178,9 @@ namespace LifeBuildC.Admin.MemSubData
                                                              IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score,
                                                              witness, Iswitness);
 
-            Response.Write("<script>alert('儲存成功，請按關閉鈕返回清單');</script>");
-            
+            btnSave.PostBackUrl = "~/Admin/MemSubData/MemSubDataList.aspx";
+            //Response.Write("<script>alert('儲存成功');</script>");
+            ScriptManager.RegisterStartupScript(Page, GetType(), "clicktest", "<script>clickSave()</script>", false);
         }
 
         private int CheckIntByRequest(string Request_Name, int initial_value)
@@ -210,6 +212,10 @@ namespace LifeBuildC.Admin.MemSubData
             }
 
             return false;
+        }
+
+        protected void btnCel_Click(object sender, EventArgs e)
+        {
         }
     }
 }
