@@ -171,6 +171,7 @@
     <Content Include="Api\AddSubSign.aspx" />
     <Content Include="Api\ChkFirePass.aspx" />
     <Content Include="Api\ChkMember.aspx" />
+    <Content Include="Api\GetGroupByEname.aspx" />
     <Content Include="Api\GetGroupItem.aspx" />
     <Content Include="Api\GetMember.aspx" />
     <Content Include="Api\GetMemSub.aspx" />
@@ -235,6 +236,7 @@
     <Content Include="img\loading.gif" />
     <Content Include="img\CLC_Logo.gif" />
     <Content Include="img\loading2.gif" />
+    <Content Include="Job\Job_ChcMember_UPD_Data.aspx" />
     <Content Include="js\exam\build.js" />
     <Content Include="js\exam\gears.svg" />
     <Content Include="Exam.aspx" />
@@ -492,6 +494,13 @@
     <Compile Include="Api\GetExam.aspx.designer.cs">
       <DependentUpon>GetExam.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Api\GetGroupByEname.aspx.cs">
+      <DependentUpon>GetGroupByEname.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Api\GetGroupByEname.aspx.designer.cs">
+      <DependentUpon>GetGroupByEname.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Api\GetGroupItem.aspx.cs">
       <DependentUpon>GetGroupItem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -614,6 +623,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Job\Job_ChcMember_UPD_Data.aspx.cs">
+      <DependentUpon>Job_ChcMember_UPD_Data.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Job\Job_ChcMember_UPD_Data.aspx.designer.cs">
+      <DependentUpon>Job_ChcMember_UPD_Data.aspx</DependentUpon>
     </Compile>
     <Compile Include="MemSubQuery.aspx.cs">
       <DependentUpon>MemSubQuery.aspx</DependentUpon>

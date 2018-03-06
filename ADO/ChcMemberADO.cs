@@ -325,6 +325,25 @@ namespace ADO
             return dt;
         }
 
+        public DataTable QueryEnameByChcMember_1(string Ename)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT *
+                                            FROM ChcMember
+                                            WHERE Ename = @Ename
+                                           ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@Ename", Ename);
+                sda.Fill(dt);
+            }
+
+            return dt;
+        }
+
         public DataTable QueryAllByChcMember()
         {
             DataTable dt = new DataTable();

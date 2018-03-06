@@ -1,4 +1,12 @@
-﻿using ADO;
+﻿/*
+ 用途：
+   生命建造-線上查詢 
+
+ 流程：
+   [View]MemSubQuery > 查詢 > [API]GetMemSubData
+
+ */
+using ADO;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ADO
 {
     /// <summary>
-    /// 小組資訊
+    /// 小組群組
     /// </summary>
     public class ChcGroupADO
     {
@@ -148,9 +148,30 @@ namespace ADO
             return dt;
         }
 
-        /// <summary>
-        /// 查詢 GroupName 的前兩個字串
-        /// </summary>
+        public DataTable QueryChcGroupByCondition(string GroupCName, string GroupName, string GroupClass)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcGroup
+                                           WHERE GroupCName = @GroupCName
+                                           AND GroupName = @GroupName
+                                           AND GroupClass = @GroupClass
+                                          ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupCName", GroupCName);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupName", GroupName);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupClass", GroupClass);
+                sda.Fill(dt);
+            }
+
+
+            return dt;
+        }
+
+
         public DataTable QueryGroupName12ByChcGroup(string GroupName12)
         {
             DataTable dt = new DataTable();
@@ -169,9 +190,6 @@ namespace ADO
             return dt;
         }
 
-        /// <summary>
-        /// 查詢要更新排序的資料
-        /// </summary>
         public DataTable QueryGSortByChcGroup(int GSort)
         {
             DataTable dt = new DataTable();
