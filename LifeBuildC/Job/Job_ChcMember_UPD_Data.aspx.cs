@@ -23,19 +23,33 @@ namespace LifeBuildC.Job
 
                 foreach (DataRow dr in dtMemSub.Rows)
                 {
-                    DataRow[] drChcMem = dtChcMem.Select("GroupName='" + dr[""].ToString() + "' AND Ename='" + dr[""].ToString() + "'");
+                    DataRow[] drChcMem = dtChcMem.Select("GroupName='" + dr["GroupName"].ToString() + "' AND Ename='" + dr["Ename"].ToString() + "'");
                     if (drChcMem.Count() > 0)
                     {
                         //小組&姓名若填寫正確
                         //更新其他欄位資料
 
+                    }
+                    else
+                    {
+                        drChcMem = null;
+                        drChcMem = dtChcMem.Select("Ename='" + dr["Ename"].ToString() + "' AND Phone='" + dr["Phone"].ToString() + "'");
+
+                        if (drChcMem.Count() > 0)
+                        {
+                            //姓名 & 手機若填寫正確
+                            //更新其他欄位資料
+
+                        }
+                        else
+                        { 
+                            //新增資料
+
+                        }
+
 
                     }
 
-
-
-                    //姓名 & 手機若填寫正確
-                    //更新其他欄位資料
 
                 }
 

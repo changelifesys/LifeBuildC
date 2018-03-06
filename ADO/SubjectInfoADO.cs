@@ -185,29 +185,13 @@ namespace ADO
         public DataTable GetSubjectInfo(string SubStrDate, string CategoryID)
         {
             DataTable dt = new DataTable();
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT *, SubjectInfo.SID AS SID
-            //                                FROM SubjectInfo INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
-            //                                WHERE LEFT(SubjectInfo.SubName, 2) = @CategoryID
-            //                                AND SubStrDate <= @SubStrDate
-            //                                AND SubEndDate >= @SubStrDate
-            //                                ORDER BY CDate(SubjectDate.SDate)";
 
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
-            //    sda.SelectCommand.Parameters.AddWithValue("@SubStrDate", SubStrDate);
-            //    sda.Fill(dt);
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT *, SubjectInfo.SID AS SID
                                            FROM SubjectInfo 
                                            INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
-                                           WHERE LEFT(SubjectInfo.SubName, 2) = @CategoryID
+                                           WHERE CategoryID = @CategoryID
                                            AND SubStrDate <= @SubStrDate
                                            AND SubEndDate >= @SubStrDate
                                            ORDER BY SubjectDate.SDate";

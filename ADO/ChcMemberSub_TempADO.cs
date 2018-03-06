@@ -42,7 +42,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM ChcMemberSub_Temp
-                                           WHERE uptyn = 1";
+                                           WHERE uptyn = 0";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
