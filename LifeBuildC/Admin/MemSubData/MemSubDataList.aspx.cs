@@ -1,10 +1,13 @@
 ﻿using ADO;
+using NPOI.HSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace LifeBuildC.Admin.MemSubData
@@ -296,5 +299,125 @@ namespace LifeBuildC.Admin.MemSubData
             }
 
         }
+
+        protected void btnExcel_Click(object sender, EventArgs e)
+        {
+            System.Web.HttpBrowserCapabilities myBrowserCaps = Request.Browser;
+            //if (((System.Web.Configuration.HttpCapabilitiesBase)myBrowserCaps).IsMobileDevice)
+            //{
+            //    labelText = "Browser is a mobile device.";
+            //}
+            //else
+            //{
+            //    labelText = "Browser is not a mobile device.";
+            //}
+
+            if ((dropGroupName.Items.Count > 1 ||
+                dropGroupCName.Items.Count > 1) && !((System.Web.Configuration.HttpCapabilitiesBase)myBrowserCaps).IsMobileDevice)
+            {
+                //小組
+                string GroupCName = string.Empty;
+                string GroupName = string.Empty;
+
+                if (Request.QueryString["gid"] == null || Request.QueryString["gid"].ToString() == "1")
+                { //中央同工&小組長
+
+                    string[] arrg = dropGroupName.SelectedItem.Text.Split('.');
+                    if (dropGroupName.SelectedItem != null)
+                    {
+                        GroupCName = arrg[1].Split('-')[0];
+                        GroupName = arrg[1].Split('-')[1];
+                    }
+                }
+                else if (Request.QueryString["gid"].ToString() == "2")
+                { //區長
+
+                    GroupName = dropGroupCName.SelectedItem.Text;
+                }
+                
+
+                HSSFWorkbook wb = new HSSFWorkbook();
+                MemoryStream ms = new MemoryStream();
+                HSSFSheet ns = (HSSFSheet)wb.CreateSheet("mySheet");
+
+                ns.CreateRow(0).CreateCell(0).SetCellValue("組   別");
+                ns.GetRow(0).CreateCell(1).SetCellValue("小   組");
+                ns.GetRow(0).CreateCell(2).SetCellValue("姓   名");
+                ns.GetRow(0).CreateCell(3).SetCellValue("教   會");
+                ns.GetRow(0).CreateCell(4).SetCellValue("C1第一、二課");
+                ns.GetRow(0).CreateCell(5).SetCellValue("C1第三、四課");
+                ns.GetRow(0).CreateCell(6).SetCellValue("C2第一、二課");
+                ns.GetRow(0).CreateCell(7).SetCellValue("C2第三、四課");
+                ns.GetRow(0).CreateCell(8).SetCellValue("C2第五課");
+                ns.GetRow(0).CreateCell(9).SetCellValue("C1 考試");
+                ns.GetRow(0).CreateCell(10).SetCellValue("C2 第一、二課考試");
+                ns.GetRow(0).CreateCell(11).SetCellValue("C2 第三、四課考試");
+                ns.GetRow(0).CreateCell(12).SetCellValue("交見證");
+                ns.GetRow(0).CreateCell(13).SetCellValue("C1 通過判定");
+                ns.GetRow(0).CreateCell(14).SetCellValue("C2 通過判定");
+
+                for (int i = 0; i < gvChcMember.Rows.Count; i++)
+                {
+                    ns.CreateRow(i + 1).CreateCell(0).SetCellValue(gvChcMember.Rows[i].Cells[0].Text);
+                    for (int j = 1; j < gvChcMember.Columns.Count; j++)
+                    {
+                        switch (j)
+                        {
+                            case 2: //小組
+                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblGroupCName")).Text + "-" +
+                                    ((Label)gvChcMember.Rows[i].FindControl("lblGroupName")).Text);
+                                break;
+
+                            case 5: //C1 第一、二課
+                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblIsC112")).Text);
+                                break;
+                            case 6:
+                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblIsC134")).Text);
+                                break;
+                            case 7:
+                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblIsC212")).Text);
+                                break;
+                            case 8:
+                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblIsC234")).Text);
+                                break;
+                            case 9:
+                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblIsC25")).Text);
+                                break;
+
+                            case 13:
+                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblIswitness")).Text);
+                                break;
+
+                            default:
+                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(gvChcMember.Rows[i].Cells[j].Text);
+                                break;
+                        }
+
+                    }
+                }
+
+                wb.Write(ms);
+                string fileName = GroupName + DateTime.Now.ToString("yyyyMMddHHMMss") + ".xls";
+                Response.AddHeader("Content-Disposition", String.Format("attachment;filename=" + fileName));
+                Response.BinaryWrite(ms.ToArray());
+                wb = null;
+                ms.Close();
+                ms.Dispose();
+            }
+            else if (((System.Web.Configuration.HttpCapabilitiesBase)myBrowserCaps).IsMobileDevice)
+            {
+                Response.Write("<script>alert('必需使用電腦才能使用Excel匯出的功能');</script>");
+            }
+            else
+            {
+                Response.Write("<script>alert('請先選擇組別&小組查詢資料');</script>");
+            }
+
+            
+
+        }
+
+
+
     }
 }

@@ -1,4 +1,15 @@
-﻿using ADO;
+﻿/*
+ 用途：
+   生命建造-課程報名
+
+ 流程：
+   [View]SubjectSignUp.aspx?id=c1 > 報名 > [API]AddSubSign
+
+ API演算法：
+   
+
+ */
+using ADO;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
@@ -16,441 +27,173 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-/// <summary>
-/// <API>新增上課資訊
-/// </summary>
 namespace LifeBuildC.Api
 {
     public partial class AddSubSign : System.Web.UI.Page
     {
-        //小組資訊
-        ChcGroupADO ChcGroup = new ChcGroupADO();
-        //會友資訊
-        ChcMemberADO ChcMember = new ChcMemberADO();
-        //報名資訊
-        SubSignInfoADO SubSignInfo = new SubSignInfoADO();
-        //上課日期
-        SubjectDateADO SubjectDate = new SubjectDateADO();
-        //課程資訊
-        SubjectInfoADO SubjectInfo = new SubjectInfoADO();
-        //會友簽到記錄
-        SubSignUpDateADO SubSignUpDate = new SubSignUpDateADO();
-        //課程類別
-        SubCategoryADO SubCategory = new SubCategoryADO();
+        SubjectInfoADO subjectinfo = new SubjectInfoADO();
+        ChcMemberSub_TempADO chcmembersubtemp = new ChcMemberSub_TempADO();
+        ChcMemberADO chcmember = new ChcMemberADO();
 
-        //foreach count
-        int _Cnt = 0;
+        PageData pgdata = new PageData();
+        string strAddSubSign = string.Empty;
+        string GroupCName = string.Empty;
+        string GroupName = string.Empty;
+        string GroupClass = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
+            {
                 PageStart();
+            }
+
         }
 
         private void PageStart()
         {
-            #region 測試電文
-            
-            string strAddSubSign =
-@"
-{
-  ""S_ID"": 7,
-  ""Category"": ""C1"",
-  ""gcroup"": ""社青"",
-  ""group"": ""CA202.信豪牧區-彥伯小組"",
-  ""name"": ""丹丹"",
-  ""G_mail"": """",
-  ""Church"": ""江子翠行道會會友"",
-  ""Phone"": ""0919963322"",
-  ""ChkStatus"": 0,
-  ""MID"": 45
-}
-";
-
-            #endregion
-
-            //strAddSubSign = CheckStringByRequest("SubSign");
-            //string[] _ReqKeys = Request.Form.AllKeys;
-
-            using (Stream receiveStream = Request.InputStream)
+            if (Request.QueryString["test"] != null &&
+                Request.QueryString["test"].ToString() == "1")
             {
-                using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
+                pgdata.S_ID = 1;
+                pgdata.Category_ID = "C2";
+                pgdata.gcroup = "社青";
+                pgdata.group = "CA202.信豪牧區-彥伯小組";
+                pgdata.Ename = "劉彥伯";
+                pgdata.Phone = "0919963322";
+                pgdata.Gmail = "dennis866@gmail.com";
+                pgdata.Church = "江子翠行道會";
+            }
+            else
+            {
+                using (Stream receiveStream = Request.InputStream)
                 {
-                    strAddSubSign = readStream.ReadToEnd();
+                    using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
+                    {
+                        strAddSubSign = readStream.ReadToEnd();
+                    }
                 }
+
+                pgdata = JsonConvert.DeserializeObject<PageData>(strAddSubSign);
             }
 
-            PageData PageData = JsonConvert.DeserializeObject<PageData>(strAddSubSign);
-            SignSuccessInfo SignSuccessInfo = new SignSuccessInfo();
-            List<MakeUpInfo> listMakeUpInfo = new List<MakeUpInfo>();
-
-            //小組
-            string[] arrg = PageData.group.Split('.');
-            string GroupCName = arrg[1].Split('-')[0];
-            string GroupName = arrg[1].Split('-')[1];
-
-            #region 檢查會友資訊
-
-            //查詢會友資料
-            DataTable dtMem = new DataTable();
-
-            switch (PageData.ChkStatus)
+            if (pgdata != null)
             {
-                case 0: //保持原有資料
-                    dtMem = ChcMember.QueryMIDByChcMember(PageData.MID);
-                    PageData.name = dtMem.Rows[0]["Ename"].ToString();
-                    PageData.group = dtMem.Rows[0]["GroupName"].ToString();
-                    PageData.Phone = dtMem.Rows[0]["Phone"].ToString();
-                    break;
-                case 1: //更新手機號碼
-                    //UpdPhoneByChcMember(string Phone, string GroupName, string GroupCName, string GroupClass, string Ename)
-                    ChcMember.UpdPhoneByChcMember(PageData.Phone, GroupName, GroupCName, PageData.gcroup, PageData.name);
-                    break;
-                case 2: //更新小組資料
-                    //UpdGroupNameByChcMember(string GroupName, string GroupCName, string GroupClass,
-                    //                                                                   string Ename, string Phone)
-                    ChcMember.UpdGroupNameByChcMember(GroupName, GroupCName, PageData.gcroup, PageData.name, PageData.Phone);
-                    break;
-                case 3: //更新會友姓名
-                    //UpdEnameByChcMember(string Ename, string GroupName, string GroupCName, string GroupClass, string Phone)
-                    ChcMember.UpdEnameByChcMember(PageData.name, GroupName, GroupCName, PageData.gcroup, PageData.Phone);
-                    break;
-                case 4: //新增會友資料
-                    if (PageData.Category == "C1" || PageData.Category == "c1")
-                    {
-                        //InsChcMember2(string GroupCName, string GroupName, string GroupClass, string Ename, string Gmail, string Church, string C1_Status, string C2_Status, string Phone)
-                        ChcMember.InsChcMember2(GroupCName, GroupName, PageData.gcroup, PageData.name, PageData.G_mail, PageData.Church, "初次上課", "", PageData.Phone);
+                try
+                {
+                    pgdata.IsApiError = false;
+
+                    //小組
+                    string[] arrg = pgdata.group.Split('.');
+                    GroupCName = arrg[1].Split('-')[0];
+                    GroupName = arrg[1].Split('-')[1];
+                    GroupClass = pgdata.gcroup;
+
+                    if (pgdata.Category_ID == "C1")
+                    { //C1課程沒有限制報名資格
+
+                        InsChcMemberSub_Temp();
+                        pgdata.ApiMsg = "C1 課程報名成功！";
+
                     }
-                    else if (PageData.Category == "C2" || PageData.Category == "c2")
-                    {
-                        //InsChcMember2(string GroupCName, string GroupName, string GroupClass, string Ename, string Gmail, string Church, string C1_Status, string C2_Status, string Phone)
-                        ChcMember.InsChcMember2(GroupCName, GroupName, PageData.gcroup, PageData.name, PageData.G_mail, PageData.Church, "", "初次上課", PageData.Phone);
-                    }
+                    else if (pgdata.Category_ID == "C2")
+                    { //C2課程需上完C1才可報名
 
-                    //QueryByChcMember(string GroupCName, string GroupName, string Ename)
-                    dtMem = ChcMember.QueryByChcMember(GroupCName, GroupName, PageData.name);
-                    PageData.MID = int.Parse(dtMem.Rows[0]["MID"].ToString());
-                    break;
-            }
-
-            int MID = PageData.MID;
-
-            #endregion
-
-            #region 檢查補課狀況
-
-            //true表示第一次上課
-            bool chkfirst = SubSignInfo.QueryFirstBySubSignInfo(MID, PageData.Category);
-
-            //預設
-            string C1_Status = "第一次上 C1 課程"; //C1修課狀態
-            string C2_Status = "第一次上 C2 課程"; //C2修課狀態
-            PageData.C_Pass = "未通過";
-
-            if (!chkfirst)
-            { //不是第一次上課，檢查補課狀況
-
-                #region
-
-                DataTable dtSubC = SubCategory.QueryCategoryID_DataBySubCategory(MID, PageData.Category);
-                if (dtSubC != null && dtSubC.Rows.Count > 0)
-                { //缺課
-
-                    #region
-
-                    //初始字串
-                    C1_Status = "缺 ";
-                    C2_Status = "缺 ";
-                    PageData.C_Pass = "未通過";
-
-                    foreach (DataRow dr in dtSubC.Rows)
-                    {
-                        switch (dr["CategoryID"].ToString().Substring(0, 2))
+                        DataTable dtMem = chcmember.GetChcMemberByGroup(GroupCName, GroupName, pgdata.Ename);
+                        if (dtMem != null && dtMem.Rows.Count > 0)
                         {
-                            case "C1":
-                                C1_Status += "(" + dr["CategoryName"].ToString() + ")";
-                                break;
-                            case "C2":
-                                C2_Status += "(" + dr["CategoryName"].ToString() + ")";
-                                break;
-                        }
-
-                        //存入補課資訊
-                        MakeUpInfo MakeUpInfo = new MakeUpInfo();
-                        MakeUpInfo.CategoryID = dr["CategoryID"].ToString();
-                        MakeUpInfo.CategoryName = dr["CategoryName"].ToString();
-                        listMakeUpInfo.Add(MakeUpInfo);
-
-                    }
-
-                    #endregion
-
-                }
-                else
-                { //已通過，但想再上一次
-                    C1_Status = "";
-                    C2_Status = "";
-                    PageData.C_Pass = "已通過";
-                }
-
-                #endregion
-
-            }
-
-            //更新會友補課狀況
-            switch (PageData.Category)
-            {
-                case "C1":
-                    PageData.C_Status = C1_Status;
-                    ChcMember.UpdC1_StatusByChcMember(C1_Status, MID);
-                    break;
-                case "C2":
-                    PageData.C_Status = C2_Status;
-                    ChcMember.UpdC1_StatusByChcMember(C2_Status, MID);
-                    break;
-            }
-
-            #endregion
-
-            #region 新增上課資訊
-
-            //新增上課資訊
-            SubSignInfo.InsSubSignInfo(PageData.S_ID, MID, DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd HH:mm:ss"));
-            int SUID = SubSignInfo.QuerySUIDBySubSignInfo(MID);
-
-            //新增簽到表
-            foreach (DataRow dr in SubjectDate.QueryCategoryIDBySubjectDate(MID).Rows)
-            {
-                SubSignUpDate.InsSubSignUpDate(SUID, dr["CategoryID"].ToString());
-            }
-
-            //傳送上課資訊給google excel
-            //SendGoogleExcel(PageData);
-
-            #endregion
-
-            #region 課程報名成功(表單列印)
-
-            //Guid g;
-            //g = Guid.NewGuid();
-
-            /*
-              {
-                    "IsMakeUp": "false",
-                    "SBName": "C1課程報名成功",
-                    "gcname": "彥伯小組-流大丹",
-                    "SBInfo": [
-                    {
-                    "SBDate": "8/10(日) 下午14:30~17:30",
-                    "SBClass": "第一、二課"
-                    },
-                    {
-                    "SBDate": "8/23(日) 下午14:30~17:30",
-                    "SBClass": "第三、四課"
-                    }
-                    ],
-                    "cbook": "上課講義請到江子翠行道會改變書房購買"
-              }
-             */
-
-            SignSuccessInfo.SBName = PageData.Category + "課程報名成功";
-            SignSuccessInfo.gcname = PageData.group + "-" + PageData.name;
-
-
-            DataTable dtSubInfo = new DataTable();
-
-            dtSubInfo = SubjectInfo.QuerySIDBySubjectInfo(PageData.S_ID);
-
-            foreach (DataRow dr in dtSubInfo.Rows)
-            {
-                SBInfo SBInfo = new SBInfo();
-                SBInfo.SBDate = dr["SDate"].ToString().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") + "(" + GetDayOfWeek(DateTime.Parse(dr["SDate"].ToString())) + ") " + dr["SubTime"].ToString();
-                SBInfo.SBClass = dr["CategoryName"].ToString();
-                #region SBInfo.status
-
-                if (PageData.C_Pass == "已通過")
-                {
-                    SBInfo.status = "已通過";
-                }
-                else
-                {
-                    if (chkfirst)
-                    { //第一次上課
-                        SBInfo.status = "修課中";
-                    }
-                    else
-                    { //顯示補課通知
-                        _Cnt = 0;
-                        for (int i = 0; i < listMakeUpInfo.Count(); i++)
-                        {
-                            if (dr["CategoryID"].ToString() == listMakeUpInfo[i].CategoryID)
+                            bool IsC112 = bool.Parse(dtMem.Rows[0]["IsC112"].ToString());
+                            bool IsC134 = bool.Parse(dtMem.Rows[0]["IsC134"].ToString());
+                            if (IsC112 && IsC134)
                             {
-                                SBInfo.status = "需補課";
-                                _Cnt++;
+                                InsChcMemberSub_Temp();
+                                pgdata.ApiMsg = "C2 課程報名成功！";
                             }
-                        }
+                            else
+                            {
+                                pgdata.IsApiError = true;
+                                pgdata.ApiMsg = "您沒有符合上C2的資格！請向小組長或區長確認，或是自行查詢是否C1課程尚未完成";
+                            }
 
-                        if (_Cnt == 0)
+
+                        }
+                        else
                         {
-                            SBInfo.status = "已通過";
+                            pgdata.IsApiError = true;
+                            pgdata.ApiMsg = "您沒有符合上C2的資格！請向小組長或區長確認，或是自行查詢是否C1課程尚未完成";
                         }
 
                     }
+
+
+                }
+                catch (Exception e)
+                {
+                    pgdata.IsApiError = true;
+                    pgdata.ApiMsg = "網路斷線或填寫的資料內容有誤！請重新填寫報名資料";
                 }
 
-                #endregion
-                SignSuccessInfo.SBInfo.Add(SBInfo);
             }
 
-            SignSuccessInfo.cbook = "上課講義請到江子翠行道會改變書房購買";
-
-            Response.Write(JsonConvert.SerializeObject(SignSuccessInfo));
-
-            #endregion
+            Response.Write(JsonConvert.SerializeObject(pgdata));
 
         }
 
-        /// <summary>
-        /// 檢查 Request.Form 傳入的值是否異常，若異常回傳空值。
-        /// </summary>
-        /// <param name="RequestForm_Name">Request.Form 的名稱</param>
-        /// <returns>回傳 Request.Form 為 string 的值</returns>
-        private string CheckStringByRequest(string RequestForm_Name)
+        private void InsChcMemberSub_Temp()
         {
-            string _value = string.Empty;
-            if (Request.Form[RequestForm_Name] != null && Request.Form[RequestForm_Name].ToString().Length > 0)
-                _value = Request.Form[RequestForm_Name].ToString();
-
-            return _value;
-        }
-
-        /// <summary>
-        /// 傳送上課資訊給google excel
-        /// </summary>
-        private void SendGoogleExcel(PageData PageData)
-        {
-            string[] Scopes = { SheetsService.Scope.Spreadsheets };
-
-            //應用程式的名字需要英文
-            string ApplicationName = "Get Google SheetData with Google Sheets API";
-
-            UserCredential credential;
-
-            var folder = System.Web.HttpContext.Current.Server.MapPath("/App_Data/MyGoogleStorage");
-
-            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-               new ClientSecrets
-               {
-                   ClientId = "117990626740-rptck4cro3bpbu3u7da3t4qlr20i3rsl.apps.googleusercontent.com",
-                   ClientSecret = "zcFr6UCqdX-jo29QFogCcyf1"
-               },
-               Scopes,
-               "user",
-               CancellationToken.None,
-               new FileDataStore(folder)).Result;
-
-            // Create Google Sheets API service.
-
-            var service = new SheetsService(new BaseClientService.Initializer()
+            DataTable dtSub = subjectinfo.GetSubjectDateBySubjectInfo(pgdata.S_ID);
+            foreach (DataRow drSub in dtSub.Rows)
             {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName
-            });
-
-            // Define request parameters.
-            String spreadsheetId = "11kkw-I0uhmaoam7HYAz1JLHmwgsuJMpo_vzcwbaZUIE";
-
-            //String range = "工作表1!A:B";
-            String range = "工作表1";
-
-            var valueRange = new ValueRange();
-            //報名課程, 報名日期, 修課狀況, 小組,	姓名,	所屬教會, 補課狀況
-            var oblist = new List<object>() {
-                PageData.Category,
-                DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd HH:mm:ss"),
-                PageData.C_Pass,
-                PageData.group,
-                PageData.name,
-                PageData.Church,
-                PageData.C_Status
-            };
-
-            valueRange.Values = new List<IList<object>> { oblist };
-            valueRange.MajorDimension = "Rows"; //Rows or Columns
-
-            SpreadsheetsResource.ValuesResource.AppendRequest request = service.Spreadsheets.Values.Append(valueRange, spreadsheetId, range);
-            request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
-
-            var appendReponse = request.Execute();
-        }
-
-        private string GetDayOfWeek(DateTime dtime)
-        {
-            switch (dtime.DayOfWeek.ToString("d"))
-            {
-                case "0":
-                    return "日";
-                case "1":
-                    return "一";
-                case "2":
-                    return "二";
-                case "3":
-                    return "三";
-                case "4":
-                    return "四";
-                case "5":
-                    return "五";
-                case "6":
-                    return "六";
-                default:
-                    return "";
+                chcmembersubtemp.InsChcMemberSub_Temp_2(pgdata.S_ID, drSub["CategoryID2"].ToString(), GroupCName, GroupName, GroupClass,
+                     pgdata.Ename, pgdata.Phone, pgdata.Gmail, pgdata.Church, "0", DateTime.Parse(drSub["SDate"].ToString()), "");
             }
         }
 
+        /// <summary>
+        /// API參數
+        /// </summary>
         public class PageData
         {
-            public int S_ID; //2
-            public string Category; //C1
-            public string gcroup; //
-            public string group;
-            public string name;
-            public string G_mail;
-            public string Church;
-            public string Phone;
-            public string C_Status; //補課狀況
-            public string C_Pass; //修課狀況
-
-            //ChkStatus=0 保持原有資料
-            //ChkStatus=1 更新手機號碼
-            //ChkStatus=2 更新小組資料
-            //ChkStatus=3 更新會友姓名
-            //ChkStatus=4 新增會友資料
-            public int ChkStatus;
-            public int MID;
-        }
-
-        public class SignSuccessInfo
-        {
-            public string SBName; //C1課程報名成功
-            public string gcname; //彥伯小組-流大丹
-            public List<SBInfo> SBInfo = new List<SBInfo>();
-            public string cbook;
-        }
-
-        public class SBInfo
-        {
-            public string SBDate; //8/10(日) 下午14:30~17:30
-            public string SBClass; //第一、二課
-            public string status;
-        }
-
-        /// <summary>
-        /// 補課資訊
-        /// </summary>
-        public class MakeUpInfo
-        {
-            public string CategoryID;
-            public string CategoryName;
+            /// <summary>
+            /// 課程ID(SubjectInfo.SID)
+            /// </summary>
+            public int S_ID { get; set; }
+            /// <summary>
+            /// 課程類別(ChcMemberSub_Temp.CategoryID)
+            /// </summary>
+            public string Category_ID { get; set; }
+            /// <summary>
+            /// 組別(ChcMemberSub_Temp.GroupClass)
+            /// </summary>
+            public string gcroup { get; set; }
+            /// <summary>
+            /// 小組(ChcMemberSub_Temp.GroupCName+ChcMemberSub_Temp.GroupName)
+            /// </summary>
+            public string group { get; set; }
+            /// <summary>
+            /// 姓名(ChcMemberSub_Temp.Ename)
+            /// </summary>
+            public string Ename { get; set; }
+            /// <summary>
+            /// 手機(ChcMemberSub_Temp.Phone)
+            /// </summary>
+            public string Phone { get; set; }
+            /// <summary>
+            /// Email(ChcMemberSub_Temp.Gmail)
+            /// </summary>
+            public string Gmail { get; set; }
+            /// <summary>
+            /// 所屬教會(ChcMemberSub_Temp.Church)
+            /// </summary>
+            public string Church { get; set; }
+            /// <summary>
+            /// API 訊息
+            /// </summary>
+            public string ApiMsg { get; set; }
+            /// <summary>
+            /// API 有錯(true: 有錯; false: 沒有錯)
+            /// </summary>
+            public bool IsApiError { get; set; }
         }
 
     }

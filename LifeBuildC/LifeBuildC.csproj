@@ -672,6 +672,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Admin\SubjectData\" />
     <Folder Include="aspnet_client\system_web\4_0_30319\" />
     <Folder Include="Models\" />
     <Folder Include="obj\Debug\TempPE\" />

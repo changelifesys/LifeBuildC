@@ -29,7 +29,7 @@ namespace LifeBuildC.Admin
 
         private void PageDataLoad()
         {
-            DataTable dt = SubjectInfo.GetSIDBySubjectInfo(int.Parse(Request.QueryString["id"].ToString()));
+            DataTable dt = SubjectInfo.GetSubjectDateBySubjectInfo(int.Parse(Request.QueryString["id"].ToString()));
 
             if (dt.Rows.Count > 0)
             {

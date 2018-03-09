@@ -52,7 +52,7 @@ namespace LifeBuildC.Api
             string GroupCName = arrg[1].Split('-')[0];
             string GroupName = arrg[1].Split('-')[1];
 
-            DataTable dt = member.QueryByChcMember(GroupCName, GroupName, PageData.Ename);
+            DataTable dt = member.GetChcMemberByGroup(GroupCName, GroupName, PageData.Ename);
             DataTable dtStatus = cstatus.QueryByClassStatus();
 
             #region 初始值

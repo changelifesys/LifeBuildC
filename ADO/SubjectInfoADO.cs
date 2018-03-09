@@ -20,29 +20,6 @@ namespace ADO
         public void InsSubjectInfo(string SubName, string SUCondition, string SubLocation, 
                                                           string SubStrDate, string SubEndDate)
         {
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"INSERT INTO
-            //                               SubjectInfo(SubName, SUCondition, SubLocation,
-            //                                                      SubStrDate, SubEndDate)
-            //                               VALUES(@SubName, @SUCondition, @SubLocation,
-            //                                                      @SubStrDate, @SubEndDate)";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@SubName", SubName);
-            //    com.Parameters.AddWithValue("@SUCondition", SUCondition);
-            //    com.Parameters.AddWithValue("@SubLocation", SubLocation);
-            //    com.Parameters.AddWithValue("@SubStrDate", SubStrDate);
-            //    com.Parameters.AddWithValue("@SubEndDate", SubEndDate);
-
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            #endregion
-
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
@@ -67,29 +44,6 @@ namespace ADO
 
         public void UpdSubjectInfo(string SUCondition, string SubLocation, string SubStrDate, string SubEndDate, int SID)
         {
-            #region Acces
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"UPDATE SubjectInfo
-            //                                SET SUCondition = @SUCondition,
-            //                                        SubLocation = @SubLocation,
-            //                                        SubStrDate = @SubStrDate,
-            //                                        SubEndDate = @SubEndDate
-            //                                WHERE SID = @SID";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@SUCondition", SUCondition);
-            //    com.Parameters.AddWithValue("@SubLocation", SubLocation);
-            //    com.Parameters.AddWithValue("@SubStrDate", SubStrDate);
-            //    com.Parameters.AddWithValue("@SubEndDate", SubEndDate);
-            //    com.Parameters.AddWithValue("@SID", SID);
-
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"UPDATE SubjectInfo
@@ -116,18 +70,7 @@ namespace ADO
         public DataTable QueryMaxSIDBySubjectInfo(string CategoryID)
         {
             DataTable dt = new DataTable();
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT TOP 1 * FROM SubjectInfo
-            //                                WHERE LEFT(SubName, 2) = @CategoryID
-            //                                ORDER BY SID DESC";
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
-            //    sda.Fill(dt);
-            //}
-            #endregion
-            //MS SQL
+
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT TOP 1 * FROM SubjectInfo
@@ -144,25 +87,7 @@ namespace ADO
         public DataTable QuerySIDBySubjectInfo(int SID)
         {
             DataTable dt = new DataTable();
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT SubjectDate.SubTime, SubjectDate.CategoryID, SubjectDate.SDate,
 
-            //                                (SELECT CategoryName  FROM SubCategory
-            //                                 WHERE CategoryID = SubjectDate.CategoryID) AS CategoryName
-
-            //                                FROM SubjectInfo 
-            //                                LEFT JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
-            //                                WHERE SubjectInfo.SID = @SID
-            //                                ORDER BY CDate(SubjectDate.SDate)";
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
-            //    sda.Fill(dt);
-            //}
-            #endregion
-
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT SubjectDate.SubTime, SubjectDate.CategoryID, SubjectDate.SDate,
@@ -204,27 +129,16 @@ namespace ADO
             return dt;
         }
 
-        public DataTable GetSIDBySubjectInfo(int SID)
+        public DataTable GetSubjectDateBySubjectInfo(int SID)
         {
             DataTable dt = new DataTable();
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT *
-            //                                FROM SubjectInfo INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
-            //                                WHERE SubjectInfo.SID = @SID";
 
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
-            //    sda.Fill(dt);
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT *
-                                            FROM SubjectInfo INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
-                                            WHERE SubjectInfo.SID = @SID";
+                string sql = @"SELECT *, SubjectDate.CategoryID AS CategoryID2 
+                                           FROM SubjectInfo 
+                                           INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
+                                           WHERE SubjectInfo.SID = @SID";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@SID", SID);

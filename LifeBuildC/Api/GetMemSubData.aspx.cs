@@ -85,7 +85,7 @@ namespace LifeBuildC.Api
             string GroupCName = arrg[1].Split('-')[0];
             string GroupName = arrg[1].Split('-')[1];
 
-            DataTable dt = chcmember.QueryByChcMember(GroupCName, GroupName, PageData.Ename);
+            DataTable dt = chcmember.GetChcMemberByGroup(GroupCName, GroupName, PageData.Ename);
             DataTable dtStatus = cstatus.QueryByClassStatus();
             if (dt != null && dt.Rows.Count > 0)
             {

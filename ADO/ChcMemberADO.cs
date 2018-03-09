@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ADO
 {
     /// <summary>
-    /// 會友資訊
+    /// 會友資料
     /// </summary>
     public class ChcMemberADO
     {
@@ -41,9 +41,6 @@ namespace ADO
                 con.Close();
             }
         }
-
-        #region Update Member
-
 
         public void UpdChcMember(string Phone, string Gmail, string Church, int MID)
         {
@@ -260,12 +257,7 @@ namespace ADO
             }
         }
 
-
-        #endregion
-
-        #region 條件查詢
-
-        public DataTable QueryByChcMember(string GroupCName, string GroupName, string Ename)
+        public DataTable GetChcMemberByGroup(string GroupCName, string GroupName, string Ename)
         {
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
@@ -443,7 +435,6 @@ namespace ADO
 
         }
 
-        #endregion
 
 
 

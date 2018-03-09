@@ -13,6 +13,8 @@
     $("#btnQuery").css('background-color', 'rgb(204,204,204)');
     $("#blkQ").css('width', 300);
     $("#blkQ").css('background-color', 'white');
+    $("#btnExcel").css('width', 300);
+    $("#btnExcel").css('background-color', 'white');
 
     $('#blkQ').click(function () {
         $('#hidGroupClass').val($('#dropGroupClass').find(':selected').text());

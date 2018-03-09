@@ -72,8 +72,9 @@
         <div style="text-align: center; margin: 5px;">
             <asp:Button CssClass="inputStyle" ID="btnQuery" runat="server" Text="查詢" />
             <br/><br/>
-            <asp:Button CssClass="inputStyle" ID="blkQ" PostBackUrl="~/Admin/MemSubData/MemSubDataQuestion.aspx" runat="server" Text="問題反應" />                       
-<%--            <asp:LinkButton ID="blkQ"  runat="server">問題反應</asp:LinkButton>--%>
+            <asp:Button CssClass="inputStyle" ID="blkQ" PostBackUrl="~/Admin/MemSubData/MemSubDataQuestion.aspx" runat="server" Text="問題反應" />                    
+            <br/><br/>
+            <asp:Button CssClass="inputStyle" ID="btnExcel" runat="server" Text="匯出Excel" OnClick="btnExcel_Click" />
         </div>
 
         <asp:GridView ID="gvChcMember" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvChcMember_RowDataBound" HorizontalAlign="Center">

@@ -1,4 +1,15 @@
-﻿using ADO;
+﻿/*
+ 用途：
+   生命建造-課程報到
+
+ 流程：
+   [View]SubjectCheck.aspx?id=c1 > 報到 > [API]UpdSubSign
+
+ API演算法：
+   
+
+ */
+using ADO;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
@@ -20,161 +31,95 @@ namespace LifeBuildC.Api
 {
     public partial class UpdSubSign : System.Web.UI.Page
     {
-        //小組資訊
-        ChcGroupADO ChcGroup = new ChcGroupADO();
-        //會友資訊
-        ChcMemberADO ChcMember = new ChcMemberADO();
-        //報名資訊
-        SubSignInfoADO SubSignInfo = new SubSignInfoADO();
-        //上課日期
-        SubjectDateADO SubjectDate = new SubjectDateADO();
-        //會友簽到記錄
-        SubSignUpDateADO SubSignUpDate = new SubSignUpDateADO();
+        PageData pgdata = new PageData();
+        string strUpdSubSign = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
+            {
                 PageStart();
+            }
         }
 
         private void PageStart()
         {
-            #region 測試電文
-
-            string ReqUpdSubSign =
-@"
-{
-  S_ID: ""2"",
-  gcroup: ""社青"",
-  group: ""CA202.信豪牧區-彥伯小組"",
-  name: ""流大丹""
-}
-";
-
-            #endregion
-
-            using (Stream receiveStream = Request.InputStream)
+            if (Request.QueryString["test"] != null &&
+                Request.QueryString["test"].ToString() == "1")
             {
-                using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
-                {
-                    ReqUpdSubSign = readStream.ReadToEnd();
-                }
-            }
 
-            PageData PageData = JsonConvert.DeserializeObject<PageData>(ReqUpdSubSign);
-
-            //小組
-            string[] arrg = PageData.group.Split('.');
-            string GroupCName = arrg[1].Split('-')[0];
-            string GroupName = arrg[1].Split('-')[1];
-
-            #region 取得會友ID
-
-            //查詢會友資料
-            DataTable dtMem = ChcMember.QueryByChcMember(GroupCName, GroupName, PageData.name);
-            int MID = int.Parse(dtMem.Rows[0]["MID"].ToString());
-
-            #endregion
-
-            #region 課程報到
-
-            //查詢報到課程
-            DataTable dtSignInfo = SubSignInfo.QuerySubSignInfo(MID, PageData.S_ID);
-            int SUID = int.Parse(dtSignInfo.Rows[0]["SUID"].ToString());
-
-            //查詢當日課程
-            DataTable dtCategoryID = SubjectDate.QueryCategoryIDBySubjectDate(PageData.S_ID, DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"));
-            if (dtCategoryID.Rows.Count > 0)
-            { //當日有上課
-                PageData.CategoryID = dtCategoryID.Rows[0]["CategoryID"].ToString();
-
-                //更新上課資訊
-                SubSignUpDate.UpdDateBySubSignUpDate(SUID, PageData.CategoryID, DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"));
-
-                PageData.Msg = "報到成功";
             }
             else
-            { //沒有查詢到課程
+            {
+                using (Stream receiveStream = Request.InputStream)
+                {
+                    using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
+                    {
+                        strUpdSubSign = readStream.ReadToEnd();
+                    }
+                }
 
-                PageData.Msg = "報到失敗，系統沒有對應到該課程";
+                pgdata = JsonConvert.DeserializeObject<PageData>(strUpdSubSign);
+            }
+
+
+            if (pgdata != null)
+            {
+
+                if (pgdata.Category_ID == "C1")
+                {
+
+                }
+
+                if (pgdata.Category_ID == "C2")
+                {
+
+                }
 
             }
 
-            //傳送上課資訊給google excel
-            SendGoogleExcel(PageData);
 
-            #endregion
+
 
         }
 
         /// <summary>
-        /// 傳送上課資訊給google excel
+        /// API參數
         /// </summary>
-        private void SendGoogleExcel(PageData PageData)
+        public class PageData
         {
-            string[] Scopes = { SheetsService.Scope.Spreadsheets };
-
-            //應用程式的名字需要英文
-            string ApplicationName = "Get Google SheetData with Google Sheets API";
-
-            UserCredential credential;
-
-            var folder = System.Web.HttpContext.Current.Server.MapPath("/App_Data/MyGoogleStorage");
-
-            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-               new ClientSecrets
-               {
-                   ClientId = "117990626740-rptck4cro3bpbu3u7da3t4qlr20i3rsl.apps.googleusercontent.com",
-                   ClientSecret = "zcFr6UCqdX-jo29QFogCcyf1"
-               },
-               Scopes,
-               "user",
-               CancellationToken.None,
-               new FileDataStore(folder)).Result;
-
-            // Create Google Sheets API service.
-
-            var service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName
-            });
-
-            // Define request parameters.
-            String spreadsheetId = "11kkw-I0uhmaoam7HYAz1JLHmwgsuJMpo_vzcwbaZUIE";
-
-            //String range = "工作表1!A:B";
-            String range = "上課報到";
-
-            var valueRange = new ValueRange();
-            //報到課程, 報到日期, 小組, 姓名, 系統回應
-            var oblist = new List<object>() {
-                PageData.CategoryID,
-                DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd HH:mm:ss"),
-                PageData.group,
-                PageData.name,
-                PageData.Msg
-            };
-
-            valueRange.Values = new List<IList<object>> { oblist };
-            valueRange.MajorDimension = "Rows"; //Rows or Columns
-
-            SpreadsheetsResource.ValuesResource.AppendRequest request = service.Spreadsheets.Values.Append(valueRange, spreadsheetId, range);
-            request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
-
-            var appendReponse = request.Execute();
+            /// <summary>
+            /// 課程ID(SubjectInfo.SID)
+            /// </summary>
+            public int S_ID { get; set; }
+            /// <summary>
+            /// 課程類別(ChcMemberSub_Temp.CategoryID)
+            /// </summary>
+            public string Category_ID { get; set; }
+            /// <summary>
+            /// 組別(ChcMemberSub_Temp.GroupClass)
+            /// </summary>
+            public string gcroup { get; set; }
+            /// <summary>
+            /// 小組(ChcMemberSub_Temp.GroupCName+ChcMemberSub_Temp.GroupName)
+            /// </summary>
+            public string group { get; set; }
+            /// <summary>
+            /// 姓名(ChcMemberSub_Temp.Ename)
+            /// </summary>
+            public string Ename { get; set; }
+            /// <summary>
+            /// API 訊息
+            /// </summary>
+            public string ApiMsg { get; set; }
+            /// <summary>
+            /// API 有錯(true: 有錯; false: 沒有錯)
+            /// </summary>
+            public bool IsApiError { get; set; }
         }
 
     }
 
-    public class PageData
-    {
-        public int S_ID { get; set; } //2
-        public string gcroup { get; set; } //社青
-        public string group { get; set; } //CA202.信豪牧區-彥伯小組
-        public string name { get; set; } //流大丹
-        public string CategoryID { get; set; }
-        public string Msg { get; set; } //訊息顯示
-    }
+
 
 }
