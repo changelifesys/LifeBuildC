@@ -82,10 +82,14 @@ namespace LifeBuildC.Admin.MemSubData
 
         protected void gvChcMember_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+
             //滑鼠移入移出效果
             if (e.Row.RowType == DataControlRowType.DataRow &&
                 ((e.Row.RowState & DataControlRowState.Edit) <= 0))
             {
+                e.Row.Attributes.Add("onmouseover", "c=this.style.backgroundColor;this.style.backgroundColor='rgb(187,255,255)'");
+                e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor=c;");
+
                 ((Button)e.Row.FindControl("btnView")).PostBackUrl = "MemSubDataEdit.aspx?id=" + DataBinder.Eval(e.Row.DataItem, "MID").ToString();
                 
 
@@ -389,7 +393,7 @@ namespace LifeBuildC.Admin.MemSubData
                                 break;
 
                             default:
-                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(gvChcMember.Rows[i].Cells[j].Text);
+                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(gvChcMember.Rows[i].Cells[j].Text.Replace("&nbsp;", ""));
                                 break;
                         }
 
