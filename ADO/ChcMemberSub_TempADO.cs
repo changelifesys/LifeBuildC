@@ -16,22 +16,25 @@ namespace ADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
 
-        public void InsChcMemberSub_Temp(string CategoryID, string Ename, string Egroup, string Phone, string EStatus, string SubDate, string Memo)
+        public void InsExcelDataByChcMemberSub_Temp(string CategoryID, string GroupCName, string GroupName, string GroupClass, string Ename, string Phone, string Gmail, string Church, bool EStatus, DateTime SubDate)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           ChcMemberSub_Temp(CategoryID, Ename, Egroup, Phone, EStatus, SubDate, Memo)
-                                           VALUES(@CategoryID, @Ename, @Egroup, @Phone, @EStatus, @SubDate, @Memo)";
+                                           ChcMemberSub_Temp(CategoryID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, EStatus, SubDate)
+                                           VALUES(@CategoryID, @GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail, @Church, @EStatus, @SubDate)";
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@CategoryID", CategoryID);
+                com.Parameters.AddWithValue("@GroupCName", GroupCName);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@GroupClass", GroupClass);
                 com.Parameters.AddWithValue("@Ename", Ename);
-                com.Parameters.AddWithValue("@Egroup", Egroup);
                 com.Parameters.AddWithValue("@Phone", Phone);
+                com.Parameters.AddWithValue("@Gmail", Gmail);
+                com.Parameters.AddWithValue("@Church", Church);
                 com.Parameters.AddWithValue("@EStatus", EStatus);
                 com.Parameters.AddWithValue("@SubDate", SubDate);
-                com.Parameters.AddWithValue("@Memo", Memo);
 
                 con.Open();
                 com.ExecuteNonQuery();
@@ -60,6 +63,21 @@ namespace ADO
                 com.Parameters.AddWithValue("@EStatus", EStatus);
                 com.Parameters.AddWithValue("@SubDate", SubDate);
                 com.Parameters.AddWithValue("@Memo", Memo);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+        public void Upduptyn1ByChcMemberSub_Temp()
+        {
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"UPDATE ChcMemberSub_Temp
+                                           SET uptyn = 1";
+
+                SqlCommand com = new SqlCommand(sql, con);
 
                 con.Open();
                 com.ExecuteNonQuery();

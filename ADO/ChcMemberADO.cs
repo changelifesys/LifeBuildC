@@ -17,6 +17,8 @@ namespace ADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
 
+        //INSERT
+
         public void InsChcMember2(string GroupCName, string GroupName, string GroupClass, string Ename, string Gmail, string Church, string C1_Status, string C2_Status, string Phone)
         {
             using (SqlConnection con = new SqlConnection(condb))
@@ -41,6 +43,67 @@ namespace ADO
                 con.Close();
             }
         }
+
+        public void InsExcelDataByChcMember(string CategoryID, string GroupCName, string GroupName, string GroupClass, string Ename, bool IsPass)
+        {
+            string sql = "INSERT INTO ChcMember(GroupCName, GroupName, GroupClass, Ename,";
+
+            switch (CategoryID.ToUpper())
+            {
+                case "C112":
+                    sql += " IsC112)";
+                    break;
+                case "C134":
+                    sql += " IsC134)";
+                    break;
+                case "C212":
+                    sql += " IsC212)";
+                    break;
+                case "C234":
+                    sql += " IsC234)";
+                    break;
+                case "C25":
+                    sql += " IsC25)";
+                    break;
+            }
+
+            sql += " VALUES(@GroupCName, @GroupName, @GroupClass, @Ename,";
+
+            switch (CategoryID.ToUpper())
+            {
+                case "C112":
+                    sql += " @IsPass)";
+                    break;
+                case "C134":
+                    sql += " @IsPass)";
+                    break;
+                case "C212":
+                    sql += " @IsPass)";
+                    break;
+                case "C234":
+                    sql += " @IsPass)";
+                    break;
+                case "C25":
+                    sql += " @IsPass)";
+                    break;
+            }
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@GroupCName", GroupCName);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@GroupClass", GroupClass);
+                com.Parameters.AddWithValue("@Ename", Ename);
+                com.Parameters.AddWithValue("@IsPass", IsPass);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+        //UPDATE
 
         public void UpdChcMember(string Phone, string Gmail, string Church, int MID)
         {
@@ -195,19 +258,16 @@ namespace ADO
             }
         }
 
-        public void UpdC1_StatusByChcMember(string C1_Status, int MID)
+        public void UpdC1C2_StatusByChcMember()
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
 
                 string sql = @"UPDATE ChcMember 
-                                            SET C1_Status = @C1_Status
-                                            WHERE MID = @MID
+                                            SET C1_Status = '不通過'
                                           ";
 
                 SqlCommand com = new SqlCommand(sql, con);
-                com.Parameters.AddWithValue("@C1_Status", C1_Status);
-                com.Parameters.AddWithValue("@MID", MID);
 
                 con.Open();
                 com.ExecuteNonQuery();
@@ -215,18 +275,75 @@ namespace ADO
             }
         }
 
-        public void UpdC2_StatusByChcMember(string C2_Status, int MID)
+        public void UpdC1_StatusByChcMember()
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
+
                 string sql = @"UPDATE ChcMember 
-                                            SET C2_Status = @C2_Status
-                                            WHERE MID = @MID
+                                            SET C1_Status = '通過'
+                                            WHERE IsC112 = 1 AND IsC134 = 1
                                           ";
 
                 SqlCommand com = new SqlCommand(sql, con);
-                com.Parameters.AddWithValue("@C2_Status", C2_Status);
-                com.Parameters.AddWithValue("@MID", MID);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+        public void UpdC2_StatusByChcMember()
+        {
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+
+                string sql = @"UPDATE ChcMember 
+                                            SET C2_Status = '通過'
+                                            WHERE IsC212 = 1 AND IsC234 = 1 AND IsC25 = 1
+                                            AND C1_Score >= 70 AND C212_Score >= 70 AND C234_Score >= 70
+                                          ";
+
+                SqlCommand com = new SqlCommand(sql, con);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+        public void UpdPassDataByChcMember(string CategoryID, string GroupName, string Ename, bool IsPass)
+        {
+            string sql = "UPDATE ChcMember SET";
+
+            switch(CategoryID.ToUpper())
+            {
+                case "C112":
+                    sql += " IsC112 = @IsPass";
+                    break;
+                case "C134":
+                    sql += " IsC134 = @IsPass";
+                    break;
+                case "C212":
+                    sql += " IsC212 = @IsPass";
+                    break;
+                case "C234":
+                    sql += " IsC234 = @IsPass";
+                    break;
+                case "C25":
+                    sql += " IsC25 = @IsPass";
+                    break;
+            }
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                sql += @" WHERE GroupName = @GroupName AND Ename = @Ename";
+
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@CategoryID", CategoryID);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@Ename", Ename);
+                com.Parameters.AddWithValue("@IsPass", IsPass);
 
                 con.Open();
                 com.ExecuteNonQuery();
@@ -257,6 +374,8 @@ namespace ADO
             }
         }
 
+        //GET
+
         public DataTable GetChcMemberByGroup(string GroupCName, string GroupName, string Ename)
         {
             DataTable dt = new DataTable();
@@ -276,6 +395,8 @@ namespace ADO
 
             return dt;
         }
+
+        //QUERY
 
         public DataTable QueryPhoneByChcMember(string Phone)
         {

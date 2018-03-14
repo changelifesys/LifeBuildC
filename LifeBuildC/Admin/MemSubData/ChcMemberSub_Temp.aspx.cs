@@ -13,7 +13,9 @@ namespace LifeBuildC.Admin.MemSubData
 {
     public partial class ChcMemberSub_Temp : System.Web.UI.Page
     {
+        ChcMember_LogADO chcmemlog = new ChcMember_LogADO();
         ChcMemberSub_TempADO memSub = new ChcMemberSub_TempADO();
+        ChcMemberADO chcmember = new ChcMemberADO();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,54 +25,63 @@ namespace LifeBuildC.Admin.MemSubData
         protected void Button1_Click(object sender, EventArgs e)
         {
             #region DataTable
-
             DataTable table = new DataTable();
             DataColumn column;
             DataRow row;
 
-            //google 時間戳記
+            //0(A)
             column = new DataColumn();
             column.DataType = Type.GetType("System.String");
-            column.ColumnName = "CreateTime";
+            column.ColumnName = "課程編號";
             table.Columns.Add(column);
 
-            //上課類別
+            //1(B)
             column = new DataColumn();
             column.DataType = Type.GetType("System.String");
-            column.ColumnName = "CategoryID";
+            column.ColumnName = "是否簽到";
             table.Columns.Add(column);
 
-            //姓名
+            //2(C)
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.DateTime");
+            column.ColumnName = "報名or簽到時間";
+            table.Columns.Add(column);
+
+            //3(D)
             column = new DataColumn();
             column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Ename";
+            column.ColumnName = "姓名";
             table.Columns.Add(column);
 
-            //所屬牧區/小組
+            //4(E)
             column = new DataColumn();
             column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Egroup";
+            column.ColumnName = "上課註記";
             table.Columns.Add(column);
 
-            //手機
+            //5(F)
             column = new DataColumn();
             column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Phone";
+            column.ColumnName = "所屬牧區/小組：家庭弟兄";
             table.Columns.Add(column);
 
-            //報名&簽到
+            //6(G)
             column = new DataColumn();
             column.DataType = Type.GetType("System.String");
-            column.ColumnName = "EStatus";
+            column.ColumnName = "所屬牧區/小組：家庭姊妹";
             table.Columns.Add(column);
 
-            //上課日期
+            //6(H)
             column = new DataColumn();
             column.DataType = Type.GetType("System.String");
-            column.ColumnName = "SubDate";
+            column.ColumnName = "所屬牧區/小組：社青";
             table.Columns.Add(column);
 
-
+            //7(I)
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "所屬牧區/小組：學青";
+            table.Columns.Add(column);
 
             #endregion
 
@@ -79,47 +90,138 @@ namespace LifeBuildC.Admin.MemSubData
             //讀取Sheet1 工作表
             var sheet = workbook.GetSheetAt(0);
 
-            for (int r = 1; r <= sheet.LastRowNum; r++)
+            for (int r = 2; r <= sheet.LastRowNum; r++)
             {
-                row = table.NewRow();
-
-                if (sheet.GetRow(r) != null)
+                if (sheet.GetRow(r) != null && sheet.GetRow(r).GetCell(0) != null)
                 {
-                    int ri = 0;
-                    foreach (var c in sheet.GetRow(r).Cells)
+                    row = table.NewRow();
+
+                    for (int c = 0; c < 9; c++)
                     {
-                        if (c.CellType == CellType.Numeric)
-                        {
-                            DateTime _CreateTime = c.DateCellValue;
-                            row[ri] = _CreateTime.ToString("yyyy/MM/dd HH:mm:ss");
-                        }
-
-                        if (c.CellType == CellType.String && c.StringCellValue.ToString() != "")
-                        {
-                            row[ri] = c.StringCellValue.ToString().Replace(" ", "");
-                        }
-
-                        ri++;
+                        row[c] = sheet.GetRow(r).GetCell(c).ToString();
                     }
 
+                    table.Rows.Add(row);
+                }
+            }
+
+            GridView1.DataSource = table;
+            GridView1.DataBind();
+            Button2.Visible = true;
+
+            Response.Write("<script>alert('要匯入的資料已顯示在網頁上，請確認資料是否正確，再點選「確認匯入」');</script>");
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                for (int i = 0; i < GridView1.Rows.Count; i++)
+                {
+                    string CategoryID = GridView1.Rows[i].Cells[0].Text; //課程編號
+
+                    //0: 報名 1:簽到
+                    bool EStatus = true;
+                    if (GridView1.Rows[i].Cells[1].Text == "0")
+                    {
+                        EStatus = false;
+                    }
+
+                    DateTime SubDate = DateTime.Parse(GridView1.Rows[i].Cells[2].Text); //報名or簽到時間
+                    string Ename = GridView1.Rows[i].Cells[3].Text; //姓名
+
+                    string GroupCName = string.Empty;
+                    string GroupName = string.Empty;
+                    string GroupClass = string.Empty;
+                    if (GridView1.Rows[i].Cells[5].Text.Replace(" ", "").Replace("&nbsp;", "") != "")
+                    {
+                        //小組
+                        string[] arrg = GridView1.Rows[i].Cells[5].Text.Split('.');
+                        GroupCName = arrg[1].Split('-')[0];
+                        GroupName = arrg[1].Split('-')[1];
+                        GroupClass = "家庭組弟兄";
+                    }
+                    else if (GridView1.Rows[i].Cells[6].Text.Replace(" ", "").Replace("&nbsp;", "") != "")
+                    {
+                        //小組
+                        string[] arrg = GridView1.Rows[i].Cells[6].Text.Split('.');
+                        GroupCName = arrg[1].Split('-')[0];
+                        GroupName = arrg[1].Split('-')[1];
+                        GroupClass = "家庭組姊妹";
+                    }
+                    else if (GridView1.Rows[i].Cells[7].Text.Replace(" ", "").Replace("&nbsp;", "") != "")
+                    {
+                        //小組
+                        string[] arrg = GridView1.Rows[i].Cells[7].Text.Split('.');
+                        GroupCName = arrg[1].Split('-')[0];
+                        GroupName = arrg[1].Split('-')[1];
+                        GroupClass = "社青";
+                    }
+                    else if (GridView1.Rows[i].Cells[8].Text.Replace(" ", "").Replace("&nbsp;", "") != "")
+                    {
+                        //小組
+                        string[] arrg = GridView1.Rows[i].Cells[8].Text.Split('.');
+                        GroupCName = arrg[1].Split('-')[0];
+                        GroupName = arrg[1].Split('-')[1];
+                        GroupClass = "學生";
+                    }
+
+
+                    string Phone = "";
+                    string Gmail = "";
+                    string Church = "";
+
+                    memSub.InsExcelDataByChcMemberSub_Temp(CategoryID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, EStatus, SubDate);
                 }
 
-                table.Rows.Add(row);
-            }
+                DataTable dtMemTemp = memSub.QueryuptynByChcMemberSub_Temp();
+                DataTable dtMem = chcmember.QueryAllByChcMember();
+                foreach (DataRow dr in dtMemTemp.Rows)
+                {
+                    DataRow[] drChcMem = dtMem.Select("GroupName='" + dr["GroupName"].ToString() + "' AND Ename='" + dr["Ename"].ToString() + "'");
+                    if (drChcMem.Count() > 0)
+                    {
+                        //寫入Log
+                        chcmemlog.InsChcMemberByChcMember_Log(dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString());
 
-            foreach (DataRow dr in table.Rows)
+                        //小組&姓名若填寫正確
+                        //更新上課資料
+                        chcmember.UpdPassDataByChcMember(dr["CategoryID"].ToString(), dr["GroupName"].ToString(), dr["Ename"].ToString(), bool.Parse(dr["EStatus"].ToString()));
+                    }
+                    else
+                    { //否則就新增資料
+
+                        //新增資料
+                        chcmember.InsExcelDataByChcMember(dr["CategoryID"].ToString(), dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString(), bool.Parse(dr["EStatus"].ToString()));
+
+                        //寫入Log
+                        chcmemlog.InsChcMemberByChcMember_Log(dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString());
+
+                    }
+                }
+
+
+                //更新完畢
+                //UPDATE uptyn = 1
+                memSub.Upduptyn1ByChcMemberSub_Temp();
+
+                //更新課程通過狀態
+                chcmember.UpdC1C2_StatusByChcMember();
+                chcmember.UpdC1_StatusByChcMember();
+                chcmember.UpdC2_StatusByChcMember();
+                Response.Write("<script>alert('成功匯入');</script>");
+                //imgloading.Visible = false;
+            }
+            catch (Exception ex)
             {
-                string CategoryID = dr["CategoryID"].ToString();
-                string Ename = dr["Ename"].ToString();
-                string Egroup = dr["Egroup"].ToString();
-                string Phone = dr["Phone"].ToString();
-                string EStatus = dr["EStatus"].ToString();
-                string SubDate = dr["SubDate"].ToString();
-                string Memo = dr["Memo"].ToString();
-
-                memSub.InsChcMemberSub_Temp(CategoryID, Ename, Egroup, Phone, EStatus, SubDate, Memo);
+                Response.Write("<script>alert('匯入失敗 '" + ex.ToString() + ");</script>");
             }
+
+            
 
         }
+
+
+
     }
 }
