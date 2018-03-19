@@ -374,26 +374,41 @@ namespace ADO
             }
         }
 
-        //GET
-
-        public DataTable GetChcMemberByGroup(string GroupCName, string GroupName, string Ename)
+        public void UpdScoreByChcMember(string CategoryID, string Phone, string GroupCName, string GroupName, string Ename, int Score)
         {
-            DataTable dt = new DataTable();
-            using (SqlConnection con = new SqlConnection(condb))
-            {
-                string sql = @"SELECT * FROM ChcMember
-                                           WHERE GroupCName = @GroupCName
-                                           AND GroupName = @GroupName
-                                           AND Ename = @Ename";
 
-                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
-                sda.SelectCommand.Parameters.AddWithValue("@GroupCName", GroupCName);
-                sda.SelectCommand.Parameters.AddWithValue("@GroupName", GroupName);
-                sda.SelectCommand.Parameters.AddWithValue("@Ename", Ename);
-                sda.Fill(dt);
+            string sql = "UPDATE ChcMember SET Phone = @Phone,";
+
+            switch (CategoryID.ToUpper())
+            {
+                case "C1":
+                    sql += " C1_Score = @Score";
+                    break;
+                case "C212":
+                    sql += " C212_Score = @Score";
+                    break;
+                case "C234":
+                    sql += " C234_Score = @Score";
+                    break;
             }
 
-            return dt;
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                sql += @" WHERE GroupCName = @GroupCName
+                                   AND GroupName = @GroupName
+                                   AND Ename = @Ename";
+
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@Phone", Phone);
+                com.Parameters.AddWithValue("@GroupCName", GroupCName);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@Ename", Ename);
+                com.Parameters.AddWithValue("@Score", Score);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
         }
 
         //QUERY
@@ -556,6 +571,50 @@ namespace ADO
 
         }
 
+        public DataTable QueryMemDataByChcMember(string GroupCName, string GroupName, string Ename)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcMember
+                                           WHERE GroupCName = @GroupCName
+                                           AND GroupName = @GroupName
+                                           AND Ename = @Ename
+                                           ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupCName", GroupCName);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupName", GroupName);
+                sda.SelectCommand.Parameters.AddWithValue("@Ename", Ename);
+                sda.Fill(dt);
+            }
+
+            return dt;
+
+        }
+
+        //GET
+
+        public DataTable GetChcMemberByGroup(string GroupCName, string GroupName, string Ename)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcMember
+                                           WHERE GroupCName = @GroupCName
+                                           AND GroupName = @GroupName
+                                           AND Ename = @Ename";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupCName", GroupCName);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupName", GroupName);
+                sda.SelectCommand.Parameters.AddWithValue("@Ename", Ename);
+                sda.Fill(dt);
+            }
+
+            return dt;
+        }
 
 
 

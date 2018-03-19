@@ -11,7 +11,7 @@ namespace LifeBuildC.Admin
 {
     public partial class SystemSet : System.Web.UI.Page
     {
-
+        ChcMemberADO chcmem = new ChcMemberADO();
         SystemSetADO syset = new SystemSetADO();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -54,6 +54,10 @@ namespace LifeBuildC.Admin
             syset.UpdUserScore(txtC1.Value.Trim(), "", "C1", ckbIsEnable_C1.Checked.ToString());
             syset.UpdUserScore(txtC212.Value.Trim(), "", "C212", ckbIsEnable_C212.Checked.ToString());
             syset.UpdUserScore(txtC234.Value.Trim(), "", "C234", ckbIsEnable_C234.Checked.ToString());
+
+            //通過判定
+            chcmem.UpdC2_StatusByChcMember();
+
             Response.Write("<script>alert('儲存成功');</script>");
 
 

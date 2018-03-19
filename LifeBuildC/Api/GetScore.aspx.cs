@@ -1,4 +1,12 @@
-﻿using ADO;
+﻿/*
+ 用途：
+   生命建造-線上考試
+
+ 流程：
+   [View]Exam.aspx > 
+
+ */
+using ADO;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
@@ -23,6 +31,8 @@ namespace LifeBuildC.Api
         ExamQuestionsADO examq = new ExamQuestionsADO();
         UserScoreADO uscore = new UserScoreADO();
         //GoogleSheetsADO gsheets = new GoogleSheetsADO();
+        ChcMemberADO chcmem = new ChcMemberADO();
+        ChcMember_LogADO memlog = new ChcMember_LogADO();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -219,6 +229,56 @@ namespace LifeBuildC.Api
                                                    AnswerData.user[0].mobile,
                                                    _Score.ToString());
 
+
+            //小組
+            string[] arrg = AnswerData.user[0].group.Split('.');
+            string GroupCName = arrg[1].Split('-')[0];
+            string GroupName = arrg[1].Split('-')[1];
+
+            DataTable dtMem = chcmem.QueryMemDataByChcMember(GroupCName, GroupName, AnswerData.user[0].name);
+            if (dtMem != null && dtMem.Rows.Count > 0)
+            {
+                bool ChkUpd = false;
+                switch (AnswerData.user[0].eclass)
+                {
+                    case "C1":
+                        if (_Score > int.Parse(dtMem.Rows[0]["C1_Score"].ToString()))
+                        {
+                            ChkUpd = true;
+                        }
+                        break;
+
+
+                    case "C212":
+                        if (_Score > int.Parse(dtMem.Rows[0]["C212_Score"].ToString()))
+                        {
+                            ChkUpd = true;
+                        }
+                        break;
+
+
+                    case "C234":
+                        if (_Score > int.Parse(dtMem.Rows[0]["C234_Score"].ToString()))
+                        {
+                            ChkUpd = true;
+                        }
+                        break;
+                }
+
+                if (ChkUpd)
+                {
+                    //寫入Log
+                    memlog.InsChcMember2ByChcMember_Log(GroupCName, GroupName, AnswerData.user[0].name);
+
+                    //更新成績
+                    chcmem.UpdScoreByChcMember(AnswerData.user[0].eclass, AnswerData.user[0].mobile, GroupCName, GroupName, AnswerData.user[0].name, _Score);
+
+                    //通過判定我寫在Admin/SystemSet.aspx
+                    //當考卷開啓或關閉時更新通過狀態
+                }
+
+            }
+
             //Google Excel
             SendGoogleExcel(AnswerData, _Score.ToString());
 
@@ -346,9 +406,21 @@ namespace LifeBuildC.Api
 
         public class user
         {
+            /// <summary>
+            /// 課程類別ID
+            /// </summary>
             public string eclass;
+            /// <summary>
+            /// 小組
+            /// </summary>
             public string group;
+            /// <summary>
+            /// 姓名
+            /// </summary>
             public string name;
+            /// <summary>
+            /// 手機
+            /// </summary>
             public string mobile;
         }
 

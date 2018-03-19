@@ -1,4 +1,12 @@
-﻿using ADO;
+﻿/*
+ 用途：
+   生命建造-線上考試
+
+ 流程：
+   [View]Exam.aspx > 
+
+ */
+using ADO;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

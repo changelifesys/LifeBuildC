@@ -16,31 +16,6 @@ namespace ADO
 
         public void InsUserScore(string ExamCategory, string Egroup, string Ename, string Emobile, string EScore)
         {
-
-            #region Access
-
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"INSERT INTO
-            //                               UserScore(ExamCategory, Egroup, Ename, Emobile, EScore, CreateDate)
-            //                               VALUES(@ExamCategory, @Egroup, @Ename, @Emobile, @EScore, @CreateDate)";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@ExamCategory", ExamCategory);
-            //    com.Parameters.AddWithValue("@Egroup", Egroup);
-            //    com.Parameters.AddWithValue("@Ename", Ename);
-            //    com.Parameters.AddWithValue("@Emobile", Emobile);
-            //    com.Parameters.AddWithValue("@EScore", EScore);
-            //    com.Parameters.AddWithValue("@CreateDate", CreateDate);
-
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-
-            #endregion
-
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO

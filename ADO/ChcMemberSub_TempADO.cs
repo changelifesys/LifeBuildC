@@ -16,6 +16,8 @@ namespace ADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
 
+        //INSERT
+
         public void InsExcelDataByChcMemberSub_Temp(string CategoryID, string GroupCName, string GroupName, string GroupClass, string Ename, string Phone, string Gmail, string Church, bool EStatus, DateTime SubDate)
         {
             using (SqlConnection con = new SqlConnection(condb))
@@ -70,6 +72,8 @@ namespace ADO
             }
         }
 
+        //UPDATE
+
         public void Upduptyn1ByChcMemberSub_Temp()
         {
             using (SqlConnection con = new SqlConnection(condb))
@@ -85,6 +89,8 @@ namespace ADO
             }
         }
 
+        //QUREY
+
         public DataTable QueryuptynByChcMemberSub_Temp()
         {
             DataTable dt = new DataTable();
@@ -99,6 +105,8 @@ namespace ADO
 
             return dt;
         }
+
+        //GET
 
         public DataTable GetChcMemberSub_TempByGroup(int SID, string GroupCName, string GroupName, string GroupClass,
             DateTime SubDate)
