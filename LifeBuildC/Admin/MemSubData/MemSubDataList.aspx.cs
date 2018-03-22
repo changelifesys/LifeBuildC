@@ -307,8 +307,14 @@ namespace LifeBuildC.Admin.MemSubData
         {
             if (txtEname.Text.Trim() != "")
             {
-                gvChcMember.DataSource = member.QueryLikeEnameByChcMember(txtEname.Text.Trim());
+                DataTable dt = member.QueryLikeEnameByChcMember(txtEname.Text.Trim());
+                gvChcMember.DataSource = dt;
                 gvChcMember.DataBind();
+                lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
+            }
+            else
+            {
+                dropGroupName_SelectedIndexChanged(null, null);
             }
 
         }

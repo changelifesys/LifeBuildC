@@ -33,7 +33,7 @@ namespace LifeBuildC.Admin.Api
                     string Question = Request.Form["Question"].ToString(); //問題描述
 
                     //主旨
-                    SubLine = "關於 " + CategoryName + " 問題：" + SubLine;
+                    SubLine = "[" + GroupClass + GroupName + "]" + "關於 " + CategoryName + " 問題：" + SubLine;
 
                     //問題描述
                     Question += "<p/><label style='color: red'>寄件人Mail：" + Email + "</label>";
