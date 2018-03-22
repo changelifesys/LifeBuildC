@@ -42,16 +42,22 @@ namespace LifeBuildC.Admin.MemSubData
                 { //小組長
                     Label10.Visible = false;
                     dropGroupCName.Visible = false;
+                    chkIsLeave.Visible = false;
+                    lblIsLeave.Visible = false;
                 }
                 else if (Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "2")
                 { //區長
                     Label6.Visible = false;
                     dropGroupName.Visible = false;
+                    chkIsLeave.Visible = false;
+                    lblIsLeave.Visible = false;
                 }
                 else if (Request.QueryString["gid"] == null && Session["Login"] != null && Session["Login"].ToString() == "ok")
                 { //中央同工
                     Label10.Visible = false;
                     dropGroupCName.Visible = false;
+                    chkIsLeave.Visible = true;
+                    lblIsLeave.Visible = true;
                 }
                 else
                 {
@@ -314,7 +320,12 @@ namespace LifeBuildC.Admin.MemSubData
             }
             else
             {
-                dropGroupName_SelectedIndexChanged(null, null);
+                try
+                {
+                    dropGroupName_SelectedIndexChanged(null, null);
+                }
+                catch { }
+
             }
 
         }
@@ -436,7 +447,23 @@ namespace LifeBuildC.Admin.MemSubData
 
         }
 
+        protected void chkIsLeave_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkIsLeave.Checked)
+            {
+                DataTable dt = member.QueryIsLeaveByChcMember();
+                gvChcMember.DataSource = dt;
+                gvChcMember.DataBind();
+            }
+            else
+            {
+                try
+                {
+                    dropGroupName_SelectedIndexChanged(null, null);
+                }
+                catch { }
 
-
+            }
+        }
     }
 }

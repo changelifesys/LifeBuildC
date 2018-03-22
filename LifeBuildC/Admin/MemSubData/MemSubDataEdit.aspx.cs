@@ -104,6 +104,13 @@ namespace LifeBuildC.Admin.MemSubData
             //C2 通過判定
             lblC2_Status.Text = dt.Rows[0]["C2_Status"].ToString();
 
+            //是否離開教會
+            chkIsLeave.Checked = false;
+            if (bool.Parse(dt.Rows[0]["IsLeave"].ToString()))
+            {
+                chkIsLeave.Checked = true;
+            }
+
         }
 
         /// <summary>
@@ -173,10 +180,13 @@ namespace LifeBuildC.Admin.MemSubData
                 C2_Status = dtStatus.Select("StatusID='C001'")[0]["ClassStatus"].ToString();
             }
 
+            //是否離開教會
+            bool IsLeave = chkIsLeave.Checked;
+
             member.UpdChcMember2(MID, GroupCName, GroupName, GroupClass,
                                                              Ename, Church, C1_Status, C2_Status,
                                                              IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score,
-                                                             witness, Iswitness);
+                                                             witness, Iswitness, IsLeave);
 
             btnSave.PostBackUrl = "~/Admin/MemSubData/MemSubDataList.aspx";
             //Response.Write("<script>alert('儲存成功');</script>");

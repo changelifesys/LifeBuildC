@@ -64,7 +64,9 @@
             </tr>
             <tr>
                 <td colspan="2" style="text-align: center;">
-                    <asp:Label ID="lblDataCnt" ForeColor="#fa5555" runat="server" Text="請選擇組別查詢員組修課資料"></asp:Label>
+                    <asp:Label ID="lblDataCnt" ForeColor="#fa5555" runat="server" Text="請選擇組別查詢員組修課資料"></asp:Label><br/>
+                    <asp:CheckBox ID="chkIsLeave" runat="server" AutoPostBack="true" OnCheckedChanged="chkIsLeave_CheckedChanged" /> 
+                    <asp:Label ID="lblIsLeave" runat="server" Text="離開教會"></asp:Label>
                 </td>
             </tr>
         </table>

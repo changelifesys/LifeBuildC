@@ -131,7 +131,7 @@ namespace ADO
         public void UpdChcMember2(int MID, string GroupCName, string GroupName, string GroupClass,
             string Ename, string Church, string C1_Status, string C2_Status,
             bool IsC112, bool IsC134, bool IsC212, bool IsC234, bool IsC25, int C1_Score, int C212_Score, int C234_Score,
-            string witness, bool Iswitness)
+            string witness, bool Iswitness, bool IsLeave)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
@@ -152,7 +152,8 @@ namespace ADO
                                                     C212_Score = @C212_Score,
                                                     C234_Score = @C234_Score,
                                                     witness = @witness,
-                                                    Iswitness = @Iswitness
+                                                    Iswitness = @Iswitness,
+                                                    IsLeave = @IsLeave
                                             WHERE MID = @MID
                                           ";
 
@@ -174,6 +175,7 @@ namespace ADO
                 com.Parameters.AddWithValue("@C234_Score", C234_Score);
                 com.Parameters.AddWithValue("@witness", witness);
                 com.Parameters.AddWithValue("@Iswitness", Iswitness);
+                com.Parameters.AddWithValue("@IsLeave", IsLeave);
                 com.Parameters.AddWithValue("@MID", MID);
 
                 con.Open();
@@ -497,6 +499,7 @@ namespace ADO
             {
                 string sql = @"SELECT * FROM ChcMember M
                                            WHERE Ename LIKE @Ename+'%'
+                                           AND IsLeave = 0
                                            ";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
@@ -539,6 +542,7 @@ namespace ADO
             {
                 string sql = @"SELECT * FROM ChcMember
                                            WHERE GroupCName = @GroupCName
+                                           AND IsLeave = 0
                                            ORDER BY GroupName, MID
                                            ";
 
@@ -559,6 +563,7 @@ namespace ADO
             {
                 string sql = @"SELECT * FROM ChcMember
                                            WHERE GroupName = @GroupName
+                                           AND IsLeave = 0
                                            ORDER BY GroupName, MID
                                            ";
 
@@ -587,6 +592,25 @@ namespace ADO
                 sda.SelectCommand.Parameters.AddWithValue("@GroupCName", GroupCName);
                 sda.SelectCommand.Parameters.AddWithValue("@GroupName", GroupName);
                 sda.SelectCommand.Parameters.AddWithValue("@Ename", Ename);
+                sda.Fill(dt);
+            }
+
+            return dt;
+
+        }
+
+        public DataTable QueryIsLeaveByChcMember()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcMember
+                                           WHERE IsLeave = 1
+                                           ORDER BY GroupName, MID
+                                           ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
             }
 

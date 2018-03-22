@@ -400,6 +400,24 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.Label lblC2_Status;
         
         /// <summary>
+        /// Label21 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label21;
+        
+        /// <summary>
+        /// chkIsLeave 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkIsLeave;
+        
+        /// <summary>
         /// btnSave 控制項。
         /// </summary>
         /// <remarks>

@@ -208,6 +208,16 @@
                 </td>
             </tr>
 
+            <!--離開教會-->
+            <tr style="height: 40px;">
+                <td style="width: 150px; background-color: rgb(204,204,204)">
+                    <asp:Label ID="Label21" ForeColor="Black" Font-Bold="true" runat="server" Text="是否離開教會"></asp:Label>
+                </td>
+                <td style="background-color: rgb(239,239,239); text-align: center;">
+                    <asp:CheckBox ID="chkIsLeave" runat="server" />已經離開
+                </td>
+            </tr>
+
         </table>
 
         <div style="text-align: center; margin: 5px;">
