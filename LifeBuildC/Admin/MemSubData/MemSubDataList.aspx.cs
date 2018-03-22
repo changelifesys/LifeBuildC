@@ -38,15 +38,24 @@ namespace LifeBuildC.Admin.MemSubData
 
                 #endregion
 
-                if (Request.QueryString["gid"] == null || Request.QueryString["gid"].ToString() == "1")
-                { //中央同工&小組長
+                if (Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "1")
+                { //小組長
                     Label10.Visible = false;
                     dropGroupCName.Visible = false;
                 }
-                else if (Request.QueryString["gid"].ToString() == "2")
+                else if (Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "2")
                 { //區長
                     Label6.Visible = false;
                     dropGroupName.Visible = false;
+                }
+                else if (Request.QueryString["gid"] == null && Session["Login"] != null && Session["Login"].ToString() == "ok")
+                { //中央同工
+                    Label10.Visible = false;
+                    dropGroupCName.Visible = false;
+                }
+                else
+                {
+                    Response.Redirect("MemSubDataList.aspx?gid=1");
                 }
 
                 //組別
