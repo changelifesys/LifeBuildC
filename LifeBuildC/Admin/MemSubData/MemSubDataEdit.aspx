@@ -84,8 +84,8 @@
                 </td>
                 <td style="background-color: rgb(239,239,239); text-align: center;">
                     <asp:DropDownList class="inputStyle" ID="dropChurch" runat="server">
-                        <asp:ListItem>江子翠行道會會友</asp:ListItem>
-                        <asp:ListItem>新莊幸福行道會會友</asp:ListItem>
+                        <asp:ListItem>江子翠行道會</asp:ListItem>
+                        <asp:ListItem>新莊幸福行道會</asp:ListItem>
                     </asp:DropDownList>
                 </td>
             </tr>
