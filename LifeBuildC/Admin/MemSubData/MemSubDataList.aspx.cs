@@ -447,6 +447,9 @@ namespace LifeBuildC.Admin.MemSubData
 
         }
 
+        /// <summary>
+        /// 離開教會
+        /// </summary>
         protected void chkIsLeave_CheckedChanged(object sender, EventArgs e)
         {
             if (chkIsLeave.Checked)
@@ -454,6 +457,7 @@ namespace LifeBuildC.Admin.MemSubData
                 DataTable dt = member.QueryIsLeaveByChcMember();
                 gvChcMember.DataSource = dt;
                 gvChcMember.DataBind();
+                lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
             }
             else
             {

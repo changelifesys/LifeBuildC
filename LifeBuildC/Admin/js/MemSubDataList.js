@@ -22,4 +22,15 @@
         $('#hidEname').val($('#txtEname').val());
     });
 
+    // Initial call of function
+    KeepSessionAlive();
+
 });
+
+function KeepSessionAlive() {
+    // 1. Make request to server
+    $.post("http://changelifesys.org/admin/MemSubData/MemSubDataList.aspx");
+
+    // 2. Schedule new request after 60000 miliseconds (1 minute)
+    setInterval(KeepSessionAlive, 60000);
+}
