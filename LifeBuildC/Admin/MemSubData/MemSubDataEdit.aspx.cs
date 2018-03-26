@@ -126,10 +126,21 @@ namespace LifeBuildC.Admin.MemSubData
             string GroupClass = hfGroupClassValue.Value;
 
             //小組
-            string _group = hfGroupNameValue.Value;
-            string[] arrg = _group.Split('.');
-            string GroupCName = arrg[1].Split('-')[0];
-            string GroupName = arrg[1].Split('-')[1];
+            string GroupCName = string.Empty;
+            string GroupName = string.Empty;
+            try
+            {
+                string _group = hfGroupNameValue.Value;
+                string[] arrg = _group.Split('.');
+                GroupCName = arrg[1].Split('-')[0];
+                GroupName = arrg[1].Split('-')[1];
+            }
+            catch
+            {
+                GroupCName = "";
+                GroupName = "";
+            }
+
 
             //姓名
             string Ename = txtEname.Text.Trim();
