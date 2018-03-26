@@ -238,7 +238,7 @@ namespace LifeBuildC.Admin.MemSubData
                 }
 
 
-                DataTable dtGName = member.QueryGroupNameByChcMember(GroupName);
+                DataTable dtGName = member.QueryChcMemberByGroupNameAndIsLeave(GroupName);
                 gvChcMember.DataSource = dtGName;
                 gvChcMember.DataBind();
 
@@ -290,7 +290,7 @@ namespace LifeBuildC.Admin.MemSubData
                 GroupName = arrg[1].Split('-')[1];
             }
 
-            DataTable dt = member.QueryGroupNameByChcMember(GroupName);
+            DataTable dt = member.QueryChcMemberByGroupNameAndIsLeave(GroupName);
             gvChcMember.DataSource = dt;
             gvChcMember.DataBind();
 

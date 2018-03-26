@@ -555,7 +555,7 @@ namespace ADO
 
         }
 
-        public DataTable QueryGroupNameByChcMember(string GroupName)
+        public DataTable QueryChcMemberByGroupNameAndIsLeave(string GroupName)
         {
             DataTable dt = new DataTable();
 
@@ -564,6 +564,26 @@ namespace ADO
                 string sql = @"SELECT * FROM ChcMember
                                            WHERE GroupName = @GroupName
                                            AND IsLeave = 0
+                                           ORDER BY GroupName, MID
+                                           ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupName", GroupName);
+                sda.Fill(dt);
+            }
+
+            return dt;
+
+        }
+
+        public DataTable QueryChcMemberByGroupName(string GroupName)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcMember
+                                           WHERE GroupName = @GroupName
                                            ORDER BY GroupName, MID
                                            ";
 

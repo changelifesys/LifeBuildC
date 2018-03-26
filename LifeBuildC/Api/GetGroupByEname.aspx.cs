@@ -1,6 +1,6 @@
 ﻿/*
  用途：
-   生命建造-線上查詢 
+   生命建造-線上查詢 (個人查詢)
 
  流程：
    [View]MemSubQuery > 頁面資料載入 > [API]GetGroupByEname
