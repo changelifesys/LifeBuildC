@@ -38,7 +38,7 @@ namespace LifeBuildC.Api
             if (Request.QueryString["test"] != null &&
                 Request.QueryString["test"].ToString() == "1")
             {
-                PageData.group = "";
+                PageData.group = "CA202.信豪牧區-彥伯小組";
                 PageData.ApiMsg = "";
                 PageData.IsApiError = false;
             }
@@ -59,17 +59,34 @@ namespace LifeBuildC.Api
             {
                 PageData.IsApiError = false;
 
-                DataTable dtGroup = chcmember.QueryChcMemberByGroupName(PageData.group);
-                if (dtGroup != null && dtGroup.Rows.Count > 0)
+                try
                 {
-                    foreach (DataRow dr in dtGroup.Rows)
+                    //小組
+                    string GroupCName = string.Empty;
+                    string GroupName = string.Empty;
+                    try
                     {
+                        string[] arrg = PageData.group.Split('.');
+                        GroupCName = arrg[1].Split('-')[0];
+                        GroupName = arrg[1].Split('-')[1];
+                    }
+                    catch
+                    {
+                        GroupCName = "";
+                        GroupName = "";
+                    }
 
+                    DataTable dtGroup = chcmember.QueryChcMemberByGroupName(GroupName);
+                    if (dtGroup != null && dtGroup.Rows.Count > 0)
+                    {
+                        PageData.gcroup = dtGroup.Rows[0]["GroupClass"].ToString();
                     }
                 }
-
-
-
+                catch
+                {
+                    PageData.IsApiError = true;
+                    PageData.ApiMsg = "網路斷線或資料內容有誤，請拍照錯誤訊息Mail中央同工反應您的問題";
+                }
 
             }
 
@@ -79,6 +96,10 @@ namespace LifeBuildC.Api
 
         public class PageData
         {
+            /// <summary>
+            /// 組別
+            /// </summary>
+            public string gcroup { get; set; }
             /// <summary>
             /// 小組
             /// </summary>
