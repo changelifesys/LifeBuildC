@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div style="text-align: center; margin: 5px;">
+        <img src="img/title.jpg" />
+        <h1>生命建造-線上查詢</h1>
+        <label>劉彥伯</label>
+        <br />
+        <br />
+        <font style="color: red">*</font>小組
+        <select id="Select1">
+            <option>請選擇小組</option>
+            <option>CA202.信豪牧區-彥伯小組</option>
+        </select>
+        <br />
+        <br />
+        組別：社青
+        <br />
+        <br />
+        <input id="Button1" type="button" onclick="window.location='Page3.html'" value="查詢" />
+        <input id="Button2" type="button" onclick="window.location='Page1.html'" value="重置" />
+    </div>
+    <br />
+    <hr />
+    <h1>開發說明</h1>
+    1. 將 Api/GetGroupByEname.aspx 的 JSON 資料帶入 MemSubQuery.aspx 同一頁。<br />
+    <textarea id="TextArea1" style="width: 100%" rows="8">
+{
+    "group": [
+    "CA202.信豪牧區-彥伯小組"
+    ],
+    "Ename": "劉彥伯",
+    "ApiMsg": "",
+    "IsApiError": false
+}
+    </textarea>
+    <br/>
+    1.1. Ename 欄位帶入姓名。
+    <br/>
+    1.2. group 陣列帶入下拉選單。
+    <p/>
+    2. 當選擇小組時，會呼叫 Api/GetClassByGroup.aspx，傳入的 JSON 格式如下：
+    <br />
+    <textarea id="TextArea1" style="width: 100%" rows="3">
+{
+  "group": "CA202.信豪牧區-彥伯小組"
+}
+    </textarea>
+    <br />
+    <br />
+    回傳的 JSON 格式如下：
+    <br />
+    <textarea id="TextArea1" style="width: 100%" rows="6">
+{
+  "gcroup": "社青",
+  "group": "CA202.信豪牧區-彥伯小組",
+  "ApiMsg": "",
+  "IsApiError": false
+}
+    </textarea>
+    <br />
+    2.1. 將 gcroup 欄位的資料帶入「組別」的欄位中。
+    <p/>
+    3. 小組的選擇為必填欄位。
+    <p />
+    4. 若按下「重置」鈕，則回到起始輸入姓名的畫面。
+    <p />
+    5. 若按下「查詢」鈕，會呼叫 Api/GetMemSubData.aspx，傳入的 JSON 格式如下：
+    <br />
+    <textarea id="TextArea1" style="width: 100%" rows="4">
+{
+  "gcroup": "社青",
+  "group": "CA202.信豪牧區-彥伯小組",
+  "Ename": "劉彥伯"
+}
+    </textarea>
+    <br />
+    <br />
+    回傳的 JSON 格式如下：
+    <br />
+    <textarea id="TextArea1" style="width: 100%" rows="28">
+{
+  "gcroup": "社青",
+  "group": "CA202.信豪牧區-彥伯小組",
+  "Ename": "劉彥伯",
+  "IsC112": true,
+  "TxtC112": "已上課",
+  "IsC134": true,
+  "TxtC134": "已上課",
+  "IsC1_Score": true,
+  "TxtC1_Score": "80分",
+  "IsC212": true,
+  "TxtIsC212": "已上課",
+  "IsC234": true,
+  "TxtIsC234": "已上課",
+  "IsC25": true,
+  "TxtIsC25": "已上課",
+  "Iswitness": true,
+  "Txtwitness": "已交",
+  "IsC212_Score": true,
+  "TxtC212_Score": "100分",
+  "IsC234_Score": true,
+  "TxtC234_Score": "100分",
+  "IsC1_Status": true,
+  "TxtC1_Status": "C1 判定通過",
+  "IsC2_Status": true,
+  "TxtC2_Status": "C2 判定通過",
+  "ApiMsg": null,
+  "IsApiError": false
+}
+    </textarea>
+    <br />
+    將 JSON 資料帶入 MemSubQuery.aspx 同一頁面。
+</body>
+</html>

@@ -3,7 +3,7 @@
    生命建造-線上查詢 (個人查詢)
 
  流程：
-   [View]MemSubQuery > 頁面資料載入 > [API]GetGroupByEname
+   [View]MemSubQuery > 繼續 > [API]GetGroupByEname 帶入小組
 
  */
 using ADO;
@@ -76,15 +76,11 @@ namespace LifeBuildC.Api
 
                             if (dtGroup != null && dtGroup.Rows.Count > 0)
                             {
-                                ChcGroupData ChcGroupData = new ChcGroupData();
-
                                 //出輸格式
                                 //AA101.永健牧區-永健小組
-                                ChcGroupData.group.Add(dtGroup.Rows[0]["GroupID"].ToString() + "." +
+                                PageData.group.Add(dtGroup.Rows[0]["GroupID"].ToString() + "." +
                                     dtGroup.Rows[0]["GroupCName"].ToString() + "-" +
                                     dtGroup.Rows[0]["GroupName"].ToString());
-
-                                PageData.group.Add(ChcGroupData);
 
                             }
                             else
@@ -118,7 +114,7 @@ namespace LifeBuildC.Api
 
         public class PageData
         {
-            public List<ChcGroupData> group = new List<ChcGroupData>();
+            public List<string> group = new List<string>();
             /// <summary>
             /// 姓名
             /// </summary>
@@ -132,14 +128,6 @@ namespace LifeBuildC.Api
             /// </summary>
             public bool IsApiError { get; set; }
 
-        }
-
-        public class ChcGroupData
-        {
-            /// <summary>
-            /// 小組
-            /// </summary>
-            public List<string> group = new List<string>();
         }
 
     }

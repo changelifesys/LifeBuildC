@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div style="text-align: center; margin: 5px;">
+        <img src="img/title.jpg" />
+        <h1>生命建造-線上查詢</h1>
+        <font style="color: red">*</font> 姓名 <input id="Text1" type="text" value="劉彥伯" /><br />
+        <br />
+        <input id="Button1" onclick="window.location='Page2.html'" type="button" value="繼續" />
+        <input id="Button2" type="button" value="重置" />
+    </div>
+    <br />
+    <hr/>
+    <h1>開發說明</h1>
+    1. 修改 MemSubQuery.aspx 頁面功能，畫面欄位顯示如上方。
+    <p />
+    2. 姓名欄位為必填，否則按繼續會跳 alert 訊息。
+    <p />
+    3. 按下「繼續」鈕後，會呼叫 Api/GetGroupByEname.aspx。傳入的 JSON 格式如下：
+    <br />
+    <textarea id="TextArea1" style="width: 100%" rows="3">
+{
+    "Ename": "劉彥伯"
+}
+    </textarea>
+    <br />
+    <br />
+    回傳的 JSON 格式如下：
+    <br />
+    <textarea id="TextArea1" style="width: 100%" rows="8">
+{
+    "group": [
+    "CA202.信豪牧區-彥伯小組"
+    ],
+    "Ename": "劉彥伯",
+    "ApiMsg": "",
+    "IsApiError": false
+}
+    </textarea>
+    <br/>
+    其中
+    <br />
+    3.1. 若 IsApiError = false，表示 API 正常取得資料，將 JSON 資料帶入 MemSubQuery.aspx 同一頁面。<br />
+    3.2. 若 IsApiError = true，表示 API 有 Error，將 ApiMsg 的內容 alert 出來。等使用者關閉 alert 後，清空姓名欄位。
+
+</body>
+</html>

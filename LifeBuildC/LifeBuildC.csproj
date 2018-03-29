@@ -266,6 +266,8 @@
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
     <Content Include="js\exam\build.js.map" />
     <Content Include="js\subjectCheck\build.js.map" />
+    <Content Include="SDPaper\生命建造-個人線上查詢\img\001.png" />
+    <Content Include="SDPaper\生命建造-個人線上查詢\Page3.html" />
     <Content Include="static\css\app.1741ad71a2c76a939858d89a2ccee2c1.css.map" />
     <Content Include="js\subjectSignUp\app.f079bbba98fa6982ca09.js.map" />
     <Content Include="js\subjectSignUp\manifest.ba642eead6c945fa43da.js.map" />
@@ -303,6 +305,9 @@
     <Content Include="static\img\title.eb480c9.jpg" />
     <Content Include="SubjectCheck.aspx" />
     <Content Include="SubjectSignUp.aspx" />
+    <Content Include="SDPaper\生命建造-個人線上查詢\img\title.jpg" />
+    <Content Include="SDPaper\生命建造-個人線上查詢\Page1.html" />
+    <Content Include="SDPaper\生命建造-個人線上查詢\Page2.html" />
     <Content Include="Tool\Tool001.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>

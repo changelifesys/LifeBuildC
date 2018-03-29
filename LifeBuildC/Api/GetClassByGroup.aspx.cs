@@ -3,7 +3,7 @@
    生命建造-線上查詢 (個人查詢)
 
  流程：
-   [View]MemSubQuery > 頁面資料載入 > [API]GetGroupByEname > 繼續 > [API]GetClassByGroup
+   [View]MemSubQuery > 繼續 > [API]GetGroupByEname > 選擇小組 > [API]GetClassByGroup 帶入組別
 
  */
 using ADO;

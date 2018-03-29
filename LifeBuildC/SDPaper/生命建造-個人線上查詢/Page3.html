@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div style="text-align: center; margin: 5px;">
+        <img src="img/001.png" />
+        
+    </div>
+    <br />
+    <hr />
+    <h1>開發說明</h1>
+    1. 將 Api/GetMemSubData.aspx 的 JSON 資料帶入 MemSubQuery.aspx 同一頁。<br />
+    <textarea id="TextArea1" style="width: 100%" rows="28">
+        {
+  "gcroup": "社青",
+  "group": "CA202.信豪牧區-彥伯小組",
+  "Ename": "劉彥伯",
+  "IsC112": true,
+  "TxtC112": "已上課",
+  "IsC134": true,
+  "TxtC134": "已上課",
+  "IsC1_Score": true,
+  "TxtC1_Score": "80分",
+  "IsC212": true,
+  "TxtIsC212": "已上課",
+  "IsC234": true,
+  "TxtIsC234": "已上課",
+  "IsC25": true,
+  "TxtIsC25": "已上課",
+  "Iswitness": true,
+  "Txtwitness": "已交",
+  "IsC212_Score": true,
+  "TxtC212_Score": "100分",
+  "IsC234_Score": true,
+  "TxtC234_Score": "100分",
+  "IsC1_Status": true,
+  "TxtC1_Status": "C1 判定通過",
+  "IsC2_Status": true,
+  "TxtC2_Status": "C2 判定通過",
+  "ApiMsg": null,
+  "IsApiError": false
+}
+    </textarea>
+    <br />
+    1.1. 標示為 true 的欄位要有勾勾的圖示，標示為 false 的欄位要有叉叉的圖示。
+    <br />
+    1.2. JSON Txt 開頭的欄位，為課程內容要顯示的文字。
+    <br />
+    1.3 C1 或 C2 判定為不通過時顏色顯示為紅色
+    <br />
+    1.4 若 IsApiError = false，表示 API 正常取得資料。
+    <br />
+    1.5 若 IsApiError = true，表示 API 有 Error，將 ApiMsg 的內容 alert 出來。等使用者關閉 alert 後，回到初始填寫姓名按繼續的頁面，且清空姓名欄位。
+</body>
+</html>
