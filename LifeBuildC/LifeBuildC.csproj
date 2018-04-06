@@ -328,7 +328,6 @@
     </Compile>
     <Compile Include="Admin\Demo.aspx.cs">
       <DependentUpon>Demo.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\Demo.aspx.designer.cs">
       <DependentUpon>Demo.aspx</DependentUpon>
