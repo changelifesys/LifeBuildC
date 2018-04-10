@@ -40,22 +40,39 @@ namespace LifeBuildC.Admin.MemSubData
 
                 if (Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "1")
                 { //小組長
-                    Label10.Visible = false;
+
+                    //區長功能隱藏
+                    lblGCName.Visible = false; 
                     dropGroupCName.Visible = false;
+
+                    //離開教會功能顯示
                     chkIsLeave.Visible = false;
                     lblIsLeave.Visible = false;
+
+                    //手動輸入小組功能隱藏
+                    ckbGroupName.Visible = false;
+                    lblKeyinGroupName.Visible = false;
+                    txtGroupName.Visible = false;
                 }
                 else if (Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "2")
                 { //區長
-                    Label6.Visible = false;
+
+                    //小組功能隱藏
+                    lblGName.Visible = false;
                     dropGroupName.Visible = false;
+
+                    //離開教會功能顯示
                     chkIsLeave.Visible = false;
                     lblIsLeave.Visible = false;
                 }
                 else if (Request.QueryString["gid"] == null && Session["Login"] != null && Session["Login"].ToString() == "ok")
                 { //中央同工
-                    Label10.Visible = false;
+
+                    //區長功能隱藏
+                    lblGCName.Visible = false; 
                     dropGroupCName.Visible = false;
+
+                    //離開教會功能顯示
                     chkIsLeave.Visible = true;
                     lblIsLeave.Visible = true;
                 }
@@ -95,6 +112,9 @@ namespace LifeBuildC.Admin.MemSubData
             }
         }
 
+        /// <summary>
+        /// GridView Data
+        /// </summary>
         protected void gvChcMember_RowDataBound(object sender, GridViewRowEventArgs e)
         {
 
@@ -201,16 +221,19 @@ namespace LifeBuildC.Admin.MemSubData
             }
         }
 
-        //組別
+        /// <summary>
+        /// 組別
+        /// </summary>
         protected void dropGroupClass_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtEname.Text = "";
 
             int _cnt = 0;
 
-            if (Request.QueryString["gid"] == null || Request.QueryString["gid"].ToString() == "1")
-            {
-                #region 中央同工&小組長
+            if (Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "1")
+            { //小組長
+
+                #region
 
                 DataTable dtGroup = group.QueryGroupNameByChcGroup_1(dropGroupClass.SelectedItem.Text);
 
@@ -246,36 +269,101 @@ namespace LifeBuildC.Admin.MemSubData
 
                 #endregion
             }
-            else if (Request.QueryString["gid"].ToString() == "2")
-            { 
-                #region 區長
+            else if (Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "2")
+            { //區長
 
-                DataTable dtGroup = group.QueryGroupCNameByChcGroup(dropGroupClass.SelectedItem.Text);
-
-                dropGroupCName.Items.Clear();
-                foreach (DataRow dr in dtGroup.Rows)
+                if (ckbGroupName.Checked)
                 {
-                    ListItem li = new ListItem();
-                    li.Text = dr["GroupCName"].ToString();
-                    li.Value = _cnt.ToString();
-                    dropGroupCName.Items.Add(li);
-                    _cnt++;
+                    DataTable dt = member.QueryEnameByGroupNameAndGroupClass(txtGroupName.Text.Trim());
+                    gvChcMember.DataSource = dt;
+                    gvChcMember.DataBind();
+                    lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
+                }
+                else
+                {
+                    #region
+
+                    DataTable dtGroup = group.QueryGroupCNameByChcGroup(dropGroupClass.SelectedItem.Text);
+
+                    dropGroupCName.Items.Clear();
+                    foreach (DataRow dr in dtGroup.Rows)
+                    {
+                        ListItem li = new ListItem();
+                        li.Text = dr["GroupCName"].ToString();
+                        li.Value = _cnt.ToString();
+                        dropGroupCName.Items.Add(li);
+                        _cnt++;
+                    }
+
+                    dropGroupCName.SelectedIndex = 0;
+
+                    DataTable dtGCName = member.QueryGroupCNameByChcMember(dropGroupCName.SelectedItem.Text);
+                    gvChcMember.DataSource = dtGCName;
+                    gvChcMember.DataBind();
+
+                    lblDataCnt.Text = "查詢共 " + dtGCName.Rows.Count + " 筆資料";
+
+                    #endregion
                 }
 
-                dropGroupCName.SelectedIndex = 0;
 
-                DataTable dtGCName = member.QueryGroupCNameByChcMember(dropGroupCName.SelectedItem.Text);
-                gvChcMember.DataSource = dtGCName;
-                gvChcMember.DataBind();
+            }
+            else if (Request.QueryString["gid"] == null && Session["Login"] != null && Session["Login"].ToString() == "ok")
+            { //中央同工
 
-                lblDataCnt.Text = "查詢共 " + dtGCName.Rows.Count + " 筆資料";
+                if (ckbGroupName.Checked)
+                {
+                    DataTable dt = member.QueryEnameByGroupNameAndGroupClass(txtGroupName.Text.Trim());
+                    gvChcMember.DataSource = dt;
+                    gvChcMember.DataBind();
+                    lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
+                }
+                else
+                {
+                    #region
 
-                #endregion
+                    DataTable dtGroup = group.QueryGroupNameByChcGroup_1(dropGroupClass.SelectedItem.Text);
+
+                    dropGroupName.Items.Clear();
+                    foreach (DataRow dr in dtGroup.Rows)
+                    {
+                        ListItem li = new ListItem();
+                        //出輸格式
+                        //AA101.永健牧區-永健小組
+                        li.Text = dr["GroupID"].ToString() + "." + dr["GroupCName"].ToString() + "-" + dr["GroupName"].ToString();
+                        li.Value = dr["GSort"].ToString();
+                        dropGroupName.Items.Add(li);
+                    }
+
+                    dropGroupName.SelectedIndex = 0;
+
+                    //小組
+                    string GroupCName = "";
+                    string GroupName = "";
+                    if (dropGroupName.SelectedItem != null)
+                    {
+                        string[] arrg = dropGroupName.SelectedItem.Text.Split('.');
+                        GroupCName = arrg[1].Split('-')[0];
+                        GroupName = arrg[1].Split('-')[1];
+                    }
+
+
+                    DataTable dtGName = member.QueryChcMemberByGroupNameAndIsLeave(GroupName);
+                    gvChcMember.DataSource = dtGName;
+                    gvChcMember.DataBind();
+
+                    lblDataCnt.Text = "查詢共 " + dtGName.Rows.Count + " 筆資料";
+
+                    #endregion
+                }
+
             }
 
         }
 
-        //小組
+        /// <summary>
+        /// 小組
+        /// </summary>
         protected void dropGroupName_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtEname.Text = "";
@@ -297,7 +385,9 @@ namespace LifeBuildC.Admin.MemSubData
             lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
         }
 
-        //區長
+        /// <summary>
+        /// 區長
+        /// </summary>
         protected void dropGroupCName_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtEname.Text = "";
@@ -309,6 +399,9 @@ namespace LifeBuildC.Admin.MemSubData
             lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
         }
 
+        /// <summary>
+        /// 輸入姓名
+        /// </summary>
         protected void txtEname_TextChanged(object sender, EventArgs e)
         {
             if (txtEname.Text.Trim() != "")
@@ -320,16 +413,29 @@ namespace LifeBuildC.Admin.MemSubData
             }
             else
             {
-                try
+                if (ckbGroupName.Checked)
                 {
-                    dropGroupName_SelectedIndexChanged(null, null);
+                    DataTable dt = member.QueryEnameByGroupNameAndGroupClass(txtGroupName.Text.Trim());
+                    gvChcMember.DataSource = dt;
+                    gvChcMember.DataBind();
+                    lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
                 }
-                catch { }
+                else
+                {
+                    try
+                    {
+                        dropGroupName_SelectedIndexChanged(null, null);
+                    }
+                    catch { }
+                }
 
             }
 
         }
 
+        /// <summary>
+        /// 匯出Excel
+        /// </summary>
         protected void btnExcel_Click(object sender, EventArgs e)
         {
             System.Web.HttpBrowserCapabilities myBrowserCaps = Request.Browser;
@@ -466,6 +572,108 @@ namespace LifeBuildC.Admin.MemSubData
                     dropGroupName_SelectedIndexChanged(null, null);
                 }
                 catch { }
+
+            }
+        }
+
+        /// <summary>
+        /// 自行輸入小組
+        /// </summary>
+        protected void ckbGroupName_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "2")
+            { //區長
+
+                if (ckbGroupName.Checked)
+                { //自行輸入小組
+
+                    dropGroupClass.Visible = false;
+                    lblGName.Visible = true;
+                    lblGCName.Visible = false;
+                    dropGroupCName.Visible = false;
+                    txtGroupName.Visible = true;
+
+                    DataTable dt = member.QueryEnameByGroupNameAndGroupClass(txtGroupName.Text.Trim());
+                    gvChcMember.DataSource = dt;
+                    gvChcMember.DataBind();
+                    lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
+                }
+                else
+                {
+
+                    dropGroupClass.Visible = true;
+                    txtGroupName.Text = "";
+                    lblGName.Visible = false;
+                    lblGCName.Visible = true;
+                    dropGroupCName.Visible = true;
+                    txtGroupName.Visible = false;
+
+                    try
+                    {
+                        dropGroupCName_SelectedIndexChanged(null, null);
+                    }
+                    catch { }
+
+                }
+
+            }
+            else if (Request.QueryString["gid"] == null && Session["Login"] != null && Session["Login"].ToString() == "ok")
+            { //中央同工
+
+                if (ckbGroupName.Checked)
+                { //自行輸入小組
+
+                    dropGroupClass.Visible = false;
+                    dropGroupName.Visible = false;
+                    txtGroupName.Visible = true;
+
+                    DataTable dt = member.QueryEnameByGroupNameAndGroupClass(txtGroupName.Text.Trim());
+                    gvChcMember.DataSource = dt;
+                    gvChcMember.DataBind();
+                    lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
+                }
+                else
+                {
+                    dropGroupClass.Visible = true;
+                    txtGroupName.Text = "";
+                    dropGroupName.Visible = true;
+                    txtGroupName.Visible = false;
+
+                    try
+                    {
+                        dropGroupName_SelectedIndexChanged(null, null);
+                    }
+                    catch { }
+
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// 自行輸入小組
+        /// </summary>
+        protected void txtGroupName_TextChanged(object sender, EventArgs e)
+        {
+            if ((Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "2") || (Request.QueryString["gid"] == null && Session["Login"] != null && Session["Login"].ToString() == "ok"))
+            { //區長 or 中央同工
+
+                if (ckbGroupName.Checked)
+                {
+                    DataTable dt = member.QueryEnameByGroupNameAndGroupClass(txtGroupName.Text.Trim());
+                    gvChcMember.DataSource = dt;
+                    gvChcMember.DataBind();
+                    lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
+                }
+                else
+                {
+                    try
+                    {
+                        dropGroupCName_SelectedIndexChanged(null, null);
+                    }
+                    catch { }
+
+                }
 
             }
         }

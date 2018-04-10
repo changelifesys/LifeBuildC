@@ -40,8 +40,8 @@
             <!--區長-->
             <tr style="height: 40px;">
                 <td style="width: 100px; background-color: rgb(204,204,204); text-align: center;">
-                    <asp:Label ID="Label6" ForeColor="#5a5e66" runat="server" Text="小組"></asp:Label>
-                    <asp:Label ID="Label10" ForeColor="#5a5e66" runat="server" Text="區長"></asp:Label>
+                    <asp:Label ID="lblGName" ForeColor="#5a5e66" runat="server" Text="小組"></asp:Label>
+                    <asp:Label ID="lblGCName" ForeColor="#5a5e66" runat="server" Text="區長"></asp:Label>
                 </td>
                 <td style="background-color: rgb(239,239,239); text-align: center;">
                     <asp:DropDownList CssClass="inputStyle" ID="dropGroupName" runat="server" AutoPostBack="True" OnSelectedIndexChanged="dropGroupName_SelectedIndexChanged">
@@ -51,6 +51,10 @@
                     <asp:DropDownList CssClass="inputStyle" ID="dropGroupCName" runat="server" AutoPostBack="True" OnSelectedIndexChanged="dropGroupCName_SelectedIndexChanged">
                         <asp:ListItem Value="" disabled Selected hidden>請選擇區長</asp:ListItem>
                     </asp:DropDownList>
+                    <asp:TextBox CssClass="inputStyle" ID="txtGroupName" Visible="false" runat="server" OnTextChanged="txtGroupName_TextChanged"></asp:TextBox><br/>
+                    <asp:CheckBox ID="ckbGroupName" runat="server" AutoPostBack="true" OnCheckedChanged="ckbGroupName_CheckedChanged"/>
+                    <asp:Label ID="lblKeyinGroupName" runat="server" Text="自行輸入小組"></asp:Label>
+
                 </td>
             </tr>
             <!--姓名-->

@@ -638,6 +638,39 @@ namespace ADO
 
         }
 
+        public DataTable QueryEnameByGroupNameAndGroupClass(string GroupName)
+        {
+            DataTable dt = new DataTable();
+            string sql = string.Empty;
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                if (GroupName == "")
+                {
+                    sql = @"SELECT * FROM ChcMember
+                                    WHERE GroupName = ''
+                                  ";
+                }
+                else
+                {
+                    sql = @"SELECT * FROM ChcMember
+                                WHERE GroupName LIKE @GroupName+'%'
+                                --AND (GroupClass IS NULL OR GroupClass = '' OR GroupClass = @GroupClass)
+                              ";
+                }
+
+
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupName", GroupName);
+                //sda.SelectCommand.Parameters.AddWithValue("@GroupClass", GroupClass);
+                sda.Fill(dt);
+            }
+
+            return dt;
+
+        }
+
         //GET
 
         public DataTable GetChcMemberByGroup(string GroupCName, string GroupName, string Ename)

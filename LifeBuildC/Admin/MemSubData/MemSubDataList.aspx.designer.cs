@@ -40,22 +40,22 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.DropDownList dropGroupClass;
         
         /// <summary>
-        /// Label6 控制項。
+        /// lblGName 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label6;
+        protected global::System.Web.UI.WebControls.Label lblGName;
         
         /// <summary>
-        /// Label10 控制項。
+        /// lblGCName 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label10;
+        protected global::System.Web.UI.WebControls.Label lblGCName;
         
         /// <summary>
         /// dropGroupName 控制項。
@@ -74,6 +74,33 @@ namespace LifeBuildC.Admin.MemSubData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList dropGroupCName;
+        
+        /// <summary>
+        /// txtGroupName 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupName;
+        
+        /// <summary>
+        /// ckbGroupName 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ckbGroupName;
+        
+        /// <summary>
+        /// lblKeyinGroupName 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblKeyinGroupName;
         
         /// <summary>
         /// Label1 控制項。
