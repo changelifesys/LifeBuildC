@@ -140,6 +140,7 @@ namespace LifeBuildC
 
                         #region 下午場講座
 
+                        /*
                         dropCourse.Items.Clear();
 
                         li = null;
@@ -164,6 +165,7 @@ namespace LifeBuildC
                             //dropCourse.SelectedItem.Text = "生命突破";
                             dropCourse.SelectedIndex = 0;
                         }
+                        */
 
                         #endregion
 
@@ -241,10 +243,12 @@ namespace LifeBuildC
                     string ClothesSize = dropClothesSize.SelectedItem.Text;
 
                     bool Course = false; //生命突破
+                    /*
                     if (dropCourse.SelectedItem.Text == "教會突破")
                     {
                         Course = true;
                     }
+                    */
 
                     string PassKey = Session["PassKey"].ToString();
                     string Birthday = txtBirthday.Text.Trim();
@@ -347,10 +351,12 @@ namespace LifeBuildC
                     string ClothesSize = dropClothesSize.SelectedItem.Text;
 
                     bool Course = false; //生命突破
+                    /*
                     if (dropCourse.SelectedItem.Text == "教會突破")
                     {
                         Course = true;
                     }
+                    */
 
                     string PassKey = Session["PassKey"].ToString();
                     string Birthday = txtBirthday.Text.Trim();
@@ -473,12 +479,14 @@ namespace LifeBuildC
                 return;
             }
 
+            /*
             if (dropCourse.SelectedValue == "")
             {
                 IsCheck = false;
                 ErrMsg = "請選擇下午場講座";
                 return;
             }
+            */
         }
 
         /// <summary>
@@ -546,13 +554,22 @@ namespace LifeBuildC
             //收信方email
             //string emailTo = "dennis866@gmail.com";
             //主旨
-            string subject = "2018 烈火特會報名成功";
+            string subject = "2019 烈火特會報名成功";
             //內容
+            //string body = @"恭喜您完成烈火特會報名。<p/>
+            //                               特會流程及資訊請參見附檔。<p/>
+            //                               行前通知將於開始前一週發送。<p/>
+            //                               如有問題請與<font style='color: blue;'>信豪傳道聯繫</font><p/>
+            //                               <font style='color: blue;'>hsinhao.huang@twclc.org</font><p/><p/>
+            //                               <font style='color: red;'>該mail為CLC資訊系統所發，請勿直接回覆</font>";
             string body = @"恭喜您完成烈火特會報名。<p/>
-                                           特會流程及資訊請參見附檔。<p/>
+                                           特會流程及資訊請等候通知。<p/>
                                            行前通知將於開始前一週發送。<p/>
                                            如有問題請與<font style='color: blue;'>信豪傳道聯繫</font><p/>
-                                           <font style='color: blue;'>hsinhao.huang@twclc.org</font><p/><p/>
+                                           <font style='color: blue;'>hsinhao.huang@twclc.org</font><p/>
+                                           時間：2019/04/03（星期三晚上）～04/06（星期六中午）<p/>
+                                           地點：台北和平籃球館（台北市大安區敦南街76巷28號）<p/>
+                                           <p/>
                                            <font style='color: red;'>該mail為CLC資訊系統所發，請勿直接回覆</font>";
 
             using (MailMessage mail = new MailMessage())
@@ -565,10 +582,8 @@ namespace LifeBuildC
                 mail.IsBodyHtml = true;
 
                 //夾帶檔案
-                //mail.Attachments.Add(new Attachment("C:\\SomeFile.txt"));
-                //mail.Attachments.Add(new Attachment("C:\\SomeZip.zip"));
-                mail.Attachments.Add(new Attachment(System.Web.HttpContext.Current.Server.MapPath("/img/fire02.jpg")));
-                mail.Attachments.Add(new Attachment(System.Web.HttpContext.Current.Server.MapPath("/img/fire01.png")));
+                //mail.Attachments.Add(new Attachment(System.Web.HttpContext.Current.Server.MapPath("/img/fire02.jpg")));
+                //mail.Attachments.Add(new Attachment(System.Web.HttpContext.Current.Server.MapPath("/img/fire01.png")));
 
                 using (SmtpClient smtp = new SmtpClient(smtpAddress, portNumber))
                 {
@@ -625,7 +640,8 @@ namespace LifeBuildC
                 txtEname.Text.Trim(), //流大丹
                 rdogender0.Checked ? "女" : "男", //男生
                 dropClothesSize.SelectedItem.Text, //S
-                dropCourse.SelectedItem.Text //生命突破
+                //dropCourse.SelectedItem.Text //生命突破
+                "待大會通知"
             };
 
             valueRange.Values = new List<IList<object>> { oblist };
@@ -686,7 +702,8 @@ namespace LifeBuildC
                 rdogender0.Checked ? "女" : "男", //男生
                 txtBirthday.Text.Trim(),
                 dropClothesSize.SelectedItem.Text, //S
-                dropCourse.SelectedItem.Text //生命突破
+                //dropCourse.SelectedItem.Text //生命突破
+                "待大會通知"
             };
 
             valueRange.Values = new List<IList<object>> { oblist };

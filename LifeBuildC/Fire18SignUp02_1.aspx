@@ -145,10 +145,10 @@
 <body>
 
     <form id="form1" runat="server">
-        <img id="mainBg" src="/js/fire/main.jpg?f4ffa9d7f2bec29dabd0859458678983" alt="烈火特會-禱告與復興">
+<%--        <img id="mainBg" src="/js/fire/main.jpg?f4ffa9d7f2bec29dabd0859458678983" alt="烈火特會-禱告與復興">--%>
         <div>
             <div style="text-align: center; margin: 5px;">
-                <h2 class="center">2018 烈火特會報名</h2>
+                <h2 class="center">2019 烈火特會報名</h2>
             </div>
 
             <!--組別-->
@@ -302,7 +302,7 @@
 
 
             <!--下午場講座-->
-            <div class="cssField">
+<%--            <div class="cssField">
                 <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">下午場講座</font>
             </div>
             <div style="text-align: center; margin: 5px;">
@@ -333,7 +333,7 @@
 
                 </span>
                 <br />
-            </div>
+            </div>--%>
 
             <hr />
             <div style="text-align: center; margin: 5px;">

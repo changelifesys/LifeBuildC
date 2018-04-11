@@ -136,13 +136,15 @@ namespace ADO
                 string sql = @" SELECT *,
 	                                            LEFT(Phone, 4)+'-'+RIGHT(Phone, 6) Phone2,
 	                                            CASE WHEN gender = 1 THEN '男' ELSE '女' END gender2,
-	                                            CASE WHEN Course = 0 THEN '生命突破' ELSE '教會突破' END Course2,
+	                                            --CASE WHEN Course = 0 THEN '生命突破' ELSE '教會突破' END Course2,
+                                                '待大會通知' AS Course2,
 
 	                                            (SELECT TOP 1 GroupID FROM ChcGroup 
 	                                             WHERE GroupCName = FireMember.GroupCName 
 	                                             AND GroupName = FireMember.GroupName)+'.'+GroupCName+'-'+GroupName group2
 
                                             FROM FireMember
+                                            WHERE CreateTime > '2018-4-8'
                                             --ORDER BY CreateTime DESC
                                             ORDER BY group2
                                          ";

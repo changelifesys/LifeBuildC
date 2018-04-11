@@ -60,6 +60,8 @@ namespace LifeBuildC
 
                         if (Is12)
                         {
+                            lblCourse.Text = "待大會通知";
+                            /*
                             if (bool.Parse(dt.Rows[0]["Course"].ToString()))
                             {
                                 lblCourse.Text = "教會突破";
@@ -68,6 +70,7 @@ namespace LifeBuildC
                             {
                                 lblCourse.Text = "生命突破";
                             }
+                            */
                         }
 
 

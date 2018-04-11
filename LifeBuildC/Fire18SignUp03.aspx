@@ -12356,7 +12356,11 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <img id="mainBg" src="/js/fire/main.jpg?f4ffa9d7f2bec29dabd0859458678983" alt="烈火特會-禱告與復興">
+<%--            <img id="mainBg" src="/js/fire/main.jpg?f4ffa9d7f2bec29dabd0859458678983" alt="烈火特會-禱告與復興">--%>
+            <div style="text-align: center; margin: 5px;">
+                <h2 class="center">2019 烈火特會報名</h2>
+            </div>
+
             <div class="el-row" style="margin-left: -10px; margin-right: -10px;">
                 <!---->
                 <!---->
