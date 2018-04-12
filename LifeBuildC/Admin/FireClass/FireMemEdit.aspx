@@ -267,20 +267,20 @@
 
 
             <!--下午場講座-->
-            <div class="cssField">
+<%--            <div class="cssField">
                 <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">下午場講座</font>
-            </div>
+            </div>--%>
             <div style="text-align: center; margin: 5px;">
 
-                <span class="cssField800">
+<%--                <span class="cssField800">
                     <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">下午場講座</font>&nbsp;&nbsp;&nbsp;
-                </span>
+                </span>--%>
 
-                <asp:DropDownList CssClass="cssA" ID="dropCourse" runat="server">
+<%--                <asp:DropDownList CssClass="cssA" ID="dropCourse" runat="server">
                     <asp:ListItem Value="" disabled Selected hidden>請選擇講座</asp:ListItem>
                     <asp:ListItem Value="0">生命突破</asp:ListItem>
                     <asp:ListItem Value="1">教會突破</asp:ListItem>
-                </asp:DropDownList>
+                </asp:DropDownList>--%>
 
                 <div style="text-align: center; margin: 5px;">
                     <asp:Button ID="btnSave" CssClass="cssC" runat="server" Width="100px" Text="儲存" OnClick="btnSave_Click" />

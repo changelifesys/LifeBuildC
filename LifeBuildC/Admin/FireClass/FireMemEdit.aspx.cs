@@ -82,6 +82,7 @@ namespace LifeBuildC.Admin.FireClass
             dropClothesSize.SelectedItem.Value = dt.Rows[0]["ClothesSize"].ToString();
 
             //下午場講座
+            /*
             if (bool.Parse(dt.Rows[0]["Course"].ToString()))
             { //教會突破
                 dropCourse.SelectedIndex = 2;
@@ -90,6 +91,7 @@ namespace LifeBuildC.Admin.FireClass
             { //生命突破
                 dropCourse.SelectedIndex = 1;
             }
+            */
 
         }
 
@@ -154,10 +156,12 @@ namespace LifeBuildC.Admin.FireClass
                     string ClothesSize = dropClothesSize.SelectedItem.Text;
 
                     bool Course = false; //生命突破
+                    /*
                     if (dropCourse.SelectedIndex == 2)
                     {
                         Course = true;
                     }
+                    */
 
                     string PassKey = CheckStringByRequest("p");
                     string Birthday = txtBirthday.Text.Trim();
@@ -278,12 +282,15 @@ namespace LifeBuildC.Admin.FireClass
                 return;
             }
 
+            /*
             if (dropCourse.SelectedValue == "")
             {
                 IsCheck = false;
                 ErrMsg = "請選擇下午場講座";
                 return;
             }
+            */
+
         }
 
         private string CheckStringByRequest(string QueryString_Name)
@@ -380,13 +387,22 @@ namespace LifeBuildC.Admin.FireClass
             //收信方email
             //string emailTo = "dennis866@gmail.com";
             //主旨
-            string subject = "2018 烈火特會報名成功";
+            string subject = "2019 烈火特會報名成功";
             //內容
+            //string body = @"恭喜您完成烈火特會報名。<p/>
+            //                               特會流程及資訊請參見附檔。<p/>
+            //                               行前通知將於開始前一週發送。<p/>
+            //                               如有問題請與<font style='color: blue;'>信豪傳道聯繫</font><p/>
+            //                               <font style='color: blue;'>hsinhao.huang@twclc.org</font><p/><p/>
+            //                               <font style='color: red;'>該mail為CLC資訊系統所發，請勿直接回覆</font>";
             string body = @"恭喜您完成烈火特會報名。<p/>
-                                           特會流程及資訊請參見附檔。<p/>
+                                           特會流程及資訊請等候通知。<p/>
                                            行前通知將於開始前一週發送。<p/>
                                            如有問題請與<font style='color: blue;'>信豪傳道聯繫</font><p/>
-                                           <font style='color: blue;'>hsinhao.huang@twclc.org</font><p/><p/>
+                                           <font style='color: blue;'>hsinhao.huang@twclc.org</font><p/>
+                                           時間：2019/04/03（星期三晚上）～04/06（星期六中午）<p/>
+                                           地點：台北和平籃球館（台北市大安區敦南街76巷28號）<p/>
+                                           <p/>
                                            <font style='color: red;'>該mail為CLC資訊系統所發，請勿直接回覆</font>";
 
             using (MailMessage mail = new MailMessage())
@@ -401,8 +417,8 @@ namespace LifeBuildC.Admin.FireClass
                 //夾帶檔案
                 //mail.Attachments.Add(new Attachment("C:\\SomeFile.txt"));
                 //mail.Attachments.Add(new Attachment("C:\\SomeZip.zip"));
-                mail.Attachments.Add(new Attachment(System.Web.HttpContext.Current.Server.MapPath("/img/fire02.jpg")));
-                mail.Attachments.Add(new Attachment(System.Web.HttpContext.Current.Server.MapPath("/img/fire01.png")));
+                //mail.Attachments.Add(new Attachment(System.Web.HttpContext.Current.Server.MapPath("/img/fire02.jpg")));
+                //mail.Attachments.Add(new Attachment(System.Web.HttpContext.Current.Server.MapPath("/img/fire01.png")));
 
                 using (SmtpClient smtp = new SmtpClient(smtpAddress, portNumber))
                 {
