@@ -92,13 +92,22 @@ namespace LifeBuildC.Admin.MemSubData
 
             for (int r = 2; r <= sheet.LastRowNum; r++)
             {
+
                 if (sheet.GetRow(r) != null && sheet.GetRow(r).GetCell(0) != null)
                 {
                     row = table.NewRow();
 
                     for (int c = 0; c < 9; c++)
                     {
-                        row[c] = sheet.GetRow(r).GetCell(c).ToString();
+                        if (sheet.GetRow(r).GetCell(c) != null)
+                        {
+                            row[c] = sheet.GetRow(r).GetCell(c).ToString();
+                        }
+                        else
+                        {
+                            row[c] = "";
+                        }
+
                     }
 
                     table.Rows.Add(row);

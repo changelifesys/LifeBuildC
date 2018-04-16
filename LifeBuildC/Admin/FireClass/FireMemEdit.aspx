@@ -178,7 +178,7 @@
                     <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">姓名</font>&nbsp;&nbsp;&nbsp;
                 </span>
 
-                <asp:TextBox CssClass="cssA" ID="txtEname" runat="server" MaxLength="5"></asp:TextBox>
+                <asp:TextBox CssClass="cssA" ID="txtEname" runat="server"></asp:TextBox>
             </div>
 
             <!--手機-->
