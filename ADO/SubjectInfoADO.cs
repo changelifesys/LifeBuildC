@@ -113,12 +113,12 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT *, SubjectInfo.SID AS SID
-                                           FROM SubjectInfo 
+                string sql = @"SELECT TOP 1 *, SubjectInfo.SID AS SID
+                                           FROM SubjectInfo
                                            INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
-                                           WHERE CategoryID = @CategoryID
-                                           AND SubStrDate <= @SubStrDate
-                                           AND SubEndDate >= @SubStrDate
+                                           WHERE SubjectInfo.CategoryID = @CategoryID
+                                           AND SubjectInfo.SubStrDate <= @SubStrDate
+                                           AND SubjectInfo.SubEndDate >= @SubStrDate
                                            ORDER BY SubjectDate.SDate";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
