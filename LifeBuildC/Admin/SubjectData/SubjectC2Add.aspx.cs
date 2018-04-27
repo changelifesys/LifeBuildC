@@ -7,13 +7,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace LifeBuildC.Admin
+namespace LifeBuildC.Admin.SubjectData
 {
     public partial class SubjectC2Add : System.Web.UI.Page
     {
-        //課程資訊
         SubjectInfoADO SubjectInfo = new SubjectInfoADO();
-        //上課日期
         SubjectDateADO SubjectDate = new SubjectDateADO();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -50,7 +48,6 @@ namespace LifeBuildC.Admin
                 txtSubEndDate.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
 
             }
-
         }
 
         /// <summary>
@@ -100,5 +97,6 @@ namespace LifeBuildC.Admin
         {
             Response.Redirect("SubjectList.aspx");
         }
+
     }
 }

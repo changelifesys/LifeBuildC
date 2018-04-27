@@ -6,9 +6,11 @@
    [View]SubjectSignUp.aspx?id=c1 > 報名 > [API]AddSubSign
 
  API演算法：
-   
+   1. C1 沒有審核的限制.
+   2. C2 沒有通過 C1 就不能上.
 
  */
+
 using ADO;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
@@ -41,6 +43,9 @@ namespace LifeBuildC.Api
         string GroupName = string.Empty;
         string GroupClass = string.Empty;
 
+        String sheetName = "工作表1";
+        String spreadsheetId = "106Y2tmI4RV3tJN_Ri4Xc91R3CZ1158GBJstlhfExjew";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -55,13 +60,13 @@ namespace LifeBuildC.Api
             if (Request.QueryString["test"] != null &&
                 Request.QueryString["test"].ToString() == "1")
             {
-                pgdata.S_ID = 1;
-                pgdata.Category_ID = "C2";
+                pgdata.SID = 1;
+                pgdata.CategoryID = "C1";
                 pgdata.gcroup = "社青";
                 pgdata.group = "CA202.信豪牧區-彥伯小組";
-                pgdata.Ename = "劉彥伯";
-                pgdata.Phone = "0919963322";
-                pgdata.Gmail = "dennis866@gmail.com";
+                pgdata.Ename = "Test";
+                pgdata.Phone = "0919123456";
+                pgdata.Gmail = "test@gmail.com";
                 pgdata.Church = "江子翠行道會";
             }
             else
@@ -89,14 +94,14 @@ namespace LifeBuildC.Api
                     GroupName = arrg[1].Split('-')[1];
                     GroupClass = pgdata.gcroup;
 
-                    if (pgdata.Category_ID == "C1")
+                    if (pgdata.CategoryID == "C1")
                     { //C1課程沒有限制報名資格
 
                         InsChcMemberSub_Temp();
                         pgdata.ApiMsg = "C1 課程報名成功！";
 
                     }
-                    else if (pgdata.Category_ID == "C2")
+                    else if (pgdata.CategoryID == "C2")
                     { //C2課程需上完C1才可報名
 
                         DataTable dtMem = chcmember.GetChcMemberByGroup(GroupCName, GroupName, pgdata.Ename);
@@ -141,12 +146,121 @@ namespace LifeBuildC.Api
 
         private void InsChcMemberSub_Temp()
         {
-            DataTable dtSub = subjectinfo.GetSubjectDateBySubjectInfo(pgdata.S_ID);
+            DataTable dtSub = subjectinfo.GetSubjectDateBySubjectInfo(pgdata.SID);
             foreach (DataRow drSub in dtSub.Rows)
             {
-                chcmembersubtemp.InsChcMemberSub_Temp_2(pgdata.S_ID, drSub["CategoryID2"].ToString(), GroupCName, GroupName, GroupClass,
+                chcmembersubtemp.InsChcMemberSub_Temp_2(pgdata.SID, drSub["CategoryID2"].ToString(), GroupCName, GroupName, GroupClass,
                      pgdata.Ename, pgdata.Phone, pgdata.Gmail, pgdata.Church, "0", DateTime.Parse(drSub["SDate"].ToString()), "");
             }
+        }
+
+        /// <summary>
+        /// 新增一筆資料
+        /// </summary>
+        private void AddDataByV4Sheets(PageData PageData)
+        {
+            SheetsService sheetsService = new SheetsService(new BaseClientService.Initializer
+            {
+                HttpClientInitializer = GetCredential(),
+                ApplicationName = "Get Google SheetData with Google Sheets API",
+            });
+
+            var valueRange = new ValueRange();
+
+            var oblist = new List<object>() {
+                PageData.gcroup,
+                PageData.group,
+                PageData.Ename,
+                PageData.Phone,
+                PageData.Gmail
+            };
+
+            valueRange.Values = new List<IList<object>> { oblist };
+            valueRange.MajorDimension = "Rows"; //Rows or Columns
+
+            SpreadsheetsResource.ValuesResource.AppendRequest request = sheetsService.Spreadsheets.Values.Append(valueRange, spreadsheetId, sheetName);
+            request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+            var appendReponse = request.Execute();
+        }
+
+        /// <summary>
+        /// 創建一張工作表
+        /// </summary>
+        private void CreateV4Sheets()
+        {
+            SheetsService sheetsService = new SheetsService(new BaseClientService.Initializer
+            {
+                HttpClientInitializer = GetCredential(),
+                ApplicationName = "Get Google SheetData with Google Sheets API",
+            });
+
+            // Add new Sheet
+            var addSheetRequest = new AddSheetRequest();
+            addSheetRequest.Properties = new SheetProperties();
+            addSheetRequest.Properties.Title = sheetName;
+            BatchUpdateSpreadsheetRequest batchUpdateSpreadsheetRequest = new BatchUpdateSpreadsheetRequest();
+            batchUpdateSpreadsheetRequest.Requests = new List<Request>();
+            batchUpdateSpreadsheetRequest.Requests.Add(new Request
+            {
+                AddSheet = addSheetRequest
+            });
+
+            var batchUpdateRequest = sheetsService.Spreadsheets.BatchUpdate(batchUpdateSpreadsheetRequest, spreadsheetId);
+
+            batchUpdateRequest.Execute();
+
+        }
+
+        /// <summary>
+        /// 清空資料表內容
+        /// </summary>
+        private void ClearV4Sheets()
+        {
+            SheetsService sheetsService = new SheetsService(new BaseClientService.Initializer
+            {
+                HttpClientInitializer = GetCredential(),
+                ApplicationName = "Get Google SheetData with Google Sheets API",
+            });
+
+            // TODO: Assign values to desired properties of `requestBody`:
+            ClearValuesRequest requestBody = new ClearValuesRequest();
+
+            SpreadsheetsResource.ValuesResource.ClearRequest request = sheetsService.Spreadsheets.Values.Clear(requestBody, spreadsheetId, sheetName);
+
+            // To execute asynchronously in an async method, replace `request.Execute()` as shown:
+            ClearValuesResponse response = request.Execute();
+            // Data.ClearValuesResponse response = await request.ExecuteAsync();
+
+
+        }
+
+        private UserCredential GetCredential()
+        {
+            // TODO: Change placeholder below to generate authentication credentials. See:
+            // https://developers.google.com/sheets/quickstart/dotnet#step_3_set_up_the_sample
+            //
+            // Authorize using one of the following scopes:
+            //     "https://www.googleapis.com/auth/drive"
+            //     "https://www.googleapis.com/auth/drive.file"
+            //     "https://www.googleapis.com/auth/spreadsheets"
+
+            string[] Scopes = { SheetsService.Scope.Spreadsheets };
+            UserCredential credential;
+            var folder = System.Web.HttpContext.Current.Server.MapPath("/App_Data/MyGoogleStorage");
+
+            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                new ClientSecrets
+                {
+                    ClientId = "117990626740-rptck4cro3bpbu3u7da3t4qlr20i3rsl.apps.googleusercontent.com",
+                    ClientSecret = "zcFr6UCqdX-jo29QFogCcyf1"
+                },
+                Scopes,
+                "user",
+                CancellationToken.None,
+                new FileDataStore(folder)).Result;
+
+
+            return credential;
         }
 
         /// <summary>
@@ -155,23 +269,23 @@ namespace LifeBuildC.Api
         public class PageData
         {
             /// <summary>
-            /// 課程ID(SubjectInfo.SID)
+            ///  課程類別
             /// </summary>
-            public int S_ID { get; set; }
+            public string CategoryID { get; set; }
             /// <summary>
-            /// 課程類別(ChcMemberSub_Temp.CategoryID)
+            /// 課程ID
             /// </summary>
-            public string Category_ID { get; set; }
+            public int SID { get; set; }
             /// <summary>
-            /// 組別(ChcMemberSub_Temp.GroupClass)
+            /// 組別
             /// </summary>
             public string gcroup { get; set; }
             /// <summary>
-            /// 小組(ChcMemberSub_Temp.GroupCName+ChcMemberSub_Temp.GroupName)
+            /// 小組
             /// </summary>
             public string group { get; set; }
             /// <summary>
-            /// 姓名(ChcMemberSub_Temp.Ename)
+            /// 姓名
             /// </summary>
             public string Ename { get; set; }
             /// <summary>
@@ -179,7 +293,7 @@ namespace LifeBuildC.Api
             /// </summary>
             public string Phone { get; set; }
             /// <summary>
-            /// Email(ChcMemberSub_Temp.Gmail)
+            /// Mail
             /// </summary>
             public string Gmail { get; set; }
             /// <summary>

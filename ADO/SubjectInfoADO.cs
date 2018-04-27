@@ -17,18 +17,19 @@ namespace ADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
 
-        public void InsSubjectInfo(string SubName, string SUCondition, string SubLocation, 
+        public void InsSubjectInfo(string CategoryID, string SubName, string SUCondition, string SubLocation, 
                                                           string SubStrDate, string SubEndDate)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           SubjectInfo(SubName, SUCondition, SubLocation,
+                                           SubjectInfo(CategoryID, SubName, SUCondition, SubLocation,
                                                                   SubStrDate, SubEndDate)
-                                           VALUES(@SubName, @SUCondition, @SubLocation,
+                                           VALUES(@CategoryID, @SubName, @SUCondition, @SubLocation,
                                                                   @SubStrDate, @SubEndDate)";
 
                 SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@CategoryID", CategoryID);
                 com.Parameters.AddWithValue("@SubName", SubName);
                 com.Parameters.AddWithValue("@SUCondition", SUCondition);
                 com.Parameters.AddWithValue("@SubLocation", SubLocation);
@@ -74,7 +75,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT TOP 1 * FROM SubjectInfo
-                                            WHERE LEFT(SubName, 2) = @CategoryID
+                                            WHERE CategoryID = @CategoryID
                                             ORDER BY SID DESC";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);

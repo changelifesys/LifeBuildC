@@ -156,7 +156,6 @@
     <Content Include="Admin\js\MemSubDataList.js" />
     <Content Include="Admin\js\MemSubDataQuestion.js" />
     <Content Include="Admin\js\menu.js" />
-    <Content Include="Admin\js\subjectedit.js" />
     <Content Include="Admin\js\subjectlist.js" />
     <Content Include="Admin\Login.aspx" />
     <Content Include="Admin\MemSubData\ChcMemberSub_Temp.aspx" />
@@ -167,6 +166,11 @@
     <Content Include="Admin\SubjectC1Edit.aspx" />
     <Content Include="Admin\SubjectC2Add.aspx" />
     <Content Include="Admin\SubjectC2Edit.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC1Add.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC1Edit.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC2Add.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC2Edit.aspx" />
+    <Content Include="Admin\SubjectData\SubjectList.aspx" />
     <Content Include="Admin\SubjectList.aspx" />
     <Content Include="Api\AddFireSubSign.aspx" />
     <Content Include="Api\AddSubSign.aspx" />
@@ -328,6 +332,7 @@
     </Compile>
     <Compile Include="Admin\Demo.aspx.cs">
       <DependentUpon>Demo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\Demo.aspx.designer.cs">
       <DependentUpon>Demo.aspx</DependentUpon>
@@ -443,6 +448,41 @@
     </Compile>
     <Compile Include="Admin\SubjectC2Edit.aspx.designer.cs">
       <DependentUpon>SubjectC2Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC1Add.aspx.cs">
+      <DependentUpon>SubjectC1Add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC1Add.aspx.designer.cs">
+      <DependentUpon>SubjectC1Add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC1Edit.aspx.cs">
+      <DependentUpon>SubjectC1Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC1Edit.aspx.designer.cs">
+      <DependentUpon>SubjectC1Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2Add.aspx.cs">
+      <DependentUpon>SubjectC2Add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2Add.aspx.designer.cs">
+      <DependentUpon>SubjectC2Add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2Edit.aspx.cs">
+      <DependentUpon>SubjectC2Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2Edit.aspx.designer.cs">
+      <DependentUpon>SubjectC2Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectList.aspx.cs">
+      <DependentUpon>SubjectList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectList.aspx.designer.cs">
+      <DependentUpon>SubjectList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\SubjectList.aspx.cs">
       <DependentUpon>SubjectList.aspx</DependentUpon>
@@ -692,7 +732,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Admin\SubjectData\" />
     <Folder Include="aspnet_client\system_web\4_0_30319\" />
     <Folder Include="Models\" />
     <Folder Include="obj\Debug\TempPE\" />

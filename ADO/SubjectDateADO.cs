@@ -19,25 +19,6 @@ namespace ADO
 
         public void InsSubjectDate(int SID, string CategoryID,  string SDate, string SubTime)
         {
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"INSERT INTO
-            //                               SubjectDate(SID, CategoryID, SDate, SubTime)
-            //                               VALUES(@SID, @CategoryID, @SDate, @SubTime)";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@SID", SID);
-            //    com.Parameters.AddWithValue("@CategoryID", CategoryID);
-            //    com.Parameters.AddWithValue("@SDate", SDate);
-            //    com.Parameters.AddWithValue("@SubTime", SubTime);
-
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
@@ -58,28 +39,6 @@ namespace ADO
 
         public void UpdSubjectDate(string SDate, string SubTime, int SID, string CategoryID)
         {
-            #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"UPDATE SubjectDate
-            //                                SET SDate = @SDate,
-            //                                        SubTime = @SubTime
-            //                                WHERE SID = @SID
-            //                                AND CategoryID = @CategoryID
-            //                              ";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@SDate", SDate);
-            //    com.Parameters.AddWithValue("@SubTime", SubTime);
-            //    com.Parameters.AddWithValue("@SID", SID);
-            //    com.Parameters.AddWithValue("@CategoryID", CategoryID);
-                
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"UPDATE SubjectDate
