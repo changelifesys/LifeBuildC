@@ -67,6 +67,9 @@
                 <br />
                 報名截止：
         <asp:TextBox CssClass="text" ID="txtSubEndDate" runat="server"></asp:TextBox>
+                <br>
+                Google 連結：
+
             </div>
             <br />
             <br />

@@ -43,8 +43,8 @@ namespace LifeBuildC.Api
         string GroupName = string.Empty;
         string GroupClass = string.Empty;
 
-        String sheetName = "工作表1";
-        String spreadsheetId = "106Y2tmI4RV3tJN_Ri4Xc91R3CZ1158GBJstlhfExjew";
+        String sheetName = "";
+        String spreadsheetId = "1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -66,8 +66,8 @@ namespace LifeBuildC.Api
                 pgdata.group = "CA202.信豪牧區-彥伯小組";
                 pgdata.Ename = "Test";
                 pgdata.Phone = "0919123456";
-                pgdata.Gmail = "test@gmail.com";
-                pgdata.Church = "江子翠行道會";
+                //pgdata.Gmail = "test@gmail.com";
+                //pgdata.Church = "江子翠行道會";
             }
             else
             {
@@ -146,12 +146,51 @@ namespace LifeBuildC.Api
 
         private void InsChcMemberSub_Temp()
         {
+
             DataTable dtSub = subjectinfo.GetSubjectDateBySubjectInfo(pgdata.SID);
+            sheetName = "[" + pgdata.SID + "]" + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Year.ToString("0000") + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Month.ToString("00");
+
             foreach (DataRow drSub in dtSub.Rows)
             {
                 chcmembersubtemp.InsChcMemberSub_Temp_2(pgdata.SID, drSub["CategoryID2"].ToString(), GroupCName, GroupName, GroupClass,
                      pgdata.Ename, pgdata.Phone, pgdata.Gmail, pgdata.Church, "0", DateTime.Parse(drSub["SDate"].ToString()), "");
+                pgdata.SubDate += DateTime.Parse(drSub["SDate"].ToString()).Month.ToString("00") + "/" + DateTime.Parse(drSub["SDate"].ToString()).Day.ToString("00") + ",";
             }
+
+            if (pgdata.SubDate != "" && pgdata.SubDate != null)
+            {
+                pgdata.SubDate = pgdata.SubDate.Substring(0, pgdata.SubDate.Length - 1);
+            }
+
+            switch (pgdata.gcroup)
+            {
+                case "家庭組弟兄":
+                    pgdata.group_1 = pgdata.group;
+                    pgdata.group_2 = "";
+                    pgdata.group_3 = "";
+                    pgdata.group_4 = "";
+                    break;
+                case "家庭組姊妹":
+                    pgdata.group_1 = "";
+                    pgdata.group_2 = pgdata.group;
+                    pgdata.group_3 = "";
+                    pgdata.group_4 = "";
+                    break;
+                case "社青":
+                    pgdata.group_1 = "";
+                    pgdata.group_2 = "";
+                    pgdata.group_3 = pgdata.group;
+                    pgdata.group_4 = "";
+                    break;
+                case "學生":
+                    pgdata.group_1 = "";
+                    pgdata.group_2 = "";
+                    pgdata.group_3 = "";
+                    pgdata.group_4 = pgdata.group;
+                    break;
+            }
+
+            AddDataByV4Sheets(pgdata);
         }
 
         /// <summary>
@@ -168,70 +207,22 @@ namespace LifeBuildC.Api
             var valueRange = new ValueRange();
 
             var oblist = new List<object>() {
-                PageData.gcroup,
-                PageData.group,
-                PageData.Ename,
-                PageData.Phone,
-                PageData.Gmail
-            };
+                    DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
+                    PageData.Ename,
+                    PageData.group_1,
+                    PageData.group_2,
+                    PageData.group_3,
+                    PageData.group_4,
+                    PageData.SubDate
+                };
 
             valueRange.Values = new List<IList<object>> { oblist };
+
             valueRange.MajorDimension = "Rows"; //Rows or Columns
 
             SpreadsheetsResource.ValuesResource.AppendRequest request = sheetsService.Spreadsheets.Values.Append(valueRange, spreadsheetId, sheetName);
             request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
             var appendReponse = request.Execute();
-        }
-
-        /// <summary>
-        /// 創建一張工作表
-        /// </summary>
-        private void CreateV4Sheets()
-        {
-            SheetsService sheetsService = new SheetsService(new BaseClientService.Initializer
-            {
-                HttpClientInitializer = GetCredential(),
-                ApplicationName = "Get Google SheetData with Google Sheets API",
-            });
-
-            // Add new Sheet
-            var addSheetRequest = new AddSheetRequest();
-            addSheetRequest.Properties = new SheetProperties();
-            addSheetRequest.Properties.Title = sheetName;
-            BatchUpdateSpreadsheetRequest batchUpdateSpreadsheetRequest = new BatchUpdateSpreadsheetRequest();
-            batchUpdateSpreadsheetRequest.Requests = new List<Request>();
-            batchUpdateSpreadsheetRequest.Requests.Add(new Request
-            {
-                AddSheet = addSheetRequest
-            });
-
-            var batchUpdateRequest = sheetsService.Spreadsheets.BatchUpdate(batchUpdateSpreadsheetRequest, spreadsheetId);
-
-            batchUpdateRequest.Execute();
-
-        }
-
-        /// <summary>
-        /// 清空資料表內容
-        /// </summary>
-        private void ClearV4Sheets()
-        {
-            SheetsService sheetsService = new SheetsService(new BaseClientService.Initializer
-            {
-                HttpClientInitializer = GetCredential(),
-                ApplicationName = "Get Google SheetData with Google Sheets API",
-            });
-
-            // TODO: Assign values to desired properties of `requestBody`:
-            ClearValuesRequest requestBody = new ClearValuesRequest();
-
-            SpreadsheetsResource.ValuesResource.ClearRequest request = sheetsService.Spreadsheets.Values.Clear(requestBody, spreadsheetId, sheetName);
-
-            // To execute asynchronously in an async method, replace `request.Execute()` as shown:
-            ClearValuesResponse response = request.Execute();
-            // Data.ClearValuesResponse response = await request.ExecuteAsync();
-
-
         }
 
         private UserCredential GetCredential()
@@ -285,6 +276,22 @@ namespace LifeBuildC.Api
             /// </summary>
             public string group { get; set; }
             /// <summary>
+            /// 所屬牧區/小組：家庭弟兄
+            /// </summary>
+            public string group_1 { get; set; }
+            /// <summary>
+            /// 所屬牧區/小組：家庭姊妹
+            /// </summary>
+            public string group_2 { get; set; }
+            /// <summary>
+            /// 所屬牧區/小組：社青
+            /// </summary>
+            public string group_3 { get; set; }
+            /// <summary>
+            /// 所屬牧區/小組：學青
+            /// </summary>
+            public string group_4 { get; set; }
+            /// <summary>
             /// 姓名
             /// </summary>
             public string Ename { get; set; }
@@ -308,6 +315,10 @@ namespace LifeBuildC.Api
             /// API 有錯(true: 有錯; false: 沒有錯)
             /// </summary>
             public bool IsApiError { get; set; }
+            /// <summary>
+            /// 上課時段
+            /// </summary>
+            public string SubDate { get; set; }
         }
 
     }

@@ -21,8 +21,8 @@ namespace LifeBuildC.Admin.SubjectData
         SubjectDateADO SubjectDate = new SubjectDateADO();
 
         // Define request parameters.
-        String spreadsheetId = "106Y2tmI4RV3tJN_Ri4Xc91R3CZ1158GBJstlhfExjew";
-        String sheetName = "工作表1";
+        String spreadsheetId = "1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8";
+        String sheetName = "";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -84,17 +84,36 @@ namespace LifeBuildC.Admin.SubjectData
                                                                       dropSubTime34.Text + " " + txtSubTime34.Text.Trim());
             }
 
+            sheetName = "[" + SID.ToString() + "]" + DateTime.Parse(SubEndDate).Year.ToString("0000") + DateTime.Parse(SubEndDate).Month.ToString("00");
+
             //先創建工作表, 若有存在就清空資料
             try
             {
                 CreateV4Sheets();
+
+                #region Header
+
+                PageData PageData = new PageData();
+                PageData.CreateTime = "時間戳記";
+                PageData.Ename = "姓名";
+                PageData.group_1 = "所屬牧區/小組：家庭弟兄";
+                PageData.group_2 = "所屬牧區/小組：家庭姊妹";
+                PageData.group_3 = "所屬牧區/小組：社青";
+                PageData.group_4 = "所屬牧區/小組：學青";
+                PageData.SubDate = "上課時段";
+
+                AddDataByV4Sheets(PageData);
+
+                #endregion
+
+                Response.Write("<script>alert('C1 課程新增成功!');location.href='SubjectList.aspx';</script>");
             }
             catch
             {
-                //ClearV4Sheets();
+                Response.Write("<script>alert('C1 課程重覆新增!');location.href='SubjectList.aspx';</script>");
             }
 
-            Response.Write("<script>alert('C1 課程新增成功!');location.href='SubjectList.aspx';</script>");
+
 
         }
 
@@ -155,6 +174,69 @@ namespace LifeBuildC.Admin.SubjectData
             return credential;
         }
 
+        /// <summary>
+        /// 新增一筆資料
+        /// </summary>
+        private void AddDataByV4Sheets(PageData PageData)
+        {
+            SheetsService sheetsService = new SheetsService(new BaseClientService.Initializer
+            {
+                HttpClientInitializer = GetCredential(),
+                ApplicationName = "Get Google SheetData with Google Sheets API",
+            });
+
+            var valueRange = new ValueRange();
+
+            var oblist = new List<object>() {
+                    PageData.CreateTime,
+                    PageData.Ename,
+                    PageData.group_1,
+                    PageData.group_2,
+                    PageData.group_3,
+                    PageData.group_4,
+                    PageData.SubDate
+                };
+
+            valueRange.Values = new List<IList<object>> { oblist };
+
+            valueRange.MajorDimension = "Rows"; //Rows or Columns
+
+            SpreadsheetsResource.ValuesResource.AppendRequest request = sheetsService.Spreadsheets.Values.Append(valueRange, spreadsheetId, sheetName);
+            request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+            var appendReponse = request.Execute();
+        }
+
+        public class PageData
+        {
+            /// <summary>
+            /// 時間戳記
+            /// </summary>
+            public string CreateTime { get; set; }
+            /// <summary>
+            /// 所屬牧區/小組：家庭弟兄
+            /// </summary>
+            public string group_1 { get; set; }
+            /// <summary>
+            /// 所屬牧區/小組：家庭姊妹
+            /// </summary>
+            public string group_2 { get; set; }
+            /// <summary>
+            /// 所屬牧區/小組：社青
+            /// </summary>
+            public string group_3 { get; set; }
+            /// <summary>
+            /// 所屬牧區/小組：學青
+            /// </summary>
+            public string group_4 { get; set; }
+            /// <summary>
+            /// 姓名
+            /// </summary>
+            public string Ename { get; set; }
+            /// <summary>
+            /// 上課時段
+            /// </summary>
+            public string SubDate { get; set; }
+        }
 
         protected void btnCel_Click(object sender, EventArgs e)
         {
