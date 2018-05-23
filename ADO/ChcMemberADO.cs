@@ -304,6 +304,7 @@ namespace ADO
                                             SET C2_Status = '通過'
                                             WHERE IsC212 = 1 AND IsC234 = 1 AND IsC25 = 1
                                             AND C1_Score >= 70 AND C212_Score >= 70 AND C234_Score >= 70
+                                            AND Iswitness = 1
                                           ";
 
                 SqlCommand com = new SqlCommand(sql, con);
