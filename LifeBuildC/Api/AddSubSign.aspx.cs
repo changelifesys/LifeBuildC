@@ -66,8 +66,8 @@ namespace LifeBuildC.Api
                 pgdata.group = "CA202.信豪牧區-彥伯小組";
                 pgdata.Ename = "Test";
                 pgdata.Phone = "0919123456";
-                //pgdata.Gmail = "test@gmail.com";
-                //pgdata.Church = "江子翠行道會";
+                pgdata.Gmail = "";
+                pgdata.Church = "";
             }
             else
             {
@@ -148,7 +148,8 @@ namespace LifeBuildC.Api
         {
 
             DataTable dtSub = subjectinfo.GetSubjectDateBySubjectInfo(pgdata.SID);
-            sheetName = "[" + pgdata.SID + "]" + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Year.ToString("0000") + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Month.ToString("00");
+            //sheetName = "[" + pgdata.SID + "]" + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Year.ToString("0000") + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Month.ToString("00");
+            sheetName = "C1報名";
 
             foreach (DataRow drSub in dtSub.Rows)
             {

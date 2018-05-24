@@ -84,7 +84,8 @@ namespace LifeBuildC.Admin.SubjectData
                                                                       dropSubTime34.Text + " " + txtSubTime34.Text.Trim());
             }
 
-            sheetName = "[" + SID.ToString() + "]" + DateTime.Parse(SubEndDate).Year.ToString("0000") + DateTime.Parse(SubEndDate).Month.ToString("00");
+            //sheetName = "[" + SID.ToString() + "]" + DateTime.Parse(SubEndDate).Year.ToString("0000") + DateTime.Parse(SubEndDate).Month.ToString("00");
+            sheetName = "C1報名";
 
             //先創建工作表, 若有存在就清空資料
             try
@@ -110,7 +111,7 @@ namespace LifeBuildC.Admin.SubjectData
             }
             catch
             {
-                Response.Write("<script>alert('C1 課程重覆新增!');location.href='SubjectList.aspx';</script>");
+                //Response.Write("<script>alert('C1 課程重覆新增!');location.href='SubjectList.aspx';</script>");
             }
 
 
