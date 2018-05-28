@@ -58,16 +58,36 @@ namespace LifeBuildC.Api
         private void PageStart()
         {
             if (Request.QueryString["test"] != null &&
-                Request.QueryString["test"].ToString() == "1")
+                (Request.QueryString["test"].ToString() == "C1" ||
+                Request.QueryString["test"].ToString() == "C2"))
             {
-                pgdata.SID = 1;
-                pgdata.CategoryID = "C1";
-                pgdata.gcroup = "社青";
-                pgdata.group = "CA202.信豪牧區-彥伯小組";
-                pgdata.Ename = "Test";
-                pgdata.Phone = "0919123456";
-                pgdata.Gmail = "";
-                pgdata.Church = "";
+                switch (Request.QueryString["test"].ToString())
+                {
+                    case "C1":
+
+                        pgdata.SID = 1;
+                        pgdata.CategoryID = "C1";
+                        pgdata.gcroup = "社青";
+                        pgdata.group = "CA202.信豪牧區-彥伯小組";
+                        pgdata.Ename = "TEST";
+                        pgdata.Phone = "0919963322";
+                        pgdata.Gmail = "";
+                        pgdata.Church = "";
+                        break;
+                    case "C2":
+
+                        pgdata.SID = 2;
+                        pgdata.CategoryID = "C2";
+                        pgdata.gcroup = "社青";
+                        pgdata.group = "CA202.信豪牧區-彥伯小組";
+                        pgdata.Ename = "劉彥伯";
+                        pgdata.Phone = "0919963322";
+                        pgdata.Gmail = "";
+                        pgdata.Church = "";
+                        break;
+                }
+
+                
             }
             else
             {
@@ -97,6 +117,8 @@ namespace LifeBuildC.Api
                     if (pgdata.CategoryID == "C1")
                     { //C1課程沒有限制報名資格
 
+                        //sheetName = "[" + pgdata.SID + "]" + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Year.ToString("0000") + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Month.ToString("00");
+                        sheetName = "C1報名";
                         InsChcMemberSub_Temp();
                         pgdata.ApiMsg = "C1 課程報名成功！";
 
@@ -111,13 +133,16 @@ namespace LifeBuildC.Api
                             bool IsC134 = bool.Parse(dtMem.Rows[0]["IsC134"].ToString());
                             if (IsC112 && IsC134)
                             {
+                                //sheetName = "[" + pgdata.SID + "]" + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Year.ToString("0000") + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Month.ToString("00");
+                                sheetName = "C2報名";
                                 InsChcMemberSub_Temp();
                                 pgdata.ApiMsg = "C2 課程報名成功！";
+
                             }
                             else
                             {
                                 pgdata.IsApiError = true;
-                                pgdata.ApiMsg = "您沒有符合上C2的資格！請向小組長或區長確認，或是自行查詢是否C1課程尚未完成";
+                                pgdata.ApiMsg = "您沒有符合上C2的資格！請向小組長或區長確認，或是自行查詢是否完成C1課程";
                             }
 
 
@@ -125,7 +150,7 @@ namespace LifeBuildC.Api
                         else
                         {
                             pgdata.IsApiError = true;
-                            pgdata.ApiMsg = "您沒有符合上C2的資格！請向小組長或區長確認，或是自行查詢是否C1課程尚未完成";
+                            pgdata.ApiMsg = "您沒有符合上C2的資格！請向小組長或區長確認，或是自行查詢是否完成C1課程";
                         }
 
                     }
@@ -148,8 +173,6 @@ namespace LifeBuildC.Api
         {
 
             DataTable dtSub = subjectinfo.GetSubjectDateBySubjectInfo(pgdata.SID);
-            //sheetName = "[" + pgdata.SID + "]" + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Year.ToString("0000") + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Month.ToString("00");
-            sheetName = "C1報名";
 
             foreach (DataRow drSub in dtSub.Rows)
             {

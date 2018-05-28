@@ -2,7 +2,7 @@
  用途：
    生命建造-課程報名
 
- 流程：
+ API 流程：
    [View]SubjectSignUp.aspx?id=c1 > 頁面資料載入 > [API]GetSUBInfo
 
  */
@@ -60,6 +60,7 @@ namespace LifeBuildC.Api
             if (PageData != null)
             {
                 PageData.IsApiError = false;
+                PageData.ApiMsg = "";
 
                 DataTable dtSubject = SubjectInfo.GetSubjectInfo(DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"), PageData.CategoryID);
                 if (dtSubject.Rows.Count > 0)
@@ -72,7 +73,7 @@ namespace LifeBuildC.Api
                     string _SBDate = "";
                     foreach (DataRow dr in dtSubject.Rows)
                     {
-                        _SBDate += dr["SDate"].ToString().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
+                        _SBDate += DateTime.Parse(dr["SDate"].ToString()).ToString("yyyy/MM/dd").Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
                             "(" + GetDayOfWeek(DateTime.Parse(dr["SDate"].ToString())) + ")、";
                     }
 
@@ -81,7 +82,7 @@ namespace LifeBuildC.Api
 
                     //即日起~2/9(四)截止報名，之後請現場報名。
                     PageData.SubEndDate = "即日起~" +
-                        dtSubject.Rows[0]["SubEndDate"].ToString().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
+                        DateTime.Parse(dtSubject.Rows[0]["SubEndDate"].ToString()).ToString("yyyy/MM/dd").Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
                             "(" + GetDayOfWeek(DateTime.Parse(dtSubject.Rows[0]["SubEndDate"].ToString())) + ") " +
                         "截止報名，之後請現場報名。";
                 }

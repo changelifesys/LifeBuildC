@@ -114,7 +114,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT TOP 1 *, SubjectInfo.SID AS SID
+                string sql = @"SELECT *
                                            FROM SubjectInfo
                                            INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
                                            WHERE SubjectInfo.CategoryID = @CategoryID
