@@ -85,9 +85,13 @@ namespace LifeBuildC.Api
                             }
                             else
                             {
-                                PageData.IsApiError = true;
-                                PageData.ApiMsg = "查無小組資料，請向您的小組長確認小組資料是否正確";
-                                break;
+                                PageData.group.Add("." +
+                                                                        dr["GroupCName"].ToString() + "-" +
+                                                                        dr["GroupName"].ToString());
+
+                                //PageData.IsApiError = true;
+                                //PageData.ApiMsg = "查無小組資料，請向您的小組長確認小組資料是否正確";
+                                //break;
                             }
 
                         }

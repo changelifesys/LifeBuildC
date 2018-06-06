@@ -81,6 +81,8 @@
             <asp:Button CssClass="inputStyle" ID="blkQ" PostBackUrl="~/Admin/MemSubData/MemSubDataQuestion.aspx" runat="server" Text="問題反映" />                    
             <br/><br/>
             <asp:Button CssClass="inputStyle" ID="btnExcel" runat="server" Text="匯出Excel" OnClick="btnExcel_Click" />
+            <br/><br/>
+            <asp:Button CssClass="inputStyle" ID="btnAllExcel" runat="server" Text="全會友匯出Excel" OnClick="btnAllExcel_Click" />
         </div>
 
         <asp:GridView ID="gvChcMember" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvChcMember_RowDataBound" HorizontalAlign="Center">
