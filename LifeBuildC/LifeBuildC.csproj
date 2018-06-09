@@ -255,9 +255,13 @@
     <Content Include="js\memQuery\build.js" />
     <Content Include="js\memQuery\title.jpg" />
     <Content Include="js\subjectCheck\build.js" />
-    <Content Include="js\subjectSignUp\app.f079bbba98fa6982ca09.js" />
-    <Content Include="js\subjectSignUp\manifest.ba642eead6c945fa43da.js" />
-    <Content Include="js\subjectSignUp\vendor.e04ba825f011a5e9dc6c.js" />
+    <Content Include="js\subjectSignUp\build.js" />
+    <Content Include="js\subjectSignUp\css\app.ecfd05cc.css" />
+    <Content Include="js\subjectSignUp\css\vendors~app.0.1989a518.css" />
+    <Content Include="js\subjectSignUp\img\title.eb480c91.jpg" />
+    <Content Include="js\subjectSignUp\js\app.28820045.js" />
+    <Content Include="js\subjectSignUp\js\vendors~app.371ab634.js" />
+    <Content Include="js\subjectSignUp\title.jpg" />
     <Content Include="MemSubQuery.aspx" />
     <Content Include="MemWitness.aspx" />
     <Content Include="obj\Debug\LifeBuildC.csproj.FileListAbsolute.txt" />
@@ -273,9 +277,6 @@
     <Content Include="SDPaper\生命建造-個人線上查詢\img\001.png" />
     <Content Include="SDPaper\生命建造-個人線上查詢\Page3.html" />
     <Content Include="static\css\app.1741ad71a2c76a939858d89a2ccee2c1.css.map" />
-    <Content Include="js\subjectSignUp\app.f079bbba98fa6982ca09.js.map" />
-    <Content Include="js\subjectSignUp\manifest.ba642eead6c945fa43da.js.map" />
-    <Content Include="js\subjectSignUp\vendor.e04ba825f011a5e9dc6c.js.map" />
     <Content Include="App_Data\MyGoogleStorage\Google.Apis.Auth.OAuth2.Responses.TokenResponse-user" />
     <Content Include="obj\Debug\CoreCompileInputs.cache" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
@@ -285,6 +286,11 @@
     <Content Include="js\fire\build.js.map" />
     <Content Include="js\memQuery\6f0a76321d30f3c8120915e57f7bd77e.ttf" />
     <Content Include="js\memQuery\build.js.map" />
+    <Content Include="js\subjectSignUp\6f0a76321d30f3c8120915e57f7bd77e.ttf" />
+    <Content Include="js\subjectSignUp\build.js.map" />
+    <Content Include="js\subjectSignUp\fonts\element-icons.6f0a7632.ttf" />
+    <Content Include="js\subjectSignUp\js\app.28820045.js.map" />
+    <Content Include="js\subjectSignUp\js\vendors~app.371ab634.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
