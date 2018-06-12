@@ -255,13 +255,12 @@
     <Content Include="js\memQuery\build.js" />
     <Content Include="js\memQuery\title.jpg" />
     <Content Include="js\subjectCheck\build.js" />
-    <Content Include="js\subjectSignUp\build.js" />
-    <Content Include="js\subjectSignUp\css\app.ecfd05cc.css" />
-    <Content Include="js\subjectSignUp\css\vendors~app.0.1989a518.css" />
+    <Content Include="js\subjectSignUp\css\app.63d0a062.css" />
+    <Content Include="js\subjectSignUp\favicon.ico" />
     <Content Include="js\subjectSignUp\img\title.eb480c91.jpg" />
-    <Content Include="js\subjectSignUp\js\app.28820045.js" />
-    <Content Include="js\subjectSignUp\js\vendors~app.371ab634.js" />
-    <Content Include="js\subjectSignUp\title.jpg" />
+    <Content Include="js\subjectSignUp\index.html" />
+    <Content Include="js\subjectSignUp\js\app.ee2aa77d.js" />
+    <Content Include="js\subjectSignUp\js\vendors~app.e5665974.js" />
     <Content Include="MemSubQuery.aspx" />
     <Content Include="MemWitness.aspx" />
     <Content Include="obj\Debug\LifeBuildC.csproj.FileListAbsolute.txt" />
@@ -286,11 +285,9 @@
     <Content Include="js\fire\build.js.map" />
     <Content Include="js\memQuery\6f0a76321d30f3c8120915e57f7bd77e.ttf" />
     <Content Include="js\memQuery\build.js.map" />
-    <Content Include="js\subjectSignUp\6f0a76321d30f3c8120915e57f7bd77e.ttf" />
-    <Content Include="js\subjectSignUp\build.js.map" />
     <Content Include="js\subjectSignUp\fonts\element-icons.6f0a7632.ttf" />
-    <Content Include="js\subjectSignUp\js\app.28820045.js.map" />
-    <Content Include="js\subjectSignUp\js\vendors~app.371ab634.js.map" />
+    <Content Include="js\subjectSignUp\js\app.ee2aa77d.js.map" />
+    <Content Include="js\subjectSignUp\js\vendors~app.e5665974.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
