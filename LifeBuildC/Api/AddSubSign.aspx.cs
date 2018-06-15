@@ -320,7 +320,7 @@ namespace LifeBuildC.Api
             /// </summary>
             public string Ename { get; set; }
             /// <summary>
-            /// 手機(ChcMemberSub_Temp.Phone)
+            /// 手機
             /// </summary>
             public string Phone { get; set; }
             /// <summary>
@@ -328,7 +328,7 @@ namespace LifeBuildC.Api
             /// </summary>
             public string Gmail { get; set; }
             /// <summary>
-            /// 所屬教會(ChcMemberSub_Temp.Church)
+            /// 所屬教會
             /// </summary>
             public string Church { get; set; }
             /// <summary>

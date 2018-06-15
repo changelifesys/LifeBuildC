@@ -1,5 +1,15 @@
-﻿//API 說明
-//取得SID用
+﻿/*
+ 用途：
+   生命建造-課程報到
+
+ 流程：
+   [View]SubjectCheck.aspx?id=c1 > 取得課程 > [API]GetSubSign
+
+ API演算法：
+   1. 
+
+ */
+
 using ADO;
 using Newtonsoft.Json;
 using System;

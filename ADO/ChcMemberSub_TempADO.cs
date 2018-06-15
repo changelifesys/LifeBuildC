@@ -89,6 +89,34 @@ namespace ADO
             }
         }
 
+        public void Upd_EStatus(int EStatus, int SID, string CategoryID, string GroupCName, string GroupName, string GroupClass, string Ename)
+        {
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"UPDATE ChcMemberSub_Temp
+                                           SET EStatus = @EStatus
+                                           WHERE SID = @SID
+                                           AND CategoryID = @CategoryID
+                                           AND GroupCName = @GroupCName
+                                           AND GroupName = @GroupName
+                                           AND GroupClass = @GroupClass
+                                           AND Ename = @Ename";
+
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@EStatus", EStatus);
+                com.Parameters.AddWithValue("@SID", SID);
+                com.Parameters.AddWithValue("@CategoryID", CategoryID);
+                com.Parameters.AddWithValue("@GroupCName", GroupCName);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@GroupClass", GroupClass);
+                com.Parameters.AddWithValue("@Ename", Ename);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
         //QUREY
 
         public DataTable QueryuptynByChcMemberSub_Temp()
@@ -105,6 +133,8 @@ namespace ADO
 
             return dt;
         }
+
+
 
         //GET
 
@@ -132,6 +162,41 @@ namespace ADO
             }
 
             return dt;
+        }
+
+        /// <summary>
+        /// true 有報名 ; false 沒有報名
+        /// </summary>
+        public bool Get_bool_Ename(int SID, string CategoryID, string GroupCName, string GroupName, string GroupClass, string Ename)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcMemberSub_Temp
+                                           WHERE SID = @SID
+                                           AND CategoryID = @CategoryID
+                                           AND GroupCName = @GroupCName
+                                           AND GroupName = @GroupName
+                                           AND GroupClass = @GroupClass
+                                           AND Ename = @Ename";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
+                sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupCName", GroupCName);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupName", GroupName);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupClass", GroupClass);
+                sda.SelectCommand.Parameters.AddWithValue("@Ename", Ename);
+                sda.Fill(dt);
+            }
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                return true; //有報名
+            }
+
+            return false; //沒有報名
+
         }
 
     }

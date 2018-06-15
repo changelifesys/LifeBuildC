@@ -242,6 +242,7 @@
     <Content Include="img\loading.gif" />
     <Content Include="img\CLC_Logo.gif" />
     <Content Include="img\loading2.gif" />
+    <Content Include="img\title.eb480c91.jpg" />
     <Content Include="Job\Job_ChcMember_UPD_Data.aspx" />
     <Content Include="js\exam\build.js" />
     <Content Include="js\exam\gears.svg" />
