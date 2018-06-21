@@ -36,11 +36,23 @@ namespace LifeBuildC.Api
         SubjectInfoADO subjectinfo = new SubjectInfoADO();
         ChcMemberSub_TempADO chcmembersubtemp = new ChcMemberSub_TempADO();
         ChcMemberADO chcmember = new ChcMemberADO();
+        ApiData api = new ApiData();
 
-        PageData pgdata = new PageData();
+        /// <summary>
+        /// StreamReader電文
+        /// </summary>
         string strAddSubSign = string.Empty;
+        /// <summary>
+        /// 牧區
+        /// </summary>
         string GroupCName = string.Empty;
+        /// <summary>
+        /// 小組
+        /// </summary>
         string GroupName = string.Empty;
+        /// <summary>
+        /// 組別
+        /// </summary>
         string GroupClass = string.Empty;
 
         String sheetName = "";
@@ -57,6 +69,8 @@ namespace LifeBuildC.Api
 
         private void PageStart()
         {
+            
+
             if (Request.QueryString["test"] != null &&
                 (Request.QueryString["test"].ToString() == "C1" ||
                 Request.QueryString["test"].ToString() == "C2"))
@@ -65,25 +79,27 @@ namespace LifeBuildC.Api
                 {
                     case "C1":
 
-                        pgdata.SID = 1;
-                        pgdata.CategoryID = "C1";
-                        pgdata.gcroup = "社青";
-                        pgdata.group = "CA202.信豪牧區-彥伯小組";
-                        pgdata.Ename = "TEST";
-                        pgdata.Phone = "0919963322";
-                        pgdata.Gmail = "";
-                        pgdata.Church = "";
+                        api.MID = "758";
+                        api.SID = 1;
+                        api.CategoryID = "C1";
+                        api.gcroup = "社青";
+                        api.group = "CA202.信豪牧區-彥伯小組";
+                        api.Ename = "劉彥伯";
+                        api.Phone = "0919963322";
+                        api.Gmail = "";
+                        api.Church = "";
                         break;
                     case "C2":
 
-                        pgdata.SID = 2;
-                        pgdata.CategoryID = "C2";
-                        pgdata.gcroup = "社青";
-                        pgdata.group = "CA202.信豪牧區-彥伯小組";
-                        pgdata.Ename = "劉彥伯";
-                        pgdata.Phone = "0919963322";
-                        pgdata.Gmail = "";
-                        pgdata.Church = "";
+                        api.MID = "758";
+                        api.SID = 2;
+                        api.CategoryID = "C2";
+                        api.gcroup = "社青";
+                        api.group = "CA202.信豪牧區-彥伯小組";
+                        api.Ename = "劉彥伯";
+                        api.Phone = "0919963322";
+                        api.Gmail = "";
+                        api.Church = "";
                         break;
                 }
 
@@ -99,58 +115,57 @@ namespace LifeBuildC.Api
                     }
                 }
 
-                pgdata = JsonConvert.DeserializeObject<PageData>(strAddSubSign);
+                api = JsonConvert.DeserializeObject<ApiData>(strAddSubSign);
             }
 
-            if (pgdata != null)
+            if (api != null)
             {
                 try
                 {
-                    pgdata.IsApiError = false;
+                    api.IsApiError = false;
 
                     //小組
-                    string[] arrg = pgdata.group.Split('.');
+                    string[] arrg = api.group.Split('.');
                     GroupCName = arrg[1].Split('-')[0];
                     GroupName = arrg[1].Split('-')[1];
-                    GroupClass = pgdata.gcroup;
+                    GroupClass = api.gcroup;
 
-                    if (pgdata.CategoryID == "C1")
+                    if (api.CategoryID == "C1")
                     { //C1課程沒有限制報名資格
 
-                        //sheetName = "[" + pgdata.SID + "]" + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Year.ToString("0000") + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Month.ToString("00");
                         sheetName = "C1報名";
                         InsChcMemberSub_Temp();
-                        pgdata.ApiMsg = "C1 課程報名成功！";
+                        api.ApiMsg = "C1 課程報名成功！";
 
                     }
-                    else if (pgdata.CategoryID == "C2")
+                    else if (api.CategoryID == "C2")
                     { //C2課程需上完C1才可報名
 
-                        DataTable dtMem = chcmember.GetChcMemberByGroup(GroupCName, GroupName, pgdata.Ename);
+                        //DataTable dtMem = chcmember.GetChcMemberByGroup(GroupCName, GroupName, api.Ename);
+                        DataTable dtMem = chcmember.Query_MID(api.MID);
                         if (dtMem != null && dtMem.Rows.Count > 0)
                         {
                             bool IsC112 = bool.Parse(dtMem.Rows[0]["IsC112"].ToString());
                             bool IsC134 = bool.Parse(dtMem.Rows[0]["IsC134"].ToString());
                             if (IsC112 && IsC134)
                             {
-                                //sheetName = "[" + pgdata.SID + "]" + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Year.ToString("0000") + DateTime.Parse(dtSub.Rows[0]["SubEndDate"].ToString()).Month.ToString("00");
                                 sheetName = "C2報名";
                                 InsChcMemberSub_Temp();
-                                pgdata.ApiMsg = "C2 課程報名成功！";
+                                api.ApiMsg = "C2 課程報名成功！";
 
                             }
                             else
                             {
-                                pgdata.IsApiError = true;
-                                pgdata.ApiMsg = "您沒有符合上C2的資格！請向小組長或區長確認，或是自行查詢是否完成C1課程";
+                                api.IsApiError = true;
+                                api.ApiMsg = "您沒有符合上C2的資格！請向小組長或區長確認，或是自行查詢是否完成C1課程";
                             }
 
 
                         }
                         else
                         {
-                            pgdata.IsApiError = true;
-                            pgdata.ApiMsg = "您沒有符合上C2的資格！請向小組長或區長確認，或是自行查詢是否完成C1課程";
+                            api.IsApiError = true;
+                            api.ApiMsg = "您沒有符合上C2的資格！請向小組長或區長確認，或是自行查詢是否完成C1課程";
                         }
 
                     }
@@ -159,68 +174,77 @@ namespace LifeBuildC.Api
                 }
                 catch (Exception e)
                 {
-                    pgdata.IsApiError = true;
-                    pgdata.ApiMsg = "網路斷線或填寫的資料內容有誤！請重新填寫報名資料";
+                    api.IsApiError = true;
+                    api.ApiMsg = "請確認網路是否斷線或填寫的資料內容有誤，再次填寫報名資料";
                 }
 
             }
 
-            Response.Write(JsonConvert.SerializeObject(pgdata));
+            Response.Write(JsonConvert.SerializeObject(api));
 
         }
 
         private void InsChcMemberSub_Temp()
         {
+            string Memo = string.Empty;
+            foreach (string s in api.DataChangeMsg)
+            {
+                Memo += s + ",";
+            }
 
-            DataTable dtSub = subjectinfo.GetSubjectDateBySubjectInfo(pgdata.SID);
+            DataTable dtSub = subjectinfo.GetSubjectDateBySubjectInfo(api.SID);
 
             foreach (DataRow drSub in dtSub.Rows)
             {
-                chcmembersubtemp.InsChcMemberSub_Temp_2(pgdata.SID, drSub["CategoryID2"].ToString(), GroupCName, GroupName, GroupClass,
-                     pgdata.Ename, pgdata.Phone, pgdata.Gmail, pgdata.Church, "0", DateTime.Parse(drSub["SDate"].ToString()), "");
-                pgdata.SubDate += DateTime.Parse(drSub["SDate"].ToString()).Month.ToString("00") + "/" + DateTime.Parse(drSub["SDate"].ToString()).Day.ToString("00") + ",";
+                chcmembersubtemp.InsChcMemberSub_Temp_2(
+                    api.SID, drSub["CategoryID2"].ToString(), GroupCName, GroupName, GroupClass,
+                    api.Ename, api.Phone, api.Gmail, api.Church, "0", DateTime.Parse(drSub["SDate"].ToString()), Memo, api.MID);
+
+                api.SubDate += DateTime.Parse(drSub["SDate"].ToString()).Month.ToString("00") + "/" + DateTime.Parse(drSub["SDate"].ToString()).Day.ToString("00") + ",";
             }
 
-            if (pgdata.SubDate != "" && pgdata.SubDate != null)
+            //去尾「,」號
+            if (api.SubDate != "" && api.SubDate != null)
             {
-                pgdata.SubDate = pgdata.SubDate.Substring(0, pgdata.SubDate.Length - 1);
+                api.SubDate = api.SubDate.Substring(0, api.SubDate.Length - 1);
             }
 
-            switch (pgdata.gcroup)
+            //google Excel 組別分類
+            switch (api.gcroup)
             {
                 case "家庭組弟兄":
-                    pgdata.group_1 = pgdata.group;
-                    pgdata.group_2 = "";
-                    pgdata.group_3 = "";
-                    pgdata.group_4 = "";
+                    api.group_1 = api.group;
+                    api.group_2 = "";
+                    api.group_3 = "";
+                    api.group_4 = "";
                     break;
                 case "家庭組姊妹":
-                    pgdata.group_1 = "";
-                    pgdata.group_2 = pgdata.group;
-                    pgdata.group_3 = "";
-                    pgdata.group_4 = "";
+                    api.group_1 = "";
+                    api.group_2 = api.group;
+                    api.group_3 = "";
+                    api.group_4 = "";
                     break;
                 case "社青":
-                    pgdata.group_1 = "";
-                    pgdata.group_2 = "";
-                    pgdata.group_3 = pgdata.group;
-                    pgdata.group_4 = "";
+                    api.group_1 = "";
+                    api.group_2 = "";
+                    api.group_3 = api.group;
+                    api.group_4 = "";
                     break;
                 case "學生":
-                    pgdata.group_1 = "";
-                    pgdata.group_2 = "";
-                    pgdata.group_3 = "";
-                    pgdata.group_4 = pgdata.group;
+                    api.group_1 = "";
+                    api.group_2 = "";
+                    api.group_3 = "";
+                    api.group_4 = api.group;
                     break;
             }
 
-            AddDataByV4Sheets(pgdata);
+            AddDataByV4Sheets();
         }
 
         /// <summary>
         /// 新增一筆資料
         /// </summary>
-        private void AddDataByV4Sheets(PageData PageData)
+        private void AddDataByV4Sheets()
         {
             SheetsService sheetsService = new SheetsService(new BaseClientService.Initializer
             {
@@ -232,12 +256,12 @@ namespace LifeBuildC.Api
 
             var oblist = new List<object>() {
                     DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
-                    PageData.Ename,
-                    PageData.group_1,
-                    PageData.group_2,
-                    PageData.group_3,
-                    PageData.group_4,
-                    PageData.SubDate
+                    api.Ename,
+                    api.group_1,
+                    api.group_2,
+                    api.group_3,
+                    api.group_4,
+                    api.SubDate
                 };
 
             valueRange.Values = new List<IList<object>> { oblist };
@@ -281,8 +305,16 @@ namespace LifeBuildC.Api
         /// <summary>
         /// API參數
         /// </summary>
-        public class PageData
+        public class ApiData
         {
+            /// <summary>
+            /// 資料變更訊息
+            /// </summary>
+            public List<string> DataChangeMsg = new List<string>();
+            /// <summary>
+            /// 會友流水號
+            /// </summary>
+            public string MID { get; set; }
             /// <summary>
             ///  課程類別
             /// </summary>

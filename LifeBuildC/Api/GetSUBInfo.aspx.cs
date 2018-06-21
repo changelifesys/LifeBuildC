@@ -39,7 +39,7 @@ namespace LifeBuildC.Api
             string strGetSUBInfo = string.Empty;
 
             if (Request.QueryString["test"] != null &&
-                Request.QueryString["test"].ToString() == "1")
+                Request.QueryString["test"].ToString() == "true")
             {
                 PageData.CategoryID = "C1";
             }
@@ -85,6 +85,9 @@ namespace LifeBuildC.Api
                         DateTime.Parse(dtSubject.Rows[0]["SubEndDate"].ToString()).ToString("yyyy/MM/dd").Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
                             "(" + GetDayOfWeek(DateTime.Parse(dtSubject.Rows[0]["SubEndDate"].ToString())) + ") " +
                         "截止報名，之後請現場報名。";
+
+                    //PageData.HtmlSubDesc = HttpUtility.UrlEncode(dtSubject.Rows[0]["HtmlSubDesc"].ToString());
+                    PageData.HtmlSubDesc = dtSubject.Rows[0]["HtmlSubDesc"].ToString().Replace("\"", "'");
                 }
                 else
                 {
@@ -159,7 +162,10 @@ namespace LifeBuildC.Api
             /// API 有錯(true: 有錯; false: 沒有錯)
             /// </summary>
             public bool IsApiError { get; set; }
-
+            /// <summary>
+            /// HTML 上課資訊
+            /// </summary>
+            public string HtmlSubDesc { get; set; }
         }
 
     }

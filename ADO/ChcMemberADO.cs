@@ -672,6 +672,26 @@ namespace ADO
 
         }
 
+
+        public DataTable Query_MID(string MID)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcMember
+                                           WHERE MID = @MID
+                                           ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@MID", MID);
+                sda.Fill(dt);
+            }
+
+            return dt;
+
+        }
+
         //GET
 
         public DataTable GetChcMemberByGroup(string GroupCName, string GroupName, string Ename)
