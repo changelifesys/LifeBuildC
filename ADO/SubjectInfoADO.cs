@@ -18,15 +18,15 @@ namespace ADO
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
 
         public void InsSubjectInfo(string CategoryID, string SubName, string SUCondition, string SubLocation, 
-                                                          string SubStrDate, string SubEndDate)
+                                                          string SubStrDate, string SubEndDate, string Memo, string HtmlSubDesc)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
                                            SubjectInfo(CategoryID, SubName, SUCondition, SubLocation,
-                                                                  SubStrDate, SubEndDate)
+                                                                  SubStrDate, SubEndDate, Memo, HtmlSubDesc)
                                            VALUES(@CategoryID, @SubName, @SUCondition, @SubLocation,
-                                                                  @SubStrDate, @SubEndDate)";
+                                                                  @SubStrDate, @SubEndDate, @Memo, @HtmlSubDesc)";
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@CategoryID", CategoryID);
@@ -35,6 +35,8 @@ namespace ADO
                 com.Parameters.AddWithValue("@SubLocation", SubLocation);
                 com.Parameters.AddWithValue("@SubStrDate", SubStrDate);
                 com.Parameters.AddWithValue("@SubEndDate", SubEndDate);
+                com.Parameters.AddWithValue("@Memo", Memo);
+                com.Parameters.AddWithValue("@HtmlSubDesc", HtmlSubDesc);
 
                 con.Open();
                 com.ExecuteNonQuery();

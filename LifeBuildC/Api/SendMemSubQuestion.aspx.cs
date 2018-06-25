@@ -54,7 +54,13 @@ namespace LifeBuildC.Api
                 {
                     try
                     {
+                        //主旨
+                        PageData.SubjectLine = "[" + PageData.gcroup + PageData.group + "]" + "關於 " + PageData.CategoryName + " 問題：" + PageData.SubjectLine;
+
+                        //問題描述
                         PageData.QuestionText = HttpContext.Current.Server.HtmlDecode(PageData.QuestionText);
+                        PageData.QuestionText += "<p/><label style='color: red'>寄件人Mail：" + PageData.Gmail + "</label>";
+
                         SendEmail("changelifesys@gmail.com", PageData.SubjectLine, PageData.QuestionText);
 
                         PageData.QuestionText = HttpContext.Current.Server.HtmlEncode(PageData.QuestionText);

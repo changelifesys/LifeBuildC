@@ -145,7 +145,6 @@
     <Content Include="Admin\Api\DelUserScore.aspx" />
     <Content Include="Admin\Api\SendQuestion.aspx" />
     <Content Include="Admin\css\PageStyle.css" />
-    <Content Include="Admin\Demo.aspx" />
     <Content Include="Admin\ExamScore.aspx" />
     <Content Include="Admin\FireClass\FireMem.aspx" />
     <Content Include="Admin\FireClass\FireMemEdit.aspx" />
@@ -162,16 +161,11 @@
     <Content Include="Admin\MemSubData\MemSubDataEdit.aspx" />
     <Content Include="Admin\MemSubData\MemSubDataList.aspx" />
     <Content Include="Admin\MemSubData\MemSubDataQuestion.aspx" />
-    <Content Include="Admin\SubjectC1Add.aspx" />
-    <Content Include="Admin\SubjectC1Edit.aspx" />
-    <Content Include="Admin\SubjectC2Add.aspx" />
-    <Content Include="Admin\SubjectC2Edit.aspx" />
     <Content Include="Admin\SubjectData\SubjectC1Add.aspx" />
     <Content Include="Admin\SubjectData\SubjectC1Edit.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2Add.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2Edit.aspx" />
     <Content Include="Admin\SubjectData\SubjectList.aspx" />
-    <Content Include="Admin\SubjectList.aspx" />
     <Content Include="Api\AddFireSubSign.aspx" />
     <Content Include="Api\AddSubSign.aspx" />
     <Content Include="Api\ChkFirePass.aspx" />
@@ -334,13 +328,6 @@
     <Compile Include="Admin\Api\SendQuestion.aspx.designer.cs">
       <DependentUpon>SendQuestion.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\Demo.aspx.cs">
-      <DependentUpon>Demo.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Demo.aspx.designer.cs">
-      <DependentUpon>Demo.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\ExamAdd.aspx.cs">
       <DependentUpon>ExamAdd.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -425,34 +412,6 @@
     <Compile Include="Admin\MemSubData\MemSubDataQuestion.aspx.designer.cs">
       <DependentUpon>MemSubDataQuestion.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\SubjectC1Add.aspx.cs">
-      <DependentUpon>SubjectC1Add.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\SubjectC1Add.aspx.designer.cs">
-      <DependentUpon>SubjectC1Add.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\SubjectC1Edit.aspx.cs">
-      <DependentUpon>SubjectC1Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\SubjectC1Edit.aspx.designer.cs">
-      <DependentUpon>SubjectC1Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\SubjectC2Add.aspx.cs">
-      <DependentUpon>SubjectC2Add.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\SubjectC2Add.aspx.designer.cs">
-      <DependentUpon>SubjectC2Add.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\SubjectC2Edit.aspx.cs">
-      <DependentUpon>SubjectC2Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\SubjectC2Edit.aspx.designer.cs">
-      <DependentUpon>SubjectC2Edit.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\SubjectData\SubjectC1Add.aspx.cs">
       <DependentUpon>SubjectC1Add.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -486,13 +445,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\SubjectData\SubjectList.aspx.designer.cs">
-      <DependentUpon>SubjectList.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\SubjectList.aspx.cs">
-      <DependentUpon>SubjectList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\SubjectList.aspx.designer.cs">
       <DependentUpon>SubjectList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\SystemSet.aspx.cs">

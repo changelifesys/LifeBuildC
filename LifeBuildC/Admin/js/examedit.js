@@ -26,16 +26,6 @@ $(function () {
         ckbField();
     });
 
-    //textarea change
-    //$('textarea[id^="txtField_"]').change(function () {
-    //    getValue($(this).attr('id').split('_')[1]);
-    //});
-
-    //input change
-    //$('input[id^="ckbIsField_"]').change(function () {
-    //    getValue($(this).attr('id').split('_')[1]);
-    //});
-
     function ckbField() {
         for (var i = 1; i <= 9 ; i++) {
             for (var j = i + 1; j <= 10; j++) {

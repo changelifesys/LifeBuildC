@@ -7,7 +7,6 @@
     <title>新增C1課程</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css" />
     <style>
@@ -25,16 +24,16 @@
             <h4>新增C1課程</h4>
             <!--Content-->
             <div>
-                報名條件：
-        <asp:TextBox CssClass="text" Width="100%" ID="txtSUCondition" runat="server"></asp:TextBox>
+                報名條件：<br/>
+                <asp:TextBox CssClass="text" Width="50%" ID="txtSUCondition" runat="server" Rows="5" TextMode="MultiLine"></asp:TextBox>
                 <br />
                 <br />
+                上課日期：<br/>
                 <table width="100%" border="1">
                     <tr>
-                        <td colspan="2">上課時間
+                        <td>
+                            <asp:CheckBox ID="ckbIsSub12" runat="server" Checked="True" /> 有開課
                         </td>
-                    </tr>
-                    <tr>
                         <td>C1 一、二課
                         </td>
                         <td>
@@ -47,6 +46,9 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>
+                            <asp:CheckBox ID="ckbIsSub34" runat="server" Checked="True" /> 有開課
+                        </td>
                         <td>C1 三、四課</td>
                         <td>
                             <asp:TextBox CssClass="text" ID="txtSDate34" runat="server"></asp:TextBox>
@@ -58,8 +60,8 @@
                     </tr>
                 </table>
                 <br />
-                地點：
-        <asp:TextBox CssClass="text" Width="100%" ID="txtSubLocation" runat="server"></asp:TextBox>
+                地點：<br/>
+        <asp:TextBox CssClass="text" Width="50%" ID="txtSubLocation" runat="server" Rows="5" TextMode="MultiLine"></asp:TextBox>
                 <br />
                 <br />
                 報名日期：
@@ -67,9 +69,10 @@
                 <br />
                 報名截止：
         <asp:TextBox CssClass="text" ID="txtSubEndDate" runat="server"></asp:TextBox>
-                <br>
-                Google 連結：
-
+                <br/>
+                <br/>
+                備註：<br/>
+                <asp:TextBox CssClass="text" ID="txtMemo" runat="server" Rows="10" TextMode="MultiLine" Width="50%"></asp:TextBox>
             </div>
             <br />
             <br />

@@ -72,7 +72,7 @@ namespace LifeBuildC.Admin.SubjectData
             string SubEndDate = txtSubEndDate.Text.Trim();
 
             SubjectInfo.InsSubjectInfo("C2", SubName, SUCondition, SubLocation,
-                                                              SubStrDate, SubEndDate);
+                                                              SubStrDate, SubEndDate, "", "");
 
             DataTable dtSubjectInfo = SubjectInfo.QueryMaxSIDBySubjectInfo("C2");
             int SID = int.Parse(dtSubjectInfo.Rows[0]["SID"].ToString());
