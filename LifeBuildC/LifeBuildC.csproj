@@ -254,8 +254,8 @@
     <Content Include="js\subjectSignUp\favicon.ico" />
     <Content Include="js\subjectSignUp\img\title.eb480c91.jpg" />
     <Content Include="js\subjectSignUp\index.html" />
-    <Content Include="js\subjectSignUp\js\app.ee2aa77d.js" />
-    <Content Include="js\subjectSignUp\js\vendors~app.e5665974.js" />
+    <Content Include="js\subjectSignUp\js\app.aec545e4.js" />
+    <Content Include="js\subjectSignUp\js\vendors~app.71ed288c.js" />
     <Content Include="MemSubQuery.aspx" />
     <Content Include="MemWitness.aspx" />
     <Content Include="obj\Debug\LifeBuildC.csproj.FileListAbsolute.txt" />
@@ -281,8 +281,8 @@
     <Content Include="js\memQuery\6f0a76321d30f3c8120915e57f7bd77e.ttf" />
     <Content Include="js\memQuery\build.js.map" />
     <Content Include="js\subjectSignUp\fonts\element-icons.6f0a7632.ttf" />
-    <Content Include="js\subjectSignUp\js\app.ee2aa77d.js.map" />
-    <Content Include="js\subjectSignUp\js\vendors~app.e5665974.js.map" />
+    <Content Include="js\subjectSignUp\js\app.aec545e4.js.map" />
+    <Content Include="js\subjectSignUp\js\vendors~app.71ed288c.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
