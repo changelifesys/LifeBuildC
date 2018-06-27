@@ -109,7 +109,7 @@ namespace LifeBuildC.Api
                         //若取不到資料用手機, 姓名取資料
                         DataRow[] drChk2 = dtMem.Select("Phone='" + api.Phone + "' AND Ename='" + api.Ename + "'");
                         //若取不到資料用手機, 小組取資料
-                        DataRow[] drChk3 = dtMem.Select("Phone='" + api.Phone + "' AND GroupName='" + api + "' AND GroupCName='" + GroupCName + "'");
+                        DataRow[] drChk3 = dtMem.Select("Phone='" + api.Phone + "' AND GroupName='" + GroupName + "' AND GroupCName='" + GroupCName + "'");
 
                         if (drChk1.Count() > 0)
                         { //當用小組, 姓名可以取得資料時
