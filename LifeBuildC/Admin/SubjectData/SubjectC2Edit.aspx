@@ -22,19 +22,19 @@
     <form role="form" runat="server">
         <div>
             <h4>編輯C2課程</h4>
-            <hr />
             <!--Content-->
             <div>
                 報名條件：
-        <asp:TextBox CssClass="text" Width="100%" ID="txtSUCondition" runat="server"></asp:TextBox>
+        <asp:TextBox CssClass="text" Width="50%" ID="txtSUCondition" runat="server" Rows="5" TextMode="MultiLine"></asp:TextBox>
                 <br />
                 <br />
+                上課日期：<br />
                 <table width="100%" border="1">
                     <tr>
-                        <td colspan="2">上課時間
+                        <td>
+                            <asp:CheckBox ID="ckbIsSub12" runat="server" Checked="True" />
+                            有開課
                         </td>
-                    </tr>
-                    <tr>
                         <td>C2 一、二課
                         </td>
                         <td>
@@ -47,6 +47,10 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>
+                            <asp:CheckBox ID="ckbIsSub34" runat="server" Checked="True" />
+                            有開課
+                        </td>
                         <td>C2 三、四課</td>
                         <td>
                             <asp:TextBox CssClass="text" ID="txtSDate34" runat="server"></asp:TextBox>
@@ -57,6 +61,10 @@
                             <asp:TextBox CssClass="text" ID="txtSubTime34" runat="server"></asp:TextBox></td>
                     </tr>
                     <tr>
+                        <td>
+                            <asp:CheckBox ID="ckbIsSub5" runat="server" Checked="True" />
+                            有開課
+                        </td>
                         <td>C2 五課</td>
                         <td>
                             <asp:TextBox CssClass="text" ID="txtSDate5" runat="server"></asp:TextBox>
@@ -71,7 +79,7 @@
                 <br />
                 <br />
                 地點：
-        <asp:TextBox CssClass="text" Width="100%" ID="txtSubLocation" runat="server"></asp:TextBox>
+        <asp:TextBox CssClass="text" Width="50%" ID="txtSubLocation" runat="server" Rows="5" TextMode="MultiLine"></asp:TextBox>
                 <br />
                 <br />
                 報名日期：
@@ -80,9 +88,12 @@
                 報名截止：
         <asp:TextBox CssClass="text" ID="txtSubEndDate" runat="server"></asp:TextBox>
                 <br />
+                <br />
+                備註：<br />
+                <asp:TextBox CssClass="text" ID="txtMemo" runat="server" Rows="10" TextMode="MultiLine" Width="50%"></asp:TextBox>
+
 
             </div>
-            <hr />
             <!--Save-->
             <asp:Button ID="btnSave" CssClass="btn btn-success" runat="server" Text="儲存" OnClick="btnSave_Click" />
             <asp:Button ID="btnCel" CssClass="btn btn-danger" runat="server" Text="返回" OnClick="btnCel_Click" />

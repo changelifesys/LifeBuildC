@@ -80,8 +80,9 @@ namespace LifeBuildC.Admin.SubjectData
             sb.Append("</div>");
             sb.Append("<ul class='class-detail'>");
             sb.Append("<li>");
+
             sb.Append("<div class='class-detail-title'>");
-            sb.Append("報名條件：");
+            sb.Append("報名條件："); //SUCondition
             sb.Append("</div>");
             sb.Append("<div class='class-detail-text'>");
             //2018年1月~2018年12月來的新朋友，或是還沒上過的會友。
@@ -89,8 +90,9 @@ namespace LifeBuildC.Admin.SubjectData
             sb.Append("</div>");
             sb.Append("</li>");
             sb.Append("<li>");
+
             sb.Append("<div class='class-detail-title'>");
-            sb.Append("上課日期：");
+            sb.Append("上課日期："); //SDate, SubTime
             sb.Append("</div>");
             sb.Append("<div class='class-detail-text'>");
 
@@ -113,8 +115,9 @@ namespace LifeBuildC.Admin.SubjectData
             sb.Append("</div>");
             sb.Append("</li>");
             sb.Append("<li>");
+
             sb.Append("<div class='class-detail-title'>");
-            sb.Append("地點：");
+            sb.Append("地點："); //SubLocation
             sb.Append("</div>");
             sb.Append("<div class='class-detail-text'>");
             //江子翠行道會主會堂
@@ -122,8 +125,9 @@ namespace LifeBuildC.Admin.SubjectData
             sb.Append("</div>");
             sb.Append("</li>");
             sb.Append("<li>");
+
             sb.Append("<div class='class-detail-title'>");
-            sb.Append("報名日期：");
+            sb.Append("報名日期："); //SubEndDate
             sb.Append("</div>");
             sb.Append("<div class='class-detail-text'>");
             //即日起~07/31(二) 截止報名，之後請現場報名。
@@ -132,6 +136,15 @@ namespace LifeBuildC.Admin.SubjectData
                             "(" + GetDayOfWeek(DateTime.Parse(SubEndDate)) + ") " +
                         "截止報名，之後請現場報名。");
             sb.Append("</div>");
+
+            sb.Append("<div class='class-detail-title'>");
+            sb.Append("備註："); //Memo
+            sb.Append("</div>");
+            sb.Append("<div class='class-detail-text'>");
+            sb.Append(Memo);
+            sb.Append("</div>");
+
+
             sb.Append("</li>");
             sb.Append("</ul>");
             sb.Append("</div>");
@@ -159,7 +172,6 @@ namespace LifeBuildC.Admin.SubjectData
                                                                       dropSubTime34.Text + " " + txtSubTime34.Text.Trim());
             }
 
-            //sheetName = "[" + SID.ToString() + "]" + DateTime.Parse(SubEndDate).Year.ToString("0000") + DateTime.Parse(SubEndDate).Month.ToString("00");
             sheetName = "C1報名";
 
             //先創建工作表, 若有存在就清空資料
@@ -182,11 +194,10 @@ namespace LifeBuildC.Admin.SubjectData
 
                 #endregion
 
-                ScriptManager.RegisterStartupScript(Page, GetType(), "clicktest", "<script>clickSave()</script>", false);
-                Response.Write("<script>alert('C1 課程新增成功!');location.href='~/Admin/SubjectData/SubjectList.aspx';</script>");
-
             }
             catch { }
+
+            Response.Write("<script>alert('C1 課程新增成功!');location.href='SubjectList.aspx';</script>");
 
         }
 

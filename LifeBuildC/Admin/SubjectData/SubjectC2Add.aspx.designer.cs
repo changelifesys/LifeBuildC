@@ -22,6 +22,15 @@ namespace LifeBuildC.Admin.SubjectData {
         protected global::System.Web.UI.WebControls.TextBox txtSUCondition;
         
         /// <summary>
+        /// ckbIsSub12 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ckbIsSub12;
+        
+        /// <summary>
         /// txtSDate12 控制項。
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace LifeBuildC.Admin.SubjectData {
         protected global::System.Web.UI.WebControls.TextBox txtSubTime12;
         
         /// <summary>
+        /// ckbIsSub34 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ckbIsSub34;
+        
+        /// <summary>
         /// txtSDate34 控制項。
         /// </summary>
         /// <remarks>
@@ -74,6 +92,15 @@ namespace LifeBuildC.Admin.SubjectData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSubTime34;
+        
+        /// <summary>
+        /// ckbIsSub5 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ckbIsSub5;
         
         /// <summary>
         /// txtSDate5 控制項。
@@ -128,6 +155,15 @@ namespace LifeBuildC.Admin.SubjectData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSubEndDate;
+        
+        /// <summary>
+        /// txtMemo 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMemo;
         
         /// <summary>
         /// btnSave 控制項。

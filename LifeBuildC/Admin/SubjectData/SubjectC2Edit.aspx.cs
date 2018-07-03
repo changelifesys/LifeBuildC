@@ -104,7 +104,10 @@ namespace LifeBuildC.Admin.SubjectData
             //報名截止
             string SubEndDate = txtSubEndDate.Text;
 
-            SubjectInfo.UpdSubjectInfo(SUCondition, SubLocation, SubStrDate, SubEndDate, SID);
+            //備註
+            string Memo = txtMemo.Text;
+
+            SubjectInfo.UpdSubjectInfo(SUCondition, SubLocation, SubStrDate, SubEndDate, SID, Memo);
 
             #endregion
 

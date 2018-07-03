@@ -45,7 +45,7 @@ namespace ADO
 
         }
 
-        public void UpdSubjectInfo(string SUCondition, string SubLocation, string SubStrDate, string SubEndDate, int SID)
+        public void UpdSubjectInfo(string SUCondition, string SubLocation, string SubStrDate, string SubEndDate, int SID, string Memo)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
@@ -53,7 +53,8 @@ namespace ADO
                                             SET SUCondition = @SUCondition,
                                                     SubLocation = @SubLocation,
                                                     SubStrDate = @SubStrDate,
-                                                    SubEndDate = @SubEndDate
+                                                    SubEndDate = @SubEndDate,
+                                                    Memo = @Memo
                                             WHERE SID = @SID";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -61,6 +62,7 @@ namespace ADO
                 com.Parameters.AddWithValue("@SubLocation", SubLocation);
                 com.Parameters.AddWithValue("@SubStrDate", SubStrDate);
                 com.Parameters.AddWithValue("@SubEndDate", SubEndDate);
+                com.Parameters.AddWithValue("@Memo", Memo);
                 com.Parameters.AddWithValue("@SID", SID);
 
                 con.Open();

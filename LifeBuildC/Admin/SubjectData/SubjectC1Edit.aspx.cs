@@ -66,6 +66,9 @@ namespace LifeBuildC.Admin.SubjectData
                 //報名截止
                 txtSubEndDate.Text = DateTime.Parse(dt.Rows[0]["SubEndDate"].ToString()).ToString("yyyy/MM/dd");
 
+                //備註
+                txtMemo.Text = dt.Rows[0]["Memo"].ToString();
+
             }
 
 
@@ -106,7 +109,10 @@ namespace LifeBuildC.Admin.SubjectData
             //報名截止
             string SubEndDate = txtSubEndDate.Text;
 
-            SubjectInfo.UpdSubjectInfo(SUCondition, SubLocation, SubStrDate, SubEndDate, SID);
+            //備註
+            string Memo = txtMemo.Text;
+
+            SubjectInfo.UpdSubjectInfo(SUCondition, SubLocation, SubStrDate, SubEndDate, SID, Memo);
 
             #endregion
 
