@@ -135,7 +135,21 @@ namespace ADO
             return dt;
         }
 
+        public DataTable Query_ChcMemberSub_Temp_SID(int SID)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcMemberSub_Temp
+                                           WHERE SID = @SID";
 
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
+                sda.Fill(dt);
+            }
+
+            return dt;
+        }
 
         //GET
 
