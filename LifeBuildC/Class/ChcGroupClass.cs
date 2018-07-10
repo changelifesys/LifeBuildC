@@ -15,7 +15,7 @@ namespace LifeBuildC.Class
         public string GetJsonByChcGroup()
         {
             PageData PageData = new PageData();
-            DataTable dt = chcgroup.QueryGroupByChcGroup_1();
+            DataTable dt = chcgroup.Query_ChcGroup_GroupClass();
             if (dt != null && dt.Rows.Count > 0)
             {
                 foreach (DataRow dr in dt.Rows)
@@ -23,7 +23,7 @@ namespace LifeBuildC.Class
                     DataInfo dinfo = new DataInfo();
                     dinfo.group = dr["GroupClass"].ToString();
 
-                    DataTable dtlist = chcgroup.QueryGroupNameByChcGroup_1(dr["GroupClass"].ToString());
+                    DataTable dtlist = chcgroup.Query_ChcGroup_GSort_GroupClass(dr["GroupClass"].ToString());
                     foreach (DataRow drlist in dtlist.Rows)
                     {
                         string _GroupID = drlist["GroupID"].ToString();

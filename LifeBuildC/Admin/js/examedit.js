@@ -15,10 +15,14 @@ $(function () {
 
     //返回
     $('#btnCel').click(function () {
-        if (confirm("取消編輯?")) {
-            $("#txtField_1").text("取消");
-            $("#txtField_2").text("取消");
-        }
+        //if (confirm("取消編輯?")) {
+        //    $("#txtField_1").text("取消");
+        //    $("#txtField_2").text("取消");
+        //}
+
+        $("#txtField_1").text("取消");
+        $("#txtField_2").text("取消");
+
     });
 
     //儲存

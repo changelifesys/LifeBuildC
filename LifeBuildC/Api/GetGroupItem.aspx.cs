@@ -7,7 +7,9 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -16,28 +18,64 @@ namespace LifeBuildC.Api
 {
     public partial class GetGroupItem : System.Web.UI.Page
     {
-        //取得區牧小組群組
+        ApiData api = new ApiData();
         ChcGroupADO chcgroup = new ChcGroupADO();
+
+        DataTable dtGroupClass = new DataTable();
+        DataTable dtGroup = new DataTable();
+        /// <summary>
+        /// Receive 字串
+        /// </summary>
+        string ReceiveStr = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-                PageStart();
-        }
-
-        private void PageStart()
-        {
-            PageData PageData = new PageData();
-            DataTable dt = chcgroup.QueryGroupByChcGroup_1();
-            if (dt != null && dt.Rows.Count > 0)
+            if (Request.QueryString["test"] != null && Request.QueryString["test"].ToString() == "true")
             {
-                foreach (DataRow dr in dt.Rows)
+                api.CategoryID = "C1";
+            }
+            else
+            {
+                using (Stream receiveStream = Request.InputStream)
+                {
+                    using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
+                    {
+                        ReceiveStr = readStream.ReadToEnd();
+                    }
+                }
+
+                try
+                {
+                    api = JsonConvert.DeserializeObject<ApiData>(ReceiveStr);
+                }
+                catch
+                {
+                    api = null;
+                }
+            }
+
+            if (api == null)
+            {
+                api = new ApiData();
+                dtGroup = chcgroup.Query_ChcGroup_GSort();
+                dtGroupClass = chcgroup.Query_ChcGroup_GroupClass();
+            }
+            else
+            {
+                dtGroup = chcgroup.Query_ChcGroup_CategoryID(api.CategoryID);
+                dtGroupClass = chcgroup.Query_ChcGroup_CategoryID_GSort(api.CategoryID);
+            }
+
+            if (dtGroupClass != null && dtGroupClass.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dtGroupClass.Rows)
                 {
                     DataInfo dinfo = new DataInfo();
                     dinfo.group = dr["GroupClass"].ToString();
 
-                    DataTable dtlist = chcgroup.QueryGroupNameByChcGroup_1(dr["GroupClass"].ToString());
-                    foreach (DataRow drlist in dtlist.Rows)
+                    //DataTable dtlist = chcgroup.Query_ChcGroup_GSort_GroupClass(dr["GroupClass"].ToString());
+                    DataRow[] drGroup = dtGroup.Select("GroupClass='" + dr["GroupClass"].ToString() + "'");
+                    foreach (DataRow drlist in drGroup)
                     {
                         string _GroupID = drlist["GroupID"].ToString();
                         string _GroupCName = drlist["GroupCName"].ToString();
@@ -48,22 +86,34 @@ namespace LifeBuildC.Api
                         dinfo.list.Add(_GroupID + "." + _GroupCName + "-" + _GroupName);
                     }
 
-                    PageData.DataInfo.Add(dinfo);
+                    api.DataInfo.Add(dinfo);
                 }
 
-                Response.Write(JsonConvert.SerializeObject(PageData));
+                Response.Write(JsonConvert.SerializeObject(api));
             }
-
         }
 
-        public class PageData
+        public class ApiData
         {
+            /// <summary>
+            ///  課程類別
+            /// </summary>
+            public string CategoryID { get; set; }
+            /// <summary>
+            /// 小組資料
+            /// </summary>
             public List<DataInfo> DataInfo = new List<DataInfo>();
         }
 
         public class DataInfo
         {
+            /// <summary>
+            /// 小組
+            /// </summary>
             public string group;
+            /// <summary>
+            /// 小組 List
+            /// </summary>
             public List<string> list = new List<string>();
         }
 

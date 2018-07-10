@@ -17,6 +17,8 @@ namespace ADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
 
+        //Query
+
         public DataTable QueryGroupByChcGroup()
         {
             DataTable dt = new DataTable();
@@ -35,7 +37,7 @@ namespace ADO
             return dt;
         }
 
-        public DataTable QueryGroupByChcGroup_1()
+        public DataTable Query_ChcGroup_GroupClass()
         {
             DataTable dt = new DataTable();
 
@@ -48,6 +50,62 @@ namespace ADO
                                            ORDER BY MAX(GSort)
                                           ";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.Fill(dt);
+            }
+
+            return dt;
+
+            //return data
+            //家庭組弟兄 |   25
+            //家庭組姊妹 |   95
+            //社青 |  127
+            //學生 |  153
+            //其他 |  154
+
+
+        }
+
+        public DataTable Query_ChcGroup_CategoryID_GSort(string CategoryID)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT GroupClass, MAX(GSort) FROM ChcGroup
+                                           WHERE CategoryID IN ('None', @CategoryID)
+                                           GROUP BY GroupClass
+                                           ORDER BY MAX(GSort)
+                                          ";
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
+                sda.Fill(dt);
+            }
+
+            return dt;
+
+            //return data
+            //其他	|  0
+            //家庭組弟兄 |   25
+            //家庭組姊妹 |   95
+            //社青 |  127
+            //學生 |  153
+            //其他 |  154
+
+
+        }
+
+        public DataTable Query_ChcGroup_CategoryID(string CategoryID)
+        {
+
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcGroup
+                                           WHERE CategoryID IN ('None', @CategoryID)
+                                          ";
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
                 sda.Fill(dt);
             }
 
@@ -111,7 +169,7 @@ namespace ADO
             return dt;
         }
 
-        public DataTable QueryGroupNameByChcGroup_1(string GroupClass)
+        public DataTable Query_ChcGroup_GSort_GroupClass(string GroupClass)
         {
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
@@ -123,6 +181,22 @@ namespace ADO
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@GroupClass", GroupClass);
+                sda.Fill(dt);
+            }
+
+            return dt;
+        }
+
+        public DataTable Query_ChcGroup_GSort()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcGroup
+                                           WHERE GSort > 0
+                                           ORDER BY GSort";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
             }
 
@@ -170,7 +244,6 @@ namespace ADO
 
             return dt;
         }
-
 
         public DataTable QueryGroupName12ByChcGroup(string GroupName12)
         {

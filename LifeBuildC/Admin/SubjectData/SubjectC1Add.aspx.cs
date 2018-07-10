@@ -4,6 +4,7 @@ using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Util.Store;
+using LifeBuildC.PrjMethod;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,6 +19,7 @@ namespace LifeBuildC.Admin.SubjectData
 {
     public partial class SubjectC1Add : System.Web.UI.Page
     {
+        PrjDate pjdate = new PrjDate();
         SubjectInfoADO SubjectInfo = new SubjectInfoADO();
         SubjectDateADO SubjectDate = new SubjectDateADO();
 
@@ -100,7 +102,7 @@ namespace LifeBuildC.Admin.SubjectData
             if (ckbIsSub12.Checked)
             {
                 sb.Append(txtSDate12.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
-                "(" + GetDayOfWeek(DateTime.Parse(txtSDate12.Text.Trim())) + ") " + " ");
+                "(" + pjdate.GetDayOfWeek(DateTime.Parse(txtSDate12.Text.Trim())) + ") " + " ");
                 sb.Append(dropSubTime12.Text + " " + txtSubTime12.Text.Trim());
             }
 
@@ -108,7 +110,7 @@ namespace LifeBuildC.Admin.SubjectData
             {
                 sb.Append("<br/>");
                 sb.Append(txtSDate34.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
-"(" + GetDayOfWeek(DateTime.Parse(txtSDate34.Text.Trim())) + ") " + " ");
+"(" + pjdate.GetDayOfWeek(DateTime.Parse(txtSDate34.Text.Trim())) + ") " + " ");
                 sb.Append(dropSubTime34.Text + " " + dropSubTime34.Text.Trim());
             }
 
@@ -133,7 +135,7 @@ namespace LifeBuildC.Admin.SubjectData
             //即日起~07/31(二) 截止報名，之後請現場報名。
             sb.Append("即日起~" +
                         SubEndDate.Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
-                            "(" + GetDayOfWeek(DateTime.Parse(SubEndDate)) + ") " +
+                            "(" + pjdate.GetDayOfWeek(DateTime.Parse(SubEndDate)) + ") " +
                         "截止報名，之後請現場報名。");
             sb.Append("</div>");
 
@@ -199,29 +201,6 @@ namespace LifeBuildC.Admin.SubjectData
 
             Response.Write("<script>alert('C1 課程新增成功!');location.href='SubjectList.aspx';</script>");
 
-        }
-
-        private string GetDayOfWeek(DateTime dtime)
-        {
-            switch (dtime.DayOfWeek.ToString("d"))
-            {
-                case "0":
-                    return "日";
-                case "1":
-                    return "一";
-                case "2":
-                    return "二";
-                case "3":
-                    return "三";
-                case "4":
-                    return "四";
-                case "5":
-                    return "五";
-                case "6":
-                    return "六";
-                default:
-                    return "";
-            }
         }
 
         /// <summary>

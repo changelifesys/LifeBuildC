@@ -1,4 +1,6 @@
-﻿using ADO;
+﻿//20180708 目前好像沒有在使用這隻
+
+using ADO;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

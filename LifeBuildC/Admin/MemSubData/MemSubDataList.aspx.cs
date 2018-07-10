@@ -244,7 +244,7 @@ namespace LifeBuildC.Admin.MemSubData
 
                 #region
 
-                DataTable dtGroup = group.QueryGroupNameByChcGroup_1(dropGroupClass.SelectedItem.Text);
+                DataTable dtGroup = group.Query_ChcGroup_GSort_GroupClass(dropGroupClass.SelectedItem.Text);
 
                 dropGroupName.Items.Clear();
                 foreach (DataRow dr in dtGroup.Rows)
@@ -331,7 +331,7 @@ namespace LifeBuildC.Admin.MemSubData
                 {
                     #region
 
-                    DataTable dtGroup = group.QueryGroupNameByChcGroup_1(dropGroupClass.SelectedItem.Text);
+                    DataTable dtGroup = group.Query_ChcGroup_GSort_GroupClass(dropGroupClass.SelectedItem.Text);
 
                     dropGroupName.Items.Clear();
                     foreach (DataRow dr in dtGroup.Rows)

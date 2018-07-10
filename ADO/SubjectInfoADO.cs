@@ -17,6 +17,8 @@ namespace ADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
 
+        //INSERT
+
         public void InsSubjectInfo(string CategoryID, string SubName, string SUCondition, string SubLocation, 
                                                           string SubStrDate, string SubEndDate, string Memo, string HtmlSubDesc)
         {
@@ -45,7 +47,9 @@ namespace ADO
 
         }
 
-        public void UpdSubjectInfo(string SUCondition, string SubLocation, string SubStrDate, string SubEndDate, int SID, string Memo)
+        //UPDATE
+
+        public void Update_SubjectInfo(string SUCondition, string SubLocation, string SubStrDate, string SubEndDate, int SID, string Memo, string HtmlSubDesc)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
@@ -54,7 +58,8 @@ namespace ADO
                                                     SubLocation = @SubLocation,
                                                     SubStrDate = @SubStrDate,
                                                     SubEndDate = @SubEndDate,
-                                                    Memo = @Memo
+                                                    Memo = @Memo,
+                                                    HtmlSubDesc = @HtmlSubDesc
                                             WHERE SID = @SID";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -63,6 +68,7 @@ namespace ADO
                 com.Parameters.AddWithValue("@SubStrDate", SubStrDate);
                 com.Parameters.AddWithValue("@SubEndDate", SubEndDate);
                 com.Parameters.AddWithValue("@Memo", Memo);
+                com.Parameters.AddWithValue("@HtmlSubDesc", HtmlSubDesc);
                 com.Parameters.AddWithValue("@SID", SID);
 
                 con.Open();
@@ -71,6 +77,8 @@ namespace ADO
             }
         }
 
+
+        //Query
 
         public DataTable QueryMaxSIDBySubjectInfo(string CategoryID)
         {
@@ -112,6 +120,8 @@ namespace ADO
             return dt;
         }
 
+        //Get
+
         public DataTable GetSubjectInfo(string SubStrDate, string CategoryID)
         {
             DataTable dt = new DataTable();
@@ -151,6 +161,23 @@ namespace ADO
             }
             return dt;
         }
+
+        //EXEC
+        public void sp_Delete_SubjectInfo(int SID)
+        {
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"EXEC sp_Delete_SubjectInfo @SID";
+
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@SID", SID);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
 
     }
 }
