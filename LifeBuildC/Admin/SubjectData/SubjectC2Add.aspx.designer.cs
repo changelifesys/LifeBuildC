@@ -13,6 +13,15 @@ namespace LifeBuildC.Admin.SubjectData {
     public partial class SubjectC2Add {
         
         /// <summary>
+        /// Label2 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
         /// txtSUCondition 控制項。
         /// </summary>
         /// <remarks>
@@ -20,6 +29,15 @@ namespace LifeBuildC.Admin.SubjectData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSUCondition;
+        
+        /// <summary>
+        /// Label1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// ckbIsSub12 控制項。
@@ -58,6 +76,15 @@ namespace LifeBuildC.Admin.SubjectData {
         protected global::System.Web.UI.WebControls.TextBox txtSubTime12;
         
         /// <summary>
+        /// Label3 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
+        
+        /// <summary>
         /// ckbIsSub34 控制項。
         /// </summary>
         /// <remarks>
@@ -92,6 +119,15 @@ namespace LifeBuildC.Admin.SubjectData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSubTime34;
+        
+        /// <summary>
+        /// Label8 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label8;
         
         /// <summary>
         /// ckbIsSub5 控制項。
@@ -130,6 +166,15 @@ namespace LifeBuildC.Admin.SubjectData {
         protected global::System.Web.UI.WebControls.TextBox txtSubTime5;
         
         /// <summary>
+        /// Label4 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
+        
+        /// <summary>
         /// txtSubLocation 控制項。
         /// </summary>
         /// <remarks>
@@ -137,6 +182,15 @@ namespace LifeBuildC.Admin.SubjectData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSubLocation;
+        
+        /// <summary>
+        /// Label5 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label5;
         
         /// <summary>
         /// txtSubStrDate 控制項。
@@ -148,6 +202,15 @@ namespace LifeBuildC.Admin.SubjectData {
         protected global::System.Web.UI.WebControls.TextBox txtSubStrDate;
         
         /// <summary>
+        /// Label6 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label6;
+        
+        /// <summary>
         /// txtSubEndDate 控制項。
         /// </summary>
         /// <remarks>
@@ -155,6 +218,15 @@ namespace LifeBuildC.Admin.SubjectData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSubEndDate;
+        
+        /// <summary>
+        /// Label7 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label7;
         
         /// <summary>
         /// txtMemo 控制項。

@@ -4,10 +4,12 @@ using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Util.Store;
+using LifeBuildC.PrjMethod;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
@@ -17,11 +19,12 @@ namespace LifeBuildC.Admin.SubjectData
 {
     public partial class SubjectC2Add : System.Web.UI.Page
     {
+        PrjDate pjdate = new PrjDate();
         SubjectInfoADO SubjectInfo = new SubjectInfoADO();
         SubjectDateADO SubjectDate = new SubjectDateADO();
 
         // Define request parameters.
-        String spreadsheetId = "1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8";
+        String spreadsheetId = "1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs";
         String sheetName = "";
 
         protected void Page_Load(object sender, EventArgs e)
@@ -70,9 +73,104 @@ namespace LifeBuildC.Admin.SubjectData
             string SubLocation = txtSubLocation.Text.Trim();
             string SubStrDate = txtSubStrDate.Text.Trim();
             string SubEndDate = txtSubEndDate.Text.Trim();
+            string Memo = txtMemo.Text.Trim();
+
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<div class='class-info'>");
+            sb.Append("<div role='alert' class='el - alert el - alert--info'>");
+            sb.Append("<!---->");
+            sb.Append("<div class='el - alert__content'>");
+            sb.Append("<!---->");
+            sb.Append("<p class='el - alert__description'>");
+            sb.Append("本表個人資料將作建檔處理，並於日後會務活動運作之目的內，由教會及同工作為聯絡通訊、關懷及相關合理運用。我們會盡善良管理人責任，妥善保管資料，避免外洩或不當用途之使用。");
+            sb.Append("</p>");
+            sb.Append("<i class='el - alert__closebtn el - icon - close' style='display: none; '>");
+            sb.Append("</i>");
+            sb.Append("</div>");
+            sb.Append("</div>");
+            sb.Append("<ul class='class-detail'>");
+            sb.Append("<li>");
+
+            sb.Append("<div class='class-detail-title'>");
+            sb.Append("報名條件："); //SUCondition
+            sb.Append("</div>");
+            sb.Append("<div class='class-detail-text'>");
+            //2018年1月~2018年12月來的新朋友，或是還沒上過的會友。
+            sb.Append(SUCondition);
+            sb.Append("</div>");
+            sb.Append("</li>");
+            sb.Append("<li>");
+
+            sb.Append("<div class='class-detail-title'>");
+            sb.Append("上課日期："); //SDate, SubTime
+            sb.Append("</div>");
+            sb.Append("<div class='class-detail-text'>");
+
+            //08/05(日)、08/12(日) 下午 14:30~17:30
+            if (ckbIsSub12.Checked)
+            {
+                sb.Append(txtSDate12.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
+                "(" + pjdate.GetDayOfWeek(DateTime.Parse(txtSDate12.Text.Trim())) + ") " + " ");
+                sb.Append(dropSubTime12.Text + " " + txtSubTime12.Text.Trim());
+            }
+
+            if (ckbIsSub34.Checked)
+            {
+                sb.Append("<br/>");
+                sb.Append(txtSDate34.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
+"(" + pjdate.GetDayOfWeek(DateTime.Parse(txtSDate34.Text.Trim())) + ") " + " ");
+                sb.Append(dropSubTime34.Text + " " + dropSubTime34.Text.Trim());
+            }
+
+            if (ckbIsSub5.Checked)
+            {
+                sb.Append("<br/>");
+                sb.Append(txtSDate5.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
+"(" + pjdate.GetDayOfWeek(DateTime.Parse(txtSDate5.Text.Trim())) + ") " + " ");
+                sb.Append(dropSubTime5.Text + " " + dropSubTime5.Text.Trim());
+            }
+
+            sb.Append("</div>");
+            sb.Append("</li>");
+            sb.Append("<li>");
+
+            sb.Append("<div class='class-detail-title'>");
+            sb.Append("地點："); //SubLocation
+            sb.Append("</div>");
+            sb.Append("<div class='class-detail-text'>");
+            //江子翠行道會主會堂
+            sb.Append(SubLocation);
+            sb.Append("</div>");
+            sb.Append("</li>");
+            sb.Append("<li>");
+
+            sb.Append("<div class='class-detail-title'>");
+            sb.Append("報名日期："); //SubEndDate
+            sb.Append("</div>");
+            sb.Append("<div class='class-detail-text'>");
+            //即日起~07/31(二) 截止報名，之後請現場報名。
+            sb.Append("即日起~" +
+                        SubEndDate.Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
+                            "(" + pjdate.GetDayOfWeek(DateTime.Parse(SubEndDate)) + ") " +
+                        "截止報名，之後請現場報名。");
+            sb.Append("</div>");
+
+            sb.Append("<div class='class-detail-title'>");
+            sb.Append("備註："); //Memo
+            sb.Append("</div>");
+            sb.Append("<div class='class-detail-text'>");
+            sb.Append(Memo);
+            sb.Append("</div>");
+
+
+            sb.Append("</li>");
+            sb.Append("</ul>");
+            sb.Append("</div>");
+            string HtmlSubDesc = sb.ToString();
 
             SubjectInfo.InsSubjectInfo("C2", SubName, SUCondition, SubLocation,
-                                                              SubStrDate, SubEndDate, "", "");
+                                                              SubStrDate, SubEndDate, Memo, HtmlSubDesc);
 
             DataTable dtSubjectInfo = SubjectInfo.QueryMaxSIDBySubjectInfo("C2");
             int SID = int.Parse(dtSubjectInfo.Rows[0]["SID"].ToString());
@@ -120,14 +218,10 @@ namespace LifeBuildC.Admin.SubjectData
 
                 #endregion
 
-                Response.Write("<script>alert('C2課程新增成功!');location.href='SubjectList.aspx';</script>");
             }
-            catch
-            {
+            catch { }
 
-            }
-
-            
+            Response.Write("<script>alert('C2課程新增成功!');location.href='SubjectList.aspx?id=C2';</script>");
 
         }
 
@@ -255,8 +349,55 @@ namespace LifeBuildC.Admin.SubjectData
 
         protected void btnCel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("SubjectList.aspx");
+            Response.Redirect("SubjectList.aspx?id=C2");
         }
 
+        protected void ckbIsSub12_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbIsSub12.Checked)
+            {
+                txtSDate12.Visible = true;
+                dropSubTime12.Visible = true;
+                txtSubTime12.Visible = true;
+            }
+            else
+            {
+                txtSDate12.Visible = false;
+                dropSubTime12.Visible = false;
+                txtSubTime12.Visible = false;
+            }
+        }
+
+        protected void ckbIsSub34_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbIsSub34.Checked)
+            {
+                txtSDate34.Visible = true;
+                dropSubTime34.Visible = true;
+                txtSubTime34.Visible = true;
+            }
+            else
+            {
+                txtSDate34.Visible = false;
+                dropSubTime34.Visible = false;
+                txtSubTime34.Visible = false;
+            }
+        }
+
+        protected void ckbIsSub5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbIsSub5.Checked)
+            {
+                txtSDate5.Visible = true;
+                dropSubTime5.Visible = true;
+                txtSubTime5.Visible = true;
+            }
+            else
+            {
+                txtSDate5.Visible = false;
+                dropSubTime5.Visible = false;
+                txtSubTime5.Visible = false;
+            }
+        }
     }
 }

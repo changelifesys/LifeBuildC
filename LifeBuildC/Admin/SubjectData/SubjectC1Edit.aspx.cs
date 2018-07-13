@@ -52,6 +52,17 @@ namespace LifeBuildC.Admin.SubjectData
                     dropSubTime12.SelectedValue = arrDate12[0];
                     txtSubTime12.Text = arrDate12[1];
                 }
+                else
+                {
+                    txtSDate12.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+                    dropSubTime12.SelectedIndex = 1;
+                    txtSubTime12.Text = "14:30~17:30";
+
+                    txtSDate12.Visible = false;
+                    dropSubTime12.Visible = false;
+                    txtSubTime12.Visible = false;
+
+                }
 
                 //C1 三、四課
                 ckbIsSub34.Checked = false;
@@ -62,6 +73,16 @@ namespace LifeBuildC.Admin.SubjectData
                     string[] arrDate34 = dt.Select("CategoryID2='C134'")[0]["SubTime"].ToString().Split(' ');
                     dropSubTime34.SelectedValue = arrDate34[0];
                     txtSubTime34.Text = arrDate34[1];
+                }
+                else
+                {
+                    txtSDate34.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+                    dropSubTime34.SelectedIndex = 1;
+                    txtSubTime34.Text = "14:30~17:30";
+
+                    txtSDate34.Visible = false;
+                    dropSubTime34.Visible = false;
+                    txtSubTime34.Visible = false;
                 }
 
                 //地點
@@ -214,28 +235,29 @@ namespace LifeBuildC.Admin.SubjectData
 
             //上課時間
             //C1 一、二課
+            SubjectDate.DelSubjectDate(SID, "C112");
             if (ckbIsSub12.Checked)
-            { //新增課程
-                string SDate12 = txtSDate12.Text.Trim();
-                string SubTime12 = dropSubTime12.Text + " " + txtSubTime12.Text.Trim();
-                SubjectDate.UpdSubjectDate(SDate12, SubTime12, SID, "C112");
-            }
-            else
-            { //刪除課程
-                SubjectDate.DelSubjectDate(SID, "C112");
+            { //更新課程
+                //string SDate12 = txtSDate12.Text.Trim();
+                //string SubTime12 = dropSubTime12.Text + " " + txtSubTime12.Text.Trim();
+                //SubjectDate.UpdSubjectDate(SDate12, SubTime12, SID, "C112");
+
+                SubjectDate.InsSubjectDate(SID, "C112", txtSDate12.Text.Trim(),
+                                                     dropSubTime12.Text + " " + txtSubTime12.Text.Trim());
+
             }
 
 
             //C1 三、四課
+            SubjectDate.DelSubjectDate(SID, "C134");
             if (ckbIsSub34.Checked)
-            { //新增課程
-                string SDate34 = txtSDate34.Text.Trim();
-                string SubTime34 = dropSubTime34.Text + " " + txtSubTime34.Text.Trim();
-                SubjectDate.UpdSubjectDate(SDate34, SubTime34, SID, "C134");
-            }
-            else
-            { //刪除課程
-                SubjectDate.DelSubjectDate(SID, "C134");
+            { //更新課程
+                //string SDate34 = txtSDate34.Text.Trim();
+                //string SubTime34 = dropSubTime34.Text + " " + txtSubTime34.Text.Trim();
+                //SubjectDate.UpdSubjectDate(SDate34, SubTime34, SID, "C134");
+
+                SubjectDate.InsSubjectDate(SID, "C134", txtSDate34.Text.Trim(),
+                                                                      dropSubTime34.Text + " " + txtSubTime34.Text.Trim());
             }
 
             SubjectInfo.sp_Delete_SubjectInfo(SID);
@@ -254,5 +276,36 @@ namespace LifeBuildC.Admin.SubjectData
             Response.Redirect("SubjectList.aspx");
         }
 
+        protected void ckbIsSub12_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbIsSub12.Checked)
+            { //有開課
+                txtSDate12.Visible = true;
+                dropSubTime12.Visible = true;
+                txtSubTime12.Visible = true;
+            }
+            else
+            {
+                txtSDate12.Visible = false;
+                dropSubTime12.Visible = false;
+                txtSubTime12.Visible = false;
+            }
+        }
+
+        protected void ckbIsSub34_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbIsSub34.Checked)
+            { //有開課
+                txtSDate34.Visible = true;
+                dropSubTime34.Visible = true;
+                txtSubTime34.Visible = true;
+            }
+            else
+            {
+                txtSDate34.Visible = false;
+                dropSubTime34.Visible = false;
+                txtSubTime34.Visible = false;
+            }
+        }
     }
 }

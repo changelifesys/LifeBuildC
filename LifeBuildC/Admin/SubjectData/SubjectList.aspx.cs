@@ -13,23 +13,33 @@ namespace LifeBuildC.Admin.SubjectData
     {
         SubjectDateADO SubjectDate = new SubjectDateADO();
         SubSignInfoADO SubSignInfo = new SubSignInfoADO();
+        SubjectInfoADO SubjectInfo = new SubjectInfoADO();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                HttpCookie mycookie = Request.Cookies["CategoryID"];
-                if (mycookie == null)
+                string CategoryID = "C1";
+                rdoC1List.Checked = true;
+
+                if (Request.QueryString["id"] != null && Request.QueryString["id"].ToString() != "")
                 {
-                    gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C1");
-                    gvSubject.DataBind();
+                    CategoryID = Request.QueryString["id"].ToString();
+
+                    if (CategoryID == "C2")
+                    {
+                        rdoC2List.Checked = true;
+                    }
+
                 }
-                else
-                {
-                    gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate(mycookie.Value);
-                    gvSubject.DataBind();
-                }
+
+                gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate(CategoryID);
+                gvSubject.DataBind();
             }
+
+
+
+
         }
 
         protected void gvSubject_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -125,6 +135,7 @@ namespace LifeBuildC.Admin.SubjectData
             string CategoryID = ((Label)gvSubject.Rows[e.RowIndex].FindControl("lblCategoryID")).Attributes["CategoryID"].ToString();
 
             SubjectDate.DelSubjectDate(int.Parse(SID), CategoryID);
+            SubjectInfo.sp_Delete_SubjectInfo(int.Parse(SID));
 
             if (rdoC1List.Checked)
             {

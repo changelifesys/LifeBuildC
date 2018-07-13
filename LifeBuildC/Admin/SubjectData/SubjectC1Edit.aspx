@@ -42,7 +42,7 @@
                     <tr style="height: 40px;">
                         <td style="width: 150px; background-color: rgb(204,204,204)">
                             <asp:Label ID="Label1" ForeColor="Black" Font-Bold="true" runat="server" Text="C1 一、二課"></asp:Label>
-                            <asp:CheckBox ID="ckbIsSub12" runat="server" Checked="True" />
+                            <asp:CheckBox ID="ckbIsSub12" runat="server" OnCheckedChanged="ckbIsSub12_CheckedChanged" AutoPostBack="True" />
                             有開課
                         </td>
                         <td style="background-color: rgb(239,239,239); text-align: center;">【C1 一、二課】上課時間：
@@ -60,7 +60,7 @@
                     <tr style="height: 40px;">
                         <td style="width: 150px; background-color: rgb(204,204,204)">
                             <asp:Label ID="Label3" ForeColor="Black" Font-Bold="true" runat="server" Text="C1 三、四課"></asp:Label>
-                            <asp:CheckBox ID="ckbIsSub34" runat="server" Checked="True" />
+                            <asp:CheckBox ID="ckbIsSub34" runat="server" OnCheckedChanged="ckbIsSub34_CheckedChanged" AutoPostBack="True" />
                             有開課
                         </td>
                         <td style="background-color: rgb(239,239,239); text-align: center;">【C1 三、四課】上課時間：

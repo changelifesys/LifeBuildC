@@ -97,29 +97,6 @@ namespace ADO
             return dt;
         }
 
-        public DataTable QuerySIDBySubjectInfo(int SID)
-        {
-            DataTable dt = new DataTable();
-
-            using (SqlConnection con = new SqlConnection(condb))
-            {
-                string sql = @"SELECT SubjectDate.SubTime, SubjectDate.CategoryID, SubjectDate.SDate,
-
-                                            (SELECT CategoryName  FROM SubCategory
-                                             WHERE CategoryID = SubjectDate.CategoryID) AS CategoryName
-
-                                            FROM SubjectInfo 
-                                            LEFT JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
-                                            WHERE SubjectInfo.SID = @SID
-                                            ORDER BY SubjectDate.SDate";
-                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
-                sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
-                sda.Fill(dt);
-            }
-
-            return dt;
-        }
-
         //Get
 
         public DataTable GetSubjectInfo(string SubStrDate, string CategoryID)
@@ -157,6 +134,21 @@ namespace ADO
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
+                sda.Fill(dt);
+            }
+            return dt;
+        }
+
+        public DataTable Get_SubjectInfo_MaxSID()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT TOP 1 * FROM SubjectInfo
+                                           ORDER BY SID DESC";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
             }
             return dt;

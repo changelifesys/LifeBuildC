@@ -4,11 +4,17 @@
 $(function () {
 
     if (getCookie("CategoryID") == "C1") {
+
         $('#rdoC1List').prop('checked', true);
+
     } else if (getCookie("CategoryID") == "C2") {
+
         $('#rdoC2List').prop('checked', true);
+
     } else {
+
         $('#rdoC1List').prop('checked', true);
+
     }
 
     $('#rdoC1List').click(function () {
@@ -24,6 +30,7 @@ $(function () {
 
         setCookie('CategoryID', 'C1', 1);
         javascript: window.location.reload();
+
     });
 
     $('#rdoC2List').click(function () {

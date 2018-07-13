@@ -9,12 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script src="../js/menu.js"></script>
-    <script src="../js/subjectlist.js"></script>
+    <%--<script src="../js/subjectlist.js"></script>--%>
 </head>
 <body>
     <form id="form1" runat="server">
         <center>
-                            <img alt="" src="../../img/CLC_Logo.gif" />
+                <img alt="" src="../../img/CLC_Logo.gif" />
                 <h1>生命建造-課程管理</h1>
 
 
@@ -23,7 +23,7 @@
             <asp:Button ID="btnAddC2" runat="server" Text="新增C2課程" OnClick="btnAddC2_Click" />
         </div>
         <div>
-            <asp:RadioButton Font-Size="18px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC1List" runat="server" Text="C1課程" OnCheckedChanged="rdoC1List_CheckedChanged" />
+            <asp:RadioButton Checked="true" Font-Size="18px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC1List" runat="server" Text="C1課程" OnCheckedChanged="rdoC1List_CheckedChanged" />
             &nbsp;|&nbsp;
                         <asp:RadioButton Font-Size="18px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC2List" runat="server" Text="C2課程" OnCheckedChanged="rdoC2List_CheckedChanged" />
         </div>

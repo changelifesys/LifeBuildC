@@ -31,6 +31,47 @@ namespace LifeBuildC.Admin.SubjectData
         {
             if (!IsPostBack)
             {
+                PageDataLoad();
+
+            }
+        }
+
+        /// <summary>
+        /// 取得頁面資料
+        /// </summary>
+        private void PageDataLoad()
+        {
+            DataTable dt = SubjectInfo.Get_SubjectInfo_MaxSID();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+
+                //報名條件
+                txtSUCondition.Text = dt.Rows[0]["SUCondition"].ToString();
+
+                //上課時間
+                //C1 一、二課
+                txtSDate12.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+                dropSubTime12.SelectedIndex = 1;
+                txtSubTime12.Text = "14:30~17:30";
+
+                //C1 三、四課
+                txtSDate34.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+                dropSubTime34.SelectedIndex = 1;
+                txtSubTime34.Text = "14:30~17:30";
+
+                //地點
+                txtSubLocation.Text = dt.Rows[0]["SubLocation"].ToString();
+
+                //報名日期
+                txtSubStrDate.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+
+                //報名截止
+                txtSubEndDate.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+            }
+            else
+            {
+
                 //報名條件
                 string y = DateTime.UtcNow.AddHours(8).Year.ToString();
                 txtSUCondition.Text = y + "年1月~" + y + "年12月來的新朋友，或是還沒上過的會友。";
@@ -54,8 +95,8 @@ namespace LifeBuildC.Admin.SubjectData
 
                 //報名截止
                 txtSubEndDate.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
-
             }
+
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -199,7 +240,7 @@ namespace LifeBuildC.Admin.SubjectData
             }
             catch { }
 
-            Response.Write("<script>alert('C1 課程新增成功!');location.href='SubjectList.aspx';</script>");
+            Response.Write("<script>alert('C1 課程新增成功!');location.href='SubjectList.aspx?id=C1';</script>");
 
         }
 
@@ -326,8 +367,39 @@ namespace LifeBuildC.Admin.SubjectData
 
         protected void btnCel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("SubjectList.aspx");
+            Response.Redirect("SubjectList.aspx?id=C1");
         }
 
+        protected void ckbIsSub12_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbIsSub12.Checked)
+            { //有開課
+                txtSDate12.Visible = true;
+                dropSubTime12.Visible = true;
+                txtSubTime12.Visible = true;
+            }
+            else
+            {
+                txtSDate12.Visible = false;
+                dropSubTime12.Visible = false;
+                txtSubTime12.Visible = false;
+            }
+        }
+
+        protected void ckbIsSub34_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbIsSub34.Checked)
+            { //有開課
+                txtSDate34.Visible = true;
+                dropSubTime34.Visible = true;
+                txtSubTime34.Visible = true;
+            }
+            else
+            {
+                txtSDate34.Visible = false;
+                dropSubTime34.Visible = false;
+                txtSubTime34.Visible = false;
+            }
+        }
     }
 }
