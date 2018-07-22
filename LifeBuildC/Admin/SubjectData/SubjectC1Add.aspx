@@ -112,7 +112,7 @@
                 </table>
             </div>
             <center>
-                <asp:Button ID="btnSave" CssClass="buttonStyle" runat="server" Text="新增" OnClick="btnSave_Click" />
+                <asp:Button ID="btnSave" CssClass="buttonStyle" runat="server" Text="儲存" OnClick="btnSave_Click" />
                             <br />
                 <asp:Button ID="btnCel" CssClass="buttonStyle" runat="server" Text="返回" OnClick="btnCel_Click" />
             </center>

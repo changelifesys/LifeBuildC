@@ -208,37 +208,9 @@ namespace ADO
         {
 
             DataTable dt = new DataTable();
-           #region Access
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    //string sql = @"SELECT SubjectInfo.SubStrDate, SubjectInfo.SubEndDate,
-            //    //                                          SubjectDate.*
-            //    //                            FROM SubjectInfo INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
-            //    //                            WHERE SubjectDate.SDate >= @SDate
-            //    //                            AND LEFT(SubjectDate.CategoryID, 2) = @CategoryID
-            //    //                            ORDER BY SubjectDate.SID DESC, SubjectDate.SDate";
 
-            //    string sql = @"SELECT SubjectInfo.SubStrDate, SubjectInfo.SubEndDate,
-            //                                              SubjectDate.*
-            //                                FROM SubjectInfo INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
-            //                                WHERE LEFT(SubjectDate.CategoryID, 2) = @CategoryID
-            //                                ORDER BY SubjectDate.SID DESC, SubjectDate.SDate";
-
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
-            //    sda.Fill(dt);
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
-                //string sql = @"SELECT SubjectInfo.SubStrDate, SubjectInfo.SubEndDate,
-                //                                          SubjectDate.*
-                //                            FROM SubjectInfo INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
-                //                            WHERE SubjectDate.SDate >= @SDate
-                //                            AND LEFT(SubjectDate.CategoryID, 2) = @CategoryID
-                //                            ORDER BY SubjectDate.SID DESC, SubjectDate.SDate";
-
                 string sql = @"SELECT SubjectInfo.SubStrDate, SubjectInfo.SubEndDate,
                                                           SubjectDate.*
                                             FROM SubjectInfo INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
