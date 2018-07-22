@@ -26,6 +26,16 @@
             <!--Content-->
             <div>
                 <table id="tableMem" style="width: 500px;" align="center" border="1">
+                    <!--開課次數-->
+                    <tr style="height: 40px;">
+                        <td style="width: 150px; background-color: rgb(204,204,204)">
+                            <asp:Label ID="Label8" ForeColor="Black" Font-Bold="true" runat="server" Text="開課次數"></asp:Label>
+                        </td>
+                        <td style="background-color: rgb(239,239,239); text-align: left;">
+                            &nbsp;&nbsp;<asp:TextBox ID="txtSubCount1" CssClass="inputStyle" runat="server" Width="50px"></asp:TextBox>年&nbsp;/
+                            &nbsp;第<asp:TextBox CssClass="inputStyle" ID="txtSubCount2" runat="server" Width="50px"></asp:TextBox>次開課
+                        </td>
+                    </tr>
                     <!--報名條件-->
                     <tr style="height: 40px;">
                         <td style="width: 150px; background-color: rgb(204,204,204)">

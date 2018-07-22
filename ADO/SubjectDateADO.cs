@@ -62,24 +62,6 @@ namespace ADO
 
         public void DelSubjectDate(int SID, string CategoryID)
         {
-            #region Acces
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"DELETE FROM SubjectDate
-            //                                WHERE SID = @SID
-            //                                AND CategoryID = @CategoryID
-            //                              ";
-
-            //    OleDbCommand com = new OleDbCommand(sql, con);
-            //    com.Parameters.AddWithValue("@SID", SID);
-            //    com.Parameters.AddWithValue("@CategoryID", CategoryID);
-
-            //    con.Open();
-            //    com.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            #endregion
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"DELETE FROM SubjectDate
@@ -211,7 +193,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT SubjectInfo.SubStrDate, SubjectInfo.SubEndDate,
+                string sql = @"SELECT SubjectInfo.SubStrDate, SubjectInfo.SubEndDate, SubjectInfo.SubCount,
                                                           SubjectDate.*
                                             FROM SubjectInfo INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
                                             WHERE LEFT(SubjectDate.CategoryID, 2) = @CategoryID

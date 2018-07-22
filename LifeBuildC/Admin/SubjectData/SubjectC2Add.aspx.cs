@@ -31,6 +31,57 @@ namespace LifeBuildC.Admin.SubjectData
         {
             if (!IsPostBack)
             {
+                PageDataLoad();
+
+            }
+        }
+
+        /// <summary>
+        /// 取得頁面資料
+        /// </summary>
+        private void PageDataLoad()
+        {
+            DataTable dt = SubjectInfo.Get_SubjectInfo_MaxSID_WHERE_CategoryID("C2");
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                //第幾次上課
+                txtSubCount1.Text = dt.Rows[0]["SubCount"].ToString().Substring(0, 4);
+                txtSubCount2.Text = (int.Parse(dt.Rows[0]["SubCount"].ToString().Substring(4, 2)) + 1).ToString();
+
+                //報名條件
+                txtSUCondition.Text = dt.Rows[0]["SUCondition"].ToString();
+
+                //上課時間
+                //C2 一、二課
+                txtSDate12.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+                dropSubTime12.SelectedIndex = 1;
+                txtSubTime12.Text = "14:30~17:30";
+
+                //C2 三、四課
+                txtSDate34.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+                dropSubTime34.SelectedIndex = 1;
+                txtSubTime34.Text = "14:30~17:30";
+
+                //C2 五課
+                txtSDate5.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+                dropSubTime5.SelectedIndex = 1;
+                txtSubTime5.Text = "14:30~17:30";
+
+                //地點
+                txtSubLocation.Text = dt.Rows[0]["SubLocation"].ToString();
+
+                //報名日期
+                txtSubStrDate.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+
+                //報名截止
+                txtSubEndDate.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+            }
+            else
+            {
+                //第幾次上課
+                txtSubCount1.Text = DateTime.Now.Year.ToString();
+                txtSubCount2.Text = "1";
+
                 //報名條件
                 string y = DateTime.UtcNow.AddHours(8).Year.ToString();
                 txtSUCondition.Text = y + "年1月~" + y + "年12月來的新朋友，或是還沒上過的會友。";
@@ -59,8 +110,8 @@ namespace LifeBuildC.Admin.SubjectData
 
                 //報名截止
                 txtSubEndDate.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
-
             }
+
         }
 
         /// <summary>
@@ -68,6 +119,9 @@ namespace LifeBuildC.Admin.SubjectData
         /// </summary>
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            //第幾次上課
+            string SubCount = txtSubCount1.Text.Trim() + int.Parse(txtSubCount2.Text).ToString("00").Trim();
+
             string SubName = "生命建造程序 C2 課程報名";
             string SUCondition = txtSUCondition.Text.Trim();
             string SubLocation = txtSubLocation.Text.Trim();
@@ -169,7 +223,7 @@ namespace LifeBuildC.Admin.SubjectData
             sb.Append("</div>");
             string HtmlSubDesc = sb.ToString();
 
-            SubjectInfo.InsSubjectInfo("C2", SubName, SUCondition, SubLocation,
+            SubjectInfo.InsSubjectInfo(SubCount, "C2", SubName, SUCondition, SubLocation,
                                                               SubStrDate, SubEndDate, Memo, HtmlSubDesc);
 
             DataTable dtSubjectInfo = SubjectInfo.QueryMaxSIDBySubjectInfo("C2");

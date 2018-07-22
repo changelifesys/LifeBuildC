@@ -41,10 +41,14 @@ namespace LifeBuildC.Admin.SubjectData
         /// </summary>
         private void PageDataLoad()
         {
-            DataTable dt = SubjectInfo.Get_SubjectInfo_MaxSID();
+            DataTable dt = SubjectInfo.Get_SubjectInfo_MaxSID_WHERE_CategoryID("C1");
 
             if (dt != null && dt.Rows.Count > 0)
             {
+                //第幾次上課
+                txtSubCount1.Text = dt.Rows[0]["SubCount"].ToString().Substring(0, 4);
+                txtSubCount2.Text = (int.Parse(dt.Rows[0]["SubCount"].ToString().Substring(4, 2)) + 1).ToString();
+
 
                 //報名條件
                 txtSUCondition.Text = dt.Rows[0]["SUCondition"].ToString();
@@ -71,6 +75,10 @@ namespace LifeBuildC.Admin.SubjectData
             }
             else
             {
+
+                //第幾次上課
+                txtSubCount1.Text = DateTime.Now.Year.ToString();
+                txtSubCount2.Text = "1";
 
                 //報名條件
                 string y = DateTime.UtcNow.AddHours(8).Year.ToString();
@@ -101,6 +109,9 @@ namespace LifeBuildC.Admin.SubjectData
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            //第幾次上課
+            string SubCount = txtSubCount1.Text.Trim() + int.Parse(txtSubCount2.Text).ToString("00").Trim();
+
             string SubName = "生命建造程序 C1 課程報名";
             string SUCondition = txtSUCondition.Text.Trim();
             string SubLocation = txtSubLocation.Text.Trim();
@@ -193,8 +204,7 @@ namespace LifeBuildC.Admin.SubjectData
             sb.Append("</div>");
             string HtmlSubDesc = sb.ToString();
 
-
-            SubjectInfo.InsSubjectInfo("C1", SubName, SUCondition, SubLocation,
+            SubjectInfo.InsSubjectInfo(SubCount, "C1", SubName, SUCondition, SubLocation,
                                                               SubStrDate, SubEndDate, Memo, HtmlSubDesc);
 
             DataTable dtSubjectInfo = SubjectInfo.QueryMaxSIDBySubjectInfo("C1");

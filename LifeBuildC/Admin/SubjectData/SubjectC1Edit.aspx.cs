@@ -38,6 +38,11 @@ namespace LifeBuildC.Admin.SubjectData
 
             if (dt.Rows.Count > 0)
             {
+                //第幾次上課
+                txtSubCount1.Text = dt.Rows[0]["SubCount"].ToString().Substring(0, 4);
+                txtSubCount2.Text = (int.Parse(dt.Rows[0]["SubCount"].ToString().Substring(4, 2)) + 1).ToString();
+
+
                 //報名條件
                 txtSUCondition.Text = dt.Rows[0]["SUCondition"].ToString();
 
@@ -124,6 +129,9 @@ namespace LifeBuildC.Admin.SubjectData
             int SID = int.Parse(Request.QueryString["id"].ToString());
 
             #region Update SubjectInfo
+
+            //第幾次上課
+            string SubCount = txtSubCount1.Text.Trim() + int.Parse(txtSubCount2.Text).ToString("00").Trim();
 
             //報名條件
             string SUCondition = txtSUCondition.Text;
@@ -227,7 +235,7 @@ namespace LifeBuildC.Admin.SubjectData
             string HtmlSubDesc = sb.ToString();
 
 
-            SubjectInfo.Update_SubjectInfo(SUCondition, SubLocation, SubStrDate, SubEndDate, SID, Memo, HtmlSubDesc);
+            SubjectInfo.Update_SubjectInfo(SubCount, SUCondition, SubLocation, SubStrDate, SubEndDate, SID, Memo, HtmlSubDesc);
 
             #endregion
 

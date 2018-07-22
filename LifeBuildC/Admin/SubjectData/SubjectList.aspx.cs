@@ -1,6 +1,7 @@
 ﻿using ADO;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
 using System.Web;
@@ -48,6 +49,9 @@ namespace LifeBuildC.Admin.SubjectData
             if (e.Row.RowType == DataControlRowType.DataRow &&
                 ((e.Row.RowState & DataControlRowState.Edit) <= 0))
             {
+                ((Label)e.Row.FindControl("lblSubCount")).Text = DataBinder.Eval(e.Row.DataItem, "SubCount").ToString().Substring(0, 4) + "年第" +
+                    DataBinder.Eval(e.Row.DataItem, "SubCount").ToString().Substring(4, 2) + "次開";
+
                 switch (DataBinder.Eval(e.Row.DataItem, "CategoryID").ToString())
                 {
                     case "C112":
@@ -103,6 +107,7 @@ namespace LifeBuildC.Admin.SubjectData
         {
             gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C1");
             gvSubject.DataBind();
+
         }
 
         protected void rdoC2List_CheckedChanged(object sender, EventArgs e)

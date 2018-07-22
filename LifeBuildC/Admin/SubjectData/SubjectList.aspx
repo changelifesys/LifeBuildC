@@ -40,6 +40,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="課程">
                         <ItemTemplate>
+                            <asp:Label ID="lblSubCount" runat="server" Text=""></asp:Label> - 
                             <asp:Label ID="lblCategoryID" CategoryID='<%# Eval("CategoryID") %>' runat="server"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>

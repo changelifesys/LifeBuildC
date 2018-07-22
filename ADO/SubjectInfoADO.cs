@@ -19,18 +19,19 @@ namespace ADO
 
         //INSERT
 
-        public void InsSubjectInfo(string CategoryID, string SubName, string SUCondition, string SubLocation, 
+        public void InsSubjectInfo(string SubCount, string CategoryID, string SubName, string SUCondition, string SubLocation, 
                                                           string SubStrDate, string SubEndDate, string Memo, string HtmlSubDesc)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           SubjectInfo(CategoryID, SubName, SUCondition, SubLocation,
+                                           SubjectInfo(SubCount, CategoryID, SubName, SUCondition, SubLocation,
                                                                   SubStrDate, SubEndDate, Memo, HtmlSubDesc)
-                                           VALUES(@CategoryID, @SubName, @SUCondition, @SubLocation,
+                                           VALUES(@SubCount, @CategoryID, @SubName, @SUCondition, @SubLocation,
                                                                   @SubStrDate, @SubEndDate, @Memo, @HtmlSubDesc)";
 
                 SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@SubCount", SubCount);
                 com.Parameters.AddWithValue("@CategoryID", CategoryID);
                 com.Parameters.AddWithValue("@SubName", SubName);
                 com.Parameters.AddWithValue("@SUCondition", SUCondition);
@@ -49,12 +50,13 @@ namespace ADO
 
         //UPDATE
 
-        public void Update_SubjectInfo(string SUCondition, string SubLocation, string SubStrDate, string SubEndDate, int SID, string Memo, string HtmlSubDesc)
+        public void Update_SubjectInfo(string SubCount, string SUCondition, string SubLocation, string SubStrDate, string SubEndDate, int SID, string Memo, string HtmlSubDesc)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"UPDATE SubjectInfo
-                                            SET SUCondition = @SUCondition,
+                                            SET SubCount = @SubCount,
+                                                    SUCondition = @SUCondition,
                                                     SubLocation = @SubLocation,
                                                     SubStrDate = @SubStrDate,
                                                     SubEndDate = @SubEndDate,
@@ -63,6 +65,7 @@ namespace ADO
                                             WHERE SID = @SID";
 
                 SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@SubCount", SubCount);
                 com.Parameters.AddWithValue("@SUCondition", SUCondition);
                 com.Parameters.AddWithValue("@SubLocation", SubLocation);
                 com.Parameters.AddWithValue("@SubStrDate", SubStrDate);
@@ -139,16 +142,18 @@ namespace ADO
             return dt;
         }
 
-        public DataTable Get_SubjectInfo_MaxSID()
+        public DataTable Get_SubjectInfo_MaxSID_WHERE_CategoryID(string CategoryID)
         {
             DataTable dt = new DataTable();
 
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT TOP 1 * FROM SubjectInfo
+                                           WHERE CategoryID = @CategoryID
                                            ORDER BY SID DESC";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
                 sda.Fill(dt);
             }
             return dt;
