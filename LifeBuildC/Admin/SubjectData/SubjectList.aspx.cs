@@ -20,25 +20,32 @@ namespace LifeBuildC.Admin.SubjectData
         {
             if (!IsPostBack)
             {
-                string CategoryID = "C1";
-                rdoC1List.Checked = true;
+                string CategoryID = string.Empty;
 
-                if (Request.QueryString["id"] != null && Request.QueryString["id"].ToString() != "")
+                //判斷並取得 HTTP POST CategoryID 的值
+                if (Request.Form["CategoryID"] != null && Request.Form["CategoryID"].ToString() != "")
                 {
-                    CategoryID = Request.QueryString["id"].ToString();
+                    CategoryID = Request.Form["CategoryID"].ToString();
 
                     if (CategoryID == "C2")
                     {
+                        rdoC1List.Checked = false;
                         rdoC2List.Checked = true;
                     }
 
+                }
+                else
+                {
+                    CategoryID = "C1";
+                    rdoC1List.Checked = true;
+                    rdoC2List.Checked = false;
                 }
 
                 gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate(CategoryID);
                 gvSubject.DataBind();
             }
 
-
+            
 
 
         }
@@ -107,7 +114,6 @@ namespace LifeBuildC.Admin.SubjectData
         {
             gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C1");
             gvSubject.DataBind();
-
         }
 
         protected void rdoC2List_CheckedChanged(object sender, EventArgs e)

@@ -22,11 +22,13 @@
             <asp:Button ID="btnAddC1" runat="server" Text="新增C1課程" OnClick="btnAddC1_Click" />
             <asp:Button ID="btnAddC2" runat="server" Text="新增C2課程" OnClick="btnAddC2_Click" />
         </div>
+            <p/>
         <div>
-            <asp:RadioButton Checked="true" Font-Size="18px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC1List" runat="server" Text="C1課程" OnCheckedChanged="rdoC1List_CheckedChanged" />
-            &nbsp;|&nbsp;
-                        <asp:RadioButton Font-Size="18px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC2List" runat="server" Text="C2課程" OnCheckedChanged="rdoC2List_CheckedChanged" />
+            <asp:RadioButton Checked="true" Font-Size="24px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC1List" runat="server" Text="C1課程" OnCheckedChanged="rdoC1List_CheckedChanged" />
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:RadioButton Font-Size="24px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC2List" runat="server" Text="C2課程" OnCheckedChanged="rdoC2List_CheckedChanged" />
         </div>
+            <p/>
         <div>
             <asp:GridView ID="gvSubject" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvSubject_RowDataBound" OnRowDeleting="gvSubject_RowDeleting" Width="60%" CellPadding="4" ForeColor="#333333" GridLines="None">
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />

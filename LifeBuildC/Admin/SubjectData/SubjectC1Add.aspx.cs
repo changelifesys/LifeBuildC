@@ -55,12 +55,12 @@ namespace LifeBuildC.Admin.SubjectData
 
                 //上課時間
                 //C1 一、二課
-                txtSDate12.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+                txtSDate12.Text = DateTime.UtcNow.AddHours(8).AddDays(7).ToString("yyyy/MM/dd");
                 dropSubTime12.SelectedIndex = 1;
                 txtSubTime12.Text = "14:30~17:30";
 
                 //C1 三、四課
-                txtSDate34.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+                txtSDate34.Text = DateTime.UtcNow.AddHours(8).AddDays(14).ToString("yyyy/MM/dd");
                 dropSubTime34.SelectedIndex = 1;
                 txtSubTime34.Text = "14:30~17:30";
 
@@ -71,7 +71,7 @@ namespace LifeBuildC.Admin.SubjectData
                 txtSubStrDate.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
 
                 //報名截止
-                txtSubEndDate.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+                txtSubEndDate.Text = DateTime.UtcNow.AddHours(8).AddDays(30).ToString("yyyy/MM/dd");
             }
             else
             {
@@ -86,12 +86,12 @@ namespace LifeBuildC.Admin.SubjectData
 
                 //上課時間
                 //C1 一、二課
-                txtSDate12.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+                txtSDate12.Text = DateTime.UtcNow.AddHours(8).AddDays(7).ToString("yyyy/MM/dd");
                 dropSubTime12.SelectedIndex = 1;
                 txtSubTime12.Text = "14:30~17:30";
 
                 //C1 三、四課
-                txtSDate34.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+                txtSDate34.Text = DateTime.UtcNow.AddHours(8).AddDays(14).ToString("yyyy/MM/dd");
                 dropSubTime34.SelectedIndex = 1;
                 txtSubTime34.Text = "14:30~17:30";
 
@@ -102,7 +102,7 @@ namespace LifeBuildC.Admin.SubjectData
                 txtSubStrDate.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
 
                 //報名截止
-                txtSubEndDate.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
+                txtSubEndDate.Text = DateTime.UtcNow.AddHours(8).AddDays(30).ToString("yyyy/MM/dd");
             }
 
         }
@@ -250,7 +250,9 @@ namespace LifeBuildC.Admin.SubjectData
             }
             catch { }
 
-            Response.Write("<script>alert('C1 課程新增成功!');location.href='SubjectList.aspx?id=C1';</script>");
+            btnSave.PostBackUrl = "~/Admin/SubjectData/SubjectList.aspx";
+            ScriptManager.RegisterStartupScript(Page, GetType(), "Save", "<script>clickSave()</script>", false);
+            //Response.Write("<script>alert('C1 課程新增成功!');location.href='SubjectList.aspx?id=C1';</script>");
 
         }
 
@@ -375,10 +377,10 @@ namespace LifeBuildC.Admin.SubjectData
             public string SubDate { get; set; }
         }
 
-        protected void btnCel_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("SubjectList.aspx?id=C1");
-        }
+        //protected void btnCel_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("SubjectList.aspx?id=C1");
+        //}
 
         protected void ckbIsSub12_CheckedChanged(object sender, EventArgs e)
         {
