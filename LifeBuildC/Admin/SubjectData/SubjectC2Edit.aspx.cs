@@ -34,49 +34,95 @@ namespace LifeBuildC.Admin.SubjectData
 
             if (dt.Rows.Count > 0)
             {
+                DataRow dr;
+
                 //第幾次上課
                 txtSubCount1.Text = dt.Rows[0]["SubCount"].ToString().Substring(0, 4);
-                txtSubCount2.Text = (int.Parse(dt.Rows[0]["SubCount"].ToString().Substring(4, 2)) + 1).ToString();
+                txtSubCount2.Text = dt.Rows[0]["SubCount"].ToString().Substring(4, 2);
 
                 //報名條件
                 txtSUCondition.Text = dt.Rows[0]["SUCondition"].ToString();
 
                 //上課時間
                 //C2 一、二課
-                if (dt.Select("CategoryID='C212'").Count() > 0)
+                ckbIsSub12.Checked = false;
+                if (dt.Select("CategoryID2='C212'").Count() > 0)
                 {
-                    txtSDate12.Text = dt.Select("CategoryID='C212'")[0]["SDate"].ToString();
-                    string[] arrDate12 = dt.Select("CategoryID='C212'")[0]["SubTime"].ToString().Split(' ');
+                    ckbIsSub12.Checked = true;
+                    dr = null;
+                    dr = dt.Select("CategoryID2='C212'")[0];
+                    txtSDate12.Text = DateTime.Parse(dr["SDate"].ToString()).ToString("yyyy/MM/dd");
+                    string[] arrDate12 = dr["SubTime"].ToString().Split(' ');
                     dropSubTime12.SelectedValue = arrDate12[0];
                     txtSubTime12.Text = arrDate12[1];
                 }
+                else
+                {
+                    txtSDate12.Text = DateTime.UtcNow.AddHours(8).AddDays(7).ToString("yyyy/MM/dd");
+                    dropSubTime12.SelectedIndex = 1;
+                    txtSubTime12.Text = "14:30~17:30";
+
+                    txtSDate12.Visible = false;
+                    dropSubTime12.Visible = false;
+                    txtSubTime12.Visible = false;
+
+                }
 
                 //C2 三、四課
-                if (dt.Select("CategoryID='C234'").Count() > 0)
+                ckbIsSub34.Checked = false;
+                if (dt.Select("CategoryID2='C234'").Count() > 0)
                 {
-                    txtSDate34.Text = dt.Select("CategoryID='C234'")[0]["SDate"].ToString();
-                    string[] arrDate34 = dt.Select("CategoryID='C234'")[0]["SubTime"].ToString().Split(' ');
+                    ckbIsSub34.Checked = true;
+                    dr = null;
+                    dr = dt.Select("CategoryID2='C234'")[0];
+                    txtSDate34.Text = DateTime.Parse(dr["SDate"].ToString()).ToString("yyyy/MM/dd");
+                    string[] arrDate34 = dr["SubTime"].ToString().Split(' ');
                     dropSubTime34.SelectedValue = arrDate34[0];
                     txtSubTime34.Text = arrDate34[1];
                 }
+                else
+                {
+                    txtSDate34.Text = DateTime.UtcNow.AddHours(8).AddDays(14).ToString("yyyy/MM/dd");
+                    dropSubTime34.SelectedIndex = 1;
+                    txtSubTime34.Text = "14:30~17:30";
+
+                    txtSDate34.Visible = false;
+                    dropSubTime34.Visible = false;
+                    txtSubTime34.Visible = false;
+                }
 
                 //C2 五課
-                if (dt.Select("CategoryID='C25'").Count() > 0)
+                ckbIsSub5.Checked = false;
+                if (dt.Select("CategoryID2='C25'").Count() > 0)
                 {
-                    txtSDate5.Text = dt.Select("CategoryID='C25'")[0]["SDate"].ToString();
-                    string[] arrDate5 = dt.Select("CategoryID='C25'")[0]["SubTime"].ToString().Split(' ');
+                    ckbIsSub5.Checked = true;
+                    dr = null;
+                    dr = dt.Select("CategoryID2='C25'")[0];
+                    txtSDate5.Text = DateTime.Parse(dr["SDate"].ToString()).ToString("yyyy/MM/dd");
+                    string[] arrDate5 = dr["SubTime"].ToString().Split(' ');
                     dropSubTime5.SelectedValue = arrDate5[0];
                     txtSubTime5.Text = arrDate5[1];
                 }
+                else
+                {
+                    txtSDate5.Text = DateTime.UtcNow.AddHours(8).AddDays(21).ToString("yyyy/MM/dd");
+                    dropSubTime5.SelectedIndex = 1;
+                    txtSubTime5.Text = "14:30~17:30";
+
+                    txtSDate5.Visible = false;
+                    dropSubTime5.Visible = false;
+                    txtSubTime5.Visible = false;
+                }
+
 
                 //地點
                 txtSubLocation.Text = dt.Rows[0]["SubLocation"].ToString();
 
                 //報名日期
-                txtSubStrDate.Text = dt.Rows[0]["SubStrDate"].ToString();
+                txtSubStrDate.Text = DateTime.Parse(dt.Rows[0]["SubStrDate"].ToString()).ToString("yyyy/MM/dd");
 
                 //報名截止
-                txtSubEndDate.Text = dt.Rows[0]["SubEndDate"].ToString();
+                txtSubEndDate.Text = DateTime.Parse(dt.Rows[0]["SubEndDate"].ToString()).ToString("yyyy/MM/dd");
 
             }
         }
@@ -210,14 +256,13 @@ namespace LifeBuildC.Admin.SubjectData
 
             #region Update SubjectDate
 
-            //上課時間
+            //更新課程上課時間
+
             //C2 一、二課
             SubjectDate.DelSubjectDate(SID, "C212");
             if (ckbIsSub12.Checked)
-            { //更新課程
-                //string SDate12 = txtSDate12.Text.Trim();
-                //string SubTime12 = dropSubTime12.Text + " " + txtSubTime12.Text.Trim();
-                //SubjectDate.UpdSubjectDate(SDate12, SubTime12, SID, "C212");
+            {
+
                 SubjectDate.InsSubjectDate(SID, "C212", txtSDate12.Text.Trim(),
                                      dropSubTime12.Text + " " + txtSubTime12.Text.Trim());
             }
@@ -226,20 +271,16 @@ namespace LifeBuildC.Admin.SubjectData
             //C2 三、四課
             SubjectDate.DelSubjectDate(SID, "C234");
             if (ckbIsSub34.Checked)
-            { //更新課程
-              //string SDate34 = txtSDate34.Text.Trim();
-              //string SubTime34 = dropSubTime34.Text + " " + txtSubTime34.Text.Trim();
-              //SubjectDate.UpdSubjectDate(SDate34, SubTime34, SID, "C234");
+            {
+
                 SubjectDate.InsSubjectDate(SID, "C234", txtSDate34.Text.Trim(),
                                                       dropSubTime34.Text + " " + txtSubTime34.Text.Trim());
             }
 
             SubjectDate.DelSubjectDate(SID, "C25");
-            if (txtSDate5.Text.Trim() != "")
-            { //更新課程
-              //string SDate5 = txtSDate5.Text.Trim();
-              //string SubTime5 = dropSubTime5.Text + " " + txtSubTime5.Text.Trim();
-              //SubjectDate.UpdSubjectDate(SDate5, SubTime5, SID, "C25");
+            if (ckbIsSub5.Checked)
+            {
+
                 SubjectDate.InsSubjectDate(SID, "C25", txtSDate5.Text.Trim(),
                                       dropSubTime5.Text + " " + txtSubTime5.Text.Trim());
             }
@@ -248,14 +289,66 @@ namespace LifeBuildC.Admin.SubjectData
 
             #endregion
 
-            Response.Write("<script>alert('C2 課程儲存成功!');location.href='SubjectList.aspx';</script>");
+            btnSave.PostBackUrl = "~/Admin/SubjectData/SubjectList.aspx";
+            ScriptManager.RegisterStartupScript(Page, GetType(), "Save", "<script>clickSave()</script>", false);
+            //Response.Write("<script>alert('C2 課程儲存成功!');location.href='SubjectList.aspx';</script>");
 
         }
 
-        protected void btnCel_Click(object sender, EventArgs e)
+        //protected void btnCel_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("SubjectList.aspx");
+        //}
+
+
+        protected void ckbIsSub12_CheckedChanged(object sender, EventArgs e)
         {
-            Response.Redirect("SubjectList.aspx");
+            if (ckbIsSub12.Checked)
+            {
+                txtSDate12.Visible = true;
+                dropSubTime12.Visible = true;
+                txtSubTime12.Visible = true;
+            }
+            else
+            {
+                txtSDate12.Visible = false;
+                dropSubTime12.Visible = false;
+                txtSubTime12.Visible = false;
+            }
         }
+
+        protected void ckbIsSub34_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbIsSub34.Checked)
+            {
+                txtSDate34.Visible = true;
+                dropSubTime34.Visible = true;
+                txtSubTime34.Visible = true;
+            }
+            else
+            {
+                txtSDate34.Visible = false;
+                dropSubTime34.Visible = false;
+                txtSubTime34.Visible = false;
+            }
+        }
+
+        protected void ckbIsSub5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbIsSub5.Checked)
+            {
+                txtSDate5.Visible = true;
+                dropSubTime5.Visible = true;
+                txtSubTime5.Visible = true;
+            }
+            else
+            {
+                txtSDate5.Visible = false;
+                dropSubTime5.Visible = false;
+                txtSubTime5.Visible = false;
+            }
+        }
+
 
     }
 }

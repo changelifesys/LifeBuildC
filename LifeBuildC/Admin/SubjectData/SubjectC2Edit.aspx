@@ -14,9 +14,16 @@
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script src="../js/examedit.js"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script>
+        function clickSave() {
+            alert('C2 課程儲存成功!');
+            $('#btnSave').click();
+        };
+    </script>
 </head>
 <body>
     <form role="form" runat="server">
+        <asp:HiddenField ID="CategoryID" Value="C2" runat="server" />
         <div>
             <center>
                 <img alt="" src="../../img/CLC_Logo.gif" />
@@ -135,7 +142,7 @@
                             <asp:Label ID="Label7" ForeColor="Black" Font-Bold="true" runat="server" Text="備註"></asp:Label>
                         </td>
                         <td style="background-color: rgb(239,239,239); text-align: center;">
-                            <asp:TextBox CssClass="inputStyle" ID="txtMemo" runat="server" Rows="10" TextMode="MultiLine" Width="95%"></asp:TextBox>
+                            <asp:TextBox ID="txtMemo" runat="server" Rows="10" TextMode="MultiLine" Width="95%"></asp:TextBox>
                         </td>
                     </tr>
                 </table>
@@ -144,7 +151,7 @@
             <center>
                             <asp:Button ID="btnSave" CssClass="buttonStyle" runat="server" Text="儲存" OnClick="btnSave_Click" />
                                         <br />
-            <asp:Button ID="btnCel" CssClass="buttonStyle" runat="server" Text="返回" OnClick="btnCel_Click" />
+            <asp:Button ID="btnCel" CssClass="buttonStyle" runat="server" Text="返回" PostBackUrl="~/Admin/SubjectData/SubjectList.aspx" />
             </center>
 
         </div>

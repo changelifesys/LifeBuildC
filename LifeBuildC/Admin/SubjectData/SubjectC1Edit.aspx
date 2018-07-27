@@ -14,10 +14,16 @@
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script src="../js/examedit.js"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
+        <script>
+        function clickSave() {
+            alert('C1 課程儲存成功!');
+            $('#btnSave').click();
+        };
+    </script>
 </head>
 <body>
     <form role="form" runat="server">
+        <asp:HiddenField ID="CategoryID" Value="C1" runat="server" />
         <div>
             <center>
                 <img alt="" src="../../img/CLC_Logo.gif" />
@@ -125,7 +131,7 @@
             <center>
                 <asp:Button ID="btnSave" CssClass="buttonStyle" runat="server" Text="儲存" OnClick="btnSave_Click" />
                             <br />
-                <asp:Button ID="btnCel" CssClass="buttonStyle" runat="server" Text="返回" OnClick="btnCel_Click" />
+                <asp:Button ID="btnCel" CssClass="buttonStyle" runat="server" Text="返回" PostBackUrl="~/Admin/SubjectData/SubjectList.aspx" />
             </center>
 
         </div>

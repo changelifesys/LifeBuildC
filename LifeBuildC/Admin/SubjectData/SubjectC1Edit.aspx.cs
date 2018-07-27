@@ -272,17 +272,19 @@ namespace LifeBuildC.Admin.SubjectData
 
             #endregion
 
-            Response.Write("<script>alert('C1 課程儲存成功!');location.href='SubjectList.aspx';</script>");
+            btnSave.PostBackUrl = "~/Admin/SubjectData/SubjectList.aspx";
+            ScriptManager.RegisterStartupScript(Page, GetType(), "Save", "<script>clickSave()</script>", false);
+            //Response.Write("<script>alert('C1 課程儲存成功!');location.href='SubjectList.aspx';</script>");
 
         }
 
         /// <summary>
         /// 返回
         /// </summary>
-        protected void btnCel_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("SubjectList.aspx");
-        }
+        //protected void btnCel_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("SubjectList.aspx");
+        //}
 
         protected void ckbIsSub12_CheckedChanged(object sender, EventArgs e)
         {
