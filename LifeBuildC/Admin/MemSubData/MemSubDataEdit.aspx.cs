@@ -186,7 +186,10 @@ namespace LifeBuildC.Admin.MemSubData
 
             //C2 通過判定
             string C2_Status = dtStatus.Select("StatusID='C002'")[0]["ClassStatus"].ToString();
-            if (IsC212 && IsC234 && IsC25 && Iswitness && C1_Score > 70 && C212_Score > 70 && C234_Score > 70)
+            if (IsC112 && IsC134 && 
+                IsC212 && IsC234 && IsC25 && 
+                Iswitness && 
+                C1_Score >= 70 && C212_Score >= 70 && C234_Score >= 70)
             {
                 C2_Status = dtStatus.Select("StatusID='C001'")[0]["ClassStatus"].ToString();
             }

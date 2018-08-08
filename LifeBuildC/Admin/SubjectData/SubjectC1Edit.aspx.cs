@@ -40,7 +40,7 @@ namespace LifeBuildC.Admin.SubjectData
             {
                 //第幾次上課
                 txtSubCount1.Text = dt.Rows[0]["SubCount"].ToString().Substring(0, 4);
-                txtSubCount2.Text = (int.Parse(dt.Rows[0]["SubCount"].ToString().Substring(4, 2)) + 1).ToString();
+                txtSubCount2.Text = dt.Rows[0]["SubCount"].ToString().Substring(4, 2);
 
 
                 //報名條件

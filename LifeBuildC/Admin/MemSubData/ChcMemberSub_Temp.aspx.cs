@@ -123,103 +123,106 @@ namespace LifeBuildC.Admin.MemSubData
 
         protected void Button2_Click(object sender, EventArgs e)
         {
+            for (int i = 0; i < GridView1.Rows.Count; i++)
+            {
+                string CategoryID = GridView1.Rows[i].Cells[0].Text; //課程編號
+
+                //0: 報名 1:簽到
+                bool EStatus = true;
+                if (GridView1.Rows[i].Cells[1].Text == "0")
+                {
+                    EStatus = false;
+                }
+
+                DateTime SubDate = DateTime.Parse(GridView1.Rows[i].Cells[2].Text); //報名or簽到時間
+                string Ename = GridView1.Rows[i].Cells[3].Text; //姓名
+
+                string GroupCName = string.Empty;
+                string GroupName = string.Empty;
+                string GroupClass = string.Empty;
+                if (GridView1.Rows[i].Cells[5].Text.Replace(" ", "").Replace("&nbsp;", "") != "")
+                {
+                    //小組
+                    string[] arrg = GridView1.Rows[i].Cells[5].Text.Split('.');
+                    GroupCName = arrg[1].Split('-')[0];
+                    GroupName = arrg[1].Split('-')[1];
+                    GroupClass = "家庭組弟兄";
+                }
+                else if (GridView1.Rows[i].Cells[6].Text.Replace(" ", "").Replace("&nbsp;", "") != "")
+                {
+                    //小組
+                    string[] arrg = GridView1.Rows[i].Cells[6].Text.Split('.');
+                    GroupCName = arrg[1].Split('-')[0];
+                    GroupName = arrg[1].Split('-')[1];
+                    GroupClass = "家庭組姊妹";
+                }
+                else if (GridView1.Rows[i].Cells[7].Text.Replace(" ", "").Replace("&nbsp;", "") != "")
+                {
+                    //小組
+                    string[] arrg = GridView1.Rows[i].Cells[7].Text.Split('.');
+                    GroupCName = arrg[1].Split('-')[0];
+                    GroupName = arrg[1].Split('-')[1];
+                    GroupClass = "社青";
+                }
+                else if (GridView1.Rows[i].Cells[8].Text.Replace(" ", "").Replace("&nbsp;", "") != "")
+                {
+                    //小組
+                    string[] arrg = GridView1.Rows[i].Cells[8].Text.Split('.');
+                    GroupCName = arrg[1].Split('-')[0];
+                    GroupName = arrg[1].Split('-')[1];
+                    GroupClass = "學生";
+                }
+
+
+                string Phone = "";
+                string Gmail = "";
+                string Church = "";
+
+                memSub.InsExcelDataByChcMemberSub_Temp(CategoryID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, EStatus, SubDate);
+            }
+
+            DataTable dtMemTemp = memSub.QueryuptynByChcMemberSub_Temp();
+            DataTable dtMem = chcmember.QueryAllByChcMember();
+            foreach (DataRow dr in dtMemTemp.Rows)
+            {
+                DataRow[] drChcMem = dtMem.Select("GroupName='" + dr["GroupName"].ToString() + "' AND Ename='" + dr["Ename"].ToString() + "'");
+                if (drChcMem.Count() > 0)
+                {
+                    //寫入Log
+                    chcmemlog.InsChcMemberByChcMember_Log(dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString());
+
+                    //小組&姓名若填寫正確
+                    //更新上課資料
+                    chcmember.UpdPassDataByChcMember(dr["CategoryID"].ToString(), dr["GroupName"].ToString(), dr["Ename"].ToString(), bool.Parse(dr["EStatus"].ToString()));
+                }
+                else
+                { //否則就新增資料
+
+                    //新增資料
+                    chcmember.InsExcelDataByChcMember(dr["CategoryID"].ToString(), dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString(), bool.Parse(dr["EStatus"].ToString()));
+
+                    //寫入Log
+                    chcmemlog.InsChcMemberByChcMember_Log(dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString());
+
+                }
+            }
+
+
+            //更新完畢
+            //UPDATE uptyn = 1
+            memSub.Upduptyn1ByChcMemberSub_Temp();
+
+            //更新課程通過狀態
+            chcmember.UpdC1C2_StatusByChcMember();
+            chcmember.UpdC1_StatusByChcMember();
+            chcmember.UpdC2_StatusByChcMember();
+            Response.Write("<script>alert('成功匯入');</script>");
+            //imgloading.Visible = false;
+
+
             try
             {
-                for (int i = 0; i < GridView1.Rows.Count; i++)
-                {
-                    string CategoryID = GridView1.Rows[i].Cells[0].Text; //課程編號
 
-                    //0: 報名 1:簽到
-                    bool EStatus = true;
-                    if (GridView1.Rows[i].Cells[1].Text == "0")
-                    {
-                        EStatus = false;
-                    }
-
-                    DateTime SubDate = DateTime.Parse(GridView1.Rows[i].Cells[2].Text); //報名or簽到時間
-                    string Ename = GridView1.Rows[i].Cells[3].Text; //姓名
-
-                    string GroupCName = string.Empty;
-                    string GroupName = string.Empty;
-                    string GroupClass = string.Empty;
-                    if (GridView1.Rows[i].Cells[5].Text.Replace(" ", "").Replace("&nbsp;", "") != "")
-                    {
-                        //小組
-                        string[] arrg = GridView1.Rows[i].Cells[5].Text.Split('.');
-                        GroupCName = arrg[1].Split('-')[0];
-                        GroupName = arrg[1].Split('-')[1];
-                        GroupClass = "家庭組弟兄";
-                    }
-                    else if (GridView1.Rows[i].Cells[6].Text.Replace(" ", "").Replace("&nbsp;", "") != "")
-                    {
-                        //小組
-                        string[] arrg = GridView1.Rows[i].Cells[6].Text.Split('.');
-                        GroupCName = arrg[1].Split('-')[0];
-                        GroupName = arrg[1].Split('-')[1];
-                        GroupClass = "家庭組姊妹";
-                    }
-                    else if (GridView1.Rows[i].Cells[7].Text.Replace(" ", "").Replace("&nbsp;", "") != "")
-                    {
-                        //小組
-                        string[] arrg = GridView1.Rows[i].Cells[7].Text.Split('.');
-                        GroupCName = arrg[1].Split('-')[0];
-                        GroupName = arrg[1].Split('-')[1];
-                        GroupClass = "社青";
-                    }
-                    else if (GridView1.Rows[i].Cells[8].Text.Replace(" ", "").Replace("&nbsp;", "") != "")
-                    {
-                        //小組
-                        string[] arrg = GridView1.Rows[i].Cells[8].Text.Split('.');
-                        GroupCName = arrg[1].Split('-')[0];
-                        GroupName = arrg[1].Split('-')[1];
-                        GroupClass = "學生";
-                    }
-
-
-                    string Phone = "";
-                    string Gmail = "";
-                    string Church = "";
-
-                    memSub.InsExcelDataByChcMemberSub_Temp(CategoryID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, EStatus, SubDate);
-                }
-
-                DataTable dtMemTemp = memSub.QueryuptynByChcMemberSub_Temp();
-                DataTable dtMem = chcmember.QueryAllByChcMember();
-                foreach (DataRow dr in dtMemTemp.Rows)
-                {
-                    DataRow[] drChcMem = dtMem.Select("GroupName='" + dr["GroupName"].ToString() + "' AND Ename='" + dr["Ename"].ToString() + "'");
-                    if (drChcMem.Count() > 0)
-                    {
-                        //寫入Log
-                        chcmemlog.InsChcMemberByChcMember_Log(dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString());
-
-                        //小組&姓名若填寫正確
-                        //更新上課資料
-                        chcmember.UpdPassDataByChcMember(dr["CategoryID"].ToString(), dr["GroupName"].ToString(), dr["Ename"].ToString(), bool.Parse(dr["EStatus"].ToString()));
-                    }
-                    else
-                    { //否則就新增資料
-
-                        //新增資料
-                        chcmember.InsExcelDataByChcMember(dr["CategoryID"].ToString(), dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString(), bool.Parse(dr["EStatus"].ToString()));
-
-                        //寫入Log
-                        chcmemlog.InsChcMemberByChcMember_Log(dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString());
-
-                    }
-                }
-
-
-                //更新完畢
-                //UPDATE uptyn = 1
-                memSub.Upduptyn1ByChcMemberSub_Temp();
-
-                //更新課程通過狀態
-                chcmember.UpdC1C2_StatusByChcMember();
-                chcmember.UpdC1_StatusByChcMember();
-                chcmember.UpdC2_StatusByChcMember();
-                Response.Write("<script>alert('成功匯入');</script>");
-                //imgloading.Visible = false;
             }
             catch (Exception ex)
             {

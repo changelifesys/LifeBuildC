@@ -98,7 +98,13 @@ namespace LifeBuildC.Admin.SubjectData
                 ((Label)e.Row.FindControl("lblSubDate")).Text = DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SubStrDate").ToString()).ToString("yyyy/MM/dd") + "~" + 
                     DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SubEndDate").ToString()).ToString("yyyy/MM/dd");
 
-                if (DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SDate").ToString()) < DateTime.UtcNow.AddHours(8))
+                if (DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SubStrDate").ToString()) < DateTime.UtcNow.AddHours(8))
+                {
+                    ((Label)e.Row.FindControl("lblSubject")).Text = "課程已開始報名";
+                    ((Button)e.Row.FindControl("btnEdit")).Visible = true; //隱藏編輯鈕
+                    ((Button)e.Row.FindControl("btnDel")).Visible = true; //隱藏刪除鈕
+                }
+                else if (DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SDate").ToString()) < DateTime.UtcNow.AddHours(8))
                 {
                     ((Label)e.Row.FindControl("lblSubject")).Text = "課程已結束";
                     ((Button)e.Row.FindControl("btnEdit")).Visible = false; //隱藏編輯鈕
@@ -124,19 +130,11 @@ namespace LifeBuildC.Admin.SubjectData
 
         protected void btnAddC1_Click(object sender, EventArgs e)
         {
-            //HttpCookie mycookie = new HttpCookie("CategoryID");
-            //mycookie.Value = "C1";
-            //mycookie.Expires = DateTime.Now.AddHours(1);
-            //Response.Cookies.Add(mycookie);
             Response.Redirect("SubjectC1Add.aspx");
         }
 
         protected void btnAddC2_Click(object sender, EventArgs e)
         {
-            //HttpCookie mycookie = new HttpCookie("CategoryID");
-            //mycookie.Value = "C2";
-            //mycookie.Expires = DateTime.Now.AddHours(1);
-            //Response.Cookies.Add(mycookie);
             Response.Redirect("SubjectC2Add.aspx");
         }
 
