@@ -69,8 +69,6 @@ namespace LifeBuildC.Api
 
         private void PageStart()
         {
-            
-
             if (Request.QueryString["test"] != null &&
                 (Request.QueryString["test"].ToString() == "C1" ||
                 Request.QueryString["test"].ToString() == "C2"))

@@ -193,7 +193,7 @@ namespace LifeBuildC.Admin.SubjectData
                 sb.Append("<br/>");
                 sb.Append(txtSDate34.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
 "(" + pjdate.GetDayOfWeek(DateTime.Parse(txtSDate34.Text.Trim())) + ") " + " ");
-                sb.Append(dropSubTime34.Text + " " + dropSubTime34.Text.Trim());
+                sb.Append(dropSubTime34.Text + " " + txtSubTime34.Text.Trim());
             }
 
             sb.Append("</div>");
@@ -205,7 +205,7 @@ namespace LifeBuildC.Admin.SubjectData
             sb.Append("</div>");
             sb.Append("<div class='class-detail-text'>");
             //江子翠行道會主會堂
-            sb.Append(SubLocation);
+            sb.Append(SubLocation.Replace("\r\n","<br/>"));
             sb.Append("</div>");
             sb.Append("</li>");
             sb.Append("<li>");
@@ -225,7 +225,7 @@ namespace LifeBuildC.Admin.SubjectData
             sb.Append("備註："); //Memo
             sb.Append("</div>");
             sb.Append("<div class='class-detail-text'>");
-            sb.Append(Memo);
+            sb.Append(Memo.Replace("\r\n", "<br/>"));
             sb.Append("</div>");
 
 

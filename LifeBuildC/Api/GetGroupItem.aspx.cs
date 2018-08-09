@@ -1,6 +1,5 @@
 ﻿/*
- 所有小組
- - 下拉選單
+小組的下拉選單
  */
 using ADO;
 using Newtonsoft.Json;
@@ -23,6 +22,7 @@ namespace LifeBuildC.Api
 
         DataTable dtGroupClass = new DataTable();
         DataTable dtGroup = new DataTable();
+
         /// <summary>
         /// Receive 字串
         /// </summary>
@@ -45,23 +45,23 @@ namespace LifeBuildC.Api
                 }
 
                 try
-                {
+                { //有傳參數
                     api = JsonConvert.DeserializeObject<ApiData>(ReceiveStr);
                 }
                 catch
-                {
+                { //沒有傳參數
                     api = null;
                 }
             }
 
             if (api == null)
-            {
+            { //沒有傳參數
                 api = new ApiData();
                 dtGroup = chcgroup.Query_ChcGroup_GSort();
                 dtGroupClass = chcgroup.Query_ChcGroup_GroupClass();
             }
             else
-            {
+            { //有傳參數
                 dtGroup = chcgroup.Query_ChcGroup_CategoryID(api.CategoryID);
                 dtGroupClass = chcgroup.Query_ChcGroup_CategoryID_GSort(api.CategoryID);
             }
