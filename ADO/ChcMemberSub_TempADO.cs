@@ -214,5 +214,35 @@ namespace ADO
 
         }
 
+        //Check
+
+        /// <summary>
+        /// true: 該名會友有報名資料 ; false: 該名會友沒有報名資料
+        /// </summary>
+        public bool CheckMID(int MID, int SID)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcMemberSub_Temp
+                                           WHERE MID = @MID
+                                           AND SID = @SID";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
+                sda.SelectCommand.Parameters.AddWithValue("@MID", MID);
+                sda.Fill(dt);
+            }
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                return true; //有報名資料
+            }
+
+            return false; //沒有報名資料
+
+        }
+
+
     }
 }

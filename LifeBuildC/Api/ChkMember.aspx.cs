@@ -77,8 +77,8 @@ namespace LifeBuildC.Api
             if (!IsPostBack)
             {
                 if (Request.QueryString["test"] != null &&
-                Request.QueryString["test"].ToString() == "true")
-                {
+                    Request.QueryString["test"].ToString() == "true")
+                { //傳入的資料
                     api.group = "CA202.信豪牧區-彥伯小組";
                     api.Ename = "劉彥伯";
                     api.Phone = "0919963327";
@@ -108,17 +108,17 @@ namespace LifeBuildC.Api
                     GroupCName = arr_group[1].Split('-')[0];
                     GroupName = arr_group[1].Split('-')[1];
 
+                    //從基本資料查詢所有會友
                     DataTable dt_Mem = ChcMember.QueryAllByChcMember();
+                    //從本次報名資料查詢所有會友
                     DataTable dt_Mem_Temp = ChcMemberSub_Temp.Query_ChcMemberSub_Temp_SID(api.SID);
 
-                    if (dt_Mem_Temp != null && dt_Mem_Temp.Rows.Count > 0)
-                    {
-                        Update_Member_Data(dt_Mem_Temp);
-                    }
-                    else if (dt_Mem.Rows.Count > 0)
+                    if (!Update_Member_Data(dt_Mem_Temp))
                     {
                         Update_Member_Data(dt_Mem);
                     }
+
+                    //若 MID 為空值表示為新會友
 
                 }
 
@@ -128,71 +128,86 @@ namespace LifeBuildC.Api
 
         }
 
-        private void Update_Member_Data(DataTable dt)
+
+        /// <summary>
+        /// true: 有該名會友的資料; false: 沒有該名會友的資料
+        /// </summary>
+        private bool Update_Member_Data(DataTable dt)
         {
-            //先用小組, 姓名取得資料
-            DataRow[] drChk1 = dt.Select("GroupCName='" + GroupCName + "' AND GroupName='" + GroupName + "' AND Ename='" + api.Ename + "'");
-            
-            //若取不到資料就用手機, 姓名取資料
-            DataRow[] drChk2 = dt.Select("Phone='" + api.Phone + "' AND Ename='" + api.Ename + "'");
-            
-            //若取不到資料就用手機, 小組取資料
-            DataRow[] drChk3 = dt.Select("Phone='" + api.Phone + "' AND GroupName='" + GroupName + "' AND GroupCName='" + GroupCName + "'");
-            
-            //若取不到資料就用姓名取資料
-            DataRow[] drChk4 = dt.Select("Ename='" + api.Ename);
+            if (dt != null && dt.Rows.Count > 0)
+            {
 
-            if (drChk1.Count() > 0)
-            { //若用小組, 姓名可以取得資料時
+                //先用小組, 姓名取得資料
+                DataRow[] drChk1 = dt.Select("GroupCName='" + GroupCName + "' AND GroupName='" + GroupName + "' AND Ename='" + api.Ename + "'");
 
-                //若判斷手機有錯(比對DB和輸入的資料不一樣)
-                //回傳「手機號碼是否更換為0919xxxxxx」的訊息
-                if (api.Phone != drChk1[0]["Phone"].ToString())
-                {
-                    api.ApiTitle = "您有變更手機號碼？";
-                    api.DataChangeMsg.Add("原手機號碼 「" + drChk1[0]["Phone"].ToString() + "」 是否變更為 「" + api.Phone + "」");
-                    api.IsChgShow = true;
+                //若取不到資料就用手機, 姓名取資料
+                DataRow[] drChk2 = dt.Select("Phone='" + api.Phone + "' AND Ename='" + api.Ename + "'");
+
+                //若取不到資料就用手機, 小組取資料
+                DataRow[] drChk3 = dt.Select("Phone='" + api.Phone + "' AND GroupName='" + GroupName + "' AND GroupCName='" + GroupCName + "'");
+
+                //若取不到資料就用姓名取資料
+                DataRow[] drChk4 = dt.Select("Ename='" + api.Ename);
+
+                if (drChk1.Count() > 0)
+                { //若用小組, 姓名可以取得資料時
+
+                    //若判斷手機有錯(比對DB和輸入的資料不一樣)
+                    //回傳「手機號碼是否更換為0919xxxxxx」的訊息
+                    if (api.Phone != drChk1[0]["Phone"].ToString())
+                    {
+                        api.ApiTitle = "您有變更手機號碼？";
+                        api.DataChangeMsg.Add("原手機號碼 「" + drChk1[0]["Phone"].ToString() + "」 是否變更為 「" + api.Phone + "」");
+                        api.IsChgShow = true;
+                    }
+
+                    api.MID = drChk1[0]["MID"].ToString();
+
+                    return true;
                 }
+                else if (drChk2.Count() > 0)
+                { //若用手機, 姓名可以取得資料時
 
-                api.MID = drChk1[0]["MID"].ToString();
+                    //若判斷小組有錯(比對DB和輸入的資料不一樣)
+                    //回傳「是否有更換小組為xx小組」的訊息
+                    if (arr_group[1] != (drChk2[0]["GroupCName"].ToString() + "-" + drChk2[0]["GroupName"].ToString()))
+                    {
+                        api.ApiTitle = "您有變更小組？";
+                        api.DataChangeMsg.Add("原 「" + drChk2[0]["GroupCName"].ToString() + "-" + drChk2[0]["GroupName"].ToString() + "」 " +
+                                                       "是否變更小組為 「" + api.group + "」");
+                        api.IsChgShow = true;
+                    }
 
-            }
-            else if (drChk2.Count() > 0)
-            { //若用手機, 姓名可以取得資料時
+                    api.MID = drChk2[0]["MID"].ToString();
 
-                //若判斷小組有錯(比對DB和輸入的資料不一樣)
-                //回傳「是否有更換小組為xx小組」的訊息
-                if (arr_group[1] != (drChk2[0]["GroupCName"].ToString() + "-" + drChk2[0]["GroupName"].ToString()))
-                {
-                    api.ApiTitle = "您有變更小組？";
-                    api.DataChangeMsg.Add("原 「" + drChk2[0]["GroupCName"].ToString() + "-" + drChk2[0]["GroupName"].ToString() + "」 " +
-                                                   "是否變更小組為 「" + api.group + "」");
-                    api.IsChgShow = true;
+                    return true;
                 }
+                else if (drChk3.Count() > 0)
+                { //若用手機, 小組可以取得資料時
 
-                api.MID = drChk2[0]["MID"].ToString();
+                    //若判斷姓名有錯(比對DB和輸入的資料不一樣)
+                    //回傳「是否有更改姓名為xxx」的訊息
+                    if (api.Ename != drChk3[0]["Ename"].ToString())
+                    {
+                        api.ApiTitle = "您有改名字？";
+                        api.DataChangeMsg.Add("原 「" + drChk3[0]["Ename"].ToString() + "」 之後是否改名為 「" + api.Ename + "」");
+                        api.IsChgShow = true;
+                    }
 
-            }
-            else if (drChk3.Count() > 0)
-            { //若用手機, 小組可以取得資料時
+                    api.MID = drChk3[0]["MID"].ToString();
 
-                //若判斷姓名有錯(比對DB和輸入的資料不一樣)
-                //回傳「是否有更改姓名為xxx」的訊息
-                if (api.Ename != drChk3[0]["Ename"].ToString())
-                {
-                    api.ApiTitle = "您有改名字？";
-                    api.DataChangeMsg.Add("原 「" + drChk3[0]["Ename"].ToString() + "」 之後是否改名為 「" + api.Ename + "」");
-                    api.IsChgShow = true;
+                    return true;
                 }
+                else if (drChk4.Count() == 1)
+                { //若用姓名, 且資料只有一筆時(不能有其他同名同姓的會友)
 
-                api.MID = drChk3[0]["MID"].ToString();
+                    api.MID = drChk4[0]["MID"].ToString();
 
+                    return true;
+                }
             }
-            else if (drChk4.Count() == 1)
-            { //若用姓名, 且資料只有一筆時(不能有其他同名同姓的會友)
 
-                api.MID = drChk4[0]["MID"].ToString();
-            }
+            return false;
 
         }
 
@@ -202,9 +217,9 @@ namespace LifeBuildC.Api
         public class ApiData
         {
             /// <summary>
-            /// 課程ID
+            /// 資料變更訊息
             /// </summary>
-            public int SID { get; set; }
+            public List<string> DataChangeMsg = new List<string>();
             /// <summary>
             /// 小組
             /// </summary>
@@ -218,7 +233,7 @@ namespace LifeBuildC.Api
             /// </summary>
             public string Phone { get; set; }
             /// <summary>
-            /// 會友流水號
+            /// 會友號
             /// </summary>
             public string MID { get; set; }
             /// <summary>
@@ -226,13 +241,13 @@ namespace LifeBuildC.Api
             /// </summary>
             public string ApiTitle { get; set; }
             /// <summary>
-            /// 資料變更訊息
-            /// </summary>
-            public List<string> DataChangeMsg = new List<string>();
-            /// <summary>
             /// 是否要秀出資料變更訊息(true: 要秀出來; false: 不要秀出來)
             /// </summary>
             public bool IsChgShow { get; set; }
+            /// <summary>
+            /// 課程ID
+            /// </summary>
+            public int SID { get; set; }
         }
 
     }

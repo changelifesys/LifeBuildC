@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ Page中使用的API：
+ GetSUBInfo.aspx -> 取得課程資訊
+ GetGroupItem.aspx -> 小組選項
+ ChkMember.aspx -> 更新會友基本資料
+ AddSubSign.aspx -> 報名
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;

@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeBuildC", "LifeBuildC\LifeBuildC.csproj", "{C28A5B53-72E0-4D29-A6B3-A992837BF1CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO", "ADO\ADO.csproj", "{3797E8FC-DE97-4B48-9F68-FF54CCB7AA66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libLifeBuildC", "libLifeBuildC\libLifeBuildC.csproj", "{89C21EF2-A0E7-4893-B5B9-88E3DD32B244}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{3797E8FC-DE97-4B48-9F68-FF54CCB7AA66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3797E8FC-DE97-4B48-9F68-FF54CCB7AA66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3797E8FC-DE97-4B48-9F68-FF54CCB7AA66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89C21EF2-A0E7-4893-B5B9-88E3DD32B244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89C21EF2-A0E7-4893-B5B9-88E3DD32B244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89C21EF2-A0E7-4893-B5B9-88E3DD32B244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89C21EF2-A0E7-4893-B5B9-88E3DD32B244}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F4085EE7-994B-4890-AF80-8CBECAD60DF4}
 	EndGlobalSection
 EndGlobal

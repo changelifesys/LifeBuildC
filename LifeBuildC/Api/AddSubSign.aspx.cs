@@ -56,7 +56,86 @@ namespace LifeBuildC.Api
         string GroupClass = string.Empty;
 
         String sheetName = "";
-        String spreadsheetId = "1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8";
+        String spreadsheetId = "";
+
+        /// <summary>
+        /// API參數
+        /// </summary>
+        public class ApiData
+        {
+            /// <summary>
+            /// 資料變更訊息
+            /// </summary>
+            public List<string> DataChangeMsg = new List<string>();
+            /// <summary>
+            /// 會友流水號
+            /// </summary>
+            public string MID { get; set; }
+            /// <summary>
+            ///  課程類別
+            /// </summary>
+            public string CategoryID { get; set; }
+            /// <summary>
+            /// 課程ID
+            /// </summary>
+            public int SID { get; set; }
+            /// <summary>
+            /// 組別
+            /// </summary>
+            public string gcroup { get; set; }
+            /// <summary>
+            /// 小組
+            /// </summary>
+            public string group { get; set; }
+            /// <summary>
+            /// 所屬牧區/小組：家庭弟兄
+            /// </summary>
+            public string group_1 { get; set; }
+            /// <summary>
+            /// 所屬牧區/小組：家庭姊妹
+            /// </summary>
+            public string group_2 { get; set; }
+            /// <summary>
+            /// 所屬牧區/小組：社青
+            /// </summary>
+            public string group_3 { get; set; }
+            /// <summary>
+            /// 所屬牧區/小組：學青
+            /// </summary>
+            public string group_4 { get; set; }
+            /// <summary>
+            /// 姓名
+            /// </summary>
+            public string Ename { get; set; }
+            /// <summary>
+            /// 手機
+            /// </summary>
+            public string Phone { get; set; }
+            /// <summary>
+            /// Mail
+            /// </summary>
+            public string Gmail { get; set; }
+            /// <summary>
+            /// 所屬教會
+            /// </summary>
+            public string Church { get; set; }
+            /// <summary>
+            /// API 訊息
+            /// </summary>
+            public string ApiMsg { get; set; }
+            /// <summary>
+            /// API 有錯(true: 有錯; false: 沒有錯)
+            /// </summary>
+            public bool IsApiError { get; set; }
+            /// <summary>
+            /// 上課時段
+            /// </summary>
+            public string SubDate { get; set; }
+            /// <summary>
+            /// 導向的連結
+            /// </summary>
+            public string GoLink = string.Empty;
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -73,10 +152,12 @@ namespace LifeBuildC.Api
                 (Request.QueryString["test"].ToString() == "C1" ||
                 Request.QueryString["test"].ToString() == "C2"))
             {
+
+
                 switch (Request.QueryString["test"].ToString())
                 {
                     case "C1":
-
+                        api.DataChangeMsg = null;
                         api.MID = "758";
                         api.SID = 1;
                         api.CategoryID = "C1";
@@ -89,8 +170,9 @@ namespace LifeBuildC.Api
                         break;
                     case "C2":
 
+                        api.DataChangeMsg = null;
                         api.MID = "758";
-                        api.SID = 2;
+                        api.SID = 1;
                         api.CategoryID = "C2";
                         api.gcroup = "社青";
                         api.group = "CA202.信豪牧區-彥伯小組";
@@ -132,6 +214,7 @@ namespace LifeBuildC.Api
                     { //C1課程沒有限制報名資格
 
                         sheetName = "C1報名";
+                        spreadsheetId = "1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8";
                         InsChcMemberSub_Temp();
                         api.ApiMsg = "C1 課程報名成功！";
 
@@ -148,6 +231,7 @@ namespace LifeBuildC.Api
                             if (IsC112 && IsC134)
                             {
                                 sheetName = "C2報名";
+                                spreadsheetId = "1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs";
                                 InsChcMemberSub_Temp();
                                 api.ApiMsg = "C2 課程報名成功！";
 
@@ -155,7 +239,8 @@ namespace LifeBuildC.Api
                             else
                             {
                                 api.IsApiError = true;
-                                api.ApiMsg = "您沒有符合上C2的資格！請向小組長或區長確認，或是自行查詢是否完成C1課程";
+                                api.ApiMsg = "您沒有符合上C2的資格！請向小組長確認或自行查詢是否完成C1課程";
+                                api.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
                             }
 
 
@@ -163,7 +248,8 @@ namespace LifeBuildC.Api
                         else
                         {
                             api.IsApiError = true;
-                            api.ApiMsg = "您沒有符合上C2的資格！請向小組長或區長確認，或是自行查詢是否完成C1課程";
+                            api.ApiMsg = "您沒有符合上C2的資格！請向小組長確認或自行查詢是否完成C1課程";
+                            api.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
                         }
 
                     }
@@ -184,14 +270,18 @@ namespace LifeBuildC.Api
 
         private void InsChcMemberSub_Temp()
         {
+            //取出資料變更的訊息
             string Memo = string.Empty;
-            foreach (string s in api.DataChangeMsg)
+            if (api.DataChangeMsg.Count > 0)
             {
-                Memo += s + ",";
+                foreach (string s in api.DataChangeMsg)
+                {
+                    Memo += s + ",";
+                }
             }
 
+            //新增上課日期
             DataTable dtSub = subjectinfo.GetSubjectDateBySubjectInfo(api.SID);
-
             foreach (DataRow drSub in dtSub.Rows)
             {
                 chcmembersubtemp.InsChcMemberSub_Temp_2(
@@ -300,80 +390,7 @@ namespace LifeBuildC.Api
             return credential;
         }
 
-        /// <summary>
-        /// API參數
-        /// </summary>
-        public class ApiData
-        {
-            /// <summary>
-            /// 資料變更訊息
-            /// </summary>
-            public List<string> DataChangeMsg = new List<string>();
-            /// <summary>
-            /// 會友流水號
-            /// </summary>
-            public string MID { get; set; }
-            /// <summary>
-            ///  課程類別
-            /// </summary>
-            public string CategoryID { get; set; }
-            /// <summary>
-            /// 課程ID
-            /// </summary>
-            public int SID { get; set; }
-            /// <summary>
-            /// 組別
-            /// </summary>
-            public string gcroup { get; set; }
-            /// <summary>
-            /// 小組
-            /// </summary>
-            public string group { get; set; }
-            /// <summary>
-            /// 所屬牧區/小組：家庭弟兄
-            /// </summary>
-            public string group_1 { get; set; }
-            /// <summary>
-            /// 所屬牧區/小組：家庭姊妹
-            /// </summary>
-            public string group_2 { get; set; }
-            /// <summary>
-            /// 所屬牧區/小組：社青
-            /// </summary>
-            public string group_3 { get; set; }
-            /// <summary>
-            /// 所屬牧區/小組：學青
-            /// </summary>
-            public string group_4 { get; set; }
-            /// <summary>
-            /// 姓名
-            /// </summary>
-            public string Ename { get; set; }
-            /// <summary>
-            /// 手機
-            /// </summary>
-            public string Phone { get; set; }
-            /// <summary>
-            /// Mail
-            /// </summary>
-            public string Gmail { get; set; }
-            /// <summary>
-            /// 所屬教會
-            /// </summary>
-            public string Church { get; set; }
-            /// <summary>
-            /// API 訊息
-            /// </summary>
-            public string ApiMsg { get; set; }
-            /// <summary>
-            /// API 有錯(true: 有錯; false: 沒有錯)
-            /// </summary>
-            public bool IsApiError { get; set; }
-            /// <summary>
-            /// 上課時段
-            /// </summary>
-            public string SubDate { get; set; }
-        }
+
 
     }
 }

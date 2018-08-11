@@ -1,12 +1,15 @@
 ﻿/*
  用途：
-   生命建造-課程報名
+   生命建造-課程報名&簽到
 
  API 流程：
    [View]SubjectSignUp.aspx?id=c1 > 頁面資料載入 > [API]GetSUBInfo
 
+   [View]SubjectCheck.aspx?id=c1 > 頁面資料載入 > [API]GetSUBInfo
+
  */
 using ADO;
+using libLifeBuildC;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -25,7 +28,52 @@ namespace LifeBuildC.Api
     /// </summary>
     public partial class GetSUBInfo : System.Web.UI.Page
     {
-        SubjectInfoADO SubjectInfo = new SubjectInfoADO();
+        ApiData Api_Data = new ApiData();
+        AdoInfo Ado_Info = new AdoInfo();
+
+        public class ApiData
+        {
+            /// <summary>
+            /// 課程類別
+            /// </summary>
+            public string CategoryID { get; set; }
+            /// <summary>
+            /// 課程ID
+            /// </summary>
+            public int SID { get; set; }
+            /// <summary>
+            /// 課程名稱
+            /// </summary>
+            public string SubName { get; set; }
+            /// <summary>
+            /// 報名條件
+            /// </summary>
+            //public string SUCondition { get; set; }
+            /// <summary>
+            /// 上課日期
+            /// </summary>
+            //public string SubDate { get; set; }
+            /// <summary>
+            /// 上課地點
+            /// </summary>
+            //public string SubLocation { get; set; }
+            /// <summary>
+            /// 課程截止報名時間
+            /// </summary>
+            //public string SubEndDate { get; set; }
+            /// <summary>
+            /// API 訊息
+            /// </summary>
+            public string ApiMsg = string.Empty;
+            /// <summary>
+            /// API 有錯(true: 有錯; false: 沒有錯)
+            /// </summary>
+            public bool IsApiError = false;
+            /// <summary>
+            /// HTML 上課資訊
+            /// </summary>
+            public string HtmlSubDesc { get; set; }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -35,13 +83,12 @@ namespace LifeBuildC.Api
 
         private void PageStart()
         {
-            PageData PageData = new PageData();
             string strGetSUBInfo = string.Empty;
 
             if (Request.QueryString["test"] != null &&
                 Request.QueryString["test"].ToString() == "true")
             {
-                PageData.CategoryID = "C1";
+                Api_Data.CategoryID = "C1";
             }
             else
             {
@@ -53,22 +100,20 @@ namespace LifeBuildC.Api
                     }
                 }
 
-                PageData = JsonConvert.DeserializeObject<PageData>(strGetSUBInfo);
+                Api_Data = JsonConvert.DeserializeObject<ApiData>(strGetSUBInfo);
 
             }
 
-            if (PageData != null)
+            if (Api_Data != null)
             {
-                PageData.IsApiError = false;
-                PageData.ApiMsg = "";
-
-                DataTable dtSubject = SubjectInfo.GetSubjectInfo(DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"), PageData.CategoryID);
-                if (dtSubject.Rows.Count > 0)
+                DataTable dtSubject = Ado_Info.SubjectInfo_ADO.GetSubjectInfo(DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"), Api_Data.CategoryID);
+                if (dtSubject != null && dtSubject.Rows.Count > 0)
                 {
-                    PageData.SID = int.Parse(dtSubject.Rows[0]["SID"].ToString());
-                    PageData.SubName = dtSubject.Rows[0]["SubName"].ToString();
-                    PageData.SUCondition = dtSubject.Rows[0]["SUCondition"].ToString();
+                    Api_Data.SID = int.Parse(dtSubject.Rows[0]["SID"].ToString());
+                    Api_Data.SubName = dtSubject.Rows[0]["SubName"].ToString();
+                    //PageData.SUCondition = dtSubject.Rows[0]["SUCondition"].ToString();
 
+                    /*
                     //2/12(日)、 2/19(日)下午14:30~17:30
                     string _SBDate = "";
                     foreach (DataRow dr in dtSubject.Rows)
@@ -85,19 +130,20 @@ namespace LifeBuildC.Api
                         DateTime.Parse(dtSubject.Rows[0]["SubEndDate"].ToString()).ToString("yyyy/MM/dd").Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
                             "(" + GetDayOfWeek(DateTime.Parse(dtSubject.Rows[0]["SubEndDate"].ToString())) + ") " +
                         "截止報名，之後請現場報名。";
+                    */
 
                     //PageData.HtmlSubDesc = HttpUtility.UrlEncode(dtSubject.Rows[0]["HtmlSubDesc"].ToString());
-                    PageData.HtmlSubDesc = dtSubject.Rows[0]["HtmlSubDesc"].ToString().Replace("\"", "'");
+                    Api_Data.HtmlSubDesc = dtSubject.Rows[0]["HtmlSubDesc"].ToString().Replace("\"", "'");
                 }
                 else
                 {
-                    PageData.IsApiError = true;
-                    PageData.ApiMsg = "尚未開放" + PageData.CategoryID + "報名時間";
+                    Api_Data.IsApiError = true;
+                    Api_Data.ApiMsg = "尚未開放" + Api_Data.CategoryID + "報名時間";
                 }
 
             }
 
-            Response.Write(JsonConvert.SerializeObject(PageData));
+            Response.Write(JsonConvert.SerializeObject(Api_Data));
 
         }
 
@@ -124,49 +170,7 @@ namespace LifeBuildC.Api
             }
         }
 
-        public class PageData
-        {
-            /// <summary>
-            /// 課程類別
-            /// </summary>
-            public string CategoryID { get; set; }
-            /// <summary>
-            /// 課程ID
-            /// </summary>
-            public int SID { get; set; }
-            /// <summary>
-            /// 課程名稱
-            /// </summary>
-            public string SubName { get; set; }
-            /// <summary>
-            /// 報名條件
-            /// </summary>
-            public string SUCondition { get; set; }
-            /// <summary>
-            /// 上課日期
-            /// </summary>
-            public string SubDate { get; set; }
-            /// <summary>
-            /// 上課地點
-            /// </summary>
-            public string SubLocation { get; set; }
-            /// <summary>
-            /// 課程截止報名時間
-            /// </summary>
-            public string SubEndDate { get; set; }
-            /// <summary>
-            /// API 訊息
-            /// </summary>
-            public string ApiMsg { get; set; }
-            /// <summary>
-            /// API 有錯(true: 有錯; false: 沒有錯)
-            /// </summary>
-            public bool IsApiError { get; set; }
-            /// <summary>
-            /// HTML 上課資訊
-            /// </summary>
-            public string HtmlSubDesc { get; set; }
-        }
+
 
     }
 }

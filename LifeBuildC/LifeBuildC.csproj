@@ -161,6 +161,7 @@
     <Content Include="Admin\MemSubData\MemSubDataEdit.aspx" />
     <Content Include="Admin\MemSubData\MemSubDataList.aspx" />
     <Content Include="Admin\MemSubData\MemSubDataQuestion.aspx" />
+    <Content Include="Admin\MemSubData\UpdMemSubData.aspx" />
     <Content Include="Admin\SubjectData\SubjectC1Add.aspx" />
     <Content Include="Admin\SubjectData\SubjectC1Edit.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2Add.aspx" />
@@ -411,6 +412,13 @@
     </Compile>
     <Compile Include="Admin\MemSubData\MemSubDataQuestion.aspx.designer.cs">
       <DependentUpon>MemSubDataQuestion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\MemSubData\UpdMemSubData.aspx.cs">
+      <DependentUpon>UpdMemSubData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MemSubData\UpdMemSubData.aspx.designer.cs">
+      <DependentUpon>UpdMemSubData.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\SubjectData\SubjectC1Add.aspx.cs">
       <DependentUpon>SubjectC1Add.aspx</DependentUpon>
@@ -697,6 +705,10 @@
     <ProjectReference Include="..\ADO\ADO.csproj">
       <Project>{3797e8fc-de97-4b48-9f68-ff54ccb7aa66}</Project>
       <Name>ADO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\libLifeBuildC\libLifeBuildC.csproj">
+      <Project>{89c21ef2-a0e7-4893-b5b9-88e3dd32b244}</Project>
+      <Name>libLifeBuildC</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
