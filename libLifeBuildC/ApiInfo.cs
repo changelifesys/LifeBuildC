@@ -9,6 +9,8 @@ namespace libLifeBuildC
 {
     public class ApiInfo
     {
+        //Member
+
         /// <summary>
         /// StreamReader電文
         /// </summary>
@@ -26,6 +28,8 @@ namespace libLifeBuildC
         /// </summary>
         public string GroupName = string.Empty;
 
+        //Get
+
         /// <summary>
         /// 取得小組資料
         /// </summary>
@@ -37,6 +41,32 @@ namespace libLifeBuildC
             GroupClass = gcroup;
         }
 
+        /// <summary>
+        /// 取得星期
+        /// </summary>
+        /// <param name="dtime">傳入日期 ex. 2018/08/12</param>
+        private string GetDayOfWeek(DateTime dtime)
+        {
+            switch (dtime.DayOfWeek.ToString("d"))
+            {
+                case "0":
+                    return "日";
+                case "1":
+                    return "一";
+                case "2":
+                    return "二";
+                case "3":
+                    return "三";
+                case "4":
+                    return "四";
+                case "5":
+                    return "五";
+                case "6":
+                    return "六";
+                default:
+                    return "";
+            }
+        }
 
     }
 }

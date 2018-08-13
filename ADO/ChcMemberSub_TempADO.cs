@@ -44,35 +44,6 @@ namespace ADO
             }
         }
 
-        public void InsChcMemberSub_Temp_2(int SID, string CategoryID, string GroupCName, string GroupName, string GroupClass,
-            string Ename, string Phone, string Gmail, string Church, string EStatus, DateTime SubDate, string Memo, string MID)
-        {
-            using (SqlConnection con = new SqlConnection(condb))
-            {
-                string sql = @"EXEC sp_ChcMemberSub_Temp_ADD_Data @SID, @CategoryID, @GroupCName, @GroupName, @GroupClass,
-                                            @Ename, @Phone, @Gmail, @Church, @EStatus, @SubDate, @Memo, @MID";
-
-                SqlCommand com = new SqlCommand(sql, con);
-                com.Parameters.AddWithValue("@SID", SID);
-                com.Parameters.AddWithValue("@CategoryID", CategoryID);
-                com.Parameters.AddWithValue("@GroupCName", GroupCName);
-                com.Parameters.AddWithValue("@GroupName", GroupName);
-                com.Parameters.AddWithValue("@GroupClass", GroupClass);
-                com.Parameters.AddWithValue("@Ename", Ename);
-                com.Parameters.AddWithValue("@Phone", Phone);
-                com.Parameters.AddWithValue("@Gmail", Gmail);
-                com.Parameters.AddWithValue("@Church", Church);
-                com.Parameters.AddWithValue("@EStatus", EStatus);
-                com.Parameters.AddWithValue("@SubDate", SubDate);
-                com.Parameters.AddWithValue("@Memo", Memo);
-                com.Parameters.AddWithValue("@MID", MID);
-
-                con.Open();
-                com.ExecuteNonQuery();
-                con.Close();
-            }
-        }
-
         //UPDATE
 
         public void Upduptyn1ByChcMemberSub_Temp()
@@ -242,6 +213,61 @@ namespace ADO
             return false; //沒有報名資料
 
         }
+
+        //EXEC
+
+        public void InsChcMemberSub_Temp_2(int SID, string CategoryID, string GroupCName, string GroupName, string GroupClass,
+    string Ename, string Phone, string Gmail, string Church, string EStatus, DateTime SubDate, string Memo, string MID)
+        {
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"EXEC sp_ChcMemberSub_Temp_ADD_Data @SID, @CategoryID, @GroupCName, @GroupName, @GroupClass,
+                                            @Ename, @Phone, @Gmail, @Church, @EStatus, @SubDate, @Memo, @MID";
+
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@SID", SID);
+                com.Parameters.AddWithValue("@CategoryID", CategoryID);
+                com.Parameters.AddWithValue("@GroupCName", GroupCName);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@GroupClass", GroupClass);
+                com.Parameters.AddWithValue("@Ename", Ename);
+                com.Parameters.AddWithValue("@Phone", Phone);
+                com.Parameters.AddWithValue("@Gmail", Gmail);
+                com.Parameters.AddWithValue("@Church", Church);
+                com.Parameters.AddWithValue("@EStatus", EStatus);
+                com.Parameters.AddWithValue("@SubDate", SubDate);
+                com.Parameters.AddWithValue("@Memo", Memo);
+                com.Parameters.AddWithValue("@MID", MID);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+
+        public void ExecSubjectSingIn(int SID, string CategoryID, string GroupCName, string GroupName, string GroupClass, string Ename, string SubDate, string Memo)
+        {
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"EXEC sp_ChcMemberSub_Temp_UPD_Data @SID, @CategoryID, @GroupCName, @GroupName, @GroupClass, @Ename, @SubDate, @Memo";
+
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@SID", SID);
+                com.Parameters.AddWithValue("@CategoryID", CategoryID);
+                com.Parameters.AddWithValue("@GroupCName", GroupCName);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@GroupClass", GroupClass);
+                com.Parameters.AddWithValue("@Ename", Ename);
+                com.Parameters.AddWithValue("@SubDate", SubDate);
+                com.Parameters.AddWithValue("@Memo", Memo);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
 
 
     }

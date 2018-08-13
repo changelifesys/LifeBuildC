@@ -73,6 +73,10 @@ namespace LifeBuildC.Api
             /// HTML 上課資訊
             /// </summary>
             public string HtmlSubDesc { get; set; }
+            /// <summary>
+            /// 傳入的頁面名稱
+            /// </summary>
+            public string PageName = string.Empty;
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -89,6 +93,7 @@ namespace LifeBuildC.Api
                 Request.QueryString["test"].ToString() == "true")
             {
                 Api_Data.CategoryID = "C1";
+                Api_Data.PageName = "SubjectSignUp";
             }
             else
             {
@@ -106,11 +111,31 @@ namespace LifeBuildC.Api
 
             if (Api_Data != null)
             {
-                DataTable dtSubject = Ado_Info.SubjectInfo_ADO.GetSubjectInfo(DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"), Api_Data.CategoryID);
-                if (dtSubject != null && dtSubject.Rows.Count > 0)
+                DataTable dt = null;
+
+                switch (Api_Data.PageName)
                 {
-                    Api_Data.SID = int.Parse(dtSubject.Rows[0]["SID"].ToString());
-                    Api_Data.SubName = dtSubject.Rows[0]["SubName"].ToString();
+                    case "SubjectSignUp":
+                        dt = Ado_Info.SubjectInfo_ADO.GetSubjectInfo
+                                (DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"),
+                                Api_Data.CategoryID);
+                        break;
+                    case "SubjectCheck":
+                        dt = Ado_Info.SubjectInfo_ADO.GetSubjectInfoSDate
+                                (DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"),
+                                Api_Data.CategoryID);
+                        break;
+                    default:
+                        dt = Ado_Info.SubjectInfo_ADO.GetSubjectInfo
+                                (DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"),
+                                Api_Data.CategoryID);
+                        break;
+                }
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    Api_Data.SID = int.Parse(dt.Rows[0]["SID"].ToString());
+                    Api_Data.SubName = dt.Rows[0]["SubName"].ToString();
                     //PageData.SUCondition = dtSubject.Rows[0]["SUCondition"].ToString();
 
                     /*
@@ -133,44 +158,33 @@ namespace LifeBuildC.Api
                     */
 
                     //PageData.HtmlSubDesc = HttpUtility.UrlEncode(dtSubject.Rows[0]["HtmlSubDesc"].ToString());
-                    Api_Data.HtmlSubDesc = dtSubject.Rows[0]["HtmlSubDesc"].ToString().Replace("\"", "'");
+                    Api_Data.HtmlSubDesc = dt.Rows[0]["HtmlSubDesc"].ToString().Replace("\"", "'");
                 }
                 else
                 {
                     Api_Data.IsApiError = true;
-                    Api_Data.ApiMsg = "尚未開放" + Api_Data.CategoryID + "報名時間";
+
+                    switch (Api_Data.PageName)
+                    {
+                        case "SubjectSignUp":
+                            Api_Data.ApiMsg = "尚未開放" + Api_Data.CategoryID + "報名時間";
+                            break;
+                        case "SubjectCheck":
+                            Api_Data.ApiMsg = "尚未開放" + Api_Data.CategoryID + "簽到時間";
+                            break;
+                        default:
+                            Api_Data.ApiMsg = "尚未開放" + Api_Data.CategoryID + "報名時間";
+                            break;
+                    }
+
+
                 }
 
             }
 
             Response.Write(JsonConvert.SerializeObject(Api_Data));
-
+            Response.End();
         }
-
-        private string GetDayOfWeek(DateTime dtime)
-        {
-            switch (dtime.DayOfWeek.ToString("d"))
-            {
-                case "0":
-                    return "日";
-                case "1":
-                    return "一";
-                case "2":
-                    return "二";
-                case "3":
-                    return "三";
-                case "4":
-                    return "四";
-                case "5":
-                    return "五";
-                case "6":
-                    return "六";
-                default:
-                    return "";
-            }
-        }
-
-
 
     }
 }

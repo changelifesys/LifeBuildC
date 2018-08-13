@@ -102,23 +102,41 @@ namespace ADO
 
         //Get
 
-        public DataTable GetSubjectInfo(string SubStrDate, string CategoryID)
+        public DataTable GetSubjectInfo(string SubDate, string CategoryID)
         {
             DataTable dt = new DataTable();
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT *
-                                           FROM SubjectInfo
-                                           INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
-                                           WHERE SubjectInfo.CategoryID = @CategoryID
-                                           AND SubjectInfo.SubStrDate <= @SubStrDate
-                                           AND SubjectInfo.SubEndDate >= @SubStrDate
-                                           ORDER BY SubjectDate.SDate";
+                string sql = @"SELECT * FROM SubjectInfo SInfo
+                                           INNER JOIN SubjectDate SD ON SInfo.SID = SD.SID
+                                           WHERE SInfo.CategoryID = @CategoryID
+                                           AND SInfo.SubStrDate <= @SubDate AND SInfo.SubEndDate >= @SubDate
+                                           ORDER BY SD.SDate";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
-                sda.SelectCommand.Parameters.AddWithValue("@SubStrDate", SubStrDate);
+                sda.SelectCommand.Parameters.AddWithValue("@SubDate", SubDate);
+                sda.Fill(dt);
+            }
+            return dt;
+        }
+
+        public DataTable GetSubjectInfoSDate(string SubDate, string CategoryID)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM SubjectInfo SInfo
+                                           INNER JOIN SubjectDate SD ON SInfo.SID = SD.SID
+                                           WHERE SInfo.CategoryID = @CategoryID
+                                           AND SD.SDate = @SubDate
+                                           ORDER BY SD.SDate";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
+                sda.SelectCommand.Parameters.AddWithValue("@SubDate", SubDate);
                 sda.Fill(dt);
             }
             return dt;
@@ -175,6 +193,7 @@ namespace ADO
                 con.Close();
             }
         }
+
 
 
     }

@@ -159,7 +159,7 @@ namespace LifeBuildC.Api
                     case "C1":
                         api.DataChangeMsg = null;
                         api.MID = "758";
-                        api.SID = 1;
+                        api.SID = 2;
                         api.CategoryID = "C1";
                         api.gcroup = "社青";
                         api.group = "CA202.信豪牧區-彥伯小組";
@@ -172,7 +172,7 @@ namespace LifeBuildC.Api
 
                         api.DataChangeMsg = null;
                         api.MID = "758";
-                        api.SID = 1;
+                        api.SID = 2;
                         api.CategoryID = "C2";
                         api.gcroup = "社青";
                         api.group = "CA202.信豪牧區-彥伯小組";
@@ -272,7 +272,7 @@ namespace LifeBuildC.Api
         {
             //取出資料變更的訊息
             string Memo = string.Empty;
-            if (api.DataChangeMsg.Count > 0)
+            if (api.DataChangeMsg != null && api.DataChangeMsg.Count > 0)
             {
                 foreach (string s in api.DataChangeMsg)
                 {

@@ -132,7 +132,7 @@ namespace LifeBuildC.Api
             {
                 Api_Data.DataChangeMsg = null;
                 Api_Data.MID = "758";
-                Api_Data.SID = 1;
+                Api_Data.SID = 2;
                 Api_Data.CategoryID = "C1";
                 Api_Data.gcroup = "社青";
                 Api_Data.group = "CA202.信豪牧區-彥伯小組";
@@ -169,7 +169,7 @@ namespace LifeBuildC.Api
                         sheetName = "C1報到";
                         spreadsheetId = "1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8";
                         //上課簽到, 現場簽到, 新朋友簽到
-                        InsChcMemberSub_Temp();
+                        ExecSubjectSingIn();
 
                         break;
                     case "C2":
@@ -179,7 +179,7 @@ namespace LifeBuildC.Api
 
                             sheetName = "C2報到";
                             spreadsheetId = "1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs";
-                            InsChcMemberSub_Temp();
+                            ExecSubjectSingIn();
                         }
 
                         break;
@@ -187,13 +187,16 @@ namespace LifeBuildC.Api
 
             }
 
+            Response.Write(JsonConvert.SerializeObject(Api_Data));
+            Response.End();
+
         }
 
-        private void InsChcMemberSub_Temp()
+        private void ExecSubjectSingIn()
         {
             //取出資料變更的訊息
             string Memo = string.Empty;
-            if (Api_Data.DataChangeMsg.Count > 0)
+            if (Api_Data.DataChangeMsg != null && Api_Data.DataChangeMsg.Count > 0)
             {
                 foreach (string s in Api_Data.DataChangeMsg)
                 {
@@ -201,22 +204,9 @@ namespace LifeBuildC.Api
                 }
             }
 
-            //新增上課日期
-            DataTable dtSub = Ado_Info.SubjectInfo_ADO.GetSubjectDateBySubjectInfo(Api_Data.SID);
-            foreach (DataRow drSub in dtSub.Rows)
-            {
-                Ado_Info.ChcMemberSub_Temp_ADO.InsChcMemberSub_Temp_2(
-                    Api_Data.SID, drSub["CategoryID2"].ToString(), Api_Info.GroupCName, Api_Info.GroupName, Api_Info.GroupClass,
-                    Api_Data.Ename, Api_Data.Phone, Api_Data.Gmail, Api_Data.Church, "1", DateTime.Parse(drSub["SDate"].ToString()), Memo, Api_Data.MID);
-
-                Api_Data.SubDate += DateTime.Parse(drSub["SDate"].ToString()).Month.ToString("00") + "/" + DateTime.Parse(drSub["SDate"].ToString()).Day.ToString("00") + ",";
-            }
-
-            //去尾「,」號
-            if (Api_Data.SubDate != "" && Api_Data.SubDate != null)
-            {
-                Api_Data.SubDate = Api_Data.SubDate.Substring(0, Api_Data.SubDate.Length - 1);
-            }
+            Ado_Info.ChcMemberSub_Temp_ADO.ExecSubjectSingIn(
+                Api_Data.SID, Api_Data.CategoryID, Api_Info.GroupCName, Api_Info.GroupName,
+                Api_Info.GroupClass, Api_Data.Ename, DateTime.Now.ToString("yyyy/MM/dd"), Memo);
 
             //google Excel 組別分類
             switch (Api_Data.gcroup)
