@@ -9,7 +9,7 @@
     <meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no">
     <title>線上報名</title>
     <link as=style href=/js/subjectSignUp/css/app.4df06e80.css rel=preload>
-  <link as=script href=/js/subjectSignUp/js/app.9a6ff622.js rel=preload>
+  <link as=script href=/js/subjectSignUp/js/app.1bcae291.js rel=preload>
   <link as=script href=/js/subjectSignUp/js/vendors~app.aef814bc.js rel=preload>
   <link href=/js/subjectSignUp/css/app.4df06e80.css rel=stylesheet>
 </head>
@@ -19,5 +19,5 @@
   </noscript>
   <div id=app></div>
   <script type=text/javascript src=/js/subjectSignUp/js/vendors~app.aef814bc.js></script>
-  <script type=text/javascript src=/js/subjectSignUp/js/app.9a6ff622.js></script>
+  <script type=text/javascript src=/js/subjectSignUp/js/app.1bcae291.js></script>
 </html>
