@@ -62,6 +62,7 @@ namespace LifeBuildC.Api
                         PageData.QuestionText += "<p/><label style='color: red'>寄件人Mail：" + PageData.Gmail + "</label>";
 
                         SendEmail("changelifesys@gmail.com", PageData.SubjectLine, PageData.QuestionText);
+                        SendEmail(PageData.Gmail, PageData.SubjectLine, PageData.QuestionText);
 
                         PageData.QuestionText = HttpContext.Current.Server.HtmlEncode(PageData.QuestionText);
                         PageData.ApiMsg = "您的問題已經反應給中央同工，待問題處理後會回覆至您的Mail，謝謝";

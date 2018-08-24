@@ -147,7 +147,7 @@ namespace LifeBuildC.Api
                 DataRow[] drChk3 = dt.Select("Phone='" + api.Phone + "' AND GroupName='" + GroupName + "' AND GroupCName='" + GroupCName + "'");
 
                 //若取不到資料就用姓名取資料
-                DataRow[] drChk4 = dt.Select("Ename='" + api.Ename);
+                DataRow[] drChk4 = dt.Select("Ename='" + api.Ename + "'");
 
                 if (drChk1.Count() > 0)
                 { //若用小組, 姓名可以取得資料時
