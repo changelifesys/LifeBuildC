@@ -89,6 +89,39 @@ namespace ADO
             }
         }
 
+        public void UpdChcMemberSub_TempByNo(string GroupCName, string GroupName, string GroupClass, string Ename, string Phone,
+                                                                                         string Gmail, string Memo, string No)
+        {
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"UPDATE ChcMemberSub_Temp
+                                           SET GroupCName = @GroupCName,
+                                                  GroupName = @GroupName,
+                                                  GroupClass = @GroupClass,
+                                                  Ename = @Ename,
+                                                  Phone = @Phone,
+                                                  Gmail = @Gmail,
+                                                  Memo = Memo + @Memo,
+                                                  UpdateTime = GETDATE()
+                                           WHERE [No] = @No";
+
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@GroupCName", GroupCName);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@GroupClass", GroupClass);
+                com.Parameters.AddWithValue("@Ename", Ename);
+                com.Parameters.AddWithValue("@Phone", Phone);
+                com.Parameters.AddWithValue("@Gmail", Gmail);
+                com.Parameters.AddWithValue("@Memo", Memo);
+                com.Parameters.AddWithValue("@No", No);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+
         //QUREY
 
         public DataTable QueryuptynByChcMemberSub_Temp()
@@ -217,12 +250,12 @@ namespace ADO
         //EXEC
 
         public void InsChcMemberSub_Temp_2(int SID, string CategoryID, string GroupCName, string GroupName, string GroupClass,
-    string Ename, string Phone, string Gmail, string Church, string EStatus, DateTime SubDate, string Memo, string MID)
+    string Ename, string Phone, string Gmail, string Church, string EStatus, DateTime SubDate, string Memo, string MID, string No)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"EXEC sp_ChcMemberSub_Temp_ADD_Data @SID, @CategoryID, @GroupCName, @GroupName, @GroupClass,
-                                            @Ename, @Phone, @Gmail, @Church, @EStatus, @SubDate, @Memo, @MID";
+                                            @Ename, @Phone, @Gmail, @Church, @EStatus, @SubDate, @Memo, @MID, @No";
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@SID", SID);
@@ -238,6 +271,7 @@ namespace ADO
                 com.Parameters.AddWithValue("@SubDate", SubDate);
                 com.Parameters.AddWithValue("@Memo", Memo);
                 com.Parameters.AddWithValue("@MID", MID);
+                com.Parameters.AddWithValue("@No", No);
 
                 con.Open();
                 com.ExecuteNonQuery();

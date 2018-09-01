@@ -280,16 +280,39 @@ namespace LifeBuildC.Api
                 }
             }
 
-            //新增上課日期
             DataTable dtSub = subjectinfo.GetSubjectDateBySubjectInfo(api.SID);
             foreach (DataRow drSub in dtSub.Rows)
             {
-                chcmembersubtemp.InsChcMemberSub_Temp_2(
-                    api.SID, drSub["CategoryID2"].ToString(), GroupCName, GroupName, GroupClass,
-                    api.Ename, api.Phone, api.Gmail, api.Church, "0", DateTime.Parse(drSub["SDate"].ToString()), Memo, api.MID);
-
                 api.SubDate += DateTime.Parse(drSub["SDate"].ToString()).Month.ToString("00") + "/" + DateTime.Parse(drSub["SDate"].ToString()).Day.ToString("00") + ",";
             }
+
+
+            if (api.MID.Split(',').Count() > 1 && api.MID.Split(',')[1] != "")
+            { //UPDATE 報名資訊
+
+                //api.MID.Split(',')[0] 為會友MID流水編號
+                //陣列索引從 1 開始
+                for (int i = 1; i < api.MID.Split(',').Count(); i++)
+                {
+                    chcmembersubtemp.UpdChcMemberSub_TempByNo(GroupCName, GroupName, GroupClass, api.Ename, api.Phone,
+                                                                                         api.Gmail, Memo, api.MID.Split(',')[i]);
+                }
+            }
+            else
+            { //INSERT 報名資訊
+
+
+                foreach (DataRow drSub in dtSub.Rows)
+                {
+                    chcmembersubtemp.InsChcMemberSub_Temp_2(
+                        api.SID, drSub["CategoryID2"].ToString(), GroupCName, GroupName, GroupClass,
+                        api.Ename, api.Phone, api.Gmail, api.Church, "0", DateTime.Parse(drSub["SDate"].ToString()), Memo, api.MID.Replace(",", ""), "0");
+                    
+                }
+
+            }
+            
+
 
             //去尾「,」號
             if (api.SubDate != "" && api.SubDate != null)

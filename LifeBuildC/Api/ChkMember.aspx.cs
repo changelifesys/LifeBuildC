@@ -99,10 +99,6 @@ namespace LifeBuildC.Api
 
                 if (api != null)
                 {
-
-                    api.IsChgShow = false;
-                    api.MID = "";
-
                     //小組
                     arr_group = api.group.Split('.');
                     GroupCName = arr_group[1].Split('-')[0];
@@ -162,6 +158,11 @@ namespace LifeBuildC.Api
                     }
 
                     api.MID = drChk1[0]["MID"].ToString();
+                    
+                    for (int i = 0; i < drChk1.Count(); i++)
+                    {
+                        api.MID += "," + drChk1[i]["No"].ToString();
+                    }
 
                     return true;
                 }
@@ -180,6 +181,11 @@ namespace LifeBuildC.Api
 
                     api.MID = drChk2[0]["MID"].ToString();
 
+                    for (int i = 0; i < drChk2.Count(); i++)
+                    {
+                        api.MID += "," + drChk2[i]["No"].ToString();
+                    }
+
                     return true;
                 }
                 else if (drChk3.Count() > 0)
@@ -196,12 +202,22 @@ namespace LifeBuildC.Api
 
                     api.MID = drChk3[0]["MID"].ToString();
 
+                    for (int i = 0; i < drChk3.Count(); i++)
+                    {
+                        api.MID += "," + drChk3[i]["No"].ToString();
+                    }
+
                     return true;
                 }
                 else if (drChk4.Count() == 1)
                 { //若用姓名, 且資料只有一筆時(不能有其他同名同姓的會友)
 
                     api.MID = drChk4[0]["MID"].ToString();
+
+                    for (int i = 0; i < drChk4.Count(); i++)
+                    {
+                        api.MID += "," + drChk4[i]["No"].ToString();
+                    }
 
                     return true;
                 }
@@ -235,7 +251,7 @@ namespace LifeBuildC.Api
             /// <summary>
             /// 會友號
             /// </summary>
-            public string MID { get; set; }
+            public string MID = string.Empty;
             /// <summary>
             /// API Title
             /// </summary>
@@ -243,7 +259,7 @@ namespace LifeBuildC.Api
             /// <summary>
             /// 是否要秀出資料變更訊息(true: 要秀出來; false: 不要秀出來)
             /// </summary>
-            public bool IsChgShow { get; set; }
+            public bool IsChgShow = false;
             /// <summary>
             /// 課程ID
             /// </summary>

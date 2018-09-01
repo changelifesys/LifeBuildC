@@ -482,7 +482,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ChcMember M
+                string sql = @"SELECT *, '' AS [No] FROM ChcMember M
                                            ";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
