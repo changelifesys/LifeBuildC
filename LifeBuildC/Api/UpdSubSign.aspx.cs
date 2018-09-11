@@ -35,87 +35,13 @@ namespace LifeBuildC.Api
 {
     public partial class UpdSubSign : System.Web.UI.Page
     {
-        ApiInfo Api_Info = new ApiInfo();
         AdoInfo Ado_Info = new AdoInfo();
-        ApiData Api_Data = new ApiData();
+        ApiData Api_Info = new ApiData();
+        ApiData.ApiUpdSubSign Api_Data = new ApiData.ApiUpdSubSign();
+        ApiDataTest.ApiUpdSubSign Api_Test = new ApiDataTest.ApiUpdSubSign();
 
         String sheetName = "";
         String spreadsheetId = "";
-
-        /// <summary>
-        /// API參數
-        /// </summary>
-        public class ApiData
-        {
-            /// <summary>
-            /// 資料變更訊息
-            /// </summary>
-            public List<string> DataChangeMsg = new List<string>();
-            /// <summary>
-            /// 會友號
-            /// </summary>
-            public string MID = string.Empty;
-            /// <summary>
-            ///  課程類別
-            /// </summary>
-            public string CategoryID { get; set; }
-            /// <summary>
-            /// 課程ID
-            /// </summary>
-            public int SID { get; set; }
-            /// <summary>
-            /// 組別
-            /// </summary>
-            public string gcroup { get; set; }
-            /// <summary>
-            /// 小組
-            /// </summary>
-            public string group { get; set; }
-            /// <summary>
-            /// 所屬牧區/小組：家庭弟兄
-            /// </summary>
-            public string group_1 { get; set; }
-            /// <summary>
-            /// 所屬牧區/小組：家庭姊妹
-            /// </summary>
-            public string group_2 { get; set; }
-            /// <summary>
-            /// 所屬牧區/小組：社青
-            /// </summary>
-            public string group_3 { get; set; }
-            /// <summary>
-            /// 所屬牧區/小組：學青
-            /// </summary>
-            public string group_4 { get; set; }
-            /// <summary>
-            /// 姓名
-            /// </summary>
-            public string Ename { get; set; }
-            /// <summary>
-            /// 手機
-            /// </summary>
-            public string Phone { get; set; }
-            /// <summary>
-            /// Mail
-            /// </summary>
-            public string Gmail = string.Empty;
-            /// <summary>
-            /// 所屬教會
-            /// </summary>
-            public string Church = string.Empty;
-            /// <summary>
-            /// API 訊息
-            /// </summary>
-            public string ApiMsg { get; set; }
-            /// <summary>
-            /// API 有錯(true: 有錯; false: 沒有錯)
-            /// </summary>
-            public bool IsApiError { get; set; }
-            /// <summary>
-            /// 上課時段
-            /// </summary>
-            public string SubDate = string.Empty;            
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -130,16 +56,6 @@ namespace LifeBuildC.Api
             if (Request.QueryString["test"] != null &&
                 Request.QueryString["test"].ToString() == "true")
             {
-                Api_Data.DataChangeMsg = null;
-                Api_Data.MID = "758";
-                Api_Data.SID = 2;
-                Api_Data.CategoryID = "C1";
-                Api_Data.gcroup = "社青";
-                Api_Data.group = "CA202.信豪牧區-彥伯小組";
-                Api_Data.Ename = "劉彥伯";
-                Api_Data.Phone = "0919963322";
-                Api_Data.Gmail = "";
-                Api_Data.Church = "";
             }
             else
             {
@@ -151,7 +67,7 @@ namespace LifeBuildC.Api
                     }
                 }
 
-                Api_Data = JsonConvert.DeserializeObject<ApiData>(Api_Info.strStreamReader);
+                Api_Data = JsonConvert.DeserializeObject<ApiData.ApiUpdSubSign>(Api_Info.strStreamReader);
             }
 
 
@@ -202,6 +118,32 @@ namespace LifeBuildC.Api
                 {
                     Memo += s + ",";
                 }
+            }
+
+
+            if (Api_Data.MID.Split(',').Count() > 1 && Api_Data.MID.Split(',')[1] != "")
+            { //UPDATE 報名資訊
+
+                //api.MID.Split(',')[0] 為會友MID流水編號
+                //陣列索引從 1 開始
+                for (int i = 1; i < Api_Data.MID.Split(',').Count(); i++)
+                {
+                    //chcmembersubtemp.UpdChcMemberSub_TempByNo(GroupCName, GroupName, GroupClass, api.Ename, api.Phone,
+                    //                                                                     api.Gmail, Memo, api.MID.Split(',')[i]);
+                }
+            }
+            else
+            { //INSERT 報名資訊
+
+
+                //foreach (DataRow drSub in dtSub.Rows)
+                //{
+                //    chcmembersubtemp.InsChcMemberSub_Temp_2(
+                //        api.SID, drSub["CategoryID2"].ToString(), GroupCName, GroupName, GroupClass,
+                //        api.Ename, api.Phone, api.Gmail, api.Church, "0", DateTime.Parse(drSub["SDate"].ToString()), Memo, api.MID.Replace(",", ""), "0");
+
+                //}
+
             }
 
             Ado_Info.ChcMemberSub_Temp_ADO.ExecSubjectSingIn(

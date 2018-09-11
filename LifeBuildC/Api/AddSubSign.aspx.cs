@@ -223,9 +223,17 @@ namespace LifeBuildC.Api
                     { //C2課程需上完C1才可報名
 
                         //DataTable dtMem = chcmember.GetChcMemberByGroup(GroupCName, GroupName, api.Ename);
-                        DataTable dtMem = chcmember.Query_MID(api.MID);
-                        if (dtMem != null && dtMem.Rows.Count > 0)
+
+                        string _MID = "0";
+                        if (api.MID.IndexOf(',') > 0)
                         {
+                            _MID = api.MID.Split(',')[0];
+                        }
+
+                        DataTable dtMem = chcmember.Query_MID(_MID);
+                        if (dtMem != null && dtMem.Rows.Count > 0)
+                        { //一定要是會友
+
                             bool IsC112 = bool.Parse(dtMem.Rows[0]["IsC112"].ToString());
                             bool IsC134 = bool.Parse(dtMem.Rows[0]["IsC134"].ToString());
                             if (IsC112 && IsC134)
@@ -256,7 +264,7 @@ namespace LifeBuildC.Api
 
 
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     api.IsApiError = true;
                     api.ApiMsg = "請確認網路是否斷線或填寫的資料內容有誤，再次填寫報名資料";
