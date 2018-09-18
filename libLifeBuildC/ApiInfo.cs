@@ -9,12 +9,13 @@ namespace libLifeBuildC
 {
     public class ApiInfo
     {
-        //Member
+
+        #region Member
 
         /// <summary>
-        /// StreamReader電文
+        /// Get HTTP POST JSON DATA
         /// </summary>
-        public string strStreamReader = string.Empty;
+        public string strJsonData = string.Empty;
         /// <summary>
         /// 組別
         /// </summary>
@@ -27,6 +28,19 @@ namespace libLifeBuildC
         /// 小組
         /// </summary>
         public string GroupName = string.Empty;
+        /// <summary>
+        /// Google表單名稱
+        /// </summary>
+        public string sheetName = string.Empty;
+        /// <summary>
+        /// Google表單ID
+        /// </summary>
+        public string spreadsheetId = string.Empty;
+
+
+        #endregion
+
+        #region Get
 
         //Get
 
@@ -67,6 +81,10 @@ namespace libLifeBuildC
                     return "";
             }
         }
+
+        #endregion
+
+
 
     }
 }

@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="AdoInfo.cs" />
     <Compile Include="ApiData.cs" />
-    <Compile Include="ApiDataTest.cs" />
     <Compile Include="ApiInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

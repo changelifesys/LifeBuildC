@@ -36,79 +36,61 @@ namespace LifeBuildC.Api
     public partial class UpdSubSign : System.Web.UI.Page
     {
         AdoInfo Ado_Info = new AdoInfo();
-        ApiData Api_Info = new ApiData();
+        ApiInfo Api_Info = new ApiInfo();
         ApiData.ApiUpdSubSign Api_Data = new ApiData.ApiUpdSubSign();
-        ApiDataTest.ApiUpdSubSign Api_Test = new ApiDataTest.ApiUpdSubSign();
-
-        String sheetName = "";
-        String spreadsheetId = "";
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            using (Stream receiveStream = Request.InputStream)
             {
-                PageStart();
-            }
-        }
-
-        private void PageStart()
-        {
-            if (Request.QueryString["test"] != null &&
-                Request.QueryString["test"].ToString() == "true")
-            {
-            }
-            else
-            {
-                using (Stream receiveStream = Request.InputStream)
+                using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
                 {
-                    using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
-                    {
-                        Api_Info.strStreamReader = readStream.ReadToEnd();
-                    }
+                    Api_Info.strJsonData = readStream.ReadToEnd();
                 }
-
-                Api_Data = JsonConvert.DeserializeObject<ApiData.ApiUpdSubSign>(Api_Info.strStreamReader);
             }
 
+            Api_Data = JsonConvert.DeserializeObject<ApiData.ApiUpdSubSign>(Api_Info.strJsonData);
 
             if (Api_Data != null)
             {
-
-                //小組
-                Api_Info.GetGroupData(Api_Data.group, Api_Data.gcroup);
-
-
-                switch ((Api_Data.CategoryID).ToUpper())
-                {
-                    case "C1":
-
-                        sheetName = "C1報到";
-                        spreadsheetId = "1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8";
-                        //上課簽到, 現場簽到, 新朋友簽到
-                        ExecSubjectSingIn();
-
-                        break;
-                    case "C2":
-
-                        if (Api_Data.MID != "" && Ado_Info.ChcMemberSub_Temp_ADO.CheckMID(int.Parse(Api_Data.MID), Api_Data.SID))
-                        { //C2 不能現場報名
-
-                            sheetName = "C2報到";
-                            spreadsheetId = "1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs";
-                            ExecSubjectSingIn();
-                        }
-
-                        break;
-                }
-
+                ApiProcess();
             }
 
             Response.Write(JsonConvert.SerializeObject(Api_Data));
             Response.End();
+        }
+
+        private void ApiProcess()
+        {
+            //小組
+            Api_Info.GetGroupData(Api_Data.group, Api_Data.gcroup);
+
+            switch ((Api_Data.CategoryID).ToUpper())
+            {
+                case "C1":
+
+                    Api_Info.sheetName = "C1報到";
+                    Api_Info.spreadsheetId = "1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8";
+                    //上課簽到, 現場簽到, 新朋友簽到
+                    UpdSubSignProcess();
+
+                    break;
+                case "C2":
+
+                    if (Api_Data.MID != "" && Ado_Info.ChcMemberSub_Temp_ADO.CheckMID(int.Parse(Api_Data.MID), Api_Data.SID))
+                    { //C2 不能現場報名
+
+                        Api_Info.sheetName = "C2報到";
+                        Api_Info.spreadsheetId = "1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs";
+                        UpdSubSignProcess();
+                    }
+
+                    break;
+            }
 
         }
 
-        private void ExecSubjectSingIn()
+        private void UpdSubSignProcess()
         {
             //取出資料變更的訊息
             string Memo = string.Empty;
@@ -120,7 +102,6 @@ namespace LifeBuildC.Api
                 }
             }
 
-
             if (Api_Data.MID.Split(',').Count() > 1 && Api_Data.MID.Split(',')[1] != "")
             { //UPDATE 報名資訊
 
@@ -128,27 +109,23 @@ namespace LifeBuildC.Api
                 //陣列索引從 1 開始
                 for (int i = 1; i < Api_Data.MID.Split(',').Count(); i++)
                 {
-                    //chcmembersubtemp.UpdChcMemberSub_TempByNo(GroupCName, GroupName, GroupClass, api.Ename, api.Phone,
-                    //                                                                     api.Gmail, Memo, api.MID.Split(',')[i]);
+                    Ado_Info.ChcMemberSub_Temp_ADO.UpdChcMemberSub_TempByUpdSubSign(Api_Info.GroupCName, Api_Info.GroupName, Api_Info.GroupClass, Api_Data.Ename, Api_Data.Phone,
+                                                                                 Api_Data.Gmail, Memo, Api_Data.MID.Split(',')[i]);
                 }
             }
             else
-            { //INSERT 報名資訊
+            { //INSERT 報名資訊, 只有C1才會新增
 
+                DataTable dtSub = Ado_Info.SubjectInfo_ADO.GetSubjectDateBySubjectInfo(Api_Data.SID);
+                foreach (DataRow drSub in dtSub.Rows)
+                {
+                    //Ado_Info.ChcMemberSub_Temp_ADO.InsChcMemberSub_Temp_2(
+                    //    api.SID, drSub["CategoryID2"].ToString(), GroupCName, GroupName, GroupClass,
+                    //    api.Ename, api.Phone, api.Gmail, api.Church, "0", DateTime.Parse(drSub["SDate"].ToString()), Memo, api.MID.Replace(",", ""), "0");
 
-                //foreach (DataRow drSub in dtSub.Rows)
-                //{
-                //    chcmembersubtemp.InsChcMemberSub_Temp_2(
-                //        api.SID, drSub["CategoryID2"].ToString(), GroupCName, GroupName, GroupClass,
-                //        api.Ename, api.Phone, api.Gmail, api.Church, "0", DateTime.Parse(drSub["SDate"].ToString()), Memo, api.MID.Replace(",", ""), "0");
-
-                //}
+                }
 
             }
-
-            Ado_Info.ChcMemberSub_Temp_ADO.ExecSubjectSingIn(
-                Api_Data.SID, Api_Data.CategoryID, Api_Info.GroupCName, Api_Info.GroupName,
-                Api_Info.GroupClass, Api_Data.Ename, DateTime.Now.ToString("yyyy/MM/dd"), Memo);
 
             //google Excel 組別分類
             switch (Api_Data.gcroup)
@@ -210,7 +187,7 @@ namespace LifeBuildC.Api
 
             valueRange.MajorDimension = "Rows"; //Rows or Columns
 
-            SpreadsheetsResource.ValuesResource.AppendRequest request = sheetsService.Spreadsheets.Values.Append(valueRange, spreadsheetId, sheetName);
+            SpreadsheetsResource.ValuesResource.AppendRequest request = sheetsService.Spreadsheets.Values.Append(valueRange, Api_Info.spreadsheetId, Api_Info.sheetName);
             request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
             var appendReponse = request.Execute();
         }

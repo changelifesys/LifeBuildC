@@ -121,6 +121,39 @@ namespace ADO
             }
         }
 
+        public void UpdChcMemberSub_TempByUpdSubSign(string GroupCName, string GroupName, string GroupClass, string Ename, string Phone,
+                                                                                 string Gmail, string Memo, string No)
+        {
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"UPDATE ChcMemberSub_Temp
+                                           SET GroupCName = @GroupCName,
+                                                  GroupName = @GroupName,
+                                                  GroupClass = @GroupClass,
+                                                  Ename = @Ename,
+                                                  Phone = @Phone,
+                                                  Gmail = @Gmail,
+                                                  Memo = Memo + @Memo,
+                                                  UpdateTime = GETDATE(),
+                                                  EStatus = 1
+                                           WHERE [No] = @No";
+
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@GroupCName", GroupCName);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@GroupClass", GroupClass);
+                com.Parameters.AddWithValue("@Ename", Ename);
+                com.Parameters.AddWithValue("@Phone", Phone);
+                com.Parameters.AddWithValue("@Gmail", Gmail);
+                com.Parameters.AddWithValue("@Memo", Memo);
+                com.Parameters.AddWithValue("@No", No);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
 
         //QUREY
 
