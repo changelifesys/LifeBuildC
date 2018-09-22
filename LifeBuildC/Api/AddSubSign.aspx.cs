@@ -267,7 +267,7 @@ namespace LifeBuildC.Api
                 catch (Exception ex)
                 {
                     api.IsApiError = true;
-                    api.ApiMsg = "請確認網路是否斷線或填寫的資料內容有誤，再次填寫報名資料";
+                    api.ApiMsg = "請確認網路是否斷線或填寫的資料內容有誤";
                 }
 
             }

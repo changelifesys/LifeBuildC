@@ -44,6 +44,37 @@ namespace ADO
             }
         }
 
+        public void InsChcMemberSub_TempByUpdSubSignToC1(int SID, string CategoryID, string GroupCName, string GroupName, string GroupClass,
+string Ename, string Phone, string Gmail, string Church, string EStatus, string SubDate, string Memo, string MID)
+        {
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"INSERT INTO 
+                                           chclife.ChcMemberSub_Temp([SID], CategoryID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, EStatus, SubDate, Memo, MID) 
+		                                   VALUES (@SID, @CategoryID, @GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail, @Church, @EStatus, @SubDate, @Memo, @MID);";
+
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@SID", SID);
+                com.Parameters.AddWithValue("@CategoryID", CategoryID);
+                com.Parameters.AddWithValue("@GroupCName", GroupCName);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@GroupClass", GroupClass);
+                com.Parameters.AddWithValue("@Ename", Ename);
+                com.Parameters.AddWithValue("@Phone", Phone);
+                com.Parameters.AddWithValue("@Gmail", Gmail);
+                com.Parameters.AddWithValue("@Church", Church);
+                com.Parameters.AddWithValue("@EStatus", EStatus);
+                com.Parameters.AddWithValue("@SubDate", SubDate);
+                com.Parameters.AddWithValue("@Memo", Memo);
+                com.Parameters.AddWithValue("@MID", MID);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+
         //UPDATE
 
         public void Upduptyn1ByChcMemberSub_Temp()
@@ -136,7 +167,8 @@ namespace ADO
                                                   Memo = Memo + @Memo,
                                                   UpdateTime = GETDATE(),
                                                   EStatus = 1
-                                           WHERE [No] = @No";
+                                           WHERE [No] = @No
+                                           AND SubDate = CONVERT(varchar(100), GETDATE(), 23)";
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@GroupCName", GroupCName);
@@ -256,7 +288,7 @@ namespace ADO
         /// <summary>
         /// true: 該名會友有報名資料 ; false: 該名會友沒有報名資料
         /// </summary>
-        public bool CheckMID(int MID, int SID)
+        public bool ChkChcMemberSub_TempByMID(int MID, int SID)
         {
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))

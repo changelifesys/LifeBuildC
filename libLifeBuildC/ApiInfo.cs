@@ -28,14 +28,6 @@ namespace libLifeBuildC
         /// 小組
         /// </summary>
         public string GroupName = string.Empty;
-        /// <summary>
-        /// Google表單名稱
-        /// </summary>
-        public string sheetName = string.Empty;
-        /// <summary>
-        /// Google表單ID
-        /// </summary>
-        public string spreadsheetId = string.Empty;
 
 
         #endregion
@@ -47,6 +39,8 @@ namespace libLifeBuildC
         /// <summary>
         /// 取得小組資料
         /// </summary>
+        /// <param name="group">小組(Ex. CA202.信豪牧區-彥伯小組)</param>
+        /// <param name="gcroup">組別</param>
         public void GetGroupData(string group, string gcroup)
         {
             string[] arrg = group.Split('.');

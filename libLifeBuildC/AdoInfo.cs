@@ -19,7 +19,6 @@ namespace libLifeBuildC
         public ExamQuestionsADO ExamQuestions_ADO = new ExamQuestionsADO();
         public FireMemberADO FireMember_ADO = new FireMemberADO();
         public FirePassWADO FirePassW_ADO = new FirePassWADO();
-        public GoogleSheetsADO GoogleSheets_ADO = new GoogleSheetsADO();
         public SubCategoryADO SubCategory_ADO = new SubCategoryADO();
         public SubjectDateADO SubjectDate_ADO = new SubjectDateADO();
         public SubjectInfoADO SubjectInfo_ADO = new SubjectInfoADO();

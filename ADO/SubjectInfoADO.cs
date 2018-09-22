@@ -160,6 +160,26 @@ namespace ADO
             return dt;
         }
 
+        public DataTable GetSDateBySubjectJoin(int SID, string SDate)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM SubjectInfo 
+                                           LEFT JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
+                                           WHERE SubjectInfo.SID = @SID
+                                           AND SubjectDate.SDate = @SDate
+                                           ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
+                sda.SelectCommand.Parameters.AddWithValue("@SDate", SDate);
+                sda.Fill(dt);
+            }
+            return dt;
+        }
+
         public DataTable Get_SubjectInfo_MaxSID_WHERE_CategoryID(string CategoryID)
         {
             DataTable dt = new DataTable();
