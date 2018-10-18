@@ -674,7 +674,7 @@ namespace ADO
         }
 
 
-        public DataTable Query_MID(string MID)
+        public DataTable QueryChcMemberByMID(string MID)
         {
             DataTable dt = new DataTable();
 

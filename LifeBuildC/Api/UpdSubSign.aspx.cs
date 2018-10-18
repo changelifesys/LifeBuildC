@@ -66,7 +66,6 @@ namespace LifeBuildC.Api
             try
             {
                 Api_Info.GetGroupData(Api_Data.group, Api_Data.gcroup);
-
                 switch ((Api_Data.CategoryID).ToUpper())
                 {
                     case "C1":
@@ -117,25 +116,91 @@ namespace LifeBuildC.Api
                 }
             }
 
+            string strMake = ""; //是否補課(是: 補課 ; 空值: 不用補課)
             if (Api_Data.MID.Split(',').Count() > 1 && Api_Data.MID.Split(',')[1] != "")
             { //UPDATE 報名資訊
 
+                //INSERT LOG
+                DataTable dtMem = Ado_Info.ChcMember_ADO.QueryChcMemberByMID(Api_Data.MID.Split(',')[0]);
+                if (dtMem != null && dtMem.Rows.Count > 0)
+                {
+                    Ado_Info.ChcMember_Log_ADO.InsLogDataByChcMember_Log
+                    (
+                        dtMem.Rows[0]["MID"].ToString(),
+                        dtMem.Rows[0]["GroupName"].ToString(),
+                        dtMem.Rows[0]["GroupName"].ToString(),
+                        dtMem.Rows[0]["GroupClass"].ToString(),
+                        dtMem.Rows[0]["Ename"].ToString(),
+                        dtMem.Rows[0]["Phone"].ToString(),
+                        dtMem.Rows[0]["Gmail"].ToString(),
+                        dtMem.Rows[0]["Church"].ToString(),
+                        dtMem.Rows[0]["C1_Status"].ToString(),
+                        dtMem.Rows[0]["C2_Status"].ToString(),
+                        bool.Parse(dtMem.Rows[0]["IsC112"].ToString()),
+                        bool.Parse(dtMem.Rows[0]["IsC134"].ToString()),
+                        bool.Parse(dtMem.Rows[0]["IsC212"].ToString()),
+                        bool.Parse(dtMem.Rows[0]["IsC234"].ToString()),
+                        bool.Parse(dtMem.Rows[0]["IsC25"].ToString()),
+                        int.Parse(dtMem.Rows[0]["C1_Score"].ToString()),
+                        int.Parse(dtMem.Rows[0]["C212_Score"].ToString()),
+                        int.Parse(dtMem.Rows[0]["C234_Score"].ToString()),
+                        dtMem.Rows[0]["witness"].ToString(),
+                        bool.Parse(dtMem.Rows[0]["Iswitness"].ToString()),
+                        dtMem.Rows[0]["Memo"].ToString()
+                    );
+
+                    switch ((Api_Data.CategoryID).ToUpper())
+                    {
+                        case "C1":
+                            strMake = "";
+                            break;
+                        case "C2":
+                            strMake = "";
+                            break;
+                    }
+
+                }
+
                 //api.MID.Split(',')[0] 為會友MID流水編號
-                //陣列索引從 1 開始
+                //api.MID.Split(',')[i] 大於0以上為No流水號
+                //故陣列索引從 1 開始
                 for (int i = 1; i < Api_Data.MID.Split(',').Count(); i++)
                 {
-                    Ado_Info.ChcMemberSub_Temp_ADO.UpdChcMemberSub_TempByUpdSubSign(Api_Info.GroupCName, Api_Info.GroupName, Api_Info.GroupClass, Api_Data.Ename, Api_Data.Phone,
-                                                                                 Api_Data.Gmail, Memo, Api_Data.MID.Split(',')[i]);
+                    Ado_Info.ChcMemberSub_Temp_ADO.UpdChcMemberSub_TempByUpdSubSign
+                    (
+                        Api_Info.GroupCName, 
+                        Api_Info.GroupName, 
+                        Api_Info.GroupClass, 
+                        Api_Data.Ename, 
+                        Api_Data.Phone,
+                        Api_Data.Gmail, 
+                        Memo, 
+                        Api_Data.MID.Split(',')[i] //No
+                    );
                 }
             }
             else
-            { //INSERT 報名資訊, 只有C1才會新增
+            { //INSERT 報名資訊, 只有C1才能現場報名
 
                 DataTable dtSub = Ado_Info.SubjectInfo_ADO.GetSDateBySubjectJoin(Api_Data.SID, DateTime.Now.ToString("yyyy/MM/dd"));
                 if (dtSub != null && dtSub.Rows.Count > 0)
                 {
-                    Ado_Info.ChcMemberSub_Temp_ADO.InsChcMemberSub_TempByUpdSubSignToC1(Api_Data.SID, Api_Data.CategoryID, Api_Info.GroupCName, Api_Info.GroupName, Api_Info.GroupClass,
-                                                                                                        Api_Data.Ename, Api_Data.Phone, Api_Data.Gmail, Api_Data.Church, "1", DateTime.Now.ToString("yyyy/MM/dd"), Memo, Api_Data.MID.Replace(",", ""));
+                    Ado_Info.ChcMemberSub_Temp_ADO.InsChcMemberSub_TempByUpdSubSignToC1
+                    (
+                        Api_Data.SID, 
+                        Api_Data.CategoryID, 
+                        Api_Info.GroupCName, 
+                        Api_Info.GroupName, 
+                        Api_Info.GroupClass,
+                        Api_Data.Ename, 
+                        Api_Data.Phone, 
+                        Api_Data.Gmail, 
+                        Api_Data.Church, 
+                        "1", //EStatus
+                        DateTime.Now.ToString("yyyy/MM/dd"), //SubDate
+                        Memo, 
+                        Api_Data.MID.Replace(",", "") //MID為空值
+                    );
                 }
 
             }
@@ -179,7 +244,8 @@ namespace LifeBuildC.Api
                     Api_Data.group_2,
                     Api_Data.group_3,
                     Api_Data.group_4,
-                    Api_Data.SubDate
+                    Api_Data.SubDate,
+                    strMake
                 }
             );
 

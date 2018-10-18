@@ -115,7 +115,7 @@ namespace LifeBuildC.Api
                         _MID = Api_Data.MID.Split(',')[0];
                     }
 
-                    DataTable dtMem = Ado_Info.ChcMember_ADO.Query_MID(_MID);
+                    DataTable dtMem = Ado_Info.ChcMember_ADO.QueryChcMemberByMID(_MID);
                     if (dtMem != null && dtMem.Rows.Count > 0)
                     { //一定要是會友
 

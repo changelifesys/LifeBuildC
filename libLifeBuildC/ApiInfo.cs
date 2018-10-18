@@ -40,7 +40,7 @@ namespace libLifeBuildC
         /// 取得小組資料
         /// </summary>
         /// <param name="group">小組(Ex. CA202.信豪牧區-彥伯小組)</param>
-        /// <param name="gcroup">組別</param>
+        /// <param name="gcroup">組別(家庭組弟兄 || 家庭組姊妹 || 社青 || 學生)</param>
         public void GetGroupData(string group, string gcroup)
         {
             string[] arrg = group.Split('.');
