@@ -149,15 +149,60 @@ namespace LifeBuildC.Api
                         dtMem.Rows[0]["Memo"].ToString()
                     );
 
-                    switch ((Api_Data.CategoryID).ToUpper())
+
+                    DataTable dtMake = Ado_Info.ChcMemberSub_Temp_ADO.CheckMakeByChcMemberSub_Temp(Api_Data.MID, Api_Data.SID);
+                    if (dtMake != null && dtMake.Rows.Count > 0)
                     {
-                        case "C1":
-                            strMake = "";
-                            break;
-                        case "C2":
-                            strMake = "";
-                            break;
+                        switch (dtMake.Rows[0]["CategoryID"].ToString())
+                        {
+                            case "C112":
+
+                                if (bool.Parse(dtMem.Rows[0]["IsC112"].ToString()) == false)
+                                {
+                                    strMake = "補課";
+                                }
+
+                                break;
+                            case "C134":
+
+                                if (bool.Parse(dtMem.Rows[0]["IsC134"].ToString()) == false)
+                                {
+                                    strMake = "補課";
+                                }
+
+                                break;
+                            case "C212":
+
+                                if (bool.Parse(dtMem.Rows[0]["IsC212"].ToString()) == false)
+                                {
+                                    strMake = "補課";
+                                }
+
+                                break;
+                            case "C234":
+
+                                if (bool.Parse(dtMem.Rows[0]["IsC234"].ToString()) == false)
+                                {
+                                    strMake = "補課";
+                                }
+
+                                break;
+                            case "C25":
+
+                                if (bool.Parse(dtMem.Rows[0]["IsC25"].ToString()) == false)
+                                {
+                                    strMake = "補課";
+                                }
+
+                                break;
+                        }
                     }
+                    else
+                    {
+
+                    }
+
+
 
                 }
 
