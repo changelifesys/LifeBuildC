@@ -152,8 +152,9 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             }
         }
 
-        public void UpdChcMemberSub_TempByUpdSubSign(string GroupCName, string GroupName, string GroupClass, string Ename, string Phone,
-                                                                                 string Gmail, string Memo, string No)
+        public void UpdChcMemberSub_TempByUpdSubSign(
+            string GroupCName, string GroupName, string GroupClass, string Ename, string Phone,
+                                                                                 string Gmail, string Memo, string No, int IsPass, string Make)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
@@ -166,7 +167,9 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
                                                   Gmail = @Gmail,
                                                   Memo = Memo + @Memo,
                                                   UpdateTime = GETDATE(),
-                                                  EStatus = 1
+                                                  EStatus = 1,
+                                                  IsPass = @IsPass,
+                                                  Make = @Make
                                            WHERE [No] = @No
                                            AND SubDate = CONVERT(varchar(100), GETDATE(), 23)";
 
@@ -179,6 +182,8 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
                 com.Parameters.AddWithValue("@Gmail", Gmail);
                 com.Parameters.AddWithValue("@Memo", Memo);
                 com.Parameters.AddWithValue("@No", No);
+                com.Parameters.AddWithValue("@IsPass", IsPass);
+                com.Parameters.AddWithValue("@Make", Make);
 
                 con.Open();
                 com.ExecuteNonQuery();

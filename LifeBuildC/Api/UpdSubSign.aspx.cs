@@ -117,6 +117,7 @@ namespace LifeBuildC.Api
             }
 
             string strMake = ""; //是否補課(是: 補課 ; 空值: 不用補課)
+            int IsPass = 0; //是否這次通過(0: 尚有缺課; 1: 這次上完課就通過)
             if (Api_Data.MID.Split(',').Count() > 1 && Api_Data.MID.Split(',')[1] != "")
             { //UPDATE 報名資訊
 
@@ -148,62 +149,230 @@ namespace LifeBuildC.Api
                         bool.Parse(dtMem.Rows[0]["Iswitness"].ToString()),
                         dtMem.Rows[0]["Memo"].ToString()
                     );
+                }
 
+                //填寫補課資訊
+                DataTable dtSubDate = Ado_Info.SubjectDate_ADO.GetCategoryIDBySubjectDate(Api_Data.SID);
+                switch (dtSubDate.Rows[0]["CategoryID"].ToString())
+                {
+                    case "C112":
 
-                    DataTable dtMake = Ado_Info.ChcMemberSub_Temp_ADO.CheckMakeByChcMemberSub_Temp(Api_Data.MID, Api_Data.SID);
-                    if (dtMake != null && dtMake.Rows.Count > 0)
-                    {
-                        switch (dtMake.Rows[0]["CategoryID"].ToString())
+                        if (dtMem != null && dtMem.Rows.Count > 0 &&
+                            bool.Parse(dtMem.Rows[0]["IsC134"].ToString()))
                         {
-                            case "C112":
-
-                                if (bool.Parse(dtMem.Rows[0]["IsC112"].ToString()) == false)
-                                {
-                                    strMake = "補課";
-                                }
-
-                                break;
-                            case "C134":
-
-                                if (bool.Parse(dtMem.Rows[0]["IsC134"].ToString()) == false)
-                                {
-                                    strMake = "補課";
-                                }
-
-                                break;
-                            case "C212":
-
-                                if (bool.Parse(dtMem.Rows[0]["IsC212"].ToString()) == false)
-                                {
-                                    strMake = "補課";
-                                }
-
-                                break;
-                            case "C234":
-
-                                if (bool.Parse(dtMem.Rows[0]["IsC234"].ToString()) == false)
-                                {
-                                    strMake = "補課";
-                                }
-
-                                break;
-                            case "C25":
-
-                                if (bool.Parse(dtMem.Rows[0]["IsC25"].ToString()) == false)
-                                {
-                                    strMake = "補課";
-                                }
-
-                                break;
+                            IsPass = 1;
                         }
-                    }
-                    else
-                    {
+                        else
+                        {
+                            strMake = "未修C1 三、四課";
+                        }
 
-                    }
+                        break;
+                    case "C134":
 
+                        if (dtMem != null && dtMem.Rows.Count > 0 &&
+                            bool.Parse(dtMem.Rows[0]["IsC112"].ToString()))
+                        {
+                            IsPass = 1;
+                        }
+                        else
+                        {
+                            strMake = "未修C1 一、二課";
+                        }
 
+                        break;
+                    case "C212":
 
+                        if (dtMem != null && dtMem.Rows.Count > 0 &&
+                            bool.Parse(dtMem.Rows[0]["IsC234"].ToString()) &&
+                            bool.Parse(dtMem.Rows[0]["IsC25"].ToString()) &&
+                            int.Parse(dtMem.Rows[0]["C1_Score"].ToString()) >= 70 &&
+                            int.Parse(dtMem.Rows[0]["C212_Score"].ToString()) >= 70 &&
+                            int.Parse(dtMem.Rows[0]["C234_Score"].ToString()) >= 70)
+                        {
+                            IsPass = 1;
+                        }
+                        else
+                        {
+                            if (dtMem != null && dtMem.Rows.Count > 0 && 
+                                bool.Parse(dtMem.Rows[0]["IsC234"].ToString()) == false)
+                            {
+                                strMake += "未修C2 三、四課,";
+                            }
+
+                            if (dtMem != null && dtMem.Rows.Count > 0 && 
+                                bool.Parse(dtMem.Rows[0]["IsC25"].ToString()) == false)
+                            {
+                                strMake += "未修C2 第五課,";
+                            }
+
+                            try
+                            {
+                                if (int.Parse(dtMem.Rows[0]["C1_Score"].ToString()) < 70)
+                                {
+                                    strMake += "C1 考試未通過,";
+                                }
+                            }
+                            catch
+                            {
+                                strMake += "C1 尚未考試,";
+                            }
+
+                            try
+                            {
+                                if (int.Parse(dtMem.Rows[0]["C212_Score"].ToString()) < 70)
+                                {
+                                    strMake += "C2 一、二課考試未通過,";
+                                }
+                            }
+                            catch
+                            {
+                                strMake += "C2 一、二課尚未考試,";
+                            }
+
+                            try
+                            {
+                                if (int.Parse(dtMem.Rows[0]["C234_Score"].ToString()) < 70)
+                                {
+                                    strMake += "C2 三、四課考試未通過,";
+                                }
+                            }
+                            catch
+                            {
+                                strMake += "C2 三、四課尚未考試,";
+                            }
+
+                        }
+
+                        break;
+                    case "C234":
+
+                        if (dtMem != null && dtMem.Rows.Count > 0 && 
+                            bool.Parse(dtMem.Rows[0]["IsC212"].ToString()) &&
+                            bool.Parse(dtMem.Rows[0]["IsC25"].ToString()) &&
+                            int.Parse(dtMem.Rows[0]["C1_Score"].ToString()) >= 70 &&
+                            int.Parse(dtMem.Rows[0]["C212_Score"].ToString()) >= 70 &&
+                            int.Parse(dtMem.Rows[0]["C234_Score"].ToString()) >= 70)
+                        {
+                            IsPass = 1;
+                        }
+                        else
+                        {
+                            if (dtMem != null && dtMem.Rows.Count > 0 && 
+                                bool.Parse(dtMem.Rows[0]["IsC212"].ToString()) == false)
+                            {
+                                strMake += "未修C2 一、二課,";
+                            }
+
+                            if (dtMem != null && dtMem.Rows.Count > 0 && 
+                                bool.Parse(dtMem.Rows[0]["IsC25"].ToString()) == false)
+                            {
+                                strMake += "未修C2 第五課,";
+                            }
+
+                            try
+                            {
+                                if (int.Parse(dtMem.Rows[0]["C1_Score"].ToString()) < 70)
+                                {
+                                    strMake += "C1 考試未通過,";
+                                }
+                            }
+                            catch
+                            {
+                                strMake += "C1 尚未考試,";
+                            }
+
+                            try
+                            {
+                                if (int.Parse(dtMem.Rows[0]["C212_Score"].ToString()) < 70)
+                                {
+                                    strMake += "C2 一、二課考試未通過,";
+                                }
+                            }
+                            catch
+                            {
+                                strMake += "C2 一、二課尚未考試,";
+                            }
+
+                            try
+                            {
+                                if (int.Parse(dtMem.Rows[0]["C234_Score"].ToString()) < 70)
+                                {
+                                    strMake += "C2 三、四課考試未通過,";
+                                }
+                            }
+                            catch
+                            {
+                                strMake += "C2 三、四課尚未考試,";
+                            }
+
+                        }
+
+                        break;
+                    case "C25":
+
+                        if (dtMem != null && dtMem.Rows.Count > 0 && 
+                            bool.Parse(dtMem.Rows[0]["IsC212"].ToString()) &&
+                            bool.Parse(dtMem.Rows[0]["IsC234"].ToString()) &&
+                            int.Parse(dtMem.Rows[0]["C1_Score"].ToString()) >= 70 &&
+                            int.Parse(dtMem.Rows[0]["C212_Score"].ToString()) >= 70 &&
+                            int.Parse(dtMem.Rows[0]["C234_Score"].ToString()) >= 70)
+                        {
+                            IsPass = 1;
+                        }
+                        else
+                        {
+                            if (dtMem != null && dtMem.Rows.Count > 0 && 
+                                bool.Parse(dtMem.Rows[0]["IsC212"].ToString()) == false)
+                            {
+                                strMake += "未修C2 一、二課,";
+                            }
+
+                            if (dtMem != null && dtMem.Rows.Count > 0 && 
+                                bool.Parse(dtMem.Rows[0]["IsC234"].ToString()) == false)
+                            {
+                                strMake += "未修C2 三、四課,";
+                            }
+
+                            try
+                            {
+                                if (int.Parse(dtMem.Rows[0]["C1_Score"].ToString()) < 70)
+                                {
+                                    strMake += "C1 考試未通過,";
+                                }
+                            }
+                            catch
+                            {
+                                strMake += "C1 尚未考試,";
+                            }
+
+                            try
+                            {
+                                if (int.Parse(dtMem.Rows[0]["C212_Score"].ToString()) < 70)
+                                {
+                                    strMake += "C2 一、二課考試未通過,";
+                                }
+                            }
+                            catch
+                            {
+                                strMake += "C2 一、二課尚未考試,";
+                            }
+
+                            try
+                            {
+                                if (int.Parse(dtMem.Rows[0]["C234_Score"].ToString()) < 70)
+                                {
+                                    strMake += "C2 三、四課考試未通過,";
+                                }
+                            }
+                            catch
+                            {
+                                strMake += "C2 三、四課尚未考試,";
+                            }
+
+                        }
+
+                        break;
                 }
 
                 //api.MID.Split(',')[0] 為會友MID流水編號
@@ -213,16 +382,19 @@ namespace LifeBuildC.Api
                 {
                     Ado_Info.ChcMemberSub_Temp_ADO.UpdChcMemberSub_TempByUpdSubSign
                     (
-                        Api_Info.GroupCName, 
-                        Api_Info.GroupName, 
-                        Api_Info.GroupClass, 
-                        Api_Data.Ename, 
+                        Api_Info.GroupCName,
+                        Api_Info.GroupName,
+                        Api_Info.GroupClass,
+                        Api_Data.Ename,
                         Api_Data.Phone,
-                        Api_Data.Gmail, 
-                        Memo, 
-                        Api_Data.MID.Split(',')[i] //No
+                        Api_Data.Gmail,
+                        Memo,
+                        Api_Data.MID.Split(',')[i], //No
+                        IsPass,
+                        strMake
                     );
                 }
+
             }
             else
             { //INSERT 報名資訊, 只有C1才能現場報名
@@ -290,6 +462,7 @@ namespace LifeBuildC.Api
                     Api_Data.group_3,
                     Api_Data.group_4,
                     Api_Data.SubDate,
+                    IsPass,
                     strMake
                 }
             );
