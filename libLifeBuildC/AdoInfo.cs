@@ -22,8 +22,6 @@ namespace libLifeBuildC
         public SubCategoryADO SubCategory_ADO = new SubCategoryADO();
         public SubjectDateADO SubjectDate_ADO = new SubjectDateADO();
         public SubjectInfoADO SubjectInfo_ADO = new SubjectInfoADO();
-        public SubSignInfoADO SubSignInfo_ADO = new SubSignInfoADO();
-        public SubSignUpDateADO SubSignUpDate_ADO = new SubSignUpDateADO();
         public SystemSetADO SystemSet_ADO = new SystemSetADO();
         public UserScoreADO UserScore_ADO = new UserScoreADO();
 

@@ -13,7 +13,6 @@ namespace LifeBuildC.Admin.SubjectData
     public partial class SubjectList : System.Web.UI.Page
     {
         SubjectDateADO SubjectDate = new SubjectDateADO();
-        SubSignInfoADO SubSignInfo = new SubSignInfoADO();
         SubjectInfoADO SubjectInfo = new SubjectInfoADO();
 
         protected void Page_Load(object sender, EventArgs e)

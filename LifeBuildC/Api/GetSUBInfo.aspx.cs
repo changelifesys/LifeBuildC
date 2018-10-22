@@ -10,6 +10,8 @@
  */
 using ADO;
 using libLifeBuildC;
+using log4net;
+using log4net.Config;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -23,93 +25,42 @@ using System.Web.UI.WebControls;
 
 namespace LifeBuildC.Api
 {
-    /// <summary>
-    /// 課程資訊
-    /// </summary>
     public partial class GetSUBInfo : System.Web.UI.Page
     {
-        ApiData Api_Data = new ApiData();
+        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        ApiData.GetSUBInfo Api_Data = new ApiData.GetSUBInfo();
         AdoInfo Ado_Info = new AdoInfo();
-
-        public class ApiData
-        {
-            /// <summary>
-            /// 課程類別
-            /// </summary>
-            public string CategoryID { get; set; }
-            /// <summary>
-            /// 課程ID
-            /// </summary>
-            public int SID { get; set; }
-            /// <summary>
-            /// 課程名稱
-            /// </summary>
-            public string SubName { get; set; }
-            /// <summary>
-            /// 報名條件
-            /// </summary>
-            //public string SUCondition { get; set; }
-            /// <summary>
-            /// 上課日期
-            /// </summary>
-            //public string SubDate { get; set; }
-            /// <summary>
-            /// 上課地點
-            /// </summary>
-            //public string SubLocation { get; set; }
-            /// <summary>
-            /// 課程截止報名時間
-            /// </summary>
-            //public string SubEndDate { get; set; }
-            /// <summary>
-            /// API 訊息
-            /// </summary>
-            public string ApiMsg = string.Empty;
-            /// <summary>
-            /// API 有錯(true: 有錯; false: 沒有錯)
-            /// </summary>
-            public bool IsApiError = false;
-            /// <summary>
-            /// HTML 上課資訊
-            /// </summary>
-            public string HtmlSubDesc { get; set; }
-            /// <summary>
-            /// 傳入的頁面名稱
-            /// </summary>
-            public string PageName = string.Empty;
-        }
+        ApiInfo Api_Info = new ApiInfo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-                PageStart();
-        }
+            XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/LogConfig/GetSUBInfo.config")));
 
-        private void PageStart()
-        {
-            string strGetSUBInfo = string.Empty;
-
-            if (Request.QueryString["test"] != null &&
-                Request.QueryString["test"].ToString() == "true")
+            using (Stream receiveStream = Request.InputStream)
             {
-                Api_Data.CategoryID = "C1";
-                Api_Data.PageName = "SubjectSignUp";
-            }
-            else
-            {
-                using (Stream receiveStream = Request.InputStream)
+                using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
                 {
-                    using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
-                    {
-                        strGetSUBInfo = readStream.ReadToEnd();
-                    }
+                    Api_Info.strJsonData = readStream.ReadToEnd();
                 }
-
-                Api_Data = JsonConvert.DeserializeObject<ApiData>(strGetSUBInfo);
-
             }
+
+            Api_Data = JsonConvert.DeserializeObject<ApiData.GetSUBInfo>(Api_Info.strJsonData);
 
             if (Api_Data != null)
+            {
+                logger.Info("StreamR=[" + Api_Info.strJsonData + "]");
+                ApiProcess();
+            }
+
+            logger.Info("Recv=[" + JsonConvert.SerializeObject(Api_Data) + "]");
+            logger.Info("\r\n");
+            Response.Write(JsonConvert.SerializeObject(Api_Data));
+            Response.End();
+        }
+
+        private void ApiProcess()
+        {
+            try
             {
                 DataTable dt = null;
 
@@ -135,30 +86,17 @@ namespace LifeBuildC.Api
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     Api_Data.SID = int.Parse(dt.Rows[0]["SID"].ToString());
-                    Api_Data.SubName = dt.Rows[0]["SubName"].ToString();
-                    //PageData.SUCondition = dtSubject.Rows[0]["SUCondition"].ToString();
-
-                    /*
-                    //2/12(日)、 2/19(日)下午14:30~17:30
-                    string _SBDate = "";
-                    foreach (DataRow dr in dtSubject.Rows)
+                   
+                    if (Api_Data.PageName == "SubjectSignUp")
                     {
-                        _SBDate += DateTime.Parse(dr["SDate"].ToString()).ToString("yyyy/MM/dd").Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
-                            "(" + GetDayOfWeek(DateTime.Parse(dr["SDate"].ToString())) + ")、";
+                        Api_Data.SubName = dt.Rows[0]["SubName"].ToString();
+                        Api_Data.HtmlSubDesc = dt.Rows[0]["HtmlSubDesc"].ToString().Replace("\"", "'");
+                    }
+                    else
+                    {
+                        Api_Data.SubName = dt.Rows[0]["SubName"].ToString().Replace("報名", "簽到");
                     }
 
-                    PageData.SubDate = _SBDate.Substring(0, _SBDate.Length - 1) + " " + dtSubject.Rows[0]["SubTime"].ToString();
-                    PageData.SubLocation = dtSubject.Rows[0]["SubLocation"].ToString();
-
-                    //即日起~2/9(四)截止報名，之後請現場報名。
-                    PageData.SubEndDate = "即日起~" +
-                        DateTime.Parse(dtSubject.Rows[0]["SubEndDate"].ToString()).ToString("yyyy/MM/dd").Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
-                            "(" + GetDayOfWeek(DateTime.Parse(dtSubject.Rows[0]["SubEndDate"].ToString())) + ") " +
-                        "截止報名，之後請現場報名。";
-                    */
-
-                    //PageData.HtmlSubDesc = HttpUtility.UrlEncode(dtSubject.Rows[0]["HtmlSubDesc"].ToString());
-                    Api_Data.HtmlSubDesc = dt.Rows[0]["HtmlSubDesc"].ToString().Replace("\"", "'");
                 }
                 else
                 {
@@ -179,11 +117,15 @@ namespace LifeBuildC.Api
 
 
                 }
-
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.ToString());
+                Api_Data.IsApiError = true;
+                Api_Data.ApiMsg = "請確認網路是否斷線";
             }
 
-            Response.Write(JsonConvert.SerializeObject(Api_Data));
-            Response.End();
+
         }
 
     }

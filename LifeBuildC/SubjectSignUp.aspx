@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SubjectSignUp.aspx.cs" Inherits="LifeBuildC.SubjectSignUp" %>
-
+<!--
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -21,3 +21,4 @@
   <script type=text/javascript src=/js/subjectSignUp/js/vendors~app.aef814bc.js></script>
   <script type=text/javascript src=/js/subjectSignUp/js/app.29256e87.js></script>
 </html>
+-->

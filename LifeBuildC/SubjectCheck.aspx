@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SubjectCheck.aspx.cs" Inherits="LifeBuildC.SubjectCheck" %>
-
+<!--
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,3 +18,4 @@
     <script src="/js/subjectCheck/build.js"></script>
 </body>
 </html>
+-->

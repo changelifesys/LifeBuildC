@@ -9,6 +9,40 @@ namespace libLifeBuildC
     public class ApiData
     {
         /// <summary>
+        /// 課程資訊
+        /// </summary>
+        public class GetSUBInfo
+        {
+            /// <summary>
+            /// 課程類別
+            /// </summary>
+            public string CategoryID { get; set; }
+            /// <summary>
+            /// 課程ID
+            /// </summary>
+            public int SID { get; set; }
+            /// <summary>
+            /// 課程名稱
+            /// </summary>
+            public string SubName { get; set; }
+            /// <summary>
+            /// API 訊息
+            /// </summary>
+            public string ApiMsg = string.Empty;
+            /// <summary>
+            /// API 有錯(true: 有錯; false: 沒有錯)
+            /// </summary>
+            public bool IsApiError = false;
+            /// <summary>
+            /// HTML 上課資訊
+            /// </summary>
+            public string HtmlSubDesc { get; set; }
+            /// <summary>
+            /// 傳入的頁面名稱
+            /// </summary>
+            public string PageName = string.Empty;
+        }
+        /// <summary>
         /// 課程報到
         /// </summary>
         public class ApiAddSubSign

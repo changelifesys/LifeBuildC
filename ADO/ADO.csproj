@@ -107,8 +107,6 @@
     <Compile Include="SubCategoryADO.cs" />
     <Compile Include="SubjectDateADO.cs" />
     <Compile Include="SubjectInfoADO.cs" />
-    <Compile Include="SubSignInfoADO.cs" />
-    <Compile Include="SubSignUpDateADO.cs" />
     <Compile Include="SystemSetADO.cs" />
     <Compile Include="UserScoreADO.cs" />
   </ItemGroup>

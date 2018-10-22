@@ -19,6 +19,8 @@ using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Util.Store;
 using libLifeBuildC;
+using log4net;
+using log4net.Config;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -35,6 +37,7 @@ namespace LifeBuildC.Api
 {
     public partial class UpdSubSign : System.Web.UI.Page
     {
+        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         GoogleSheetApi Google_Sheet_Api;
         AdoInfo Ado_Info = new AdoInfo();
         ApiInfo Api_Info = new ApiInfo();
@@ -42,6 +45,8 @@ namespace LifeBuildC.Api
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/LogConfig/UpdSubSign.config")));
+
             using (Stream receiveStream = Request.InputStream)
             {
                 using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
@@ -54,9 +59,12 @@ namespace LifeBuildC.Api
 
             if (Api_Data != null)
             {
+                logger.Info("StreamR=[" + Api_Info.strJsonData + "]");
                 ApiProcess();
             }
 
+            logger.Info("Recv=[" + JsonConvert.SerializeObject(Api_Data) + "]");
+            logger.Info("\r\n");
             Response.Write(JsonConvert.SerializeObject(Api_Data));
             Response.End();
         }
@@ -99,6 +107,7 @@ namespace LifeBuildC.Api
             }
             catch (Exception ex)
             {
+                logger.Error(ex.ToString());
                 Api_Data.IsApiError = true;
                 Api_Data.ApiMsg = "請確認網路是否斷線或填寫的資料內容有誤";
             }

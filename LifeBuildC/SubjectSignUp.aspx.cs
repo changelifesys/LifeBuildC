@@ -19,6 +19,25 @@ namespace LifeBuildC
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            if (Request.QueryString["id"] != null)
+            {
+                switch (Request.QueryString["id"].ToString().ToUpper())
+                {
+                    case "C1":
+                        Response.Redirect("http://form.changelifesys.org/#/registration/c1");
+                        break;
+                    case "C2":
+                        Response.Redirect("http://form.changelifesys.org/#/registration/c2");
+                        break;
+                    default:
+                        Response.Redirect("http://form.changelifesys.org/#/registration/");
+                        break;
+                }
+
+
+            }
+
+
         }
     }
 }
