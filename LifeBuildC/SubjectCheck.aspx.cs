@@ -22,7 +22,7 @@ namespace LifeBuildC
                         Response.Redirect("http://form.changelifesys.org/signin/c2");
                         break;
                     default:
-                        Response.Redirect("http://form.changelifesys.org/signin/");
+                        Response.Redirect("http://form.changelifesys.org/");
                         break;
                 }
 
