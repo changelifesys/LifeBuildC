@@ -14,7 +14,13 @@ namespace libLifeBuildC
 {
     public class GoogleSheetApi
     {
+        /// <summary>
+        /// google工作表ID
+        /// </summary>
         private string spreadsheetId = string.Empty;
+        /// <summary>
+        /// 工作表名稱
+        /// </summary>
         private string sheetName = string.Empty;
 
         public GoogleSheetApi(string _spreadsheetId, string _sheetName)
@@ -24,7 +30,7 @@ namespace libLifeBuildC
         }
 
         /// <summary>
-        /// 新增一筆資料
+        /// 新增一筆Row
         /// </summary>
         public void AddDataByV4Sheets(List<object> _oblist)
         {
@@ -47,6 +53,9 @@ namespace libLifeBuildC
             var appendReponse = request.Execute();
         }
 
+        /// <summary>
+        /// 取得google認證
+        /// </summary>
         private UserCredential GetCredential()
         {
             string[] Scopes = {

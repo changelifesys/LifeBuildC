@@ -16,13 +16,13 @@ namespace LifeBuildC
                 switch (Request.QueryString["id"].ToString().ToUpper())
                 {
                     case "C1":
-                        Response.Redirect("http://form.changelifesys.org/#/signin/c1");
+                        Response.Redirect("http://form.changelifesys.org/signin/c1");
                         break;
                     case "C2":
-                        Response.Redirect("http://form.changelifesys.org/#/signin/c2");
+                        Response.Redirect("http://form.changelifesys.org/signin/c2");
                         break;
                     default:
-                        Response.Redirect("http://form.changelifesys.org/#/signin/");
+                        Response.Redirect("http://form.changelifesys.org/signin/");
                         break;
                 }
 

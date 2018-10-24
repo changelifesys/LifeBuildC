@@ -92,36 +92,9 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             }
         }
 
-        public void Upd_EStatus(int EStatus, int SID, string CategoryID, string GroupCName, string GroupName, string GroupClass, string Ename)
-        {
-            using (SqlConnection con = new SqlConnection(condb))
-            {
-                string sql = @"UPDATE ChcMemberSub_Temp
-                                           SET EStatus = @EStatus
-                                           WHERE SID = @SID
-                                           AND CategoryID = @CategoryID
-                                           AND GroupCName = @GroupCName
-                                           AND GroupName = @GroupName
-                                           AND GroupClass = @GroupClass
-                                           AND Ename = @Ename";
-
-                SqlCommand com = new SqlCommand(sql, con);
-                com.Parameters.AddWithValue("@EStatus", EStatus);
-                com.Parameters.AddWithValue("@SID", SID);
-                com.Parameters.AddWithValue("@CategoryID", CategoryID);
-                com.Parameters.AddWithValue("@GroupCName", GroupCName);
-                com.Parameters.AddWithValue("@GroupName", GroupName);
-                com.Parameters.AddWithValue("@GroupClass", GroupClass);
-                com.Parameters.AddWithValue("@Ename", Ename);
-
-                con.Open();
-                com.ExecuteNonQuery();
-                con.Close();
-            }
-        }
-
-        public void UpdChcMemberSub_TempByNo(string GroupCName, string GroupName, string GroupClass, string Ename, string Phone,
-                                                                                         string Gmail, string Memo, string No)
+        public void UpdChcMemberSub_TempByNo(
+            string GroupCName, string GroupName, string GroupClass, string Ename, string Phone,
+            string Gmail, string Memo, string No)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
@@ -152,21 +125,12 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             }
         }
 
-        public void UpdChcMemberSub_TempByUpdSubSign(
-            string GroupCName, string GroupName, string GroupClass, string Ename, string Phone,
-                                                                                 string Gmail, string Memo, string No, int IsPass, string Make)
+        public void UpdEStatusByChcMemberSub_Temp(string No, int IsPass, string Make)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"UPDATE ChcMemberSub_Temp
-                                           SET GroupCName = @GroupCName,
-                                                  GroupName = @GroupName,
-                                                  GroupClass = @GroupClass,
-                                                  Ename = @Ename,
-                                                  Phone = @Phone,
-                                                  Gmail = @Gmail,
-                                                  Memo = Memo + @Memo,
-                                                  UpdateTime = GETDATE(),
+                                           SET UpdateTime = GETDATE(),
                                                   EStatus = 1,
                                                   IsPass = @IsPass,
                                                   Make = @Make
@@ -174,13 +138,6 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
                                            AND SubDate = CONVERT(varchar(100), GETDATE(), 23)";
 
                 SqlCommand com = new SqlCommand(sql, con);
-                com.Parameters.AddWithValue("@GroupCName", GroupCName);
-                com.Parameters.AddWithValue("@GroupName", GroupName);
-                com.Parameters.AddWithValue("@GroupClass", GroupClass);
-                com.Parameters.AddWithValue("@Ename", Ename);
-                com.Parameters.AddWithValue("@Phone", Phone);
-                com.Parameters.AddWithValue("@Gmail", Gmail);
-                com.Parameters.AddWithValue("@Memo", Memo);
                 com.Parameters.AddWithValue("@No", No);
                 com.Parameters.AddWithValue("@IsPass", IsPass);
                 com.Parameters.AddWithValue("@Make", Make);
@@ -219,6 +176,22 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
+                sda.Fill(dt);
+            }
+
+            return dt;
+        }
+
+        public DataTable QueryChcMemberSub_TempByNo(string No)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM ChcMemberSub_Temp
+                                           WHERE No IN (" + No + ")" +
+                                         " ORDER BY SubDate";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
             }
 

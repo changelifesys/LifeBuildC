@@ -56,19 +56,6 @@ namespace LifeBuildC.Api
         AdoInfo Ado_Info = new AdoInfo();
         ApiInfo Api_Info = new ApiInfo();
 
-        /// <summary>
-        /// 小組Array
-        /// </summary>
-        //string[] arr_group;
-        /// <summary>
-        /// 牧區
-        /// </summary>
-        //string GroupCName = string.Empty;
-        /// <summary>
-        /// 小組
-        /// </summary>
-        //string GroupName = string.Empty;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             using (Stream receiveStream = Request.InputStream)
@@ -94,9 +81,6 @@ namespace LifeBuildC.Api
         private void ApiProcess()
         {
             //小組
-            //arr_group = Api_Data.group.Split('.');
-            //GroupCName = arr_group[1].Split('-')[0];
-            //GroupName = arr_group[1].Split('-')[1];
             Api_Info.GetGroupData(Api_Data.group, "");
 
             //從基本資料查詢所有會友

@@ -4,7 +4,7 @@ using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Util.Store;
-using LifeBuildC.PrjMethod;
+using libLifeBuildC;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,7 +19,7 @@ namespace LifeBuildC.Admin.SubjectData
 {
     public partial class SubjectC2Add : System.Web.UI.Page
     {
-        PrjDate pjdate = new PrjDate();
+        ApiInfo Api_Info = new ApiInfo();
         SubjectInfoADO SubjectInfo = new SubjectInfoADO();
         SubjectDateADO SubjectDate = new SubjectDateADO();
 
@@ -165,7 +165,7 @@ namespace LifeBuildC.Admin.SubjectData
             if (ckbIsSub12.Checked)
             {
                 sb.Append(txtSDate12.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
-                "(" + pjdate.GetDayOfWeek(DateTime.Parse(txtSDate12.Text.Trim())) + ") " + " ");
+                "(" + Api_Info.GetDayOfWeek(DateTime.Parse(txtSDate12.Text.Trim())) + ") " + " ");
                 sb.Append(dropSubTime12.Text + " " + txtSubTime12.Text.Trim());
             }
 
@@ -173,7 +173,7 @@ namespace LifeBuildC.Admin.SubjectData
             {
                 sb.Append("<br/>");
                 sb.Append(txtSDate34.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
-"(" + pjdate.GetDayOfWeek(DateTime.Parse(txtSDate34.Text.Trim())) + ") " + " ");
+"(" + Api_Info.GetDayOfWeek(DateTime.Parse(txtSDate34.Text.Trim())) + ") " + " ");
                 sb.Append(dropSubTime34.Text + " " + txtSubTime34.Text.Trim());
             }
 
@@ -181,7 +181,7 @@ namespace LifeBuildC.Admin.SubjectData
             {
                 sb.Append("<br/>");
                 sb.Append(txtSDate5.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
-"(" + pjdate.GetDayOfWeek(DateTime.Parse(txtSDate5.Text.Trim())) + ") " + " ");
+"(" + Api_Info.GetDayOfWeek(DateTime.Parse(txtSDate5.Text.Trim())) + ") " + " ");
                 sb.Append(dropSubTime5.Text + " " + txtSubTime5.Text.Trim());
             }
 
@@ -206,7 +206,7 @@ namespace LifeBuildC.Admin.SubjectData
             //即日起~07/31(二) 截止報名，之後請現場報名。
             sb.Append("即日起~" +
                         SubEndDate.Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
-                            "(" + pjdate.GetDayOfWeek(DateTime.Parse(SubEndDate)) + ") " +
+                            "(" + Api_Info.GetDayOfWeek(DateTime.Parse(SubEndDate)) + ") " +
                         "截止報名，之後請現場報名。");
             sb.Append("</div>");
 

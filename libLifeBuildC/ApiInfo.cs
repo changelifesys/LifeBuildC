@@ -28,7 +28,10 @@ namespace libLifeBuildC
         /// 小組
         /// </summary>
         public string GroupName = string.Empty;
-
+        /// <summary>
+        /// 狀態C001
+        /// </summary>
+        public string ClassStatus_C001 = string.Empty;
 
         #endregion
 
@@ -53,7 +56,7 @@ namespace libLifeBuildC
         /// 取得星期
         /// </summary>
         /// <param name="dtime">傳入日期 ex. 2018/08/12</param>
-        private string GetDayOfWeek(DateTime dtime)
+        public string GetDayOfWeek(DateTime dtime)
         {
             switch (dtime.DayOfWeek.ToString("d"))
             {
