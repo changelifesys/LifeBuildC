@@ -45,13 +45,13 @@ namespace ADO
         }
 
         public void InsChcMemberSub_TempByUpdSubSignToC1(int SID, string CategoryID, string GroupCName, string GroupName, string GroupClass,
-string Ename, string Phone, string Gmail, string Church, string EStatus, string SubDate, string Memo, string MID)
+string Ename, string Phone, string Gmail, string Church, string EStatus, string SubDate, string Memo, string MID, int IsPass, string Make)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO 
-                                           chclife.ChcMemberSub_Temp([SID], CategoryID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, EStatus, SubDate, Memo, MID) 
-		                                   VALUES (@SID, @CategoryID, @GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail, @Church, @EStatus, @SubDate, @Memo, @MID);";
+                                           chclife.ChcMemberSub_Temp([SID], CategoryID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, EStatus, SubDate, Memo, MID, IsPass, Make) 
+		                                   VALUES (@SID, @CategoryID, @GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail, @Church, @EStatus, @SubDate, @Memo, @MID, @IsPass, @Make);";
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@SID", SID);
@@ -67,6 +67,8 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
                 com.Parameters.AddWithValue("@SubDate", SubDate);
                 com.Parameters.AddWithValue("@Memo", Memo);
                 com.Parameters.AddWithValue("@MID", MID);
+                com.Parameters.AddWithValue("@IsPass", IsPass);
+                com.Parameters.AddWithValue("@Make", Make);
 
                 con.Open();
                 com.ExecuteNonQuery();
