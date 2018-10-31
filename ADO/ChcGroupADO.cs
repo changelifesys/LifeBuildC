@@ -16,6 +16,7 @@ namespace ADO
     public class ChcGroupADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
+        public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
         //Query
 
@@ -25,8 +26,9 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT GroupClass, MAX(GSort) FROM ChcGroup
-                                           WHERE GroupClass <> ''
+                string sql = @"SELECT GroupClass, MAX(GSort) FROM " +
+                                           DbSchema + "ChcGroup " +
+                                     @" WHERE GroupClass <> ''
                                            GROUP BY GroupClass
                                            ORDER BY MAX(GSort)
                                           ";
@@ -43,12 +45,13 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT GroupClass, MAX(GSort) FROM ChcGroup
-                                           WHERE GroupClass <> ''
+                string sql = @"SELECT GroupClass, MAX(GSort) FROM " +
+                                           DbSchema + "ChcGroup " +
+                                     @" WHERE GroupClass <> ''
                                            AND GSort > 0
                                            GROUP BY GroupClass
                                            ORDER BY MAX(GSort)
-                                          ";
+                                         ";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
             }
@@ -71,11 +74,12 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT GroupClass, MAX(GSort) FROM ChcGroup
-                                           WHERE CategoryID IN ('None', @CategoryID)
+                string sql = @"SELECT GroupClass, MAX(GSort) FROM " +
+                                           DbSchema + "ChcGroup " +
+                                     @" WHERE CategoryID IN ('None', @CategoryID)
                                            GROUP BY GroupClass
                                            ORDER BY MAX(GSort)
-                                          ";
+                                         ";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
                 sda.Fill(dt);
@@ -101,8 +105,9 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ChcGroup
-                                           WHERE CategoryID IN ('None', @CategoryID)
+                string sql = @"SELECT * FROM " +
+                                          DbSchema + "ChcGroup " +
+                                      @" WHERE CategoryID IN ('None', @CategoryID)
                                           ";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
@@ -118,8 +123,9 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT GroupClass, MAX(GSort) FROM ChcGroup
-                                           WHERE GroupClass <> ''
+                string sql = @"SELECT GroupClass, MAX(GSort) FROM " +
+                                         DbSchema + "ChcGroup " +
+                                     @" WHERE GroupClass <> ''
                                            AND GSort <> 0
                                            GROUP BY GroupClass
                                            ORDER BY MAX(GSort)
@@ -137,8 +143,9 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT GroupCName FROM ChcGroup
-                                            WHERE GroupClass = @GroupClass
+                string sql = @"SELECT GroupCName FROM " +
+                                         DbSchema + "ChcGroup " +
+                                     @" WHERE GroupClass = @GroupClass
                                             AND GSort > 0
                                             GROUP BY GroupCName
                                             ORDER BY MAX(GSort)
@@ -157,8 +164,9 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ChcGroup
-                                           WHERE GroupClass = @GroupClass
+                string sql = @"SELECT * FROM " +
+                                           DbSchema + "ChcGroup " +
+                                     @" WHERE GroupClass = @GroupClass
                                            ORDER BY GSort";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
@@ -174,8 +182,9 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ChcGroup
-                                           WHERE GroupClass = @GroupClass
+                string sql = @"SELECT * FROM " +
+                                         DbSchema + "ChcGroup " +
+                                     @" WHERE GroupClass = @GroupClass
                                            AND GSort > 0
                                            ORDER BY GSort";
 
@@ -192,9 +201,10 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ChcGroup
-                                           WHERE GSort > 0
-                                           ORDER BY GSort";
+                string sql = @"SELECT * FROM " +
+                                          DbSchema + "ChcGroup " +
+                                      @" WHERE GSort > 0
+                                            ORDER BY GSort";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
@@ -209,7 +219,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT TOP 1 * FROM ChcGroup
+                string sql = @"SELECT TOP 1 * FROM chclife.ChcGroup
                                             WHERE GroupName = @GroupName
                                            ";
 
@@ -228,7 +238,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ChcGroup
+                string sql = @"SELECT * FROM chclife.ChcGroup
                                            WHERE GroupCName = @GroupCName
                                            AND GroupName = @GroupName
                                            AND GroupClass = @GroupClass
@@ -252,7 +262,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT MAX(GSort), mid(GroupName, 1, 2) 
-                                            FROM ChcGroup
+                                            FROM chclife.ChcGroup
                                             GROUP BY mid(GroupName, 1, 2)
                                             HAVING mid(GroupName, 1, 2) = @GroupName12";
 
@@ -269,7 +279,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ChcGroup
+                string sql = @"SELECT * FROM chclife.ChcGroup
                                             WHERE GSort > @GSort";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);

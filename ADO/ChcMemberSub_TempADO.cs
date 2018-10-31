@@ -23,7 +23,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           ChcMemberSub_Temp(CategoryID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, EStatus, SubDate)
+                                           chclife.ChcMemberSub_Temp(CategoryID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, EStatus, SubDate)
                                            VALUES(@CategoryID, @GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail, @Church, @EStatus, @SubDate)";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -83,7 +83,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE ChcMemberSub_Temp
+                string sql = @"UPDATE chclife.ChcMemberSub_Temp
                                            SET uptyn = 1";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -100,7 +100,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE ChcMemberSub_Temp
+                string sql = @"UPDATE chclife.ChcMemberSub_Temp
                                            SET GroupCName = @GroupCName,
                                                   GroupName = @GroupName,
                                                   GroupClass = @GroupClass,
@@ -131,7 +131,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE ChcMemberSub_Temp
+                string sql = @"UPDATE chclife.ChcMemberSub_Temp
                                            SET UpdateTime = GETDATE(),
                                                   EStatus = 1,
                                                   IsPass = @IsPass,
@@ -158,7 +158,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ChcMemberSub_Temp
+                string sql = @"SELECT * FROM chclife.ChcMemberSub_Temp
                                            WHERE uptyn = 0";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
@@ -173,7 +173,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ChcMemberSub_Temp
+                string sql = @"SELECT * FROM chclife.ChcMemberSub_Temp
                                            WHERE SID = @SID";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
@@ -189,7 +189,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ChcMemberSub_Temp
+                string sql = @"SELECT * FROM chclife.ChcMemberSub_Temp
                                            WHERE No IN (" + No + ")" +
                                          " ORDER BY SubDate";
 
@@ -207,7 +207,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ChcMemberSub_Temp
+                string sql = @"SELECT * FROM chclife.ChcMemberSub_Temp
                                            WHERE MID = @MID
                                            AND CategoryID = (
                                                 SELECT TOP 1 CategoryID FROM SubjectDate
@@ -233,7 +233,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ChcMemberSub_Temp
+                string sql = @"SELECT * FROM chclife.ChcMemberSub_Temp
                                            WHERE MID = @MID
                                            AND SID = @SID";
 
@@ -259,7 +259,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"EXEC sp_ChcMemberSub_Temp_ADD_Data @SID, @CategoryID, @GroupCName, @GroupName, @GroupClass,
+                string sql = @"EXEC chclife.sp_ChcMemberSub_Temp_ADD_Data @SID, @CategoryID, @GroupCName, @GroupName, @GroupClass,
                                             @Ename, @Phone, @Gmail, @Church, @EStatus, @SubDate, @Memo, @MID, @No";
 
                 SqlCommand com = new SqlCommand(sql, con);

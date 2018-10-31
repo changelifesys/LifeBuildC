@@ -19,7 +19,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM CLC_FinancialSys_ID_Temp_1";
+                string sql = @"SELECT * FROM chclife.CLC_FinancialSys_ID_Temp_1";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
             }

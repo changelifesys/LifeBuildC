@@ -19,7 +19,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           FireMember(GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, gender, ClothesSize, Course, PassKey, Birthday)
+                                           chclife.FireMember(GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, gender, ClothesSize, Course, PassKey, Birthday)
                                            VALUES(@GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail, @gender, @ClothesSize, @Course, @PassKey, @Birthday)";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -47,7 +47,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE FireMember
+                string sql = @"UPDATE chclife.FireMember
                                            SET Phone = @Phone, 
                                                   Gmail = @Gmail, 
                                                   gender = @gender,
@@ -77,7 +77,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE FireMember
+                string sql = @"UPDATE chclife.FireMember
                                            SET GroupCName = @GroupCName,
                                                    GroupName = @GroupName,
                                                    GroupClass = @GroupClass,
@@ -114,7 +114,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"DELETE FROM FireMember
+                string sql = @"DELETE FROM chclife.FireMember
                                            WHERE PassKey = @PassKey";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -143,7 +143,7 @@ namespace ADO
 	                                             WHERE GroupCName = FireMember.GroupCName 
 	                                             AND GroupName = FireMember.GroupName)+'.'+GroupCName+'-'+GroupName group2
 
-                                            FROM FireMember
+                                            FROM chclife.FireMember
                                             WHERE CreateTime > '2018-4-8'
                                             --ORDER BY CreateTime DESC
                                             ORDER BY group2
@@ -170,7 +170,7 @@ namespace ADO
 	                                                      WHERE GroupCName = FireMember.GroupCName 
 	                                                      AND GroupName = FireMember.GroupName)+'.'+GroupCName+'-'+GroupName group2
 
-                                           FROM FireMember
+                                           FROM chclife.FireMember
                                            WHERE PassKey = @PassKey";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);

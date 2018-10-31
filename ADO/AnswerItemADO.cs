@@ -13,14 +13,15 @@ namespace ADO
     public class AnswerItemADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
+        public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
         public void InsAnswerItem(string ExamCategory, string ItemName)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"INSERT INTO
-                                           AnswerItem(ExamCategory, ItemName)
-                                           VALUES(@ExamCategory, @ItemName)";
+                string sql = @"INSERT INTO " +
+                                          DbSchema + "AnswerItem(ExamCategory, ItemName) " +
+                                          "VALUES(@ExamCategory, @ItemName)";
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@ExamCategory", ExamCategory);
@@ -37,9 +38,10 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"DELETE FROM AnswerItem
-                                            WHERE ExamCategory = @ExamCategory
-                                            AND ItemName = @ItemName";
+                string sql = @"DELETE FROM " +
+                                         DbSchema + "AnswerItem " +
+                                         " WHERE ExamCategory = @ExamCategory" +
+                                         " AND ItemName = @ItemName";
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@ExamCategory", ExamCategory);
@@ -56,26 +58,12 @@ namespace ADO
         {
             DataTable dt = new DataTable();
 
-            #region Access
-
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT * FROM AnswerItem
-            //                                WHERE ExamCategory = @ExamCategory
-            //                                ORDER BY ID";
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-            //    sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
-            //    sda.Fill(dt);
-            //}
-
-            #endregion
-
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM AnswerItem
-                                           WHERE ExamCategory = @ExamCategory
-                                           ORDER BY ID";
+                string sql = @"SELECT * FROM " +
+                                         DbSchema + "AnswerItem " +
+                                         " WHERE ExamCategory = @ExamCategory" +
+                                         " ORDER BY ID";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);

@@ -18,7 +18,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE SystemSet
+                string sql = @"UPDATE chclife.SystemSet
                                             SET ScoreGoogleLink = @ScoreGoogleLink,
                                                     GoogleKey = @GoogleKey,
                                                     IsEnable = @IsEnable
@@ -40,23 +40,9 @@ namespace ADO
         public DataTable QuerySystemSet()
         {
             DataTable dt = new DataTable();
-
-            #region Access
-
-            //using (OleDbConnection con = new OleDbConnection(condb))
-            //{
-            //    string sql = @"SELECT * FROM SystemSet";
-            //    OleDbDataAdapter sda = new OleDbDataAdapter(sql, con);
-
-            //    sda.Fill(dt);
-            //}
-
-            #endregion
-
-            //MS SQL
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM SystemSet";
+                string sql = @"SELECT * FROM chclife.SystemSet";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
 
                 sda.Fill(dt);

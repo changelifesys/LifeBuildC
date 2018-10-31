@@ -19,12 +19,12 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           ChcMember_Log(MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
+                                           chclife.ChcMember_Log(MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
                                                                             IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo)
                                            SELECT TOP 1 
                                                          MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
                                                                                                                     IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo
-                                           FROM ChcMember
+                                           FROM chclife.ChcMember
                                            WHERE GroupCName = @GroupCName
                                            AND GroupName = @GroupName
                                            AND GroupClass = @GroupClass
@@ -47,12 +47,12 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           ChcMember_Log(MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
+                                           chclife.ChcMember_Log(MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
                                                                             IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo)
                                            SELECT TOP 1 
                                                          MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
                                                                                                                     IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo
-                                           FROM ChcMember
+                                           FROM chclife.ChcMember
                                            WHERE GroupCName = @GroupCName
                                            AND GroupName = @GroupName
                                            AND Ename = @Ename";
@@ -74,7 +74,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           ChcMember_Log(MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
+                                           chclife.ChcMember_Log(MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
                                                                            IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo)
                                            VALUES(@MID, @GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail, @Church, @C1_Status, @C2_Status,
                                                                            @IsC112, @IsC134, @IsC212, @IsC234, @IsC25, @C1_Score, @C212_Score, @C234_Score, @witness, @Iswitness, @Memo)";

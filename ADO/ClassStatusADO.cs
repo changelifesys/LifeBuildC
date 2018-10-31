@@ -20,7 +20,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ClassStatus";
+                string sql = @"SELECT * FROM chclife.ClassStatus";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
@@ -37,7 +37,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM ClassStatus
+                string sql = @"SELECT * FROM chclife.ClassStatus
                                            WHERE StatusID = @StatusID";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);

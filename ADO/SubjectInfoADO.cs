@@ -25,7 +25,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           SubjectInfo(SubCount, CategoryID, SubName, SUCondition, SubLocation,
+                                           chclife.SubjectInfo(SubCount, CategoryID, SubName, SUCondition, SubLocation,
                                                                   SubStrDate, SubEndDate, Memo, HtmlSubDesc)
                                            VALUES(@SubCount, @CategoryID, @SubName, @SUCondition, @SubLocation,
                                                                   @SubStrDate, @SubEndDate, @Memo, @HtmlSubDesc)";
@@ -54,7 +54,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE SubjectInfo
+                string sql = @"UPDATE chclife.SubjectInfo
                                             SET SubCount = @SubCount,
                                                     SUCondition = @SUCondition,
                                                     SubLocation = @SubLocation,
@@ -89,7 +89,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT TOP 1 * FROM SubjectInfo
+                string sql = @"SELECT TOP 1 * FROM chclife.SubjectInfo
                                             WHERE CategoryID = @CategoryID
                                             ORDER BY SID DESC";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
@@ -108,8 +108,8 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM SubjectInfo SInfo
-                                           INNER JOIN SubjectDate SD ON SInfo.SID = SD.SID
+                string sql = @"SELECT * FROM chclife.SubjectInfo SInfo
+                                           INNER JOIN chclife.SubjectDate SD ON SInfo.SID = SD.SID
                                            WHERE SInfo.CategoryID = @CategoryID
                                            AND SInfo.SubStrDate <= @SubDate AND SInfo.SubEndDate >= @SubDate
                                            ORDER BY SD.SDate";
@@ -128,8 +128,8 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM SubjectInfo SInfo
-                                           INNER JOIN SubjectDate SD ON SInfo.SID = SD.SID
+                string sql = @"SELECT * FROM chclife.SubjectInfo SInfo
+                                           INNER JOIN chclife.SubjectDate SD ON SInfo.SID = SD.SID
                                            WHERE SInfo.CategoryID = @CategoryID
                                            AND SD.SDate = @SubDate
                                            ORDER BY SD.SDate";
@@ -149,7 +149,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT *, SubjectDate.CategoryID AS CategoryID2 
-                                           FROM SubjectInfo 
+                                           FROM chclife.SubjectInfo 
                                            INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
                                            WHERE SubjectInfo.SID = @SID";
 
@@ -166,8 +166,8 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM SubjectInfo 
-                                           LEFT JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
+                string sql = @"SELECT * FROM chclife.SubjectInfo 
+                                           LEFT JOIN chclife.SubjectDate ON SubjectInfo.SID = SubjectDate.SID
                                            WHERE SubjectInfo.SID = @SID
                                            AND SubjectDate.SDate = @SDate
                                            ";
@@ -186,7 +186,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT TOP 1 * FROM SubjectInfo
+                string sql = @"SELECT TOP 1 * FROM chclife.SubjectInfo
                                            WHERE CategoryID = @CategoryID
                                            ORDER BY SID DESC";
 
@@ -203,7 +203,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"EXEC sp_Delete_SubjectInfo @SID";
+                string sql = @"EXEC chclife.sp_Delete_SubjectInfo @SID";
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@SID", SID);

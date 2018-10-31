@@ -24,7 +24,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           SubjectDate(SID, CategoryID, SDate, SubTime)
+                                           chclife.SubjectDate(SID, CategoryID, SDate, SubTime)
                                            VALUES(@SID, @CategoryID, @SDate, @SubTime)";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -45,7 +45,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"DELETE FROM SubjectDate
+                string sql = @"DELETE FROM chclife.SubjectDate
                                             WHERE SID = @SID
                                             AND CategoryID = @CategoryID
                                           ";
@@ -68,7 +68,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT TOP 1 * FROM SubjectDate
+                string sql = @"SELECT TOP 1 * FROM chclife.SubjectDate
                                             WHERE LEFT(CategoryID, 2) = @CategoryID
                                             AND SDate = @SDate";
 
@@ -89,7 +89,7 @@ namespace ADO
             {
                 string sql = @"SELECT SubjectInfo.SubStrDate, SubjectInfo.SubEndDate, SubjectInfo.SubCount,
                                                           SubjectDate.*
-                                            FROM SubjectInfo INNER JOIN SubjectDate ON SubjectInfo.SID = SubjectDate.SID
+                                            FROM chclife.SubjectInfo INNER JOIN chclife.SubjectDate ON SubjectInfo.SID = SubjectDate.SID
                                             WHERE LEFT(SubjectDate.CategoryID, 2) = @CategoryID
                                             ORDER BY SubjectDate.SID DESC, SubjectDate.SDate";
 
@@ -109,7 +109,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM SubjectDate
+                string sql = @"SELECT * FROM chclife.SubjectDate
                                            WHERE SID = @SID
                                            AND SDate = CONVERT(varchar(100), GETDATE(), 23)";
 
