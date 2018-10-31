@@ -12,6 +12,7 @@ namespace ADO
     public class ClassStatusADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
+        public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
         //Query
 
@@ -20,7 +21,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ClassStatus";
+                string sql = @"SELECT * FROM " + DbSchema + @"ClassStatus";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
@@ -37,7 +38,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ClassStatus
+                string sql = @"SELECT * FROM " + DbSchema + @"ClassStatus
                                            WHERE StatusID = @StatusID";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);

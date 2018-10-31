@@ -12,6 +12,7 @@ namespace ADO
     public class FireMemberADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
+        public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
         public void InsFireMember(string GroupCName, string GroupName, string GroupClass, string Ename, string Phone,
             string Gmail, bool gender, string ClothesSize, bool Course, string PassKey, string Birthday)
@@ -19,7 +20,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           chclife.FireMember(GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, gender, ClothesSize, Course, PassKey, Birthday)
+                                           " + DbSchema + @"FireMember(GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, gender, ClothesSize, Course, PassKey, Birthday)
                                            VALUES(@GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail, @gender, @ClothesSize, @Course, @PassKey, @Birthday)";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -47,7 +48,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE chclife.FireMember
+                string sql = @"UPDATE " + DbSchema + @"FireMember
                                            SET Phone = @Phone, 
                                                   Gmail = @Gmail, 
                                                   gender = @gender,
@@ -77,7 +78,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE chclife.FireMember
+                string sql = @"UPDATE " + DbSchema + @"FireMember
                                            SET GroupCName = @GroupCName,
                                                    GroupName = @GroupName,
                                                    GroupClass = @GroupClass,
@@ -114,7 +115,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"DELETE FROM chclife.FireMember
+                string sql = @"DELETE FROM " + DbSchema + @"FireMember
                                            WHERE PassKey = @PassKey";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -139,11 +140,11 @@ namespace ADO
 	                                            --CASE WHEN Course = 0 THEN '生命突破' ELSE '教會突破' END Course2,
                                                 '待大會通知' AS Course2,
 
-	                                            (SELECT TOP 1 GroupID FROM ChcGroup 
+	                                            (SELECT TOP 1 GroupID FROM " + DbSchema + @"ChcGroup 
 	                                             WHERE GroupCName = FireMember.GroupCName 
 	                                             AND GroupName = FireMember.GroupName)+'.'+GroupCName+'-'+GroupName group2
 
-                                            FROM chclife.FireMember
+                                            FROM " + DbSchema + @"FireMember
                                             WHERE CreateTime > '2018-4-8'
                                             --ORDER BY CreateTime DESC
                                             ORDER BY group2
@@ -166,11 +167,11 @@ namespace ADO
                                                          CASE WHEN gender = 1 THEN '男' ELSE '女' END gender2,
                                                          CASE WHEN Course = 0 THEN '生命突破' ELSE '教會突破' END Course2,
 
-                                                        (SELECT TOP 1 GroupID FROM ChcGroup 
+                                                        (SELECT TOP 1 GroupID FROM " + DbSchema + @"ChcGroup 
 	                                                      WHERE GroupCName = FireMember.GroupCName 
 	                                                      AND GroupName = FireMember.GroupName)+'.'+GroupCName+'-'+GroupName group2
 
-                                           FROM chclife.FireMember
+                                           FROM " + DbSchema + @"FireMember
                                            WHERE PassKey = @PassKey";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);

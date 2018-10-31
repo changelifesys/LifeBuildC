@@ -16,6 +16,7 @@ namespace ADO
     public class ChcMemberADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
+        public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
         //INSERT
 
@@ -24,7 +25,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           chclife.ChcMember(GroupCName, GroupName, GroupClass, Ename, Gmail, Church, C1_Status, C2_Status, Phone)
+                                           " + DbSchema + @"ChcMember(GroupCName, GroupName, GroupClass, Ename, Gmail, Church, C1_Status, C2_Status, Phone)
                                            VALUES(@GroupCName, @GroupName, @GroupClass, @Ename, @Gmail, @Church, @C1_Status, @C2_Status, @Phone)";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -46,7 +47,7 @@ namespace ADO
 
         public void InsExcelDataByChcMember(string CategoryID, string GroupCName, string GroupName, string GroupClass, string Ename, bool IsPass)
         {
-            string sql = "INSERT INTO chclife.ChcMember(GroupCName, GroupName, GroupClass, Ename,";
+            string sql = "INSERT INTO " + DbSchema + @"ChcMember(GroupCName, GroupName, GroupClass, Ename,";
 
             switch (CategoryID.ToUpper())
             {
@@ -109,7 +110,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE chclife.ChcMember
+                string sql = @"UPDATE " + DbSchema + @"ChcMember
                                             SET Phone = @Phone,
                                                     Gmail = @Gmail,
                                                     Church = @Church
@@ -135,7 +136,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE chclife.ChcMember
+                string sql = @"UPDATE " + DbSchema + @"ChcMember
                                             SET GroupCName = @GroupCName,
                                                     GroupName = @GroupName,
                                                     GroupClass = @GroupClass,
@@ -188,7 +189,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE chclife.ChcMember
+                string sql = @"UPDATE " + DbSchema + @"ChcMember
                                             SET Phone = @Phone
                                             WHERE GroupName = @GroupName
                                             AND GroupCName = @GroupCName
@@ -214,7 +215,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE chclife.ChcMember
+                string sql = @"UPDATE " + DbSchema + @"ChcMember
                                             SET GroupName = @GroupName, 
                                                    GroupCName = @GroupCName,
                                                    GroupClass = @GroupClass
@@ -239,7 +240,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE chclife.ChcMember
+                string sql = @"UPDATE " + DbSchema + @"ChcMember
                                             SET Ename = @Ename
                                             WHERE GroupName = @GroupName
                                             AND GroupCName = @GroupCName
@@ -265,7 +266,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
 
-                string sql = @"UPDATE chclife.ChcMember 
+                string sql = @"UPDATE " + DbSchema + @"ChcMember 
                                             SET C1_Status = '不通過', C2_Status = '不通過'
                                           ";
 
@@ -282,7 +283,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
 
-                string sql = @"UPDATE chclife.ChcMember 
+                string sql = @"UPDATE " + DbSchema + @"ChcMember 
                                             SET C1_Status = '通過'
                                             WHERE IsC112 = 1 AND IsC134 = 1
                                           ";
@@ -300,7 +301,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
 
-                string sql = @"UPDATE chclife.ChcMember 
+                string sql = @"UPDATE " + DbSchema + @"ChcMember 
                                             SET C2_Status = '通過'
                                             WHERE IsC212 = 1 AND IsC234 = 1 AND IsC25 = 1
                                             AND IsC112 = 1 AND IsC134 = 1
@@ -318,7 +319,7 @@ namespace ADO
 
         public void UpdPassDataByChcMember(string CategoryID, string GroupName, string Ename, bool IsPass)
         {
-            string sql = "UPDATE chclife.ChcMember SET";
+            string sql = "UPDATE " + DbSchema + @"ChcMember SET";
 
             switch(CategoryID.ToUpper())
             {
@@ -359,7 +360,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE chclife.ChcMember 
+                string sql = @"UPDATE " + DbSchema + @"ChcMember 
                                             SET witness = @witness
                                             WHERE GroupCName = @GroupCName
                                             AND GroupName = @GroupName
@@ -381,7 +382,7 @@ namespace ADO
         public void UpdScoreByChcMember(string CategoryID, string Phone, string GroupCName, string GroupName, string Ename, int Score)
         {
 
-            string sql = "UPDATE chclife.ChcMember SET Phone = @Phone,";
+            string sql = "UPDATE " + DbSchema + @"ChcMember SET Phone = @Phone,";
 
             switch (CategoryID.ToUpper())
             {
@@ -425,7 +426,7 @@ namespace ADO
             {
 
                 string sql = @"SELECT TOP 1 *
-                                            FROM chclife.ChcMember
+                                            FROM " + DbSchema + @"ChcMember
                                             WHERE Phone = @Phone
                                            ";
 
@@ -445,7 +446,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT TOP 1 *
-                                            FROM chclife.ChcMember
+                                            FROM " + DbSchema + @"ChcMember
                                             WHERE Ename = @Ename
                                            ";
 
@@ -464,7 +465,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT *
-                                            FROM chclife.ChcMember
+                                            FROM " + DbSchema + @"ChcMember
                                             WHERE Ename = @Ename
                                            ";
 
@@ -482,7 +483,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT *, '' AS [No] FROM chclife.ChcMember M
+                string sql = @"SELECT *, '' AS [No] FROM " + DbSchema + @"ChcMember M
                                            ";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
@@ -499,7 +500,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcMember M
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMember M
                                            WHERE Ename LIKE @Ename+'%'
                                            AND IsLeave = 0
                                            ";
@@ -520,11 +521,11 @@ namespace ADO
             {
                 string sql = @"SELECT *,
 
-    (SELECT TOP 1 GroupID FROM ChcGroup 
+    (SELECT TOP 1 GroupID FROM " + DbSchema + @"ChcGroup 
 	WHERE GroupCName = M.GroupCName 
 	AND GroupName = M.GroupName)+'.'+GroupCName+'-'+GroupName group2
 
-                                            FROM chclife.ChcMember M
+                                            FROM " + DbSchema + @"ChcMember M
                                             WHERE MID=@MID
                                            ";
 
@@ -542,7 +543,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcMember
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMember
                                            WHERE GroupCName = @GroupCName
                                            AND IsLeave = 0
                                            ORDER BY GroupName, MID
@@ -563,7 +564,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcMember
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMember
                                            WHERE GroupName = @GroupName
                                            AND IsLeave = 0
                                            ORDER BY GroupName, MID
@@ -584,7 +585,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcMember
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMember
                                            WHERE GroupName = @GroupName
                                            ORDER BY GroupName, MID
                                            ";
@@ -604,7 +605,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcMember
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMember
                                            WHERE GroupCName = @GroupCName
                                            AND GroupName = @GroupName
                                            AND Ename = @Ename
@@ -627,7 +628,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcMember
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMember
                                            WHERE IsLeave = 1
                                            ORDER BY GroupName, MID
                                            ";
@@ -649,13 +650,13 @@ namespace ADO
             {
                 if (GroupName == "")
                 {
-                    sql = @"SELECT * FROM chclife.ChcMember
+                    sql = @"SELECT * FROM " + DbSchema + @"ChcMember
                                     WHERE GroupName = ''
                                   ";
                 }
                 else
                 {
-                    sql = @"SELECT * FROM chclife.ChcMember
+                    sql = @"SELECT * FROM " + DbSchema + @"ChcMember
                                 WHERE GroupName LIKE @GroupName+'%'
                                 --AND (GroupClass IS NULL OR GroupClass = '' OR GroupClass = @GroupClass)
                               ";
@@ -680,7 +681,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcMember
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMember
                                            WHERE MID = @MID
                                            ";
 
@@ -700,7 +701,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcMember
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMember
                                            WHERE GroupCName = @GroupCName
                                            AND GroupName = @GroupName
                                            AND Ename = @Ename";

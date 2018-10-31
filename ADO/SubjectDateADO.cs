@@ -16,6 +16,7 @@ namespace ADO
     public class SubjectDateADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
+        public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
         //INSERT
 
@@ -24,7 +25,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           chclife.SubjectDate(SID, CategoryID, SDate, SubTime)
+                                           " + DbSchema + @"SubjectDate(SID, CategoryID, SDate, SubTime)
                                            VALUES(@SID, @CategoryID, @SDate, @SubTime)";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -45,7 +46,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"DELETE FROM chclife.SubjectDate
+                string sql = @"DELETE FROM " + DbSchema + @"SubjectDate
                                             WHERE SID = @SID
                                             AND CategoryID = @CategoryID
                                           ";
@@ -68,7 +69,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT TOP 1 * FROM chclife.SubjectDate
+                string sql = @"SELECT TOP 1 * FROM " + DbSchema + @"SubjectDate
                                             WHERE LEFT(CategoryID, 2) = @CategoryID
                                             AND SDate = @SDate";
 
@@ -89,7 +90,7 @@ namespace ADO
             {
                 string sql = @"SELECT SubjectInfo.SubStrDate, SubjectInfo.SubEndDate, SubjectInfo.SubCount,
                                                           SubjectDate.*
-                                            FROM chclife.SubjectInfo INNER JOIN chclife.SubjectDate ON SubjectInfo.SID = SubjectDate.SID
+                                            FROM " + DbSchema + @"SubjectInfo INNER JOIN " + DbSchema + @"SubjectDate ON SubjectInfo.SID = SubjectDate.SID
                                             WHERE LEFT(SubjectDate.CategoryID, 2) = @CategoryID
                                             ORDER BY SubjectDate.SID DESC, SubjectDate.SDate";
 
@@ -109,7 +110,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.SubjectDate
+                string sql = @"SELECT * FROM " + DbSchema + @"SubjectDate
                                            WHERE SID = @SID
                                            AND SDate = CONVERT(varchar(100), GETDATE(), 23)";
 

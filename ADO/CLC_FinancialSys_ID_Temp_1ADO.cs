@@ -12,6 +12,7 @@ namespace ADO
     public class CLC_FinancialSys_ID_Temp_1ADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
+        public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
         public DataTable QueryCLC_FinancialSys_ID_Temp_1()
         {
@@ -19,7 +20,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.CLC_FinancialSys_ID_Temp_1";
+                string sql = @"SELECT * FROM " + DbSchema + @"CLC_FinancialSys_ID_Temp_1";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);
             }

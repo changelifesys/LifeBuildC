@@ -13,12 +13,13 @@ namespace ADO
     public class SystemSetADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
+        public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
         public void UpdUserScore(string ScoreGoogleLink, string GoogleKey, string ExamCategory, string IsEnable)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE chclife.SystemSet
+                string sql = @"UPDATE " + DbSchema + @"SystemSet
                                             SET ScoreGoogleLink = @ScoreGoogleLink,
                                                     GoogleKey = @GoogleKey,
                                                     IsEnable = @IsEnable
@@ -42,7 +43,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.SystemSet";
+                string sql = @"SELECT * FROM " + DbSchema + @"SystemSet";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
 
                 sda.Fill(dt);

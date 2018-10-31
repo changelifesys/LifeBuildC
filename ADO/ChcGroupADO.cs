@@ -219,7 +219,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT TOP 1 * FROM chclife.ChcGroup
+                string sql = @"SELECT TOP 1 * FROM " + DbSchema + @"ChcGroup
                                             WHERE GroupName = @GroupName
                                            ";
 
@@ -238,7 +238,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcGroup
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcGroup
                                            WHERE GroupCName = @GroupCName
                                            AND GroupName = @GroupName
                                            AND GroupClass = @GroupClass
@@ -262,7 +262,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT MAX(GSort), mid(GroupName, 1, 2) 
-                                            FROM chclife.ChcGroup
+                                            FROM " + DbSchema + @"ChcGroup
                                             GROUP BY mid(GroupName, 1, 2)
                                             HAVING mid(GroupName, 1, 2) = @GroupName12";
 
@@ -279,7 +279,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcGroup
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcGroup
                                             WHERE GSort > @GSort";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);

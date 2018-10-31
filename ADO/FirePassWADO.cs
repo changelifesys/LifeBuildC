@@ -12,6 +12,7 @@ namespace ADO
     public class FirePassWADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
+        public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
         public bool CheckPassKey(string PassKey)
         {
@@ -19,7 +20,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.FirePassW
+                string sql = @"SELECT * FROM " + DbSchema + @"FirePassW
                                            WHERE PassKey = @PassKey";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);

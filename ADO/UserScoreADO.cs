@@ -13,13 +13,14 @@ namespace ADO
     public class UserScoreADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
+        public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
         public void InsUserScore(string ExamCategory, string Egroup, string Ename, string Emobile, string EScore)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           chclife.UserScore(ExamCategory, Egroup, Ename, Emobile, EScore, CreateDate)
+                                           " + DbSchema + @"UserScore(ExamCategory, Egroup, Ename, Emobile, EScore, CreateDate)
                                            VALUES(@ExamCategory, @Egroup, @Ename, @Emobile, @EScore, GETDATE())";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -40,7 +41,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"DELETE FROM chclife.UserScore
+                string sql = @"DELETE FROM " + DbSchema + @"UserScore
                                             WHERE ExamCategory = @ExamCategory
                                             AND Egroup = @Egroup
                                             AND Ename = @Ename
@@ -63,7 +64,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"DELETE FROM chclife.UserScore
+                string sql = @"DELETE FROM " + DbSchema + @"UserScore
                                             WHERE USID = @USID";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -81,7 +82,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.UserScore
+                string sql = @"SELECT * FROM " + DbSchema + @"UserScore
                                             WHERE ExamCategory = @ExamCategory
                                             AND Egroup = @Egroup
                                             AND Ename = @Ename
@@ -103,7 +104,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.UserScore
+                string sql = @"SELECT * FROM " + DbSchema + @"UserScore
                                             WHERE Egroup = @Egroup
                                             AND Ename = @Ename
                                             AND CONVERT(varchar(100), CreateDate, 111) = @CreateDate";
@@ -123,7 +124,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.UserScore
+                string sql = @"SELECT * FROM " + DbSchema + @"UserScore
                                             ORDER BY CreateDate, ExamCategory, Egroup DESC";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
@@ -137,7 +138,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT Left(CreateDate, 10) AS CreateDate FROM chclife.UserScore
+                string sql = @"SELECT Left(CreateDate, 10) AS CreateDate FROM " + DbSchema + @"UserScore
                                             GROUP BY Left(CreateDate, 10)
                                             ORDER BY Left(CreateDate, 10) DESC";
 
@@ -152,7 +153,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.UserScore
+                string sql = @"SELECT * FROM " + DbSchema + @"UserScore
                                             WHERE USID = @USID";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);

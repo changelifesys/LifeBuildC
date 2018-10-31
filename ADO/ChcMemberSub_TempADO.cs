@@ -15,6 +15,7 @@ namespace ADO
     public class ChcMemberSub_TempADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
+        public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
         //INSERT
 
@@ -23,7 +24,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           chclife.ChcMemberSub_Temp(CategoryID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, EStatus, SubDate)
+                                           " + DbSchema + @"ChcMemberSub_Temp(CategoryID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, EStatus, SubDate)
                                            VALUES(@CategoryID, @GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail, @Church, @EStatus, @SubDate)";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -50,7 +51,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO 
-                                           chclife.ChcMemberSub_Temp([SID], CategoryID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, EStatus, SubDate, Memo, MID, IsPass, Make) 
+                                           " + DbSchema + @"ChcMemberSub_Temp([SID], CategoryID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, EStatus, SubDate, Memo, MID, IsPass, Make) 
 		                                   VALUES (@SID, @CategoryID, @GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail, @Church, @EStatus, @SubDate, @Memo, @MID, @IsPass, @Make);";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -83,7 +84,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE chclife.ChcMemberSub_Temp
+                string sql = @"UPDATE " + DbSchema + @"ChcMemberSub_Temp
                                            SET uptyn = 1";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -100,7 +101,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE chclife.ChcMemberSub_Temp
+                string sql = @"UPDATE " + DbSchema + @"ChcMemberSub_Temp
                                            SET GroupCName = @GroupCName,
                                                   GroupName = @GroupName,
                                                   GroupClass = @GroupClass,
@@ -131,7 +132,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE chclife.ChcMemberSub_Temp
+                string sql = @"UPDATE " + DbSchema + @"ChcMemberSub_Temp
                                            SET UpdateTime = GETDATE(),
                                                   EStatus = 1,
                                                   IsPass = @IsPass,
@@ -158,7 +159,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcMemberSub_Temp
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMemberSub_Temp
                                            WHERE uptyn = 0";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
@@ -173,7 +174,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcMemberSub_Temp
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMemberSub_Temp
                                            WHERE SID = @SID";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
@@ -189,7 +190,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcMemberSub_Temp
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMemberSub_Temp
                                            WHERE No IN (" + No + ")" +
                                          " ORDER BY SubDate";
 
@@ -207,10 +208,10 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcMemberSub_Temp
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMemberSub_Temp
                                            WHERE MID = @MID
                                            AND CategoryID = (
-                                                SELECT TOP 1 CategoryID FROM SubjectDate
+                                                SELECT TOP 1 CategoryID FROM " + DbSchema + @"SubjectDate
                                                 WHERE SID = @SID
                                                 AND SDate = CONVERT(varchar(100), GETDATE(), 23)
                                            )
@@ -233,7 +234,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ChcMemberSub_Temp
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMemberSub_Temp
                                            WHERE MID = @MID
                                            AND SID = @SID";
 
@@ -259,7 +260,7 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"EXEC chclife.sp_ChcMemberSub_Temp_ADD_Data @SID, @CategoryID, @GroupCName, @GroupName, @GroupClass,
+                string sql = @"EXEC " + DbSchema + @"sp_ChcMemberSub_Temp_ADD_Data @SID, @CategoryID, @GroupCName, @GroupName, @GroupClass,
                                             @Ename, @Phone, @Gmail, @Church, @EStatus, @SubDate, @Memo, @MID, @No";
 
                 SqlCommand com = new SqlCommand(sql, con);

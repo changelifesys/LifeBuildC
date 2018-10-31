@@ -13,6 +13,7 @@ namespace ADO
     public class ExamQuestionsADO
     {
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
+        public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
         public void InsExamQuestions(string ExamCategory,
                                                                   int FieldCnt, bool IsField1, string Field1,
@@ -29,7 +30,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           chclife.ExamQuestions(ExamCategory, FieldCnt, IsField1, Field1,
+                                           " + DbSchema + @"ExamQuestions(ExamCategory, FieldCnt, IsField1, Field1,
                                                                           IsField2, Field2,
                                                                           IsField3, Field3,
                                                                           IsField4, Field4,
@@ -97,7 +98,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"UPDATE chclife.ExamQuestions
+                string sql = @"UPDATE " + DbSchema + @"ExamQuestions
                                             SET ExamCategory = @ExamCategory, FieldCnt = @FieldCnt,
                                                     IsField1 = @IsField1, Field1 = @Field1,  
                                                     IsField2 = @IsField2, Field2 = @Field2,
@@ -150,7 +151,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"DELETE FROM chclife.ExamQuestions
+                string sql = @"DELETE FROM " + DbSchema + @"ExamQuestions
                                             WHERE ID = @ID";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -168,7 +169,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ExamQuestions
+                string sql = @"SELECT * FROM " + DbSchema + @"ExamQuestions
                                             WHERE ExamCategory = @ExamCategory";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@ExamCategory", ExamCategory);
@@ -183,8 +184,8 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT EQ.*, S.IsEnable FROM chclife.ExamQuestions EQ
-                                            LEFT JOIN chclife.SystemSet S ON S.ExamCategory = EQ.ExamCategory
+                string sql = @"SELECT EQ.*, S.IsEnable FROM " + DbSchema + @"ExamQuestions EQ
+                                            LEFT JOIN " + DbSchema + @"SystemSet S ON S.ExamCategory = EQ.ExamCategory
                                             WHERE EQ.ExamCategory = @ExamCategory
                                             AND IsEnable = 'True'";
 
@@ -201,7 +202,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ExamQuestions
+                string sql = @"SELECT * FROM " + DbSchema + @"ExamQuestions
                                             WHERE ExamCategory = @ExamCategory
                                           ";
 
@@ -218,7 +219,7 @@ namespace ADO
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM chclife.ExamQuestions
+                string sql = @"SELECT * FROM " + DbSchema + @"ExamQuestions
                                             WHERE ID = @ID";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@ID", ID);
