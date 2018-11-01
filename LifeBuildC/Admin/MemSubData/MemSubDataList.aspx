@@ -85,7 +85,188 @@
             <asp:Button CssClass="inputStyle" ID="btnAllExcel" runat="server" Text="全會友匯出Excel" OnClick="btnAllExcel_Click" />
         </div>
 
-        <asp:GridView ID="gvChcMember" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvChcMember_RowDataBound" HorizontalAlign="Center">
+        <div style="text-align: center; margin: 5px;">
+            <asp:RadioButton ID="rdoAll" runat="server" />全部
+            <asp:RadioButton ID="rdoC1View" runat="server" />C1 詳細
+            <asp:RadioButton ID="rdoC2View" runat="server" />C2 詳細
+        </div>
+
+        <!--全部-->
+        <asp:GridView ID="gvCStatusAll" runat="server" Visible="false" OnRowDataBound="gvChcMember_RowDataBound">
+            <Columns>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:Button ID="btnView" runat="server" Text="檢視" />
+                    </ItemTemplate>
+                    <FooterStyle BackColor="Black" />
+                    <HeaderStyle BorderColor="Black" ForeColor="#006600" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="GroupClass" HeaderText="組&nbsp;&nbsp;&nbsp;別">
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" Font-Underline="False" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+                <asp:TemplateField HeaderText="小&nbsp;&nbsp;&nbsp;組">
+                    <ItemTemplate>
+                        <asp:Label ID="lblGroupCName" runat="server" Text=""></asp:Label>-
+                            <asp:Label ID="lblGroupName" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="200px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" Font-Underline="False" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="Ename" HeaderText="姓&nbsp;&nbsp;&nbsp;名">
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" Font-Underline="False" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+                <asp:BoundField DataField="C1_Status" HeaderText="C1 通過判定">
+                    <FooterStyle BorderColor="Black" />
+                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+                <asp:BoundField DataField="C2_Status" HeaderText="C2 通過判定">
+                    <FooterStyle BorderColor="Black" />
+                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+            </Columns>
+        </asp:GridView>
+
+        <!--C1-->
+        <asp:GridView ID="gvC1All" runat="server" Visible="false" OnRowDataBound="gvChcMember_RowDataBound">
+            <Columns>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:Button ID="btnView" runat="server" Text="檢視" />
+                    </ItemTemplate>
+                    <FooterStyle BackColor="Black" />
+                    <HeaderStyle BorderColor="Black" ForeColor="#006600" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="GroupClass" HeaderText="組&nbsp;&nbsp;&nbsp;別">
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" Font-Underline="False" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+                <asp:TemplateField HeaderText="小&nbsp;&nbsp;&nbsp;組">
+                    <ItemTemplate>
+                        <asp:Label ID="lblGroupCName" runat="server" Text=""></asp:Label>-
+                            <asp:Label ID="lblGroupName" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="200px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" Font-Underline="False" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="Ename" HeaderText="姓&nbsp;&nbsp;&nbsp;名">
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" Font-Underline="False" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+                <asp:TemplateField HeaderText="C1<br/>第一、二課">
+                    <ItemTemplate>
+                        <asp:Label ID="lblIsC112" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="C1<br/>第三、四課">
+                    <ItemTemplate>
+                        <asp:Label ID="lblIsC134" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="C1<br/>更深經歷神">
+                    <ItemTemplate>
+                        <asp:Label ID="lblIsC1God" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="C1_Status" HeaderText="C1 通過判定">
+                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+            </Columns>
+        </asp:GridView>
+
+        <!--C2-->
+        <asp:GridView ID="gvC2All" runat="server" Visible="false" OnRowDataBound="gvChcMember_RowDataBound">
+            <Columns>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:Button ID="btnView" runat="server" Text="檢視" />
+                    </ItemTemplate>
+                    <FooterStyle BackColor="Black" />
+                    <HeaderStyle BorderColor="Black" ForeColor="#006600" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="GroupClass" HeaderText="組&nbsp;&nbsp;&nbsp;別">
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" Font-Underline="False" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+                <asp:TemplateField HeaderText="小&nbsp;&nbsp;&nbsp;組">
+                    <ItemTemplate>
+                        <asp:Label ID="lblGroupCName" runat="server" Text=""></asp:Label>-
+                            <asp:Label ID="lblGroupName" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="200px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" Font-Underline="False" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="Ename" HeaderText="姓&nbsp;&nbsp;&nbsp;名">
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" Font-Underline="False" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+                <asp:TemplateField HeaderText="C2<br/>第一、二課">
+                    <ItemTemplate>
+                        <asp:Label ID="lblIsC212" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="C2<br/>第三、四課">
+                    <ItemTemplate>
+                        <asp:Label ID="lblIsC234" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="C2<br/>第五課">
+                    <ItemTemplate>
+                        <asp:Label ID="lblIsC25" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="60px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="C1_Score" HeaderText="C1 考試">
+                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+                <asp:BoundField DataField="C212_Score" HeaderText="C2 第一、二課考試">
+                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+                <asp:BoundField DataField="C234_Score" HeaderText="C2 第三、四課考試">
+                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+                <asp:TemplateField HeaderText="交見證">
+                    <ItemTemplate>
+                        <asp:Label ID="lblIswitness" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="C2<br/>領袖訓練一">
+                    <ItemTemplate>
+                        <asp:Label ID="lblIsC2L1" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="C2_Status" HeaderText="C2 通過判定">
+                    <FooterStyle BorderColor="Black" />
+                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+            </Columns>
+        </asp:GridView>
+
+        <!--Old-->
+        <asp:GridView Visible="false" ID="gvChcMember" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvChcMember_RowDataBound" HorizontalAlign="Center">
             <Columns>
                 <asp:TemplateField>
                     <ItemTemplate>

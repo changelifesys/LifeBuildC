@@ -38,16 +38,19 @@ namespace LifeBuildC.Admin.MemSubData
 
                 #endregion
 
+                #region Visible
+
                 if (Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "1")
-                { //小組長
+                {
+                    #region 小組長
 
                     //區長功能隱藏
-                    lblGCName.Visible = false; 
-                    dropGroupCName.Visible = false;
+                    lblGCName.Visible = false;  //區長
+                    dropGroupCName.Visible = false; //請選擇區長
 
                     //離開教會功能顯示
-                    chkIsLeave.Visible = false;
-                    lblIsLeave.Visible = false;
+                    chkIsLeave.Visible = false; //離開教會
+                    lblIsLeave.Visible = false; //離開教會
 
                     //手動輸入小組功能隱藏
                     ckbGroupName.Visible = false;
@@ -56,9 +59,12 @@ namespace LifeBuildC.Admin.MemSubData
 
                     //全會友匯出Excel功能隱藏
                     btnAllExcel.Visible = false;
+
+                    #endregion
                 }
                 else if (Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "2")
-                { //區長
+                {
+                    #region 區長
 
                     //小組功能隱藏
                     lblGName.Visible = false;
@@ -70,12 +76,15 @@ namespace LifeBuildC.Admin.MemSubData
 
                     //全會友匯出Excel功能隱藏
                     btnAllExcel.Visible = false;
+
+                    #endregion
                 }
                 else if (Request.QueryString["gid"] == null && Session["Login"] != null && Session["Login"].ToString() == "ok")
-                { //中央同工
+                {
+                    #region 中央同工
 
                     //區長功能隱藏
-                    lblGCName.Visible = false; 
+                    lblGCName.Visible = false;
                     dropGroupCName.Visible = false;
 
                     //離開教會功能顯示
@@ -84,11 +93,16 @@ namespace LifeBuildC.Admin.MemSubData
 
                     //全會友匯出Excel功能顯示
                     btnAllExcel.Visible = true;
+
+                    #endregion
                 }
                 else
                 {
+                    //預設小組長
                     Response.Redirect("MemSubDataList.aspx?gid=1");
                 }
+
+                #endregion
 
                 //組別
                 if (Request.Form["hfGroupClassValue"] != null)
@@ -126,7 +140,6 @@ namespace LifeBuildC.Admin.MemSubData
         /// </summary>
         protected void gvChcMember_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-
             //滑鼠移入移出效果
             if (e.Row.RowType == DataControlRowType.DataRow &&
                 ((e.Row.RowState & DataControlRowState.Edit) <= 0))
@@ -136,11 +149,12 @@ namespace LifeBuildC.Admin.MemSubData
 
                 ((Button)e.Row.FindControl("btnView")).PostBackUrl = "MemSubDataEdit.aspx?id=" + DataBinder.Eval(e.Row.DataItem, "MID").ToString();
                 
-
                 if (Request.QueryString["gid"] != null)
-                {
+                { //只有中央同工才能更改資料
                     ((Button)e.Row.FindControl("btnView")).Visible = false;
                 }
+
+                var grid = (GridView)sender;
 
                 #region 小組
 
@@ -151,78 +165,128 @@ namespace LifeBuildC.Admin.MemSubData
 
                 #region C1 第一、二課
 
-                if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC112").ToString()))
+                if (grid.ID == "gvC1All")
                 {
-                    ((Label)e.Row.FindControl("lblIsC112")).Text = "V";
-                }
-                else
-                {
-                    ((Label)e.Row.FindControl("lblIsC112")).Text = "";
+                    if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC112").ToString()))
+                    {
+                        ((Label)e.Row.FindControl("lblIsC112")).Text = "V";
+                    }
+                    else
+                    {
+                        ((Label)e.Row.FindControl("lblIsC112")).Text = "";
+                    }
                 }
 
                 #endregion
 
                 #region C1 第三、四課
 
-                if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC134").ToString()))
+                if (grid.ID == "gvC1All")
                 {
-                    ((Label)e.Row.FindControl("lblIsC134")).Text = "V";
+                    if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC134").ToString()))
+                    {
+                        ((Label)e.Row.FindControl("lblIsC134")).Text = "V";
+                    }
+                    else
+                    {
+                        ((Label)e.Row.FindControl("lblIsC134")).Text = "";
+                    }
                 }
-                else
+
+                #endregion
+
+                #region C1 更深經歷神
+
+                if (grid.ID == "gvC1All")
                 {
-                    ((Label)e.Row.FindControl("lblIsC134")).Text = "";
+                    if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC1God").ToString()))
+                    {
+                        ((Label)e.Row.FindControl("lblIsC1God")).Text = "V";
+                    }
+                    else
+                    {
+                        ((Label)e.Row.FindControl("lblIsC1God")).Text = "";
+                    }
                 }
 
                 #endregion
 
                 #region C2 第一、二課
 
-                if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC212").ToString()))
+                if (grid.ID == "gvC2All")
                 {
-                    ((Label)e.Row.FindControl("lblIsC212")).Text = "V";
-                }
-                else
-                {
-                    ((Label)e.Row.FindControl("lblIsC212")).Text = "";
+                    if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC212").ToString()))
+                    {
+                        ((Label)e.Row.FindControl("lblIsC212")).Text = "V";
+                    }
+                    else
+                    {
+                        ((Label)e.Row.FindControl("lblIsC212")).Text = "";
+                    }
                 }
 
                 #endregion
 
                 #region C2 第三、四課
 
-                if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC234").ToString()))
+                if (grid.ID == "gvC2All")
                 {
-                    ((Label)e.Row.FindControl("lblIsC234")).Text = "V";
-                }
-                else
-                {
-                    ((Label)e.Row.FindControl("lblIsC234")).Text = "";
+                    if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC234").ToString()))
+                    {
+                        ((Label)e.Row.FindControl("lblIsC234")).Text = "V";
+                    }
+                    else
+                    {
+                        ((Label)e.Row.FindControl("lblIsC234")).Text = "";
+                    }
                 }
 
                 #endregion
 
                 #region C2 第五課
 
-                if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC25").ToString()))
+                if (grid.ID == "gvC2All")
                 {
-                    ((Label)e.Row.FindControl("lblIsC25")).Text = "V";
-                }
-                else
-                {
-                    ((Label)e.Row.FindControl("lblIsC25")).Text = "";
+                    if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC25").ToString()))
+                    {
+                        ((Label)e.Row.FindControl("lblIsC25")).Text = "V";
+                    }
+                    else
+                    {
+                        ((Label)e.Row.FindControl("lblIsC25")).Text = "";
+                    }
                 }
 
                 #endregion
 
                 #region 交見證
 
-                if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "Iswitness").ToString()))
+                if (grid.ID == "gvC2All")
                 {
-                    ((Label)e.Row.FindControl("lblIswitness")).Text = "V";
+                    if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "Iswitness").ToString()))
+                    {
+                        ((Label)e.Row.FindControl("lblIswitness")).Text = "V";
+                    }
+                    else
+                    {
+                        ((Label)e.Row.FindControl("lblIswitness")).Text = "";
+                    }
                 }
-                else
+
+                #endregion
+
+                #region C2 領袖訓練一
+
+                if (grid.ID == "gvC2All")
                 {
-                    ((Label)e.Row.FindControl("lblIswitness")).Text = "";
+                    if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC2L1").ToString()))
+                    {
+                        ((Label)e.Row.FindControl("lblIsC2L1")).Text = "V";
+                    }
+                    else
+                    {
+                        ((Label)e.Row.FindControl("lblIsC2L1")).Text = "";
+                    }
                 }
 
                 #endregion
@@ -236,13 +300,10 @@ namespace LifeBuildC.Admin.MemSubData
         protected void dropGroupClass_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtEname.Text = "";
-
             int _cnt = 0;
-
             if (Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "1")
-            { //小組長
-
-                #region
+            {
+                #region 小組長
 
                 DataTable dtGroup = group.Query_ChcGroup_GSort_GroupClass(dropGroupClass.SelectedItem.Text);
 
@@ -279,7 +340,8 @@ namespace LifeBuildC.Admin.MemSubData
                 #endregion
             }
             else if (Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "2")
-            { //區長
+            {
+                #region 區長
 
                 if (ckbGroupName.Checked)
                 {
@@ -315,10 +377,11 @@ namespace LifeBuildC.Admin.MemSubData
                     #endregion
                 }
 
-
+                #endregion
             }
             else if (Request.QueryString["gid"] == null && Session["Login"] != null && Session["Login"].ToString() == "ok")
-            { //中央同工
+            {
+                #region 中央同工
 
                 if (ckbGroupName.Checked)
                 {
@@ -366,6 +429,7 @@ namespace LifeBuildC.Admin.MemSubData
                     #endregion
                 }
 
+                #endregion
             }
 
         }
