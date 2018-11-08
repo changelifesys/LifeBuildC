@@ -132,7 +132,8 @@ namespace ADO
         public void UpdChcMember2(int MID, string GroupCName, string GroupName, string GroupClass,
             string Ename, string Church, string C1_Status, string C2_Status,
             bool IsC112, bool IsC134, bool IsC212, bool IsC234, bool IsC25, int C1_Score, int C212_Score, int C234_Score,
-            string witness, bool Iswitness, bool IsLeave)
+            string witness, bool Iswitness, bool IsLeave,
+            bool IsC1God, bool IsC2L1)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
@@ -154,7 +155,9 @@ namespace ADO
                                                     C234_Score = @C234_Score,
                                                     witness = @witness,
                                                     Iswitness = @Iswitness,
-                                                    IsLeave = @IsLeave
+                                                    IsLeave = @IsLeave,
+                                                    IsC1God = @IsC1God,
+                                                    IsC2L1 = @IsC2L1
                                             WHERE MID = @MID
                                           ";
 
@@ -177,6 +180,8 @@ namespace ADO
                 com.Parameters.AddWithValue("@witness", witness);
                 com.Parameters.AddWithValue("@Iswitness", Iswitness);
                 com.Parameters.AddWithValue("@IsLeave", IsLeave);
+                com.Parameters.AddWithValue("@IsC1God", IsC1God);
+                com.Parameters.AddWithValue("@IsC2L1", IsC2L1);
                 com.Parameters.AddWithValue("@MID", MID);
 
                 con.Open();
@@ -285,7 +290,7 @@ namespace ADO
 
                 string sql = @"UPDATE " + DbSchema + @"ChcMember 
                                             SET C1_Status = '通過'
-                                            WHERE IsC112 = 1 AND IsC134 = 1
+                                            WHERE (IsC112 = 1 AND IsC134 = 1) OR IsC1God = 1
                                           ";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -303,10 +308,10 @@ namespace ADO
 
                 string sql = @"UPDATE " + DbSchema + @"ChcMember 
                                             SET C2_Status = '通過'
-                                            WHERE IsC212 = 1 AND IsC234 = 1 AND IsC25 = 1
+                                            WHERE (IsC212 = 1 AND IsC234 = 1 AND IsC25 = 1
                                             AND IsC112 = 1 AND IsC134 = 1
                                             AND C1_Score >= 70 AND C212_Score >= 70 AND C234_Score >= 70
-                                            AND Iswitness = 1
+                                            AND Iswitness = 1) OR IsC2L1 = 1
                                           ";
 
                 SqlCommand com = new SqlCommand(sql, con);

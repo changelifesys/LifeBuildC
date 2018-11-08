@@ -110,6 +110,16 @@
                 </td>
             </tr>
 
+            <!--C1 更深經歷神-->
+            <tr style="height: 40px;">
+                <td style="width: 150px; background-color: rgb(204,204,204)">
+                    <asp:Label ID="Label22" ForeColor="Black" Font-Bold="true" runat="server" Text="C1 更深經歷神"></asp:Label>
+                </td>
+                <td style="background-color: rgb(239,239,239); text-align: center;">
+                    <asp:CheckBox ID="chkIsC1God" runat="server" />通過
+                </td>
+            </tr>
+
             <!--C2 第一、二課-->
             <tr style="height: 40px;">
                 <td style="width: 150px; background-color: rgb(204,204,204)">
@@ -137,6 +147,16 @@
                 </td>
                 <td style="background-color: rgb(239,239,239); text-align: center;">
                     <asp:CheckBox ID="chkIsC25" runat="server" />通過
+                </td>
+            </tr>
+
+            <!--C2 領袖訓練一-->
+            <tr style="height: 40px;">
+                <td style="width: 150px; background-color: rgb(204,204,204)">
+                    <asp:Label ID="Label23" ForeColor="Black" Font-Bold="true" runat="server" Text="C2 領袖訓練一"></asp:Label>
+                </td>
+                <td style="background-color: rgb(239,239,239); text-align: center;">
+                    <asp:CheckBox ID="chkIsC2L1" runat="server" />通過
                 </td>
             </tr>
 

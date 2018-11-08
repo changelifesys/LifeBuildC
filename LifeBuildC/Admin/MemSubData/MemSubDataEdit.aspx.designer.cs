@@ -220,6 +220,24 @@ namespace LifeBuildC.Admin.MemSubData {
         protected global::System.Web.UI.WebControls.CheckBox chkIsC134;
         
         /// <summary>
+        /// Label22 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label22;
+        
+        /// <summary>
+        /// chkIsC1God 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkIsC1God;
+        
+        /// <summary>
         /// Label11 控制項。
         /// </summary>
         /// <remarks>
@@ -272,6 +290,24 @@ namespace LifeBuildC.Admin.MemSubData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkIsC25;
+        
+        /// <summary>
+        /// Label23 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label23;
+        
+        /// <summary>
+        /// chkIsC2L1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkIsC2L1;
         
         /// <summary>
         /// Label14 控制項。

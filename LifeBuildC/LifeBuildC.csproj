@@ -276,6 +276,7 @@
     <Content Include="LogConfig\GetSUBInfo.config" />
     <Content Include="LogConfig\UpdSubSign.config" />
     <Content Include="LogConfig\AddSubSign.config" />
+    <Content Include="LogConfig\GetMemSubData.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -593,7 +594,6 @@
     <Compile Include="Api\UpdWitness.aspx.designer.cs">
       <DependentUpon>UpdWitness.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Class\ChcGroupClass.cs" />
     <Compile Include="Exam.aspx.cs">
       <DependentUpon>Exam.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

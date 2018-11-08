@@ -42,26 +42,6 @@ namespace LifeBuildC.Api
         ApiInfo Api_Info = new ApiInfo();
         ApiData.ApiAddSubSign Api_Data = new ApiData.ApiAddSubSign();
 
-        /// <summary>
-        /// StreamReader電文
-        /// </summary>
-        //string strAddSubSign = string.Empty;
-        /// <summary>
-        /// 牧區
-        /// </summary>
-        //string GroupCName = string.Empty;
-        /// <summary>
-        /// 小組
-        /// </summary>
-        //string GroupName = string.Empty;
-        /// <summary>
-        /// 組別
-        /// </summary>
-        //string GroupClass = string.Empty;
-
-        //String sheetName = "";
-        //String spreadsheetId = "";
-
         protected void Page_Load(object sender, EventArgs e)
         {
             XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/LogConfig/AddSubSign.config")));
@@ -95,17 +75,11 @@ namespace LifeBuildC.Api
                 Api_Data.IsApiError = false;
 
                 //小組
-                //string[] arrg = Api_Data.group.Split('.');
-                //GroupCName = arrg[1].Split('-')[0];
-                //GroupName = arrg[1].Split('-')[1];
-                //GroupClass = Api_Data.gcroup;
                 Api_Info.GetGroupData(Api_Data.group, Api_Data.gcroup);
 
                 if (Api_Data.CategoryID == "C1")
                 { //C1課程沒有限制報名資格
 
-                    //sheetName = "C1報名";
-                    //spreadsheetId = "1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8";
                     Google_Sheet_Api = null;
                     Google_Sheet_Api = new GoogleSheetApi("1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8", "C1報名");
                     AddSubSignProcess();
@@ -116,7 +90,6 @@ namespace LifeBuildC.Api
                 { //C2課程需上完C1才可報名
 
                     //DataTable dtMem = chcmember.GetChcMemberByGroup(GroupCName, GroupName, api.Ename);
-
                     string _MID = "0";
                     if (Api_Data.MID.IndexOf(',') > 0)
                     {
@@ -129,10 +102,10 @@ namespace LifeBuildC.Api
 
                         bool IsC112 = bool.Parse(dtMem.Rows[0]["IsC112"].ToString());
                         bool IsC134 = bool.Parse(dtMem.Rows[0]["IsC134"].ToString());
-                        if (IsC112 && IsC134)
+                        bool IsC1God = bool.Parse(dtMem.Rows[0]["IsC1God"].ToString());
+
+                        if ((IsC112 && IsC134) || IsC1God)
                         {
-                            //sheetName = "C2報名";
-                            //spreadsheetId = "1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs";
                             Google_Sheet_Api = null;
                             Google_Sheet_Api = new GoogleSheetApi("1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs", "C2報名");
                             AddSubSignProcess();
@@ -260,68 +233,6 @@ namespace LifeBuildC.Api
             );
 
         }
-
-        /// <summary>
-        /// 新增一筆資料
-        /// </summary>
-        //private void AddDataByV4Sheets()
-        //{
-        //    SheetsService sheetsService = new SheetsService(new BaseClientService.Initializer
-        //    {
-        //        HttpClientInitializer = GetCredential(),
-        //        ApplicationName = "Get Google SheetData with Google Sheets API",
-        //    });
-
-        //    var valueRange = new ValueRange();
-
-        //    var oblist = new List<object>() {
-        //            DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
-        //            Api_Data.Ename,
-        //            Api_Data.group_1,
-        //            Api_Data.group_2,
-        //            Api_Data.group_3,
-        //            Api_Data.group_4,
-        //            Api_Data.SubDate
-        //        };
-
-        //    valueRange.Values = new List<IList<object>> { oblist };
-
-        //    valueRange.MajorDimension = "Rows"; //Rows or Columns
-
-        //    SpreadsheetsResource.ValuesResource.AppendRequest request = sheetsService.Spreadsheets.Values.Append(valueRange, spreadsheetId, sheetName);
-        //    request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
-        //    var appendReponse = request.Execute();
-        //}
-
-        //private UserCredential GetCredential()
-        //{
-        //    // TODO: Change placeholder below to generate authentication credentials. See:
-        //    // https://developers.google.com/sheets/quickstart/dotnet#step_3_set_up_the_sample
-        //    //
-        //    // Authorize using one of the following scopes:
-        //    //     "https://www.googleapis.com/auth/drive"
-        //    //     "https://www.googleapis.com/auth/drive.file"
-        //    //     "https://www.googleapis.com/auth/spreadsheets"
-
-        //    string[] Scopes = { SheetsService.Scope.Spreadsheets };
-        //    UserCredential credential;
-        //    var folder = System.Web.HttpContext.Current.Server.MapPath("/App_Data/MyGoogleStorage");
-
-        //    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-        //        new ClientSecrets
-        //        {
-        //            ClientId = "117990626740-rptck4cro3bpbu3u7da3t4qlr20i3rsl.apps.googleusercontent.com",
-        //            ClientSecret = "zcFr6UCqdX-jo29QFogCcyf1"
-        //        },
-        //        Scopes,
-        //        "user",
-        //        CancellationToken.None,
-        //        new FileDataStore(folder)).Result;
-
-
-        //    return credential;
-        //}
-
 
 
     }

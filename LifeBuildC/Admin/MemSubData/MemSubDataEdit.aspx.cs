@@ -1,5 +1,5 @@
 ﻿using ADO;
-using LifeBuildC.Class;
+using libLifeBuildC;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,16 +12,15 @@ namespace LifeBuildC.Admin.MemSubData
 {
     public partial class MemSubDataEdit : System.Web.UI.Page
     {
-        ChcMemberADO member = new ChcMemberADO();
-        ChcGroupADO group = new ChcGroupADO();
-        ClassStatusADO cstatus = new ClassStatusADO();
-        ChcGroupClass groupclass = new ChcGroupClass();
+        AdoInfo Ado_Info = new AdoInfo();
+        ApiInfo Api_Info = new ApiInfo();
+        ApiInfo.ChcGroupClass groupclass = new ApiInfo.ChcGroupClass();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                if (CheckIntByRequest("id", 0) > 0)
+                if (Api_Info.CheckIntByRequest("id", 0) > 0)
                 {
                     hfChcGroup.Value = groupclass.GetJsonByChcGroup();
                     PageDataLoad();
@@ -37,7 +36,7 @@ namespace LifeBuildC.Admin.MemSubData
 
         private void PageDataLoad()
         {
-            DataTable dt = member.QueryMIDByChcMember(int.Parse(Request.QueryString["id"].ToString()));
+            DataTable dt = Ado_Info.ChcMember_ADO.QueryMIDByChcMember(int.Parse(Request.QueryString["id"].ToString()));
 
             //組別
             hfGroupClass.Value = dt.Rows[0]["GroupClass"].ToString();
@@ -63,6 +62,12 @@ namespace LifeBuildC.Admin.MemSubData
                 chkIsC134.Checked = true;
             }
 
+            //C1 更深經歷神
+            if (bool.Parse(dt.Rows[0]["IsC1God"].ToString()))
+            {
+                chkIsC1God.Checked = true;
+            }
+
             //C2 第一、二課
             if (bool.Parse(dt.Rows[0]["IsC212"].ToString()))
             {
@@ -79,6 +84,12 @@ namespace LifeBuildC.Admin.MemSubData
             if (bool.Parse(dt.Rows[0]["IsC25"].ToString()))
             {
                 chkIsC25.Checked = true;
+            }
+
+            //C2 領袖訓練一
+            if (bool.Parse(dt.Rows[0]["IsC2L1"].ToString()))
+            {
+                chkIsC2L1.Checked = true;
             }
 
             //C1 考試
@@ -120,7 +131,7 @@ namespace LifeBuildC.Admin.MemSubData
         {
             int MID = int.Parse(Request.QueryString["id"].ToString());
 
-            DataTable dtStatus = cstatus.QueryByClassStatus();
+            DataTable dtStatus = Ado_Info.ClassStatus_ADO.QueryByClassStatus();
 
             //組別
             string GroupClass = hfGroupClassValue.Value;
@@ -154,6 +165,9 @@ namespace LifeBuildC.Admin.MemSubData
             //C1 第三、四課
             bool IsC134 = chkIsC134.Checked;
 
+            //C1 更深經歷神
+            bool IsC1God = chkIsC1God.Checked;
+
             //C2 第一、二課
             bool IsC212 = chkIsC212.Checked;
 
@@ -162,6 +176,9 @@ namespace LifeBuildC.Admin.MemSubData
 
             //C2 第五課
             bool IsC25 = chkIsC25.Checked;
+
+            //C2 領袖訓練一
+            bool IsC2L1 = chkIsC2L1.Checked;
 
             //C1 考試
             int C1_Score = int.Parse(txtC1_Score.Text.Trim());
@@ -178,18 +195,17 @@ namespace LifeBuildC.Admin.MemSubData
 
             //C1 通過判定
             string C1_Status = dtStatus.Select("StatusID='C002'")[0]["ClassStatus"].ToString();
-            if (IsC112 && IsC134)
+            if ((IsC112 && IsC134) || IsC1God)
             {
                 C1_Status = dtStatus.Select("StatusID='C001'")[0]["ClassStatus"].ToString();
             }
 
-
             //C2 通過判定
             string C2_Status = dtStatus.Select("StatusID='C002'")[0]["ClassStatus"].ToString();
-            if (IsC112 && IsC134 && 
+            if ((IsC112 && IsC134 && 
                 IsC212 && IsC234 && IsC25 && 
                 Iswitness && 
-                C1_Score >= 70 && C212_Score >= 70 && C234_Score >= 70)
+                C1_Score >= 70 && C212_Score >= 70 && C234_Score >= 70) || IsC2L1)
             {
                 C2_Status = dtStatus.Select("StatusID='C001'")[0]["ClassStatus"].ToString();
             }
@@ -197,45 +213,15 @@ namespace LifeBuildC.Admin.MemSubData
             //是否離開教會
             bool IsLeave = chkIsLeave.Checked;
 
-            member.UpdChcMember2(MID, GroupCName, GroupName, GroupClass,
+            Ado_Info.ChcMember_ADO.UpdChcMember2(MID, GroupCName, GroupName, GroupClass,
                                                              Ename, Church, C1_Status, C2_Status,
                                                              IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score,
-                                                             witness, Iswitness, IsLeave);
+                                                             witness, Iswitness, IsLeave,
+                                                             IsC1God, IsC2L1);
 
             btnSave.PostBackUrl = "~/Admin/MemSubData/MemSubDataList.aspx";
             //Response.Write("<script>alert('儲存成功');</script>");
             ScriptManager.RegisterStartupScript(Page, GetType(), "clicktest", "<script>clickSave()</script>", false);
-        }
-
-        private int CheckIntByRequest(string Request_Name, int initial_value)
-        {
-            string _value = initial_value.ToString();
-            if (Request[Request_Name] != null && Request[Request_Name].ToString().Length > 0)
-                _value = Request[Request_Name].ToString();
-
-            int _IntValue = initial_value;
-            if (CheckInt(_value)) //只能輸入數字
-                _IntValue = int.Parse(_value); //是數字
-
-            return _IntValue;
-        }
-
-        /// <summary>
-        /// Int資料格式檢查
-        /// </summary>
-        /// <param name="IntData">Int資料</param>
-        /// <returns>True:驗證通過;Fals:驗證失敗</returns>
-        public bool CheckInt(string IntData)
-        {
-            int _data = 0;
-            int.TryParse(IntData, out _data);
-
-            if (_data > 0)
-            {
-                return true;
-            }
-
-            return false;
         }
 
         protected void btnCel_Click(object sender, EventArgs e)

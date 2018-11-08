@@ -1,9 +1,12 @@
-﻿using System;
+﻿using ADO;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace libLifeBuildC
 {
@@ -81,7 +84,90 @@ namespace libLifeBuildC
 
         #endregion
 
+        //Check
 
+        public int CheckIntByRequest(string Request_Name, int initial_value)
+        {
+            string _value = initial_value.ToString();
+            if (HttpContext.Current.Request[Request_Name] != null && HttpContext.Current.Request[Request_Name].ToString().Length > 0)
+                _value = HttpContext.Current.Request[Request_Name].ToString();
+
+            int _IntValue = initial_value;
+            if (CheckInt(_value)) //只能輸入數字
+                _IntValue = int.Parse(_value); //是數字
+
+            return _IntValue;
+        }
+
+        /// <summary>
+        /// Int資料格式檢查
+        /// </summary>
+        /// <param name="IntData">Int資料</param>
+        /// <returns>True:驗證通過;Fals:驗證失敗</returns>
+        public bool CheckInt(string IntData)
+        {
+            int _data = 0;
+            int.TryParse(IntData, out _data);
+
+            if (_data > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        //Class
+
+        public class ChcGroupClass
+        {
+            ChcGroupADO chcgroup = new ChcGroupADO();
+
+            public string GetJsonByChcGroup()
+            {
+                PageData PageData = new PageData();
+                DataTable dt = chcgroup.Query_ChcGroup_GroupClass();
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        DataInfo dinfo = new DataInfo();
+                        dinfo.group = dr["GroupClass"].ToString();
+
+                        DataTable dtlist = chcgroup.Query_ChcGroup_GSort_GroupClass(dr["GroupClass"].ToString());
+                        foreach (DataRow drlist in dtlist.Rows)
+                        {
+                            string _GroupID = drlist["GroupID"].ToString();
+                            string _GroupCName = drlist["GroupCName"].ToString();
+                            string _GroupName = drlist["GroupName"].ToString();
+
+                            //出輸格式
+                            //AA101.永健牧區-永健小組
+                            dinfo.list.Add(_GroupID + "." + _GroupCName + "-" + _GroupName);
+                        }
+
+                        PageData.DataInfo.Add(dinfo);
+                    }
+
+
+                }
+
+                return JsonConvert.SerializeObject(PageData);
+
+            }
+
+            public class PageData
+            {
+                public List<DataInfo> DataInfo = new List<DataInfo>();
+            }
+
+            public class DataInfo
+            {
+                public string group;
+                public List<string> list = new List<string>();
+            }
+
+        }
 
     }
 }

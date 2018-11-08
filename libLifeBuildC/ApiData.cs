@@ -236,5 +236,135 @@ namespace libLifeBuildC
             /// </summary>
             public int SID { get; set; }
         }
+        /// <summary>
+        /// 個人上課查詢
+        /// </summary>
+        public class ApiGetMemSubData
+        {
+            /// <summary>
+            /// 組別
+            /// </summary>
+            public string gcroup { get; set; }
+            /// <summary>
+            /// 小組
+            /// </summary>
+            public string group { get; set; }
+            /// <summary>
+            /// 姓名
+            /// </summary>
+            public string Ename { get; set; }
+            /// <summary>
+            /// C1 一、二課(True: 通過 ; False: 沒通過)
+            /// </summary>
+            public bool IsC112 = false;
+            /// <summary>
+            /// C1 一、二課狀態訊息
+            /// </summary>
+            public string TxtC112 = "查無上課資料";
+            /// <summary>
+            /// C1 三、四課(True: 通過 ; False: 沒通過)
+            /// </summary>
+            public bool IsC134 = false;
+            /// <summary>
+            /// C1 三、四課狀態訊息
+            /// </summary>
+            public string TxtC134 = "查無上課資料";
+            /// <summary>
+            /// C1 更深經歷神(True: 通過 ; False: 沒通過)
+            /// </summary>
+            public bool IsC1God = false;
+            /// <summary>
+            /// C1 更深經歷神狀態訊息
+            /// </summary>
+            public string TxtC1God = "查無上課資料";
+            /// <summary>
+            /// C1 考試成績
+            /// </summary>
+            public bool IsC1_Score = false;
+            /// <summary>
+            /// C1 考試成績狀態訊息
+            /// </summary>
+            public string TxtC1_Score = "查無考試成績";
+            /// <summary>
+            /// C2 一、二課(True: 通過 ; False: 沒通過)
+            /// </summary>
+            public bool IsC212 = false;
+            /// <summary>
+            /// C2 一、二課狀態訊息
+            /// </summary>
+            public string TxtIsC212 = "查無上課資料";
+            /// <summary>
+            /// C2 三、四課(True: 通過 ; False: 沒通過)
+            /// </summary>
+            public bool IsC234 = false;
+            /// <summary>
+            /// C2 三、四課狀態訊息
+            /// </summary>
+            public string TxtIsC234 = "查無上課資料";
+            /// <summary>
+            /// C2 第五課(True: 通過 ; False: 沒通過)
+            /// </summary>
+            public bool IsC25 = false;
+            /// <summary>
+            /// C2 第五課狀態訊息
+            /// </summary>
+            public string TxtIsC25 = "查無上課資料";
+            /// <summary>
+            /// C2 領袖訓練一(True: 通過 ; False: 沒通過)
+            /// </summary>
+            public bool IsC2L1 = false;
+            /// <summary>
+            /// C2 領袖訓練一狀態訊息
+            /// </summary>
+            public string TxtC2L1 = "查無上課資料";
+            /// <summary>
+            /// 見證繳交(True: 有繳交 ; False: 沒有繳交)
+            /// </summary>
+            public bool Iswitness = false;
+            /// <summary>
+            /// 見證繳交狀態訊息
+            /// </summary>
+            public string Txtwitness = "查無繳交見證";
+            /// <summary>
+            /// C2 一、二課考試成績
+            /// </summary>
+            public bool IsC212_Score = false;
+            /// <summary>
+            /// C2 一、二課考試成績狀態訊息
+            /// </summary>
+            public string TxtC212_Score = "查無考試成績";
+            /// <summary>
+            /// C2 三、四課考試成績
+            /// </summary>
+            public bool IsC234_Score = false;
+            /// <summary>
+            /// C2 三、四課考試成績狀態訊息
+            /// </summary>
+            public string TxtC234_Score = "查無考試成績";
+            /// <summary>
+            /// C1 通過狀態(True: 有通過 ; False: 沒有通過)
+            /// </summary>
+            public bool IsC1_Status = false;
+            /// <summary>
+            /// C1 通過狀態狀態訊息
+            /// </summary>
+            public string TxtC1_Status = "C1 判定不通過";
+            /// <summary>
+            /// C2 通過狀態(True: 有通過 ; False: 沒有通過)
+            /// </summary>
+            public bool IsC2_Status = false;
+            /// <summary>
+            /// C2 通過狀態狀態訊息
+            /// </summary>
+            public string TxtC2_Status = "C2 判定不通過";
+            /// <summary>
+            /// API 訊息
+            /// </summary>
+            public string ApiMsg { get; set; }
+            /// <summary>
+            /// API 有錯(true: 有錯; false: 沒有錯)
+            /// </summary>
+            public bool IsApiError = false;
+        }
     }
 }
