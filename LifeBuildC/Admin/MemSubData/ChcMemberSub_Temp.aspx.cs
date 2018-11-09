@@ -203,10 +203,8 @@ namespace LifeBuildC.Admin.MemSubData
 
                     //寫入Log
                     chcmemlog.InsChcMemberByChcMember_Log(dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString());
-
                 }
             }
-
 
             //更新完畢
             //UPDATE uptyn = 1
@@ -217,17 +215,7 @@ namespace LifeBuildC.Admin.MemSubData
             chcmember.UpdC1_StatusByChcMember();
             chcmember.UpdC2_StatusByChcMember();
             Response.Write("<script>alert('成功匯入');</script>");
-            //imgloading.Visible = false;
 
-
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                Response.Write("<script>alert('匯入失敗 '" + ex.ToString() + ");</script>");
-            }
 
             
 

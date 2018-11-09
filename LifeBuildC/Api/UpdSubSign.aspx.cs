@@ -61,7 +61,18 @@ namespace LifeBuildC.Api
             {
                 logger.Info("StreamR=[" + Api_Info.strJsonData + "]");
                 Api_Info.ClassStatus_C001 = Ado_Info.ClassStatus_ADO.GetClassStatusByStatusID("C001");
-                ApiProcess();
+
+                try
+                {
+                    ApiProcess();
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.ToString());
+                    Api_Data.IsApiError = true;
+                    Api_Data.ApiMsg = "請確認網路是否斷線或填寫的資料內容有誤";
+                }
+
             }
 
             logger.Info("Recv=[" + JsonConvert.SerializeObject(Api_Data) + "]");
@@ -72,53 +83,47 @@ namespace LifeBuildC.Api
 
         private void ApiProcess()
         {
-            try
+            Api_Info.GetGroupData(Api_Data.group, Api_Data.gcroup);
+            switch ((Api_Data.CategoryID).ToUpper())
             {
-                Api_Info.GetGroupData(Api_Data.group, Api_Data.gcroup);
-                switch ((Api_Data.CategoryID).ToUpper())
-                {
-                    case "C1":
+                case "C1":
 
-                        Google_Sheet_Api = null;
-                        Google_Sheet_Api = new GoogleSheetApi("1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8", "C1報到");
-                        UpdSubSignProcess();
-                        Api_Data.ApiMsg = "C1 課程簽到成功";
+                    Google_Sheet_Api = null;
+                    Google_Sheet_Api = new GoogleSheetApi("1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8", "C1報到");
+                    UpdSubSignProcess();
+                    Api_Data.ApiMsg = "C1 課程簽到成功";
+                    break;
 
-                        break;
-                    case "C2":
+                case "C2":
+                case "C2M":
+                case "C2W":
 
-                        if (Api_Data.MID != "")
-                        { //C2 不能現場報名
+                    if (Api_Data.MID != "")
+                    {
+                        //C2 不能現場報名
+                        //C2 榮耀男人&C2 幸福女人 需上完C1才可報名
 
-                            if (Ado_Info.ChcMemberSub_Temp_ADO.ChkChcMemberSub_TempByMID(int.Parse(Api_Data.MID.Split(',')[0]), Api_Data.SID))
-                            {
-                                Google_Sheet_Api = null;
-                                Google_Sheet_Api = new GoogleSheetApi("1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs", "C2報到");
-                                UpdSubSignProcess();
-                                Api_Data.ApiMsg = "C2 課程簽到成功";
-                            }
-                            else
-                            {
-                                Api_Data.IsApiError = true;
-                                Api_Data.ApiMsg = "無法簽到，您並沒有報名 C2 的上課";
-                                //Api_Data.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
-                            }
+                        if (Ado_Info.ChcMemberSub_Temp_ADO.ChkChcMemberSub_TempByMID(int.Parse(Api_Data.MID.Split(',')[0]), Api_Data.SID))
+                        {
+                            Google_Sheet_Api = null;
+                            Google_Sheet_Api = new GoogleSheetApi("1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs", "C2報到");
+                            UpdSubSignProcess();
+                            Api_Data.ApiMsg = "C2 課程簽到成功";
                         }
                         else
                         {
                             Api_Data.IsApiError = true;
-                            Api_Data.ApiMsg = "您沒有符合上 C2 的資格，請確認是否有完成 C2 報名";
+                            Api_Data.ApiMsg = "(116)無法簽到，查詢您並沒有報名上課";
                             Api_Data.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
                         }
-
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex.ToString());
-                Api_Data.IsApiError = true;
-                Api_Data.ApiMsg = "請確認網路是否斷線或填寫的資料內容有誤";
+                    }
+                    else
+                    {
+                        Api_Data.IsApiError = true;
+                        Api_Data.ApiMsg = "(123)無法簽到，查詢您並沒有報名上課";
+                        Api_Data.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
+                    }
+                    break;
             }
         }
 
@@ -452,6 +457,11 @@ namespace LifeBuildC.Api
                             }
 
                             break;
+
+                        case "C2M":
+                        case "C2W":
+                            IsPass = 1;
+                            break;
                     }
                 }
                 else
@@ -465,6 +475,7 @@ namespace LifeBuildC.Api
                 //故陣列索引從 1 開始
                 for (int i = 1; i < Api_Data.MID.Split(',').Count(); i++)
                 {
+                    //UPDATE 基本資料
                     Ado_Info.ChcMemberSub_Temp_ADO.UpdChcMemberSub_TempByNo
                     (
                         Api_Info.GroupCName,
@@ -477,6 +488,7 @@ namespace LifeBuildC.Api
                         Api_Data.MID.Split(',')[i] //No
                     );
 
+                    //UPDATE 上課狀態
                     Ado_Info.ChcMemberSub_Temp_ADO.UpdEStatusByChcMemberSub_Temp
                     (
                         Api_Data.MID.Split(',')[i], //No

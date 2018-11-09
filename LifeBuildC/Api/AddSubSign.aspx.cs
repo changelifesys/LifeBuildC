@@ -40,7 +40,7 @@ namespace LifeBuildC.Api
         GoogleSheetApi Google_Sheet_Api;
         AdoInfo Ado_Info = new AdoInfo();
         ApiInfo Api_Info = new ApiInfo();
-        ApiData.ApiAddSubSign Api_Data = new ApiData.ApiAddSubSign();
+        ApiData.AddSubSign Api_Data = new ApiData.AddSubSign();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -54,12 +54,24 @@ namespace LifeBuildC.Api
                 }
             }
 
-            Api_Data = JsonConvert.DeserializeObject<ApiData.ApiAddSubSign>(Api_Info.strJsonData);
+            Api_Data = JsonConvert.DeserializeObject<ApiData.AddSubSign>(Api_Info.strJsonData);
 
             if (Api_Data != null)
             {
                 logger.Info("StreamR=[" + Api_Info.strJsonData + "]");
-                ApiProcess();
+
+                try
+                {
+                    ApiProcess();
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.ToString());
+                    Api_Data.IsApiError = true;
+                    Api_Data.ApiMsg = "請確認網路是否斷線或填寫的資料內容有誤";
+                }
+
+
             }
 
             logger.Info("Recv=[" + JsonConvert.SerializeObject(Api_Data) + "]");
@@ -70,72 +82,62 @@ namespace LifeBuildC.Api
 
         private void ApiProcess()
         {
-            try
+            //小組
+            Api_Info.GetGroupData(Api_Data.group, Api_Data.gcroup);
+
+            if (Api_Data.CategoryID == "C1")
+            { //C1課程沒有限制報名資格
+
+                Google_Sheet_Api = null;
+                Google_Sheet_Api = new GoogleSheetApi("1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8", "C1報名");
+                AddSubSignProcess();
+                Api_Data.ApiMsg = "C1 課程報名成功";
+
+            }
+            else if (Api_Data.CategoryID == "C2" || Api_Data.CategoryID == "C2M" || Api_Data.CategoryID == "C2W")
             {
-                Api_Data.IsApiError = false;
+                //C2課程需上完C1才可報名
+                //C2 榮耀男人&C2 幸福女人 需上完C1才可報名
 
-                //小組
-                Api_Info.GetGroupData(Api_Data.group, Api_Data.gcroup);
-
-                if (Api_Data.CategoryID == "C1")
-                { //C1課程沒有限制報名資格
-
-                    Google_Sheet_Api = null;
-                    Google_Sheet_Api = new GoogleSheetApi("1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8", "C1報名");
-                    AddSubSignProcess();
-                    Api_Data.ApiMsg = "C1 課程報名成功";
-
+                //取得MID值
+                string _MID = "0";
+                if (Api_Data.MID.IndexOf(',') > 0)
+                {
+                    _MID = Api_Data.MID.Split(',')[0];
                 }
-                else if (Api_Data.CategoryID == "C2")
-                { //C2課程需上完C1才可報名
 
-                    //DataTable dtMem = chcmember.GetChcMemberByGroup(GroupCName, GroupName, api.Ename);
-                    string _MID = "0";
-                    if (Api_Data.MID.IndexOf(',') > 0)
+                DataTable dtMem = Ado_Info.ChcMember_ADO.QueryChcMemberByMID(_MID);
+                if (dtMem != null && dtMem.Rows.Count > 0)
+                { //一定要是會友
+
+                    bool IsC112 = bool.Parse(dtMem.Rows[0]["IsC112"].ToString());
+                    bool IsC134 = bool.Parse(dtMem.Rows[0]["IsC134"].ToString());
+                    bool IsC1God = bool.Parse(dtMem.Rows[0]["IsC1God"].ToString());
+
+                    if ((IsC112 && IsC134) || IsC1God)
                     {
-                        _MID = Api_Data.MID.Split(',')[0];
-                    }
-
-                    DataTable dtMem = Ado_Info.ChcMember_ADO.QueryChcMemberByMID(_MID);
-                    if (dtMem != null && dtMem.Rows.Count > 0)
-                    { //一定要是會友
-
-                        bool IsC112 = bool.Parse(dtMem.Rows[0]["IsC112"].ToString());
-                        bool IsC134 = bool.Parse(dtMem.Rows[0]["IsC134"].ToString());
-                        bool IsC1God = bool.Parse(dtMem.Rows[0]["IsC1God"].ToString());
-
-                        if ((IsC112 && IsC134) || IsC1God)
-                        {
-                            Google_Sheet_Api = null;
-                            Google_Sheet_Api = new GoogleSheetApi("1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs", "C2報名");
-                            AddSubSignProcess();
-                            Api_Data.ApiMsg = "C2 課程報名成功";
-
-                        }
-                        else
-                        {
-                            Api_Data.IsApiError = true;
-                            Api_Data.ApiMsg = "您沒有符合上 C2 的資格，請點連結自行查詢是否完成 C1 課程";
-                            Api_Data.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
-                        }
-
+                        Google_Sheet_Api = null;
+                        Google_Sheet_Api = new GoogleSheetApi("1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs", "C2報名");
+                        AddSubSignProcess();
+                        Api_Data.ApiMsg = "C2 課程報名成功";
 
                     }
                     else
                     {
                         Api_Data.IsApiError = true;
-                        Api_Data.ApiMsg = "您沒有符合上 C2 的資格，請點連結自行查詢是否完成 C1 課程";
+                        Api_Data.ApiMsg = "您沒有符合上課資格，請點連結自行查詢是否完成 C1 課程";
                         Api_Data.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
                     }
 
+
+                }
+                else
+                {
+                    Api_Data.IsApiError = true;
+                    Api_Data.ApiMsg = "您沒有符合上課資格，請點連結自行查詢是否完成 C1 課程";
+                    Api_Data.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
                 }
 
-
-            }
-            catch (Exception ex)
-            {
-                Api_Data.IsApiError = true;
-                Api_Data.ApiMsg = "請確認網路是否斷線或填寫的資料內容有誤";
             }
         }
 
@@ -172,7 +174,6 @@ namespace LifeBuildC.Api
             else
             { //INSERT 報名資訊
 
-
                 foreach (DataRow drSub in dtSub.Rows)
                 {
                     Ado_Info.ChcMemberSub_Temp_ADO.InsChcMemberSub_Temp_2(
@@ -189,7 +190,7 @@ namespace LifeBuildC.Api
                 Api_Data.SubDate = Api_Data.SubDate.Substring(0, Api_Data.SubDate.Length - 1);
             }
 
-            //google Excel 組別分類
+            //Google Excel Header Data
             switch (Api_Data.gcroup)
             {
                 case "家庭組弟兄":
@@ -218,8 +219,7 @@ namespace LifeBuildC.Api
                     break;
             }
 
-            //AddDataByV4Sheets();
-
+            //Add Google Form Data
             Google_Sheet_Api.AddDataByV4Sheets(
                 new List<object>() {
                                 DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),

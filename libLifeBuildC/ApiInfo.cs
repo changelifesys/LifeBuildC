@@ -84,6 +84,8 @@ namespace libLifeBuildC
 
         #endregion
 
+        #region Check
+
         //Check
 
         public int CheckIntByRequest(string Request_Name, int initial_value)
@@ -116,6 +118,10 @@ namespace libLifeBuildC
 
             return false;
         }
+
+        #endregion
+
+        #region Class
 
         //Class
 
@@ -168,6 +174,8 @@ namespace libLifeBuildC
             }
 
         }
+
+        #endregion
 
     }
 }

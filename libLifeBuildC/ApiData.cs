@@ -45,7 +45,7 @@ namespace libLifeBuildC
         /// <summary>
         /// 課程報到
         /// </summary>
-        public class ApiAddSubSign
+        public class AddSubSign
         {
             /// <summary>
             /// 資料變更訊息
@@ -110,7 +110,7 @@ namespace libLifeBuildC
             /// <summary>
             /// API 有錯(true: 有錯; false: 沒有錯)
             /// </summary>
-            public bool IsApiError { get; set; }
+            public bool IsApiError = false;
             /// <summary>
             /// 上課時段
             /// </summary>
