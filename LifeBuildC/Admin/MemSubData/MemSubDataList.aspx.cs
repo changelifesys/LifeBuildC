@@ -135,9 +135,6 @@ namespace LifeBuildC.Admin.MemSubData
             }
         }
 
-        /// <summary>
-        /// GridView Data
-        /// </summary>
         protected void gvChcMember_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             //滑鼠移入移出效果
@@ -291,11 +288,63 @@ namespace LifeBuildC.Admin.MemSubData
 
                 #endregion
 
+                #region 全部判定
+
+                if (grid.ID == "gvCStatusAll")
+                {
+                    ((Label)e.Row.FindControl("lblC1_Status")).Text = DataBinder.Eval(e.Row.DataItem, "C1_Status").ToString();
+
+                    if (DataBinder.Eval(e.Row.DataItem, "C1_Status").ToString() != "通過")
+                    {
+                        ((Label)e.Row.FindControl("lblC1_Status")).ForeColor = System.Drawing.Color.Red;
+                    }
+
+                    ((Label)e.Row.FindControl("lblC2_Status")).Text = DataBinder.Eval(e.Row.DataItem, "C2_Status").ToString();
+
+                    if (DataBinder.Eval(e.Row.DataItem, "C2_Status").ToString() != "通過")
+                    {
+                        ((Label)e.Row.FindControl("lblC2_Status")).ForeColor = System.Drawing.Color.Red;
+                    }
+
+                }
+
+                #endregion
+
+                #region C1 通過判定
+
+                if (grid.ID == "gvC1All")
+                {
+                    ((Label)e.Row.FindControl("lblC1_Status")).Text = DataBinder.Eval(e.Row.DataItem, "C1_Status").ToString();
+
+                    if (DataBinder.Eval(e.Row.DataItem, "C1_Status").ToString() != "通過")
+                    {
+                        ((Label)e.Row.FindControl("lblC1_Status")).ForeColor = System.Drawing.Color.Red;
+                    }
+                }
+
+                #endregion
+
+                #region C2 通過判定
+
+                if (grid.ID == "gvC2All")
+                {
+                    ((Label)e.Row.FindControl("lblC2_Status")).Text = DataBinder.Eval(e.Row.DataItem, "C2_Status").ToString();
+
+                    if (DataBinder.Eval(e.Row.DataItem, "C2_Status").ToString() != "通過")
+                    {
+                        ((Label)e.Row.FindControl("lblC2_Status")).ForeColor = System.Drawing.Color.Red;
+                    }
+                }
+
+                #endregion
+
+
+
             }
         }
 
         /// <summary>
-        /// 組別
+        /// 組別下拉
         /// </summary>
         protected void dropGroupClass_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -332,8 +381,9 @@ namespace LifeBuildC.Admin.MemSubData
 
 
                 DataTable dtGName = member.QueryChcMemberByGroupNameAndIsLeave(GroupName);
-                gvChcMember.DataSource = dtGName;
-                gvChcMember.DataBind();
+                GridViewDataSource(dtGName);
+                //gvChcMember.DataSource = dtGName;
+                //gvChcMember.DataBind();
 
                 lblDataCnt.Text = "查詢共 " + dtGName.Rows.Count + " 筆資料";
 
@@ -346,8 +396,9 @@ namespace LifeBuildC.Admin.MemSubData
                 if (ckbGroupName.Checked)
                 {
                     DataTable dt = member.QueryEnameByGroupNameAndGroupClass(txtGroupName.Text.Trim());
-                    gvChcMember.DataSource = dt;
-                    gvChcMember.DataBind();
+                    GridViewDataSource(dt);
+                    //gvChcMember.DataSource = dt;
+                    //gvChcMember.DataBind();
                     lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
                 }
                 else
@@ -369,8 +420,9 @@ namespace LifeBuildC.Admin.MemSubData
                     dropGroupCName.SelectedIndex = 0;
 
                     DataTable dtGCName = member.QueryGroupCNameByChcMember(dropGroupCName.SelectedItem.Text);
-                    gvChcMember.DataSource = dtGCName;
-                    gvChcMember.DataBind();
+                    GridViewDataSource(dtGCName);
+                    //gvChcMember.DataSource = dtGCName;
+                    //gvChcMember.DataBind();
 
                     lblDataCnt.Text = "查詢共 " + dtGCName.Rows.Count + " 筆資料";
 
@@ -386,8 +438,9 @@ namespace LifeBuildC.Admin.MemSubData
                 if (ckbGroupName.Checked)
                 {
                     DataTable dt = member.QueryEnameByGroupNameAndGroupClass(txtGroupName.Text.Trim());
-                    gvChcMember.DataSource = dt;
-                    gvChcMember.DataBind();
+                    GridViewDataSource(dt);
+                    //gvChcMember.DataSource = dt;
+                    //gvChcMember.DataBind();
                     lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
                 }
                 else
@@ -421,8 +474,9 @@ namespace LifeBuildC.Admin.MemSubData
 
 
                     DataTable dtGName = member.QueryChcMemberByGroupNameAndIsLeave(GroupName);
-                    gvChcMember.DataSource = dtGName;
-                    gvChcMember.DataBind();
+                    GridViewDataSource(dtGName);
+                    //gvChcMember.DataSource = dtGName;
+                    //gvChcMember.DataBind();
 
                     lblDataCnt.Text = "查詢共 " + dtGName.Rows.Count + " 筆資料";
 
@@ -435,7 +489,7 @@ namespace LifeBuildC.Admin.MemSubData
         }
 
         /// <summary>
-        /// 小組
+        /// 小組下拉
         /// </summary>
         protected void dropGroupName_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -452,22 +506,21 @@ namespace LifeBuildC.Admin.MemSubData
             }
 
             DataTable dt = member.QueryChcMemberByGroupNameAndIsLeave(GroupName);
-            gvChcMember.DataSource = dt;
-            gvChcMember.DataBind();
-
+            GridViewDataSource(dt);
             lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
         }
 
         /// <summary>
-        /// 區長
+        /// 區長下拉
         /// </summary>
         protected void dropGroupCName_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtEname.Text = "";
 
             DataTable dt = member.QueryGroupCNameByChcMember(dropGroupCName.SelectedItem.Text);
-            gvChcMember.DataSource = dt;
-            gvChcMember.DataBind();
+            GridViewDataSource(dt);
+            //gvChcMember.DataSource = dt;
+            //gvChcMember.DataBind();
 
             lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
         }
@@ -480,8 +533,7 @@ namespace LifeBuildC.Admin.MemSubData
             if (txtEname.Text.Trim() != "")
             {
                 DataTable dt = member.QueryLikeEnameByChcMember(txtEname.Text.Trim());
-                gvChcMember.DataSource = dt;
-                gvChcMember.DataBind();
+                GridViewDataSource(dt);
                 lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
             }
             else
@@ -489,8 +541,7 @@ namespace LifeBuildC.Admin.MemSubData
                 if (ckbGroupName.Checked)
                 {
                     DataTable dt = member.QueryEnameByGroupNameAndGroupClass(txtGroupName.Text.Trim());
-                    gvChcMember.DataSource = dt;
-                    gvChcMember.DataBind();
+                    GridViewDataSource(dt);
                     lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
                 }
                 else
@@ -780,8 +831,7 @@ namespace LifeBuildC.Admin.MemSubData
             if (chkIsLeave.Checked)
             {
                 DataTable dt = member.QueryIsLeaveByChcMember();
-                gvChcMember.DataSource = dt;
-                gvChcMember.DataBind();
+                GridViewDataSource(dt);
                 lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
             }
             else
@@ -813,8 +863,9 @@ namespace LifeBuildC.Admin.MemSubData
                     txtGroupName.Visible = true;
 
                     DataTable dt = member.QueryEnameByGroupNameAndGroupClass(txtGroupName.Text.Trim());
-                    gvChcMember.DataSource = dt;
-                    gvChcMember.DataBind();
+                    GridViewDataSource(dt);
+                    //gvChcMember.DataSource = dt;
+                    //gvChcMember.DataBind();
                     lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
                 }
                 else
@@ -847,8 +898,9 @@ namespace LifeBuildC.Admin.MemSubData
                     txtGroupName.Visible = true;
 
                     DataTable dt = member.QueryEnameByGroupNameAndGroupClass(txtGroupName.Text.Trim());
-                    gvChcMember.DataSource = dt;
-                    gvChcMember.DataBind();
+                    GridViewDataSource(dt);
+                    //gvChcMember.DataSource = dt;
+                    //gvChcMember.DataBind();
                     lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
                 }
                 else
@@ -875,13 +927,13 @@ namespace LifeBuildC.Admin.MemSubData
         protected void txtGroupName_TextChanged(object sender, EventArgs e)
         {
             if ((Request.QueryString["gid"] != null && Request.QueryString["gid"].ToString() == "2") || (Request.QueryString["gid"] == null && Session["Login"] != null && Session["Login"].ToString() == "ok"))
-            { //區長 or 中央同工
+            {
+                #region 區長 or 中央同工
 
                 if (ckbGroupName.Checked)
                 {
                     DataTable dt = member.QueryEnameByGroupNameAndGroupClass(txtGroupName.Text.Trim());
-                    gvChcMember.DataSource = dt;
-                    gvChcMember.DataBind();
+                    GridViewDataSource(dt);
                     lblDataCnt.Text = "查詢共 " + dt.Rows.Count + " 筆資料";
                 }
                 else
@@ -894,9 +946,51 @@ namespace LifeBuildC.Admin.MemSubData
 
                 }
 
+                #endregion
             }
         }
 
+        protected void GridViewDataSource(DataTable dt)
+        {
+            divView1.Visible = true;
 
+            if (rdoAll.Checked)
+            {
+                gvCStatusAll.DataSource = dt;
+                gvCStatusAll.DataBind();
+                gvCStatusAll.Visible = true;
+                gvC1All.Visible = false;
+                gvC2All.Visible = false;
+            }
+            else if (rdoC1View.Checked)
+            {
+                gvC1All.DataSource = dt;
+                gvC1All.DataBind();
+                gvCStatusAll.Visible = false;
+                gvC1All.Visible = true;
+                gvC2All.Visible = false;
+            }
+            else if (rdoC2View.Checked)
+            {
+                gvC2All.DataSource = dt;
+                gvC2All.DataBind();
+                gvCStatusAll.Visible = false;
+                gvC1All.Visible = false;
+                gvC2All.Visible = true;
+            }
+        }
+
+        /// <summary>
+        /// 依類別查詢
+        /// </summary>
+        protected void rdoView_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                txtEname_TextChanged(null, null);
+            }
+            catch { }
+
+        }
     }
 }

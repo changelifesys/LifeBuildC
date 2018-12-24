@@ -84,15 +84,15 @@
             <br/><br/>
             <asp:Button CssClass="inputStyle" ID="btnAllExcel" runat="server" Text="全會友匯出Excel" OnClick="btnAllExcel_Click" />
         </div>
-
-        <div style="text-align: center; margin: 5px;">
-            <asp:RadioButton ID="rdoAll" runat="server" />全部
-            <asp:RadioButton ID="rdoC1View" runat="server" />C1 詳細
-            <asp:RadioButton ID="rdoC2View" runat="server" />C2 詳細
+        <br/><br/>
+        <div id="divView1" visible="false" style="text-align: center; margin: 5px; font-size: 14pt" runat="server">
+            <asp:RadioButton GroupName="View1" Checked="true" ID="rdoAll" runat="server" AutoPostBack="true" OnCheckedChanged="rdoView_CheckedChanged" />&nbsp;課程判定&nbsp;&nbsp;|
+            <asp:RadioButton GroupName="View1" ID="rdoC1View" runat="server" AutoPostBack="true" OnCheckedChanged="rdoView_CheckedChanged" />&nbsp;C1 詳細&nbsp;&nbsp;|
+            <asp:RadioButton GroupName="View1" ID="rdoC2View" runat="server" AutoPostBack="true" OnCheckedChanged="rdoView_CheckedChanged" />&nbsp;C2 詳細
         </div>
 
         <!--全部-->
-        <asp:GridView ID="gvCStatusAll" runat="server" Visible="false" OnRowDataBound="gvChcMember_RowDataBound">
+        <asp:GridView ID="gvCStatusAll" runat="server" Visible="False" AutoGenerateColumns="False" OnRowDataBound="gvChcMember_RowDataBound" HorizontalAlign="Center">
             <Columns>
                 <asp:TemplateField>
                     <ItemTemplate>
@@ -117,21 +117,25 @@
                     <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" Font-Underline="False" ForeColor="#006600" BorderColor="Black" />
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:BoundField>
-                <asp:BoundField DataField="C1_Status" HeaderText="C1 通過判定">
-                    <FooterStyle BorderColor="Black" />
-                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                <asp:TemplateField HeaderText="C1 通過判定">
+                    <ItemTemplate>
+                        <asp:Label ID="lblC1_Status" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" BorderColor="Black" />
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                </asp:BoundField>
-                <asp:BoundField DataField="C2_Status" HeaderText="C2 通過判定">
-                    <FooterStyle BorderColor="Black" />
-                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="C2 通過判定">
+                    <ItemTemplate>
+                        <asp:Label ID="lblC2_Status" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" BorderColor="Black" />
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                </asp:BoundField>
+                </asp:TemplateField>
             </Columns>
         </asp:GridView>
 
         <!--C1-->
-        <asp:GridView ID="gvC1All" runat="server" Visible="false" OnRowDataBound="gvChcMember_RowDataBound">
+        <asp:GridView ID="gvC1All" runat="server" Visible="false" AutoGenerateColumns="False" OnRowDataBound="gvChcMember_RowDataBound" HorizontalAlign="Center">
             <Columns>
                 <asp:TemplateField>
                     <ItemTemplate>
@@ -177,15 +181,22 @@
                     <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" BorderColor="Black" />
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:BoundField DataField="C1_Status" HeaderText="C1 通過判定">
+<%--                <asp:BoundField DataField="C1_Status" HeaderText="C1 通過判定">
                     <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                </asp:BoundField>
+                </asp:BoundField>--%>
+                <asp:TemplateField HeaderText="C1 通過判定">
+                    <ItemTemplate>
+                        <asp:Label ID="lblC1_Status" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
             </Columns>
         </asp:GridView>
 
         <!--C2-->
-        <asp:GridView ID="gvC2All" runat="server" Visible="false" OnRowDataBound="gvChcMember_RowDataBound">
+        <asp:GridView ID="gvC2All" runat="server" Visible="false" AutoGenerateColumns="False" OnRowDataBound="gvChcMember_RowDataBound" HorizontalAlign="Center">
             <Columns>
                 <asp:TemplateField>
                     <ItemTemplate>
@@ -257,11 +268,13 @@
                     <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
-                <asp:BoundField DataField="C2_Status" HeaderText="C2 通過判定">
-                    <FooterStyle BorderColor="Black" />
-                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                <asp:TemplateField HeaderText="C2 通過判定">
+                    <ItemTemplate>
+                        <asp:Label ID="lblC2_Status" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" BorderColor="Black" />
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                </asp:BoundField>
+                </asp:TemplateField>
             </Columns>
         </asp:GridView>
 
@@ -364,6 +377,7 @@
 
             </Columns>
         </asp:GridView>
+        <br/><br/>
     </form>
 </body>
 </html>
