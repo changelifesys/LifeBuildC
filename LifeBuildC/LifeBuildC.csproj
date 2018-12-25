@@ -304,6 +304,7 @@
     <Content Include="SDPaper\生命建造-個人線上查詢\img\title.jpg" />
     <Content Include="SDPaper\生命建造-個人線上查詢\Page1.html" />
     <Content Include="SDPaper\生命建造-個人線上查詢\Page2.html" />
+    <Content Include="Tool\UpdChcMemberSub_Temp.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -671,13 +672,19 @@
     <Compile Include="SubjectSignUp.aspx.designer.cs">
       <DependentUpon>SubjectSignUp.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Tool\UpdChcMemberSub_Temp.aspx.cs">
+      <DependentUpon>UpdChcMemberSub_Temp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tool\UpdChcMemberSub_Temp.aspx.designer.cs">
+      <DependentUpon>UpdChcMemberSub_Temp.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="aspnet_client\system_web\4_0_30319\" />
     <Folder Include="Log\" />
     <Folder Include="Models\" />
     <Folder Include="obj\Debug\TempPE\" />
-    <Folder Include="Tool\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ADO\ADO.csproj">

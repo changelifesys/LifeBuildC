@@ -169,6 +169,21 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             return dt;
         }
 
+        public DataTable QueryEStatus1ByChcMemberSub_Temp()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMemberSub_Temp
+                                           WHERE uptyn = 0 AND EStatus = 1";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.Fill(dt);
+            }
+
+            return dt;
+        }
+
         public DataTable Query_ChcMemberSub_Temp_SID(int SID)
         {
             DataTable dt = new DataTable();

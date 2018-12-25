@@ -361,6 +361,70 @@ namespace ADO
             }
         }
 
+        public void UpdChcMemberDataByMode(string Mode, string CategoryID, bool IsPass, string MID, string GroupCName, string GroupName, string Phone, string Ename)
+        {
+            string sql = "UPDATE " + DbSchema + @"ChcMember SET";
+
+            switch (CategoryID.ToUpper())
+            {
+                case "C112":
+                    sql += " IsC112 = @IsPass";
+                    break;
+                case "C134":
+                    sql += " IsC134 = @IsPass";
+                    break;
+                case "C212":
+                    sql += " IsC212 = @IsPass";
+                    break;
+                case "C234":
+                    sql += " IsC234 = @IsPass";
+                    break;
+                case "C25":
+                    sql += " IsC25 = @IsPass";
+                    break;
+            }
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                switch (Mode)
+                {
+                    case "1":
+                        sql += @" WHERE MID = @MID";
+                        break;
+                    case "2":
+                        sql += @" WHERE GroupCName = @GroupCName
+                                            AND GroupName = @GroupName
+                                            AND Ename = @Ename";
+                        break;
+                    case "3":
+                        sql += @" WHERE Phone = @Phone
+                                            AND Ename = @Ename";
+                        break;
+                    case "4":
+                        sql += @" WHERE Phone = @Phone
+                                            AND GroupCName = @GroupCName
+                                            AND GroupName = @GroupName";
+                        break;
+                    case "5":
+                        sql += @" WHERE Ename = @Ename";
+                        break;
+                }
+
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@IsPass", IsPass);
+                com.Parameters.AddWithValue("@MID", MID);
+                com.Parameters.AddWithValue("@GroupCName", GroupCName);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@Phone", Phone);
+                com.Parameters.AddWithValue("@Ename", Ename);
+
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
         public void UpdWitness(string GroupCName, string GroupName, string Ename, string witness)
         {
             using (SqlConnection con = new SqlConnection(condb))

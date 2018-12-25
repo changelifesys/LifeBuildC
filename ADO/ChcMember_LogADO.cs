@@ -43,6 +43,56 @@ namespace ADO
             }
         }
 
+        public void InsChcMember_LogByChcMemberMode(string Mode, string MID, string GroupCName, string GroupName, string Phone, string Ename)
+        {
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"INSERT INTO
+                                           " + DbSchema + @"ChcMember_Log(MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
+                                                                            IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo)
+                                           SELECT TOP 1 
+                                                         MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
+                                                                                                                    IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo
+                                           FROM " + DbSchema + @"ChcMember
+                                           ";
+
+                switch (Mode)
+                {
+                    case "1":
+                        sql += @" WHERE MID = @MID";
+                        break;
+                    case "2":
+                        sql += @" WHERE GroupCName = @GroupCName
+                                            AND GroupName = @GroupName
+                                            AND Ename = @Ename";
+                        break;
+                    case "3":
+                        sql += @" WHERE Phone = @Phone
+                                            AND Ename = @Ename";
+                        break;
+                    case "4":
+                        sql += @" WHERE Phone = @Phone
+                                            AND GroupCName = @GroupCName
+                                            AND GroupName = @GroupName";
+                        break;
+                    case "5":
+                        sql += @" WHERE Ename = @Ename";
+                        break;
+                }
+
+                SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@MID", MID);
+                com.Parameters.AddWithValue("@GroupCName", GroupCName);
+                com.Parameters.AddWithValue("@GroupName", GroupName);
+                com.Parameters.AddWithValue("@Phone", Phone);
+                com.Parameters.AddWithValue("@Ename", Ename);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
         public void InsChcMember2ByChcMember_Log(string GroupCName, string GroupName, string Ename)
         {
             using (SqlConnection con = new SqlConnection(condb))
