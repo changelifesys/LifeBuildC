@@ -83,8 +83,9 @@ namespace LifeBuildC.Api
 
         private void ApiProcess()
         {
-            Api_Info.GetGroupData(Api_Data.group, Api_Data.gcroup);
-            switch ((Api_Data.CategoryID).ToUpper())
+            Api_Data.CategoryID = (Api_Data.CategoryID).ToUpper();
+            Api_Info.GetGroupData(Api_Data.group, Api_Data.gcroup); //小組
+            switch (Api_Data.CategoryID)
             {
                 case "C1":
 
@@ -97,6 +98,8 @@ namespace LifeBuildC.Api
                 case "C2":
                 case "C2M":
                 case "C2W":
+                case "C3N":
+                case "C3P":
 
                     if (Api_Data.MID != "")
                     {
@@ -106,9 +109,47 @@ namespace LifeBuildC.Api
                         if (Ado_Info.ChcMemberSub_Temp_ADO.ChkChcMemberSub_TempByMID(int.Parse(Api_Data.MID.Split(',')[0]), Api_Data.SID))
                         {
                             Google_Sheet_Api = null;
-                            Google_Sheet_Api = new GoogleSheetApi("1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs", "C2報到");
+
+                            switch (Api_Data.CategoryID)
+                            {
+                                case "C2":
+                                    Google_Sheet_Api = new GoogleSheetApi("1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs", "C2報到");
+                                    break;
+                                case "C2M":
+                                    Google_Sheet_Api = new GoogleSheetApi("1xX-rEZCXGiR6zbxyS0LXtj9nFclgG-J19tzT-PYFRZc", "簽到");
+                                    break;
+                                case "C2W":
+                                    Google_Sheet_Api = new GoogleSheetApi("1axSXC65UFPc-SC2lO5XQoDky5VXLXSf4Of20YVfBTmk", "簽到");
+                                    break;
+                                case "C3N":
+                                    Google_Sheet_Api = new GoogleSheetApi("129gyeEaXnD9CFiT4t8PKH_m_sxDpIg8pFvJtoJjAQqQ", "簽到");
+                                    break;
+                                case "C3P":
+                                    Google_Sheet_Api = new GoogleSheetApi("18mKhOcoKrUDDf8MZtNAPfddt7qR7yxfM4rYdXWJn0Ds", "簽到");
+                                    break;
+                            }
+
                             UpdSubSignProcess();
-                            Api_Data.ApiMsg = "C2 課程簽到成功";
+
+                            switch (Api_Data.CategoryID)
+                            {
+                                case "C2":
+                                    Api_Data.ApiMsg = "C2 課程簽到成功";
+                                    break;
+                                case "C2M":
+                                    Api_Data.ApiMsg = "C2 榮耀男人課程簽到成功";
+                                    break;
+                                case "C2W":
+                                    Api_Data.ApiMsg = "C2 幸福女人課程簽到成功";
+                                    break;
+                                case "C3N":
+                                    Api_Data.ApiMsg = "C3 九型人格課程簽到成功";
+                                    break;
+                                case "C3P":
+                                    Api_Data.ApiMsg = "C3 人際關係課程簽到成功";
+                                    break;
+                            }
+
                         }
                         else
                         {

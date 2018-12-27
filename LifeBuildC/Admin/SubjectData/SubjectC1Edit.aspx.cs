@@ -28,7 +28,6 @@ namespace LifeBuildC.Admin.SubjectData
             }
         }
 
-
         /// <summary>
         /// 取得頁面資料
         /// </summary>
@@ -277,14 +276,6 @@ namespace LifeBuildC.Admin.SubjectData
             //Response.Write("<script>alert('C1 課程儲存成功!');location.href='SubjectList.aspx';</script>");
 
         }
-
-        /// <summary>
-        /// 返回
-        /// </summary>
-        //protected void btnCel_Click(object sender, EventArgs e)
-        //{
-        //    Response.Redirect("SubjectList.aspx");
-        //}
 
         protected void ckbIsSub12_CheckedChanged(object sender, EventArgs e)
         {

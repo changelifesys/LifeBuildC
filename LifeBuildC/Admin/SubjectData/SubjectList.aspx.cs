@@ -127,6 +127,12 @@ namespace LifeBuildC.Admin.SubjectData
             gvSubject.DataBind();
         }
 
+        protected void rdoC2MList_CheckedChanged(object sender, EventArgs e)
+        {
+            gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C2M");
+            gvSubject.DataBind();
+        }
+
         protected void btnAddC1_Click(object sender, EventArgs e)
         {
             Response.Redirect("SubjectC1Add.aspx");
@@ -156,6 +162,7 @@ namespace LifeBuildC.Admin.SubjectData
 
             gvSubject.DataBind();
         }
+
 
     }
 }

@@ -40,6 +40,15 @@ namespace LifeBuildC.Admin.SubjectData {
         protected global::System.Web.UI.WebControls.Button btnAddC2;
         
         /// <summary>
+        /// btnAddC2M 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddC2M;
+        
+        /// <summary>
         /// rdoC1List 控制項。
         /// </summary>
         /// <remarks>
@@ -56,6 +65,15 @@ namespace LifeBuildC.Admin.SubjectData {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rdoC2List;
+        
+        /// <summary>
+        /// rdoC2MList 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rdoC2MList;
         
         /// <summary>
         /// gvSubject 控制項。

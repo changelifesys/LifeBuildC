@@ -156,6 +156,14 @@
     <Content Include="Admin\SubjectData\SubjectC1Edit.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2Add.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2Edit.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC2MAdd.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC2MEdit.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC2WAdd.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC2WEdit.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC3NAdd.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC3NEdit.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC3PAdd.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC3PEdit.aspx" />
     <Content Include="Admin\SubjectData\SubjectList.aspx" />
     <Content Include="Api\AddFireSubSign.aspx" />
     <Content Include="Api\AddSubSign.aspx" />
@@ -440,6 +448,62 @@
     </Compile>
     <Compile Include="Admin\SubjectData\SubjectC2Edit.aspx.designer.cs">
       <DependentUpon>SubjectC2Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2MAdd.aspx.cs">
+      <DependentUpon>SubjectC2MAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2MAdd.aspx.designer.cs">
+      <DependentUpon>SubjectC2MAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2MEdit.aspx.cs">
+      <DependentUpon>SubjectC2MEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2MEdit.aspx.designer.cs">
+      <DependentUpon>SubjectC2MEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2WAdd.aspx.cs">
+      <DependentUpon>SubjectC2WAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2WAdd.aspx.designer.cs">
+      <DependentUpon>SubjectC2WAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2WEdit.aspx.cs">
+      <DependentUpon>SubjectC2WEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2WEdit.aspx.designer.cs">
+      <DependentUpon>SubjectC2WEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC3NAdd.aspx.cs">
+      <DependentUpon>SubjectC3NAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC3NAdd.aspx.designer.cs">
+      <DependentUpon>SubjectC3NAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC3NEdit.aspx.cs">
+      <DependentUpon>SubjectC3NEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC3NEdit.aspx.designer.cs">
+      <DependentUpon>SubjectC3NEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC3PAdd.aspx.cs">
+      <DependentUpon>SubjectC3PAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC3PAdd.aspx.designer.cs">
+      <DependentUpon>SubjectC3PAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC3PEdit.aspx.cs">
+      <DependentUpon>SubjectC3PEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC3PEdit.aspx.designer.cs">
+      <DependentUpon>SubjectC3PEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\SubjectData\SubjectList.aspx.cs">
       <DependentUpon>SubjectList.aspx</DependentUpon>

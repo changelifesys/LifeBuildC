@@ -5,9 +5,13 @@
  流程：
    [View]SubjectSignUp.aspx?id=c1 > 報名 > [API]AddSubSign
 
- API演算法：
-   1. C1 沒有審核的限制.
-   2. C2 沒有通過 C1 就不能上.
+ 系統安控設定：
+   . C1 沒有審核的限制.
+   . C2 沒有通過 C1 就不能上.
+   . 上過更深經歷神等同於上過 C1, 審核可以上 C2 
+   . 上過領袖1等同於上過 C2, 不用再考試, 審核可以上 C3
+   . 上過領袖1沒上過更深經歷神, C2 仍算過關, 審核可以上 C3
+
 
  */
 
@@ -82,8 +86,8 @@ namespace LifeBuildC.Api
 
         private void ApiProcess()
         {
-            //小組
-            Api_Info.GetGroupData(Api_Data.group, Api_Data.gcroup);
+            Api_Data.CategoryID = (Api_Data.CategoryID).ToUpper();
+            Api_Info.GetGroupData(Api_Data.group, Api_Data.gcroup); //小組
 
             if (Api_Data.CategoryID == "C1")
             { //C1課程沒有限制報名資格
@@ -94,10 +98,13 @@ namespace LifeBuildC.Api
                 Api_Data.ApiMsg = "C1 課程報名成功";
 
             }
-            else if (Api_Data.CategoryID == "C2" || Api_Data.CategoryID == "C2M" || Api_Data.CategoryID == "C2W")
+            else if (Api_Data.CategoryID == "C2" || 
+                         Api_Data.CategoryID == "C2M" || Api_Data.CategoryID == "C2W" ||
+                         Api_Data.CategoryID == "C3N" || Api_Data.CategoryID == "C3P")
             {
                 //C2課程需上完C1才可報名
                 //C2 榮耀男人&C2 幸福女人 需上完C1才可報名
+                #region
 
                 //取得MID值
                 string _MID = "0";
@@ -113,30 +120,103 @@ namespace LifeBuildC.Api
                     bool IsC112 = bool.Parse(dtMem.Rows[0]["IsC112"].ToString());
                     bool IsC134 = bool.Parse(dtMem.Rows[0]["IsC134"].ToString());
                     bool IsC1God = bool.Parse(dtMem.Rows[0]["IsC1God"].ToString());
+                    bool IsC212 = bool.Parse(dtMem.Rows[0]["IsC212"].ToString());
+                    bool IsC234 = bool.Parse(dtMem.Rows[0]["IsC234"].ToString());
+                    bool IsC25 = bool.Parse(dtMem.Rows[0]["IsC25"].ToString());
+                    int C1_Score = int.Parse(dtMem.Rows[0]["C1_Score"].ToString());
+                    int C212_Score = int.Parse(dtMem.Rows[0]["C212_Score"].ToString());
+                    int C234_Score = int.Parse(dtMem.Rows[0]["C234_Score"].ToString());
+                    bool Iswitness = bool.Parse(dtMem.Rows[0]["Iswitness"].ToString());
+                    bool IsC2L1 = bool.Parse(dtMem.Rows[0]["IsC2L1"].ToString());
+                    bool IsC2MW = bool.Parse(dtMem.Rows[0]["IsC2MW"].ToString());
 
-                    if ((IsC112 && IsC134) || IsC1God)
+                    if (Api_Data.CategoryID == "C2" || Api_Data.CategoryID == "C2M" || Api_Data.CategoryID == "C2W")
                     {
-                        Google_Sheet_Api = null;
-                        Google_Sheet_Api = new GoogleSheetApi("1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs", "C2報名");
-                        AddSubSignProcess();
-                        Api_Data.ApiMsg = "C2 課程報名成功";
+                        if ((IsC112 && IsC134) || IsC1God)
+                        {
+                            Google_Sheet_Api = null;
 
+                            switch (Api_Data.CategoryID)
+                            {
+                                case "C2":
+                                    Google_Sheet_Api = new GoogleSheetApi("1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs", "C2報名");
+                                    break;
+                                case "C2M":
+                                    Google_Sheet_Api = new GoogleSheetApi("1xX-rEZCXGiR6zbxyS0LXtj9nFclgG-J19tzT-PYFRZc", "報名");
+                                    break;
+                                case "C2W":
+                                    Google_Sheet_Api = new GoogleSheetApi("1axSXC65UFPc-SC2lO5XQoDky5VXLXSf4Of20YVfBTmk", "報名");
+                                    break;
+
+                            }
+
+                            AddSubSignProcess();
+
+                            switch (Api_Data.CategoryID)
+                            {
+                                case "C2":
+                                    Api_Data.ApiMsg = "C2 課程報名成功";
+                                    break;
+                                case "C2M":
+                                    Api_Data.ApiMsg = "C2 榮耀男人課程報名成功";
+                                    break;
+                                case "C2W":
+                                    Api_Data.ApiMsg = "C2 幸福女人課程報名成功";
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            Api_Data.IsApiError = true;
+                            Api_Data.ApiMsg = "(166)您沒有符合上課資格，請點連結自行查詢是否完成 C1 課程";
+                            Api_Data.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
+                        }
                     }
-                    else
+                    else if (Api_Data.CategoryID == "C3N" || Api_Data.CategoryID == "C3P")
                     {
-                        Api_Data.IsApiError = true;
-                        Api_Data.ApiMsg = "您沒有符合上課資格，請點連結自行查詢是否完成 C1 課程";
-                        Api_Data.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
-                    }
+                        if ((IsC212 && IsC234 && IsC25 && C1_Score >= 70 && C212_Score >= 70 && C234_Score >= 70 && Iswitness) || IsC2L1)
+                        {
+                            Google_Sheet_Api = null;
 
+                            switch (Api_Data.CategoryID)
+                            {
+                                case "C3N":
+                                    Google_Sheet_Api = new GoogleSheetApi("129gyeEaXnD9CFiT4t8PKH_m_sxDpIg8pFvJtoJjAQqQ", "報名");
+                                    break;
+                                case "C3P":
+                                    Google_Sheet_Api = new GoogleSheetApi("18mKhOcoKrUDDf8MZtNAPfddt7qR7yxfM4rYdXWJn0Ds", "報名");
+                                    break;
+                            }
+
+                            AddSubSignProcess();
+
+                            switch (Api_Data.CategoryID)
+                            {
+                                case "C3N":
+                                    Api_Data.ApiMsg = "C3 九型人格課程報名成功";
+                                    break;
+                                case "C3P":
+                                    Api_Data.ApiMsg = "C3 人際關係課程報名成功";
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            Api_Data.IsApiError = true;
+                            Api_Data.ApiMsg = "您沒有符合上課資格，請點連結自行查詢是否完成 C2 課程";
+                            Api_Data.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
+                        }
+                    }
 
                 }
                 else
                 {
                     Api_Data.IsApiError = true;
-                    Api_Data.ApiMsg = "您沒有符合上課資格，請點連結自行查詢是否完成 C1 課程";
+                    Api_Data.ApiMsg = "(210)您沒有符合上課資格，請點連結自行查詢是否完成 C1 課程";
                     Api_Data.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
                 }
+
+                #endregion
 
             }
         }
@@ -233,7 +313,6 @@ namespace LifeBuildC.Api
             );
 
         }
-
 
     }
 }

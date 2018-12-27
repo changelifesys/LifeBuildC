@@ -18,15 +18,18 @@
                 <h1>生命建造-課程管理</h1>
 
 
-                    <div>
+        <div>
             <asp:Button ID="btnAddC1" runat="server" Text="新增C1課程" OnClick="btnAddC1_Click" />
             <asp:Button ID="btnAddC2" runat="server" Text="新增C2課程" OnClick="btnAddC2_Click" />
+            <asp:Button ID="btnAddC2M" runat="server" Text="新增C2榮耀男人課程" />
         </div>
             <p/>
         <div>
             <asp:RadioButton Checked="true" Font-Size="24px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC1List" runat="server" Text="C1課程" OnCheckedChanged="rdoC1List_CheckedChanged" />
             &nbsp;&nbsp;|&nbsp;&nbsp;
-                        <asp:RadioButton Font-Size="24px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC2List" runat="server" Text="C2課程" OnCheckedChanged="rdoC2List_CheckedChanged" />
+            <asp:RadioButton Font-Size="24px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC2List" runat="server" Text="C2課程" OnCheckedChanged="rdoC2List_CheckedChanged" />
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <asp:RadioButton Font-Size="24px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC2MList" runat="server" Text="C2榮耀男人課程" OnCheckedChanged="rdoC2MList_CheckedChanged" />
         </div>
             <p/>
         <div>
@@ -35,7 +38,7 @@
                 <Columns>
                     <asp:TemplateField>
                         <ItemTemplate>
-                                                        <asp:Label ID="lblSubject" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="lblSubject" runat="server" Text=""></asp:Label>
                             <asp:Button ID="btnEdit" runat="server" Text="修改" />
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -54,10 +57,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField>
-                        <ItemTemplate>
-
-                            <%--                            <asp:LinkButton ID="btnEdit" runat="server">修改</asp:LinkButton>--%>
-                            
+                        <ItemTemplate>                            
                             <asp:Button ID="btnDel" runat="server" Text="刪除" DELID='<%# Eval("SID") %>' CommandName="Delete"
                                 OnClientClick="if (confirm('確定刪除?') == false) return false;" />
                         </ItemTemplate>
