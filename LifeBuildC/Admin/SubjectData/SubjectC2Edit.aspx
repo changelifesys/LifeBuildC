@@ -27,7 +27,7 @@
         <div>
             <center>
                 <img alt="" src="../../img/CLC_Logo.gif" />
-                <h1>新增C2課程</h1>
+                <h1>編輯C2課程</h1>
             </center>
 
             <!--Content-->

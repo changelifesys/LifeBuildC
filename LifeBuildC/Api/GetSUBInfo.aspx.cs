@@ -66,20 +66,22 @@ namespace LifeBuildC.Api
 
                 switch (Api_Data.PageName)
                 {
-                    case "SubjectSignUp":
-                        dt = Ado_Info.SubjectInfo_ADO.GetSubjectInfo
-                                (DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"),
-                                Api_Data.CategoryID);
+                    case "SubjectSignUp": //報名
+                        dt = Ado_Info.SubjectInfo_ADO.GetSubjectInfo(
+                                    DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"),
+                                    Api_Data.CategoryID
+                                );
                         break;
-                    case "SubjectCheck":
-                        dt = Ado_Info.SubjectInfo_ADO.GetSubjectInfoSDate
-                                (DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"),
-                                Api_Data.CategoryID);
+                    case "SubjectCheck": //簽到
+                        dt = Ado_Info.SubjectInfo_ADO.GetSubjectInfoSDate(
+                                    DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"),
+                                    Api_Data.CategoryID
+                                 );
                         break;
                     default:
-                        dt = Ado_Info.SubjectInfo_ADO.GetSubjectInfo
-                                (DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"),
-                                Api_Data.CategoryID);
+                        //dt = Ado_Info.SubjectInfo_ADO.GetSubjectInfo(
+                        //            DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"),
+                        //            Api_Data.CategoryID);
                         break;
                 }
 

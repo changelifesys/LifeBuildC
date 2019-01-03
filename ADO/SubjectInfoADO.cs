@@ -132,7 +132,8 @@ namespace ADO
                 string sql = @"SELECT * FROM " + DbSchema + @"SubjectInfo SInfo
                                            INNER JOIN " + DbSchema + @"SubjectDate SD ON SInfo.SID = SD.SID
                                            WHERE SInfo.CategoryID = @CategoryID
-                                           AND SD.SDate = @SubDate
+                                           AND SD.SDate = @SubDate 
+                                           AND IsCheckOpen = 1
                                            ORDER BY SD.SDate";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
