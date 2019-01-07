@@ -43,6 +43,15 @@
                             &nbsp;第<asp:TextBox Enabled="false" CssClass="inputStyle" ID="txtSubCount2" runat="server" Width="50px"></asp:TextBox>次開課
                         </td>
                     </tr>
+                    <!--開始簽到-->
+                    <tr style="height: 40px;">
+                        <td style="width: 150px; background-color: rgb(204,204,204)">
+                            <asp:Label ID="Label9" ForeColor="Black" Font-Bold="true" runat="server" Text="開始簽到"></asp:Label>
+                        </td>
+                        <td style="background-color: rgb(239,239,239); text-align: left;">
+                            <asp:CheckBox ID="ckbIsCheckOpen" runat="server" />&nbsp;&nbsp;打開
+                        </td>
+                    </tr>
                     <!--報名條件-->
                     <tr style="height: 40px;">
                         <td style="width: 150px; background-color: rgb(204,204,204)">

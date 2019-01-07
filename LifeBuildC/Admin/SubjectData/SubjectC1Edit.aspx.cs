@@ -41,6 +41,8 @@ namespace LifeBuildC.Admin.SubjectData
                 txtSubCount1.Text = dt.Rows[0]["SubCount"].ToString().Substring(0, 4);
                 txtSubCount2.Text = dt.Rows[0]["SubCount"].ToString().Substring(4, 2);
 
+                //關閉簽到
+                ckbIsCheckOpen.Checked = bool.Parse(dt.Rows[0]["IsCheckOpen"].ToString());
 
                 //報名條件
                 txtSUCondition.Text = dt.Rows[0]["SUCondition"].ToString();
@@ -234,7 +236,7 @@ namespace LifeBuildC.Admin.SubjectData
             string HtmlSubDesc = sb.ToString();
 
 
-            SubjectInfo.Update_SubjectInfo(SubCount, SUCondition, SubLocation, SubStrDate, SubEndDate, SID, Memo, HtmlSubDesc);
+            SubjectInfo.Update_SubjectInfo(SubCount, SUCondition, SubLocation, SubStrDate, SubEndDate, SID, Memo, HtmlSubDesc, ckbIsCheckOpen.Checked);
 
             #endregion
 
@@ -244,13 +246,14 @@ namespace LifeBuildC.Admin.SubjectData
             //C1 一、二課
             SubjectDate.DelSubjectDate(SID, "C112");
             if (ckbIsSub12.Checked)
-            { //更新課程
-                //string SDate12 = txtSDate12.Text.Trim();
-                //string SubTime12 = dropSubTime12.Text + " " + txtSubTime12.Text.Trim();
-                //SubjectDate.UpdSubjectDate(SDate12, SubTime12, SID, "C112");
-
-                SubjectDate.InsSubjectDate(SID, "C112", txtSDate12.Text.Trim(),
-                                                     dropSubTime12.Text + " " + txtSubTime12.Text.Trim());
+            { 
+                //更新課程
+                SubjectDate.InsSubjectDate(
+                    SID, 
+                    "C112", 
+                    txtSDate12.Text.Trim(),
+                    dropSubTime12.Text + " " + txtSubTime12.Text.Trim()
+                );
 
             }
 
@@ -258,13 +261,14 @@ namespace LifeBuildC.Admin.SubjectData
             //C1 三、四課
             SubjectDate.DelSubjectDate(SID, "C134");
             if (ckbIsSub34.Checked)
-            { //更新課程
-                //string SDate34 = txtSDate34.Text.Trim();
-                //string SubTime34 = dropSubTime34.Text + " " + txtSubTime34.Text.Trim();
-                //SubjectDate.UpdSubjectDate(SDate34, SubTime34, SID, "C134");
-
-                SubjectDate.InsSubjectDate(SID, "C134", txtSDate34.Text.Trim(),
-                                                                      dropSubTime34.Text + " " + txtSubTime34.Text.Trim());
+            { 
+                //更新課程
+                SubjectDate.InsSubjectDate(
+                    SID, 
+                    "C134", 
+                    txtSDate34.Text.Trim(),
+                    dropSubTime34.Text + " " + txtSubTime34.Text.Trim()
+                );
             }
 
             SubjectInfo.sp_Delete_SubjectInfo(SID);
