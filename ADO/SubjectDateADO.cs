@@ -90,9 +90,24 @@ namespace ADO
             {
                 string sql = @"SELECT SubjectInfo.SubStrDate, SubjectInfo.SubEndDate, SubjectInfo.SubCount,
                                                           SubjectDate.*
-                                            FROM " + DbSchema + @"SubjectInfo INNER JOIN " + DbSchema + @"SubjectDate ON SubjectInfo.SID = SubjectDate.SID
-                                            WHERE LEFT(SubjectDate.CategoryID, 2) = @CategoryID
-                                            ORDER BY SubjectDate.SID DESC, SubjectDate.SDate";
+                                            FROM " + DbSchema + @"SubjectInfo 
+                                            INNER JOIN " + DbSchema + @"SubjectDate ON SubjectInfo.SID = SubjectDate.SID
+                                            WHERE 
+                                            ";
+
+                switch (CategoryID)
+                {
+                    case "C1":
+                    case "C2":
+                        sql += " LEFT(SubjectDate.CategoryID, 2) = @CategoryID";
+                        break;
+
+                    case "C2QT":
+                        sql += " SubjectDate.CategoryID = @CategoryID";
+                        break;
+                }
+
+                sql += " ORDER BY SubjectDate.SID DESC, SubjectDate.SDate";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);

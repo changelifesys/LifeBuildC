@@ -115,12 +115,13 @@ namespace LifeBuildC.Api
 
                 #endregion
 
-                #region C1 成績
+                #region 經歷神營會
 
-                Api_Data.TxtC1_Score = dt.Rows[0]["C1_Score"].ToString() + "分";
-                if (int.Parse(dt.Rows[0]["C1_Score"].ToString()) >= 70)
+                Api_Data.IsExpGod = bool.Parse(dt.Rows[0]["IsExpGod"].ToString());
+
+                if (Api_Data.IsExpGod)
                 {
-                    Api_Data.IsC1_Score = true;
+                    Api_Data.TxtIsExpGod = "已上課";
                 }
 
                 #endregion
@@ -165,12 +166,12 @@ namespace LifeBuildC.Api
 
                 #endregion
 
-                #region 見證
+                #region C1 成績
 
-                Api_Data.Iswitness = bool.Parse(dt.Rows[0]["Iswitness"].ToString());
-                if (Api_Data.Iswitness)
+                Api_Data.TxtC1_Score = dt.Rows[0]["C1_Score"].ToString() + "分";
+                if (int.Parse(dt.Rows[0]["C1_Score"].ToString()) >= 70)
                 {
-                    Api_Data.Txtwitness = "已交";
+                    Api_Data.IsC1_Score = true;
                 }
 
                 #endregion
@@ -191,6 +192,56 @@ namespace LifeBuildC.Api
                 if (int.Parse(dt.Rows[0]["C234_Score"].ToString()) >= 70)
                 {
                     Api_Data.IsC234_Score = true;
+                }
+
+                #endregion
+
+                #region 見證
+
+                Api_Data.Iswitness = bool.Parse(dt.Rows[0]["Iswitness"].ToString());
+                if (Api_Data.Iswitness)
+                {
+                    Api_Data.Txtwitness = "已交";
+                }
+
+                #endregion
+
+                #region C2 QT研習營
+
+                Api_Data.IsC2QT = bool.Parse(dt.Rows[0]["IsC2QT"].ToString());
+                if (Api_Data.IsC2QT)
+                {
+                    Api_Data.TxtIsC2QT = "已上課";
+                }
+
+                #endregion
+
+                #region C2 榮耀男人&幸福女人
+
+                Api_Data.IsC2MW = bool.Parse(dt.Rows[0]["IsC2MW"].ToString());
+                if (Api_Data.IsC2MW)
+                {
+                    Api_Data.TxtIsC2MW = "已上課";
+                }
+
+                #endregion
+
+                #region 九型人格
+
+                Api_Data.IsC3N = bool.Parse(dt.Rows[0]["IsC3N"].ToString());
+                if (Api_Data.IsC3N)
+                {
+                    Api_Data.TxtIsC3N = "已上課";
+                }
+
+                #endregion
+
+                #region 人際關係
+
+                Api_Data.IsC3P = bool.Parse(dt.Rows[0]["IsC3P"].ToString());
+                if (Api_Data.IsC3P)
+                {
+                    Api_Data.TxtIsC3P = "已上課";
                 }
 
                 #endregion
@@ -216,6 +267,18 @@ namespace LifeBuildC.Api
                 }
 
                 #endregion
+
+                #region C3 判定
+
+                Api_Data.TxtIsC3_Status = "C3 判定" + dt.Rows[0]["C3_Status"].ToString();
+
+                if (dt.Rows[0]["C2_Status"].ToString() == dtStatus.Select("StatusID='C001'")[0]["ClassStatus"].ToString())
+                {
+                    Api_Data.IsC3_Status = true;
+                }
+
+                #endregion
+
             }
         }
 

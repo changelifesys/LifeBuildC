@@ -277,14 +277,8 @@ namespace libLifeBuildC
             /// C1 更深經歷神狀態訊息
             /// </summary>
             public string TxtC1God = "查無上課資料";
-            /// <summary>
-            /// C1 考試成績
-            /// </summary>
-            public bool IsC1_Score = false;
-            /// <summary>
-            /// C1 考試成績狀態訊息
-            /// </summary>
-            public string TxtC1_Score = "查無考試成績";
+            public bool IsExpGod = false;
+            public string TxtIsExpGod = "上課資料匯入中...";
             /// <summary>
             /// C2 一、二課(True: 通過 ; False: 沒通過)
             /// </summary>
@@ -309,6 +303,10 @@ namespace libLifeBuildC
             /// C2 第五課狀態訊息
             /// </summary>
             public string TxtIsC25 = "查無上課資料";
+            public bool IsC2QT = false;
+            public string TxtIsC2QT = "上課資料匯入中...";
+            public bool IsC2MW = false;
+            public string TxtIsC2MW = "上課資料匯入中...";
             /// <summary>
             /// C2 領袖訓練一(True: 通過 ; False: 沒通過)
             /// </summary>
@@ -317,6 +315,10 @@ namespace libLifeBuildC
             /// C2 領袖訓練一狀態訊息
             /// </summary>
             public string TxtC2L1 = "查無上課資料";
+            public bool IsC3N = false;
+            public string TxtIsC3N = "上課資料匯入中...";
+            public bool IsC3P = false;
+            public string TxtIsC3P = "上課資料匯入中...";
             /// <summary>
             /// 見證繳交(True: 有繳交 ; False: 沒有繳交)
             /// </summary>
@@ -325,6 +327,14 @@ namespace libLifeBuildC
             /// 見證繳交狀態訊息
             /// </summary>
             public string Txtwitness = "查無繳交見證";
+            /// <summary>
+            /// C1 考試成績
+            /// </summary>
+            public bool IsC1_Score = false;
+            /// <summary>
+            /// C1 考試成績狀態訊息
+            /// </summary>
+            public string TxtC1_Score = "查無考試成績";
             /// <summary>
             /// C2 一、二課考試成績
             /// </summary>
@@ -357,6 +367,8 @@ namespace libLifeBuildC
             /// C2 通過狀態狀態訊息
             /// </summary>
             public string TxtC2_Status = "C2 判定不通過";
+            public bool IsC3_Status = false;
+            public string TxtIsC3_Status = "C3 資料匯入中...";
             /// <summary>
             /// API 訊息
             /// </summary>
