@@ -98,6 +98,13 @@ namespace LifeBuildC.Api
                 Api_Data.ApiMsg = "C1 課程報名成功";
 
             }
+            else if (Api_Data.CategoryID == "C2QT")
+            {
+                Google_Sheet_Api = null;
+                Google_Sheet_Api = new GoogleSheetApi("1J0-a1pdcMHMKuIVgi1rKacOjYiLr-PrBNCye_NO6K_g", "報名");
+                AddSubSignProcess();
+                Api_Data.ApiMsg = "C2 QT研習營課程報名成功";
+            }
             else if (Api_Data.CategoryID == "C2" || 
                          Api_Data.CategoryID == "C2M" || Api_Data.CategoryID == "C2W" ||
                          Api_Data.CategoryID == "C3N" || Api_Data.CategoryID == "C3P")

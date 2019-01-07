@@ -1,5 +1,4 @@
-﻿using ADO;
-using libLifeBuildC;
+﻿using libLifeBuildC;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,29 +10,25 @@ using System.Web.UI.WebControls;
 
 namespace LifeBuildC.Admin.SubjectData
 {
-    public partial class SubjectC1Edit : System.Web.UI.Page
+    public partial class SubjectC2QTEdit : System.Web.UI.Page
     {
         ApiInfo Api_Info = new ApiInfo();
-        SubjectInfoADO SubjectInfo = new SubjectInfoADO();
-        SubjectDateADO SubjectDate = new SubjectDateADO();
+        AdoInfo Ado_Info = new AdoInfo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                if (CheckStringByRequest("id") != "")
+                if (Request.QueryString["id"] != null && Request.QueryString["id"].ToString().Length > 0)
                 {
                     PageDataLoad();
                 }
             }
         }
 
-        /// <summary>
-        /// 取得頁面資料
-        /// </summary>
         private void PageDataLoad()
         {
-            DataTable dt = SubjectInfo.GetSubjectDateBySubjectInfo(int.Parse(Request.QueryString["id"].ToString()));
+            DataTable dt = Ado_Info.SubjectInfo_ADO.GetSubjectDateBySubjectInfo(int.Parse(Request.QueryString["id"].ToString()));
 
             if (dt.Rows.Count > 0)
             {
@@ -48,48 +43,10 @@ namespace LifeBuildC.Admin.SubjectData
                 txtSUCondition.Text = dt.Rows[0]["SUCondition"].ToString();
 
                 //上課時間
-                //C1 一、二課
-                ckbIsSub12.Checked = false;
-                if (dt.Select("CategoryID2='C112'").Count() > 0)
-                {
-                    ckbIsSub12.Checked = true;
-                    txtSDate12.Text = DateTime.Parse(dt.Select("CategoryID2='C112'")[0]["SDate"].ToString()).ToString("yyyy/MM/dd");
-                    string[] arrDate12 = dt.Select("CategoryID2='C112'")[0]["SubTime"].ToString().Split(' ');
-                    dropSubTime12.SelectedValue = arrDate12[0];
-                    txtSubTime12.Text = arrDate12[1];
-                }
-                else
-                {
-                    txtSDate12.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
-                    dropSubTime12.SelectedIndex = 1;
-                    txtSubTime12.Text = "14:30~17:30";
-
-                    txtSDate12.Visible = false;
-                    dropSubTime12.Visible = false;
-                    txtSubTime12.Visible = false;
-
-                }
-
-                //C1 三、四課
-                ckbIsSub34.Checked = false;
-                if (dt.Select("CategoryID2='C134'").Count() > 0)
-                {
-                    ckbIsSub34.Checked = true;
-                    txtSDate34.Text = DateTime.Parse(dt.Select("CategoryID2='C134'")[0]["SDate"].ToString()).ToString("yyyy/MM/dd");
-                    string[] arrDate34 = dt.Select("CategoryID2='C134'")[0]["SubTime"].ToString().Split(' ');
-                    dropSubTime34.SelectedValue = arrDate34[0];
-                    txtSubTime34.Text = arrDate34[1];
-                }
-                else
-                {
-                    txtSDate34.Text = DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd");
-                    dropSubTime34.SelectedIndex = 1;
-                    txtSubTime34.Text = "14:30~17:30";
-
-                    txtSDate34.Visible = false;
-                    dropSubTime34.Visible = false;
-                    txtSubTime34.Visible = false;
-                }
+                txtSDate.Text = DateTime.Parse(dt.Select("CategoryID2='C2QT'")[0]["SDate"].ToString()).ToString("yyyy/MM/dd");
+                string[] arrDate12 = dt.Select("CategoryID2='C2QT'")[0]["SubTime"].ToString().Split(' ');
+                dropSubTime.SelectedValue = arrDate12[0];
+                txtSubTime.Text = arrDate12[1];
 
                 //地點
                 txtSubLocation.Text = dt.Rows[0]["SubLocation"].ToString();
@@ -108,23 +65,6 @@ namespace LifeBuildC.Admin.SubjectData
 
         }
 
-        /// <summary>
-        /// 檢查get參數
-        /// </summary>
-        /// <param name="QueryString_Name"></param>
-        /// <returns></returns>
-        private string CheckStringByRequest(string QueryString_Name)
-        {
-            string _value = string.Empty;
-            if (Request.QueryString[QueryString_Name] != null && Request.QueryString[QueryString_Name].ToString().Length > 0)
-                _value = Request.QueryString[QueryString_Name].ToString();
-
-            return _value;
-        }
-
-        /// <summary>
-        /// 儲存
-        /// </summary>
         protected void btnSave_Click(object sender, EventArgs e)
         {
             int SID = int.Parse(Request.QueryString["id"].ToString());
@@ -182,20 +122,10 @@ namespace LifeBuildC.Admin.SubjectData
             sb.Append("<div class='class-detail-text'>");
 
             //08/05(日)、08/12(日) 下午 14:30~17:30
-            if (ckbIsSub12.Checked)
-            {
-                sb.Append(txtSDate12.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
-                "(" + Api_Info.GetDayOfWeek(DateTime.Parse(txtSDate12.Text.Trim())) + ") " + " ");
-                sb.Append(dropSubTime12.Text + " " + txtSubTime12.Text.Trim());
-            }
+            sb.Append(txtSDate.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
+                                "(" + Api_Info.GetDayOfWeek(DateTime.Parse(txtSDate.Text.Trim())) + ") " + " ");
 
-            if (ckbIsSub34.Checked)
-            {
-                sb.Append("<br/>");
-                sb.Append(txtSDate34.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
-"(" + Api_Info.GetDayOfWeek(DateTime.Parse(txtSDate34.Text.Trim())) + ") " + " ");
-                sb.Append(dropSubTime34.Text + " " + txtSubTime34.Text.Trim());
-            }
+            sb.Append(dropSubTime.Text + " " + txtSubTime.Text.Trim());
 
             sb.Append("</div>");
             sb.Append("</li>");
@@ -206,7 +136,7 @@ namespace LifeBuildC.Admin.SubjectData
             sb.Append("</div>");
             sb.Append("<div class='class-detail-text'>");
             //江子翠行道會主會堂
-            sb.Append(SubLocation.Replace("\r\n","<br/>"));
+            sb.Append(SubLocation.Replace("\r\n", "<br/>"));
             sb.Append("</div>");
             sb.Append("</li>");
             sb.Append("<li>");
@@ -236,42 +166,22 @@ namespace LifeBuildC.Admin.SubjectData
             string HtmlSubDesc = sb.ToString();
 
 
-            SubjectInfo.Update_SubjectInfo(SubCount, SUCondition, SubLocation, SubStrDate, SubEndDate, SID, Memo, HtmlSubDesc, ckbIsCheckOpen.Checked);
+            Ado_Info.SubjectInfo_ADO.Update_SubjectInfo(SubCount, SUCondition, SubLocation, SubStrDate, SubEndDate, SID, Memo, HtmlSubDesc, ckbIsCheckOpen.Checked);
 
             #endregion
 
             #region Update SubjectDate
 
             //上課時間
-            //C1 一、二課
-            SubjectDate.DelSubjectDate(SID, "C112");
-            if (ckbIsSub12.Checked)
-            { 
-                //更新課程
-                SubjectDate.InsSubjectDate(
-                    SID, 
-                    "C112", 
-                    txtSDate12.Text.Trim(),
-                    dropSubTime12.Text + " " + txtSubTime12.Text.Trim()
-                );
+            Ado_Info.SubjectDate_ADO.DelSubjectDate(SID, "C2QT");
+            Ado_Info.SubjectDate_ADO.InsSubjectDate(
+                SID,
+                "C2QT",
+                txtSDate.Text.Trim(),
+                dropSubTime.Text + " " + txtSubTime.Text.Trim()
+            );
 
-            }
-
-
-            //C1 三、四課
-            SubjectDate.DelSubjectDate(SID, "C134");
-            if (ckbIsSub34.Checked)
-            { 
-                //更新課程
-                SubjectDate.InsSubjectDate(
-                    SID, 
-                    "C134", 
-                    txtSDate34.Text.Trim(),
-                    dropSubTime34.Text + " " + txtSubTime34.Text.Trim()
-                );
-            }
-
-            SubjectInfo.sp_Delete_SubjectInfo(SID);
+            Ado_Info.SubjectInfo_ADO.sp_Delete_SubjectInfo(SID);
 
             #endregion
 
@@ -281,36 +191,5 @@ namespace LifeBuildC.Admin.SubjectData
 
         }
 
-        protected void ckbIsSub12_CheckedChanged(object sender, EventArgs e)
-        {
-            if (ckbIsSub12.Checked)
-            { //有開課
-                txtSDate12.Visible = true;
-                dropSubTime12.Visible = true;
-                txtSubTime12.Visible = true;
-            }
-            else
-            {
-                txtSDate12.Visible = false;
-                dropSubTime12.Visible = false;
-                txtSubTime12.Visible = false;
-            }
-        }
-
-        protected void ckbIsSub34_CheckedChanged(object sender, EventArgs e)
-        {
-            if (ckbIsSub34.Checked)
-            { //有開課
-                txtSDate34.Visible = true;
-                dropSubTime34.Visible = true;
-                txtSubTime34.Visible = true;
-            }
-            else
-            {
-                txtSDate34.Visible = false;
-                dropSubTime34.Visible = false;
-                txtSubTime34.Visible = false;
-            }
-        }
     }
 }

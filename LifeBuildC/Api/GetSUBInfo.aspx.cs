@@ -75,6 +75,7 @@ namespace LifeBuildC.Api
                     case "SubjectCheck": //簽到
                         dt = Ado_Info.SubjectInfo_ADO.GetSubjectInfoSDate(
                                     DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd"),
+                                    //"2019/1/6",
                                     Api_Data.CategoryID
                                  );
                         break;

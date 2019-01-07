@@ -26,26 +26,33 @@ namespace LifeBuildC.Admin.SubjectData
                 {
                     CategoryID = Request.Form["CategoryID"].ToString();
 
-                    if (CategoryID == "C2")
+                    switch(CategoryID)
                     {
-                        rdoC1List.Checked = false;
-                        rdoC2List.Checked = true;
+                        case "C1":
+                            dropSubject.SelectedValue = "C1";
+                            btnAddSubject.Text = "新增 C1 課程";
+                            break;
+                        case "C2":
+                            dropSubject.SelectedValue = "C2";
+                            btnAddSubject.Text = "新增 C2 課程";
+                            break;
+                        case "C2QT":
+                            dropSubject.SelectedValue = "C2QT";
+                            btnAddSubject.Text = "新增  QT 研習營課程";
+                            break;
                     }
 
                 }
                 else
                 {
                     CategoryID = "C1";
-                    rdoC1List.Checked = true;
-                    rdoC2List.Checked = false;
+                    dropSubject.SelectedValue = "C1";
+                    btnAddSubject.Text = "新增 C1 課程";
                 }
 
                 gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate(CategoryID);
                 gvSubject.DataBind();
             }
-
-            
-
 
         }
 
@@ -75,21 +82,26 @@ namespace LifeBuildC.Admin.SubjectData
                     case "C25":
                         ((Label)e.Row.FindControl("lblCategoryID")).Text = "C2 五課";
                         break;
+                    case "C2QT":
+                        ((Label)e.Row.FindControl("lblCategoryID")).Text = "QT 研習營";
+                        break;
                 }
 
                 switch (DataBinder.Eval(e.Row.DataItem, "CategoryID").ToString())
                 {
                     case "C112":
                     case "C134":
-                        ((Button)e.Row.FindControl("btnEdit")).PostBackUrl = "SubjectC1Edit.aspx?id=" +
-                        DataBinder.Eval(e.Row.DataItem, "SID").ToString();
+                        ((Button)e.Row.FindControl("btnEdit")).PostBackUrl = "SubjectC1Edit.aspx?id=" + DataBinder.Eval(e.Row.DataItem, "SID").ToString();
                         break;
 
                     case "C212":
                     case "C234":
                     case "C25":
-                        ((Button)e.Row.FindControl("btnEdit")).PostBackUrl = "SubjectC2Edit.aspx?id=" +
-                        DataBinder.Eval(e.Row.DataItem, "SID").ToString();
+                        ((Button)e.Row.FindControl("btnEdit")).PostBackUrl = "SubjectC2Edit.aspx?id=" + DataBinder.Eval(e.Row.DataItem, "SID").ToString();
+                        break;
+
+                    case "C2QT":
+                        ((Button)e.Row.FindControl("btnEdit")).PostBackUrl = "SubjectC2QTEdit.aspx?id=" + DataBinder.Eval(e.Row.DataItem, "SID").ToString();
                         break;
                 }
 
@@ -99,48 +111,27 @@ namespace LifeBuildC.Admin.SubjectData
 
                 if (DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SubStrDate").ToString()) < DateTime.UtcNow.AddHours(8))
                 {
-                    ((Label)e.Row.FindControl("lblSubject")).Text = "課程已開始報名";
+                    ((Label)e.Row.FindControl("lblSubject")).Text = "開始報名中";
                     ((Button)e.Row.FindControl("btnEdit")).Visible = true; //隱藏編輯鈕
-                    ((Button)e.Row.FindControl("btnDel")).Visible = true; //隱藏刪除鈕
+
+                    if (Request.QueryString["delete"] != null && Request.QueryString["delete"].ToString() == "true")
+                    {
+                        ((Button)e.Row.FindControl("btnDel")).Visible = false; //隱藏刪除鈕
+                    }
+                    else
+                    {
+                        ((Button)e.Row.FindControl("btnDel")).Visible = true; //隱藏刪除鈕
+                    }
+
                 }
                 else if (DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SDate").ToString()) < DateTime.UtcNow.AddHours(8))
                 {
-                    ((Label)e.Row.FindControl("lblSubject")).Text = "課程已結束";
+                    ((Label)e.Row.FindControl("lblSubject")).Text = "已結束";
                     ((Button)e.Row.FindControl("btnEdit")).Visible = false; //隱藏編輯鈕
                     ((Button)e.Row.FindControl("btnDel")).Visible = false; //隱藏刪除鈕
                 }
-                
-
 
             }
-        }
-
-        protected void rdoC1List_CheckedChanged(object sender, EventArgs e)
-        {
-            gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C1");
-            gvSubject.DataBind();
-        }
-
-        protected void rdoC2List_CheckedChanged(object sender, EventArgs e)
-        {
-            gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C2");
-            gvSubject.DataBind();
-        }
-
-        protected void rdoC2MList_CheckedChanged(object sender, EventArgs e)
-        {
-            gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C2M");
-            gvSubject.DataBind();
-        }
-
-        protected void btnAddC1_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("SubjectC1Add.aspx");
-        }
-
-        protected void btnAddC2_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("SubjectC2Add.aspx");
         }
 
         protected void gvSubject_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -151,16 +142,47 @@ namespace LifeBuildC.Admin.SubjectData
             SubjectDate.DelSubjectDate(int.Parse(SID), CategoryID);
             SubjectInfo.sp_Delete_SubjectInfo(int.Parse(SID));
 
-            if (rdoC1List.Checked)
-            {
-                gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C1");
-            }
-            else
-            {
-                gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C2");
-            }
+            ViewBygvSubject();
+        }
 
-            gvSubject.DataBind();
+        private void ViewBygvSubject()
+        {
+            switch (dropSubject.SelectedValue)
+            {
+                case "C1":
+                    gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C1");
+                    gvSubject.DataBind();
+                    break;
+                case "C2":
+                    gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C2");
+                    gvSubject.DataBind();
+                    break;
+                case "C2QT":
+                    gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C2QT");
+                    gvSubject.DataBind();
+                    break;
+            }
+        }
+
+        protected void dropSubject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ViewBygvSubject();
+        }
+
+        protected void btnAddSubject_Click(object sender, EventArgs e)
+        {
+            switch (dropSubject.SelectedValue)
+            {
+                case "C1":
+                    Response.Redirect("SubjectC1Add.aspx");
+                    break;
+                case "C2":
+                    Response.Redirect("SubjectC2Add.aspx");
+                    break;
+                case "C2QT":
+                    Response.Redirect("SubjectC2QTAdd.aspx");
+                    break;
+            }
         }
 
 

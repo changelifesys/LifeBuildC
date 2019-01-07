@@ -595,7 +595,6 @@ namespace LifeBuildC.Admin.MemSubData
                     GroupName = dropGroupCName.SelectedItem.Text;
                 }
                 
-
                 HSSFWorkbook wb = new HSSFWorkbook();
                 MemoryStream ms = new MemoryStream();
                 HSSFSheet ns = (HSSFSheet)wb.CreateSheet("mySheet");
@@ -603,57 +602,39 @@ namespace LifeBuildC.Admin.MemSubData
                 ns.CreateRow(0).CreateCell(0).SetCellValue("組   別");
                 ns.GetRow(0).CreateCell(1).SetCellValue("小   組");
                 ns.GetRow(0).CreateCell(2).SetCellValue("姓   名");
-                ns.GetRow(0).CreateCell(3).SetCellValue("教   會");
-                ns.GetRow(0).CreateCell(4).SetCellValue("C1第一、二課");
-                ns.GetRow(0).CreateCell(5).SetCellValue("C1第三、四課");
+                ns.GetRow(0).CreateCell(3).SetCellValue("C1第一、二課");
+                ns.GetRow(0).CreateCell(4).SetCellValue("C1第三、四課");
+                ns.GetRow(0).CreateCell(5).SetCellValue("更深經歷神");
                 ns.GetRow(0).CreateCell(6).SetCellValue("C2第一、二課");
                 ns.GetRow(0).CreateCell(7).SetCellValue("C2第三、四課");
                 ns.GetRow(0).CreateCell(8).SetCellValue("C2第五課");
-                ns.GetRow(0).CreateCell(9).SetCellValue("C1 考試");
-                ns.GetRow(0).CreateCell(10).SetCellValue("C2 第一、二課考試");
-                ns.GetRow(0).CreateCell(11).SetCellValue("C2 第三、四課考試");
-                ns.GetRow(0).CreateCell(12).SetCellValue("交見證");
-                ns.GetRow(0).CreateCell(13).SetCellValue("C1 通過判定");
-                ns.GetRow(0).CreateCell(14).SetCellValue("C2 通過判定");
+                ns.GetRow(0).CreateCell(9).SetCellValue("領袖課程一");
+                ns.GetRow(0).CreateCell(10).SetCellValue("C1 考試");
+                ns.GetRow(0).CreateCell(11).SetCellValue("C2 第一、二課考試");
+                ns.GetRow(0).CreateCell(12).SetCellValue("C2 第三、四課考試");
+                ns.GetRow(0).CreateCell(13).SetCellValue("交見證");
+                ns.GetRow(0).CreateCell(14).SetCellValue("C1 通過判定");
+                ns.GetRow(0).CreateCell(15).SetCellValue("C2 通過判定");
 
-                for (int i = 0; i < gvChcMember.Rows.Count; i++)
+                DataTable dtChcMember = (DataTable)ViewState["dt"];
+                for (int i = 0; i < dtChcMember.Rows.Count; i++)
                 {
-                    ns.CreateRow(i + 1).CreateCell(0).SetCellValue(gvChcMember.Rows[i].Cells[0].Text);
-                    for (int j = 1; j < gvChcMember.Columns.Count; j++)
-                    {
-                        switch (j)
-                        {
-                            case 2: //小組
-                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblGroupCName")).Text + "-" +
-                                    ((Label)gvChcMember.Rows[i].FindControl("lblGroupName")).Text);
-                                break;
-
-                            case 5: //C1 第一、二課
-                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblIsC112")).Text);
-                                break;
-                            case 6:
-                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblIsC134")).Text);
-                                break;
-                            case 7:
-                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblIsC212")).Text);
-                                break;
-                            case 8:
-                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblIsC234")).Text);
-                                break;
-                            case 9:
-                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblIsC25")).Text);
-                                break;
-
-                            case 13:
-                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(((Label)gvChcMember.Rows[i].FindControl("lblIswitness")).Text);
-                                break;
-
-                            default:
-                                ns.GetRow(i + 1).CreateCell(j - 1).SetCellValue(gvChcMember.Rows[i].Cells[j].Text.Replace("&nbsp;", ""));
-                                break;
-                        }
-
-                    }
+                    ns.CreateRow(i + 1).CreateCell(0).SetCellValue(dtChcMember.Rows[i]["GroupClass"].ToString()); //組   別
+                    ns.GetRow(i + 1).CreateCell(1).SetCellValue(dtChcMember.Rows[i]["GroupCName"].ToString() + "-" + dtChcMember.Rows[i]["GroupName"].ToString()); //小   組
+                    ns.GetRow(i + 1).CreateCell(2).SetCellValue(dtChcMember.Rows[i]["Ename"].ToString()); //姓   名
+                    ns.GetRow(i + 1).CreateCell(3).SetCellValue(bool.Parse(dtChcMember.Rows[i]["IsC112"].ToString()) ? "V" : ""); //C1第一、二課
+                    ns.GetRow(i + 1).CreateCell(4).SetCellValue(bool.Parse(dtChcMember.Rows[i]["IsC134"].ToString()) ? "V" : ""); //C1第三、四課
+                    ns.GetRow(i + 1).CreateCell(5).SetCellValue(bool.Parse(dtChcMember.Rows[i]["IsC1God"].ToString()) ? "V" : ""); //更深經歷神
+                    ns.GetRow(i + 1).CreateCell(6).SetCellValue(bool.Parse(dtChcMember.Rows[i]["IsC212"].ToString()) ? "V" : ""); //C2第一、二課
+                    ns.GetRow(i + 1).CreateCell(7).SetCellValue(bool.Parse(dtChcMember.Rows[i]["IsC234"].ToString()) ? "V" : ""); //C2第三、四課
+                    ns.GetRow(i + 1).CreateCell(8).SetCellValue(bool.Parse(dtChcMember.Rows[i]["IsC25"].ToString()) ? "V" : ""); //C2第五課
+                    ns.GetRow(i + 1).CreateCell(9).SetCellValue(bool.Parse(dtChcMember.Rows[i]["IsC2L1"].ToString()) ? "V" : ""); //領袖課程一
+                    ns.GetRow(i + 1).CreateCell(10).SetCellValue(dtChcMember.Rows[i]["C1_Score"].ToString()); //C1 考試
+                    ns.GetRow(i + 1).CreateCell(11).SetCellValue(dtChcMember.Rows[i]["C212_Score"].ToString()); //C2 第一、二課考試
+                    ns.GetRow(i + 1).CreateCell(12).SetCellValue(dtChcMember.Rows[i]["C234_Score"].ToString()); //C2 第三、四課考試
+                    ns.GetRow(i + 1).CreateCell(13).SetCellValue(bool.Parse(dtChcMember.Rows[i]["Iswitness"].ToString()) ? "V" : ""); //交見證
+                    ns.GetRow(i + 1).CreateCell(14).SetCellValue(dtChcMember.Rows[i]["C1_Status"].ToString()); //C1 通過判定
+                    ns.GetRow(i + 1).CreateCell(15).SetCellValue(dtChcMember.Rows[i]["C2_Status"].ToString()); //C2 通過判定
                 }
 
                 wb.Write(ms);
@@ -953,6 +934,7 @@ namespace LifeBuildC.Admin.MemSubData
         protected void GridViewDataSource(DataTable dt)
         {
             divView1.Visible = true;
+            ViewState["dt"] = dt;
 
             if (rdoAll.Checked)
             {

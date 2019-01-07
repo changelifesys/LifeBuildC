@@ -51,7 +51,7 @@ namespace ADO
 
         //UPDATE
 
-        public void Update_SubjectInfo(string SubCount, string SUCondition, string SubLocation, string SubStrDate, string SubEndDate, int SID, string Memo, string HtmlSubDesc)
+        public void Update_SubjectInfo(string SubCount, string SUCondition, string SubLocation, string SubStrDate, string SubEndDate, int SID, string Memo, string HtmlSubDesc, bool IsCheckOpen)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
@@ -62,7 +62,8 @@ namespace ADO
                                                     SubStrDate = @SubStrDate,
                                                     SubEndDate = @SubEndDate,
                                                     Memo = @Memo,
-                                                    HtmlSubDesc = @HtmlSubDesc
+                                                    HtmlSubDesc = @HtmlSubDesc,
+                                                    IsCheckOpen = @IsCheckOpen
                                             WHERE SID = @SID";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -73,6 +74,7 @@ namespace ADO
                 com.Parameters.AddWithValue("@SubEndDate", SubEndDate);
                 com.Parameters.AddWithValue("@Memo", Memo);
                 com.Parameters.AddWithValue("@HtmlSubDesc", HtmlSubDesc);
+                com.Parameters.AddWithValue("@IsCheckOpen", IsCheckOpen);
                 com.Parameters.AddWithValue("@SID", SID);
 
                 con.Open();
@@ -201,6 +203,7 @@ namespace ADO
 
 
         //EXEC
+
         public void sp_Delete_SubjectInfo(int SID)
         {
             using (SqlConnection con = new SqlConnection(condb))

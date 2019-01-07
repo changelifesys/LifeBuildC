@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SubjectC2Add.aspx.cs" Inherits="LifeBuildC.Admin.SubjectData.SubjectC2Add" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SubjectC2QTEdit.aspx.cs" Inherits="LifeBuildC.Admin.SubjectData.SubjectC2QTEdit" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>新增C2課程</title>
+    <title>編輯C2 QT研習營課程</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
@@ -14,20 +14,20 @@
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script src="../js/examedit.js"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <script>
+        <script>
         function clickSave() {
-            alert('C2 課程新增成功!');
+            alert('C2 QT研習營課程儲存成功!');
             $('#btnSave').click();
         };
     </script>
 </head>
 <body>
-    <form role="form" runat="server">
-        <asp:HiddenField ID="CategoryID" Value="C2" runat="server" />
+<form role="form" runat="server">
+        <asp:HiddenField ID="CategoryID" Value="C2QT" runat="server" />
         <div>
             <center>
                 <img alt="" src="../../img/CLC_Logo.gif" />
-                <h1>新增C2課程</h1>
+                <h1>編輯C2 QT研習營課程</h1>
             </center>
 
             <!--Content-->
@@ -36,11 +36,20 @@
                     <!--開課次數-->
                     <tr style="height: 40px;">
                         <td style="width: 150px; background-color: rgb(204,204,204)">
-                            <asp:Label ID="Label9" ForeColor="Black" Font-Bold="true" runat="server" Text="開課次數"></asp:Label>
+                            <asp:Label ID="Label8" ForeColor="Black" Font-Bold="true" runat="server" Text="開課次數"></asp:Label>
                         </td>
                         <td style="background-color: rgb(239,239,239); text-align: left;">
-                            &nbsp;&nbsp;<asp:TextBox Enabled="false" ID="txtSubCount1" ReadOnly="true" CssClass="inputStyle" runat="server" Width="50px"></asp:TextBox>年&nbsp;/
-                            &nbsp;第<asp:TextBox CssClass="inputStyle" ReadOnly="true" ID="txtSubCount2" runat="server" Width="50px"></asp:TextBox>次開課
+                            &nbsp;&nbsp;<asp:TextBox Enabled="false" ID="txtSubCount1" CssClass="inputStyle" runat="server" Width="50px"></asp:TextBox>年&nbsp;/
+                            &nbsp;第<asp:TextBox CssClass="inputStyle" ID="txtSubCount2" runat="server" Width="50px"></asp:TextBox>次開課
+                        </td>
+                    </tr>
+                    <!--開始簽到-->
+                    <tr style="height: 40px;">
+                        <td style="width: 150px; background-color: rgb(204,204,204)">
+                            <asp:Label ID="Label9" ForeColor="Black" Font-Bold="true" runat="server" Text="開始簽到"></asp:Label>
+                        </td>
+                        <td style="background-color: rgb(239,239,239); text-align: left;">
+                            <asp:CheckBox ID="ckbIsCheckOpen" runat="server" />&nbsp;&nbsp;打開
                         </td>
                     </tr>
                     <!--報名條件-->
@@ -57,54 +66,16 @@
                     <!--上課日期-->
                     <tr style="height: 40px;">
                         <td style="width: 150px; background-color: rgb(204,204,204)">
-                            <asp:Label ID="Label1" ForeColor="Black" Font-Bold="true" runat="server" Text="C1 一、二課"></asp:Label>
-                            <asp:CheckBox ID="ckbIsSub12" runat="server" Checked="True" AutoPostBack="True" OnCheckedChanged="ckbIsSub12_CheckedChanged" />
-                            有開課
+                            <asp:Label ID="Label1" ForeColor="Black" Font-Bold="true" runat="server" Text="C2 QT 研習營"></asp:Label>
                         </td>
-                        <td style="background-color: rgb(239,239,239); text-align: center;">【C1 一、二課】上課時間：
-                            <asp:TextBox CssClass="inputStyle" ID="txtSDate12" runat="server"></asp:TextBox>
+                        <td style="background-color: rgb(239,239,239); text-align: center;">【C2 QT 研習營】上課時間：
+                            <asp:TextBox CssClass="inputStyle" ID="txtSDate" runat="server"></asp:TextBox>
                             <br />
-                            <asp:DropDownList CssClass="inputStyle" ID="dropSubTime12" runat="server">
+                            <asp:DropDownList CssClass="inputStyle" ID="dropSubTime" runat="server">
                                 <asp:ListItem>上午</asp:ListItem>
                                 <asp:ListItem>下午</asp:ListItem>
                             </asp:DropDownList>
-                            <asp:TextBox CssClass="inputStyle" ID="txtSubTime12" runat="server"></asp:TextBox>
-                            <br />
-                            <br />
-                        </td>
-                    </tr>
-                    <tr style="height: 40px;">
-                        <td style="width: 150px; background-color: rgb(204,204,204)">
-                            <asp:Label ID="Label3" ForeColor="Black" Font-Bold="true" runat="server" Text="C1 三、四課"></asp:Label>
-                            <asp:CheckBox ID="ckbIsSub34" runat="server" Checked="True" AutoPostBack="True" OnCheckedChanged="ckbIsSub34_CheckedChanged" />
-                            有開課
-                        </td>
-                        <td style="background-color: rgb(239,239,239); text-align: center;">【C1 三、四課】上課時間：
-                            <asp:TextBox CssClass="inputStyle" ID="txtSDate34" runat="server"></asp:TextBox>
-                            <br />
-                            <asp:DropDownList CssClass="inputStyle" ID="dropSubTime34" runat="server">
-                                <asp:ListItem>上午</asp:ListItem>
-                                <asp:ListItem>下午</asp:ListItem>
-                            </asp:DropDownList>
-                            <asp:TextBox CssClass="inputStyle" ID="txtSubTime34" runat="server"></asp:TextBox>
-                            <br />
-                            <br />
-                        </td>
-                    </tr>
-                    <tr style="height: 40px;">
-                        <td style="width: 150px; background-color: rgb(204,204,204)">
-                            <asp:Label ID="Label8" ForeColor="Black" Font-Bold="true" runat="server" Text="C2 五課"></asp:Label>
-                            <asp:CheckBox ID="ckbIsSub5" runat="server" Checked="True" AutoPostBack="True" OnCheckedChanged="ckbIsSub5_CheckedChanged" />
-                            有開課
-                        </td>
-                        <td style="background-color: rgb(239,239,239); text-align: center;">【C2 五課】上課時間：
-                            <asp:TextBox CssClass="inputStyle" ID="txtSDate5" runat="server"></asp:TextBox>
-                            <br />
-                            <asp:DropDownList CssClass="inputStyle" ID="dropSubTime5" runat="server">
-                                <asp:ListItem>上午</asp:ListItem>
-                                <asp:ListItem>下午</asp:ListItem>
-                            </asp:DropDownList>
-                            <asp:TextBox CssClass="inputStyle" ID="txtSubTime5" runat="server"></asp:TextBox>
+                            <asp:TextBox CssClass="inputStyle" ID="txtSubTime" runat="server"></asp:TextBox>
                             <br />
                             <br />
                         </td>
@@ -147,11 +118,10 @@
                     </tr>
                 </table>
             </div>
-            <!--Save-->
             <center>
-                            <asp:Button ID="btnSave" CssClass="buttonStyle" runat="server" Text="儲存" OnClick="btnSave_Click" />
-                                        <br />
-            <asp:Button ID="btnCel" CssClass="buttonStyle" runat="server" Text="返回" PostBackUrl="~/Admin/SubjectData/SubjectList.aspx" />
+                <asp:Button ID="btnSave" CssClass="buttonStyle" runat="server" Text="儲存" OnClick="btnSave_Click" />
+                            <br />
+                <asp:Button ID="btnCel" CssClass="buttonStyle" runat="server" Text="返回" PostBackUrl="~/Admin/SubjectData/SubjectList.aspx" />
             </center>
 
         </div>

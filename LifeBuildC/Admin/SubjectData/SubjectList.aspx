@@ -19,19 +19,17 @@
 
 
         <div>
-            <asp:Button ID="btnAddC1" runat="server" Text="新增C1課程" OnClick="btnAddC1_Click" />
-            <asp:Button ID="btnAddC2" runat="server" Text="新增C2課程" OnClick="btnAddC2_Click" />
-            <asp:Button ID="btnAddC2M" runat="server" Text="新增C2榮耀男人課程" />
+            <asp:Button ID="btnAddSubject" runat="server" Text="" OnClick="btnAddSubject_Click" />
         </div>
             <p/>
         <div>
-            <asp:RadioButton Checked="true" Font-Size="24px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC1List" runat="server" Text="C1課程" OnCheckedChanged="rdoC1List_CheckedChanged" />
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <asp:RadioButton Font-Size="24px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC2List" runat="server" Text="C2課程" OnCheckedChanged="rdoC2List_CheckedChanged" />
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <asp:RadioButton Font-Size="24px" ForeColor="Blue" AutoPostBack="true" GroupName="C" ID="rdoC2MList" runat="server" Text="C2榮耀男人課程" OnCheckedChanged="rdoC2MList_CheckedChanged" />
+            <asp:DropDownList ID="dropSubject" runat="server" AutoPostBack="true" OnSelectedIndexChanged="dropSubject_SelectedIndexChanged">
+                <asp:ListItem Value="C1">C1 課程</asp:ListItem>
+                <asp:ListItem Value="C2">C2 課程</asp:ListItem>
+                <asp:ListItem Value="C2QT">C2 QT研習營</asp:ListItem>
+            </asp:DropDownList>
         </div>
-            <p/>
+        <p/>
         <div>
             <asp:GridView ID="gvSubject" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvSubject_RowDataBound" OnRowDeleting="gvSubject_RowDeleting" Width="60%" CellPadding="4" ForeColor="#333333" GridLines="None">
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />

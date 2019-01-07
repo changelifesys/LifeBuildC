@@ -158,6 +158,8 @@
     <Content Include="Admin\SubjectData\SubjectC2Edit.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2MAdd.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2MEdit.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC2QTAdd.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC2QTEdit.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2WAdd.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2WEdit.aspx" />
     <Content Include="Admin\SubjectData\SubjectC3NAdd.aspx" />
@@ -462,6 +464,20 @@
     </Compile>
     <Compile Include="Admin\SubjectData\SubjectC2MEdit.aspx.designer.cs">
       <DependentUpon>SubjectC2MEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2QTAdd.aspx.cs">
+      <DependentUpon>SubjectC2QTAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2QTAdd.aspx.designer.cs">
+      <DependentUpon>SubjectC2QTAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2QTEdit.aspx.cs">
+      <DependentUpon>SubjectC2QTEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2QTEdit.aspx.designer.cs">
+      <DependentUpon>SubjectC2QTEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\SubjectData\SubjectC2WAdd.aspx.cs">
       <DependentUpon>SubjectC2WAdd.aspx</DependentUpon>

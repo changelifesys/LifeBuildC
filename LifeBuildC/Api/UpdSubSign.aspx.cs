@@ -98,6 +98,7 @@ namespace LifeBuildC.Api
                 case "C2":
                 case "C2M":
                 case "C2W":
+                case "C2QT":
                 case "C3N":
                 case "C3P":
 
@@ -121,6 +122,9 @@ namespace LifeBuildC.Api
                                 case "C2W":
                                     Google_Sheet_Api = new GoogleSheetApi("1axSXC65UFPc-SC2lO5XQoDky5VXLXSf4Of20YVfBTmk", "簽到");
                                     break;
+                                case "C2QT":
+                                    Google_Sheet_Api = new GoogleSheetApi("1J0-a1pdcMHMKuIVgi1rKacOjYiLr-PrBNCye_NO6K_g", "簽到");
+                                    break;
                                 case "C3N":
                                     Google_Sheet_Api = new GoogleSheetApi("129gyeEaXnD9CFiT4t8PKH_m_sxDpIg8pFvJtoJjAQqQ", "簽到");
                                     break;
@@ -141,6 +145,9 @@ namespace LifeBuildC.Api
                                     break;
                                 case "C2W":
                                     Api_Data.ApiMsg = "C2 幸福女人課程簽到成功";
+                                    break;
+                                case "C2QT":
+                                    Api_Data.ApiMsg = "C2 QT研習營課程簽到成功";
                                     break;
                                 case "C3N":
                                     Api_Data.ApiMsg = "C3 九型人格課程簽到成功";

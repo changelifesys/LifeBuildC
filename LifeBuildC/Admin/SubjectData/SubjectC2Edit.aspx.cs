@@ -40,6 +40,9 @@ namespace LifeBuildC.Admin.SubjectData
                 txtSubCount1.Text = dt.Rows[0]["SubCount"].ToString().Substring(0, 4);
                 txtSubCount2.Text = dt.Rows[0]["SubCount"].ToString().Substring(4, 2);
 
+                //關閉簽到
+                ckbIsCheckOpen.Checked = bool.Parse(dt.Rows[0]["IsCheckOpen"].ToString());
+
                 //報名條件
                 txtSUCondition.Text = dt.Rows[0]["SUCondition"].ToString();
 
@@ -250,7 +253,7 @@ namespace LifeBuildC.Admin.SubjectData
             sb.Append("</div>");
             string HtmlSubDesc = sb.ToString();
 
-            SubjectInfo.Update_SubjectInfo(SubCount, SUCondition, SubLocation, SubStrDate, SubEndDate, SID, Memo, HtmlSubDesc);
+            SubjectInfo.Update_SubjectInfo(SubCount, SUCondition, SubLocation, SubStrDate, SubEndDate, SID, Memo, HtmlSubDesc, ckbIsCheckOpen.Checked);
 
             #endregion
 

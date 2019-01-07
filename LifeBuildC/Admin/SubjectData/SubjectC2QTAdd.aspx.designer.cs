@@ -10,7 +10,7 @@
 namespace LifeBuildC.Admin.SubjectData {
     
     
-    public partial class SubjectC1Edit {
+    public partial class SubjectC2QTAdd {
         
         /// <summary>
         /// CategoryID 控制項。
@@ -49,24 +49,6 @@ namespace LifeBuildC.Admin.SubjectData {
         protected global::System.Web.UI.WebControls.TextBox txtSubCount2;
         
         /// <summary>
-        /// Label9 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label9;
-        
-        /// <summary>
-        /// ckbIsCheckOpen 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ckbIsCheckOpen;
-        
-        /// <summary>
         /// Label2 控制項。
         /// </summary>
         /// <remarks>
@@ -94,85 +76,31 @@ namespace LifeBuildC.Admin.SubjectData {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// ckbIsSub12 控制項。
+        /// txtSDate 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ckbIsSub12;
+        protected global::System.Web.UI.WebControls.TextBox txtSDate;
         
         /// <summary>
-        /// txtSDate12 控制項。
+        /// dropSubTime 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSDate12;
+        protected global::System.Web.UI.WebControls.DropDownList dropSubTime;
         
         /// <summary>
-        /// dropSubTime12 控制項。
+        /// txtSubTime 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList dropSubTime12;
-        
-        /// <summary>
-        /// txtSubTime12 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSubTime12;
-        
-        /// <summary>
-        /// Label3 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-        
-        /// <summary>
-        /// ckbIsSub34 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ckbIsSub34;
-        
-        /// <summary>
-        /// txtSDate34 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSDate34;
-        
-        /// <summary>
-        /// dropSubTime34 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList dropSubTime34;
-        
-        /// <summary>
-        /// txtSubTime34 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSubTime34;
+        protected global::System.Web.UI.WebControls.TextBox txtSubTime;
         
         /// <summary>
         /// Label4 控制項。
