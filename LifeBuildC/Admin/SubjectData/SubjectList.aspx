@@ -14,20 +14,15 @@
 <body>
     <form id="form1" runat="server">
         <center>
-                <img alt="" src="../../img/CLC_Logo.gif" />
-                <h1>生命建造-課程管理</h1>
-
-
+        <img alt="" src="../../img/CLC_Logo.gif" />
+        <h1>生命建造-課程管理</h1>
         <div>
-            <asp:Button ID="btnAddSubject" runat="server" Text="" OnClick="btnAddSubject_Click" />
-        </div>
-            <p/>
-        <div>
-            <asp:DropDownList ID="dropSubject" runat="server" AutoPostBack="true" OnSelectedIndexChanged="dropSubject_SelectedIndexChanged">
+            課程類別：<asp:DropDownList ID="dropSubject" runat="server" AutoPostBack="true" OnSelectedIndexChanged="dropSubject_SelectedIndexChanged" Font-Size="14pt">
                 <asp:ListItem Value="C1">C1 課程</asp:ListItem>
                 <asp:ListItem Value="C2">C2 課程</asp:ListItem>
                 <asp:ListItem Value="C2QT">C2 QT研習營</asp:ListItem>
-            </asp:DropDownList>
+            </asp:DropDownList>&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Button ID="btnAddSubject" runat="server" Text="" OnClick="btnAddSubject_Click" Font-Size="14pt" />
         </div>
         <p/>
         <div>

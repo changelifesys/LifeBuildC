@@ -40,7 +40,8 @@ namespace LifeBuildC.Tool
 
                         //寫入Data
                         Ado_Info.ChcMember_ADO.UpdChcMemberDataByMode("1", dr["CategoryID"].ToString(), true, dr["MID"].ToString(),
-                            dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["Phone"].ToString(), dr["Ename"].ToString());
+                            dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["Phone"].ToString(), dr["Ename"].ToString(),
+                            dr["GroupClass"].ToString(), dr["Gmail"].ToString());
 
                         #endregion
                     }
@@ -58,7 +59,8 @@ namespace LifeBuildC.Tool
 
                             //寫入Data
                             Ado_Info.ChcMember_ADO.UpdChcMemberDataByMode("2", dr["CategoryID"].ToString(), true, dr["MID"].ToString(),
-                                dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["Phone"].ToString(), dr["Ename"].ToString());
+                                dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["Phone"].ToString(), dr["Ename"].ToString(),
+                                dr["GroupClass"].ToString(), dr["Gmail"].ToString());
                         }
                         else
                         {
@@ -74,7 +76,8 @@ namespace LifeBuildC.Tool
 
                                 //寫入Data
                                 Ado_Info.ChcMember_ADO.UpdChcMemberDataByMode("3", dr["CategoryID"].ToString(), true, dr["MID"].ToString(),
-                                    dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["Phone"].ToString(), dr["Ename"].ToString());
+                                    dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["Phone"].ToString(), dr["Ename"].ToString(),
+                                    dr["GroupClass"].ToString(), dr["Gmail"].ToString());
                             }
                             else
                             {
@@ -90,7 +93,8 @@ namespace LifeBuildC.Tool
 
                                     //寫入Data
                                     Ado_Info.ChcMember_ADO.UpdChcMemberDataByMode("4", dr["CategoryID"].ToString(), true, dr["MID"].ToString(),
-                                        dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["Phone"].ToString(), dr["Ename"].ToString());
+                                        dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["Phone"].ToString(), dr["Ename"].ToString(),
+                                        dr["GroupClass"].ToString(), dr["Gmail"].ToString());
                                 }
                                 else
                                 {
@@ -106,7 +110,8 @@ namespace LifeBuildC.Tool
 
                                         //寫入Data
                                         Ado_Info.ChcMember_ADO.UpdChcMemberDataByMode("5", dr["CategoryID"].ToString(), true, dr["MID"].ToString(),
-                                            dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["Phone"].ToString(), dr["Ename"].ToString());
+                                            dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["Phone"].ToString(), dr["Ename"].ToString(),
+                                            dr["GroupClass"].ToString(), dr["Gmail"].ToString());
                                     }
                                     else
                                     {
@@ -114,7 +119,7 @@ namespace LifeBuildC.Tool
                                         #region
 
                                         //新增資料
-                                        Ado_Info.ChcMember_ADO.InsExcelDataByChcMember(dr["CategoryID"].ToString(), dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString(), bool.Parse(dr["EStatus"].ToString()));
+                                        Ado_Info.ChcMember_ADO.InsExcelDataByChcMember(dr["CategoryID"].ToString(), dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString(), bool.Parse(dr["EStatus"].ToString()), dr["Phone"].ToString(), dr["Gmail"].ToString());
 
                                         //寫入Log
                                         Ado_Info.ChcMember_Log_ADO.InsChcMemberByChcMember_Log(dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString());
