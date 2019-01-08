@@ -116,11 +116,11 @@ namespace LifeBuildC.Admin.SubjectData
 
                     if (Request.QueryString["delete"] != null && Request.QueryString["delete"].ToString() == "true")
                     {
-                        ((Button)e.Row.FindControl("btnDel")).Visible = false; //隱藏刪除鈕
+                        ((Button)e.Row.FindControl("btnDel")).Visible = true; //隱藏刪除鈕
                     }
                     else
                     {
-                        ((Button)e.Row.FindControl("btnDel")).Visible = true; //隱藏刪除鈕
+                        ((Button)e.Row.FindControl("btnDel")).Visible = false; //隱藏刪除鈕
                     }
 
                 }
@@ -152,14 +152,17 @@ namespace LifeBuildC.Admin.SubjectData
                 case "C1":
                     gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C1");
                     gvSubject.DataBind();
+                    btnAddSubject.Text = "新增 C1 課程";
                     break;
                 case "C2":
                     gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C2");
                     gvSubject.DataBind();
+                    btnAddSubject.Text = "新增 C2 課程";
                     break;
                 case "C2QT":
                     gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C2QT");
                     gvSubject.DataBind();
+                    btnAddSubject.Text = "新增  QT 研習營課程";
                     break;
             }
         }

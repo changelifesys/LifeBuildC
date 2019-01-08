@@ -199,7 +199,7 @@ namespace LifeBuildC.Admin.MemSubData
                 { //否則就新增資料
 
                     //新增資料
-                    chcmember.InsExcelDataByChcMember(dr["CategoryID"].ToString(), dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString(), bool.Parse(dr["EStatus"].ToString()));
+                    chcmember.InsExcelDataByChcMember(dr["CategoryID"].ToString(), dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString(), bool.Parse(dr["EStatus"].ToString()), dr["Phone"].ToString(), dr["Gmail"].ToString());
 
                     //寫入Log
                     chcmemlog.InsChcMemberByChcMember_Log(dr["GroupCName"].ToString(), dr["GroupName"].ToString(), dr["GroupClass"].ToString(), dr["Ename"].ToString());

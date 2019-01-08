@@ -45,9 +45,9 @@ namespace ADO
             }
         }
 
-        public void InsExcelDataByChcMember(string CategoryID, string GroupCName, string GroupName, string GroupClass, string Ename, bool IsPass)
+        public void InsExcelDataByChcMember(string CategoryID, string GroupCName, string GroupName, string GroupClass, string Ename, bool IsPass, string Phone, string Gmail)
         {
-            string sql = "INSERT INTO " + DbSchema + @"ChcMember(GroupCName, GroupName, GroupClass, Ename,";
+            string sql = "INSERT INTO " + DbSchema + @"ChcMember(GroupCName, GroupName, GroupClass, Ename, Phone, Gmail,";
 
             switch (CategoryID.ToUpper())
             {
@@ -68,7 +68,7 @@ namespace ADO
                     break;
             }
 
-            sql += " VALUES(@GroupCName, @GroupName, @GroupClass, @Ename,";
+            sql += " VALUES(@GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail,";
 
             switch (CategoryID.ToUpper())
             {
@@ -96,6 +96,8 @@ namespace ADO
                 com.Parameters.AddWithValue("@GroupName", GroupName);
                 com.Parameters.AddWithValue("@GroupClass", GroupClass);
                 com.Parameters.AddWithValue("@Ename", Ename);
+                com.Parameters.AddWithValue("@Phone", Phone);
+                com.Parameters.AddWithValue("@Gmail", Gmail);
                 com.Parameters.AddWithValue("@IsPass", IsPass);
 
                 con.Open();
@@ -361,9 +363,42 @@ namespace ADO
             }
         }
 
-        public void UpdChcMemberDataByMode(string Mode, string CategoryID, bool IsPass, string MID, string GroupCName, string GroupName, string Phone, string Ename)
+        public void UpdChcMemberDataByMode(string Mode, string CategoryID, bool IsPass, string MID, string GroupCName, string GroupName, string Phone, string Ename, string GroupClass, string Gmail)
         {
-            string sql = "UPDATE " + DbSchema + @"ChcMember SET";
+            string sql = "UPDATE " + DbSchema + @"ChcMember 
+                                   SET";
+
+            switch (Mode)
+            {
+                //WHERE MID = @MID
+                case "1": 
+                    sql += @" GroupCName = @GroupCName,
+                                       GroupName = @GroupName,
+                                       GroupClass = @GroupClass,
+                                       Ename = @Ename,
+                                       Phone = @Phone,
+                                       Gmail = @Gmail,
+                                      ";
+                    break;
+
+                    //WHERE GroupCName = @GroupCName
+                    //AND GroupName = @GroupName
+                    //AND Ename = @Ename
+                case "2":
+                    sql += @" GroupClass = @GroupClass,
+                                       Phone = @Phone,
+                                       Gmail = @Gmail,";
+                    break;
+
+                    //WHERE Phone = @Phone
+                    //AND Ename = @Ename
+                case "3":
+                    sql += @" GroupCName = @GroupCName,
+                                        GroupName = @GroupName,
+                                        GroupClass = @GroupClass,
+                                        Gmail = @Gmail,";
+                    break;
+            }
 
             switch (CategoryID.ToUpper())
             {
@@ -411,13 +446,14 @@ namespace ADO
                 }
 
                 SqlCommand com = new SqlCommand(sql, con);
-                com.Parameters.AddWithValue("@IsPass", IsPass);
-                com.Parameters.AddWithValue("@MID", MID);
                 com.Parameters.AddWithValue("@GroupCName", GroupCName);
                 com.Parameters.AddWithValue("@GroupName", GroupName);
-                com.Parameters.AddWithValue("@Phone", Phone);
+                com.Parameters.AddWithValue("@GroupClass", GroupClass);
                 com.Parameters.AddWithValue("@Ename", Ename);
-
+                com.Parameters.AddWithValue("@Phone", Phone);
+                com.Parameters.AddWithValue("@Gmail", Gmail);
+                com.Parameters.AddWithValue("@IsPass", IsPass);
+                com.Parameters.AddWithValue("@MID", MID);
 
                 con.Open();
                 com.ExecuteNonQuery();
