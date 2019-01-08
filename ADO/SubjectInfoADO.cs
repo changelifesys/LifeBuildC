@@ -21,15 +21,15 @@ namespace ADO
         //INSERT
 
         public void InsSubjectInfo(string SubCount, string CategoryID, string SubName, string SUCondition, string SubLocation, 
-                                                          string SubStrDate, string SubEndDate, string Memo, string HtmlSubDesc)
+                                                          string SubStrDate, string SubEndDate, string Memo, string HtmlSubDesc, int limit)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
                                            " + DbSchema + @"SubjectInfo(SubCount, CategoryID, SubName, SUCondition, SubLocation,
-                                                                  SubStrDate, SubEndDate, Memo, HtmlSubDesc)
+                                                                  SubStrDate, SubEndDate, Memo, HtmlSubDesc, limit)
                                            VALUES(@SubCount, @CategoryID, @SubName, @SUCondition, @SubLocation,
-                                                                  @SubStrDate, @SubEndDate, @Memo, @HtmlSubDesc)";
+                                                                  @SubStrDate, @SubEndDate, @Memo, @HtmlSubDesc, @limit)";
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@SubCount", SubCount);
@@ -41,6 +41,7 @@ namespace ADO
                 com.Parameters.AddWithValue("@SubEndDate", SubEndDate);
                 com.Parameters.AddWithValue("@Memo", Memo);
                 com.Parameters.AddWithValue("@HtmlSubDesc", HtmlSubDesc);
+                com.Parameters.AddWithValue("@limit", limit);
 
                 con.Open();
                 com.ExecuteNonQuery();
@@ -51,7 +52,7 @@ namespace ADO
 
         //UPDATE
 
-        public void Update_SubjectInfo(string SubCount, string SUCondition, string SubLocation, string SubStrDate, string SubEndDate, int SID, string Memo, string HtmlSubDesc, bool IsCheckOpen)
+        public void Update_SubjectInfo(string SubCount, string SUCondition, string SubLocation, string SubStrDate, string SubEndDate, int SID, string Memo, string HtmlSubDesc, bool IsCheckOpen, int limit)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
@@ -63,7 +64,8 @@ namespace ADO
                                                     SubEndDate = @SubEndDate,
                                                     Memo = @Memo,
                                                     HtmlSubDesc = @HtmlSubDesc,
-                                                    IsCheckOpen = @IsCheckOpen
+                                                    IsCheckOpen = @IsCheckOpen,
+                                                    limit = @limit
                                             WHERE SID = @SID";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -75,6 +77,7 @@ namespace ADO
                 com.Parameters.AddWithValue("@Memo", Memo);
                 com.Parameters.AddWithValue("@HtmlSubDesc", HtmlSubDesc);
                 com.Parameters.AddWithValue("@IsCheckOpen", IsCheckOpen);
+                com.Parameters.AddWithValue("@limit", limit);
                 com.Parameters.AddWithValue("@SID", SID);
 
                 con.Open();
@@ -201,6 +204,37 @@ namespace ADO
             return dt;
         }
 
+        //Check
+
+        public bool ChecklimitBySubjectInfo(int SID, string CategoryID)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM SubjectInfo
+                                            WHERE limit >= (
+	                                            SELECT COUNT(*) FROM ChcMemberSub_Temp
+	                                            WHERE SID = @SID
+	                                            AND CategoryID = @CategoryID
+                                            )";
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
+                sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
+                sda.Fill(dt);
+            }
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+        }
 
         //EXEC
 

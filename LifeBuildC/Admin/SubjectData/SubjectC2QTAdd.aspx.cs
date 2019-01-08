@@ -33,6 +33,8 @@ namespace LifeBuildC.Admin.SubjectData
                 txtSubCount1.Text = dt.Rows[0]["SubCount"].ToString().Substring(0, 4);
                 txtSubCount2.Text = (int.Parse(dt.Rows[0]["SubCount"].ToString().Substring(4, 2)) + 1).ToString();
 
+                //場地人數
+                txtlimit.Text = dt.Rows[0]["limit"].ToString();
 
                 //報名條件
                 txtSUCondition.Text = dt.Rows[0]["SUCondition"].ToString();
@@ -57,6 +59,9 @@ namespace LifeBuildC.Admin.SubjectData
                 //第幾次上課
                 txtSubCount1.Text = DateTime.Now.Year.ToString();
                 txtSubCount2.Text = "1";
+
+                //場地人數
+                txtlimit.Text = "99999";
 
                 //報名條件
                 string y = DateTime.UtcNow.AddHours(8).Year.ToString();
@@ -166,7 +171,7 @@ namespace LifeBuildC.Admin.SubjectData
             string HtmlSubDesc = sb.ToString();
 
             Ado_Info.SubjectInfo_ADO.InsSubjectInfo(SubCount, "C2QT", SubName, SUCondition, SubLocation,
-                                                                                            SubStrDate, SubEndDate, Memo, HtmlSubDesc);
+                                                                                            SubStrDate, SubEndDate, Memo, HtmlSubDesc, int.Parse(txtlimit.Text));
 
             DataTable dtSubjectInfo = Ado_Info.SubjectInfo_ADO.QueryMaxSIDBySubjectInfo("C2QT");
             int SID = int.Parse(dtSubjectInfo.Rows[0]["SID"].ToString());

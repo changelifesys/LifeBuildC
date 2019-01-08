@@ -43,6 +43,17 @@
                             &nbsp;第<asp:TextBox CssClass="inputStyle" ID="txtSubCount2" runat="server" Width="50px"></asp:TextBox>次開課
                         </td>
                     </tr>
+                    <!--場地人數-->
+                    <tr style="height: 40px;">
+                        <td style="width: 150px; background-color: rgb(204,204,204)">
+                            <asp:Label ID="Label3" ForeColor="Black" Font-Bold="true" runat="server" Text="場地人數"></asp:Label>
+                        </td>
+                        <td style="background-color: rgb(239,239,239); text-align: center;">
+                            <asp:TextBox Width="95%" ID="txtlimit" runat="server"></asp:TextBox>
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
                     <!--報名條件-->
                     <tr style="height: 40px;">
                         <td style="width: 150px; background-color: rgb(204,204,204)">

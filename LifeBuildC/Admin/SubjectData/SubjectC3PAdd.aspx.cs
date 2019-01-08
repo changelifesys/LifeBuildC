@@ -168,7 +168,7 @@ namespace LifeBuildC.Admin.SubjectData
             string HtmlSubDesc = sb.ToString();
 
             Ado_Info.SubjectInfo_ADO.InsSubjectInfo(SubCount, "C3P", SubName, SUCondition, SubLocation,
-                                                                                            SubStrDate, SubEndDate, Memo, HtmlSubDesc);
+                                                                                            SubStrDate, SubEndDate, Memo, HtmlSubDesc, 99999);
 
             DataTable dtSubjectInfo = Ado_Info.SubjectInfo_ADO.QueryMaxSIDBySubjectInfo("C3P");
             int SID = int.Parse(dtSubjectInfo.Rows[0]["SID"].ToString());

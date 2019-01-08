@@ -102,8 +102,18 @@ namespace LifeBuildC.Api
             {
                 Google_Sheet_Api = null;
                 Google_Sheet_Api = new GoogleSheetApi("1J0-a1pdcMHMKuIVgi1rKacOjYiLr-PrBNCye_NO6K_g", "報名");
-                AddSubSignProcess();
-                Api_Data.ApiMsg = "C2 QT研習營課程報名成功";
+
+                if (Ado_Info.SubjectInfo_ADO.ChecklimitBySubjectInfo(Api_Data.SID, Api_Data.CategoryID))
+                {
+                    AddSubSignProcess();
+                    Api_Data.ApiMsg = "C2 QT研習營課程報名成功";
+                }
+                else
+                {
+                    Api_Data.IsApiError = true;
+                    Api_Data.ApiMsg = "C2 QT研習營課程報名人數已經額滿";
+                }
+
             }
             else if (Api_Data.CategoryID == "C2" || 
                          Api_Data.CategoryID == "C2M" || Api_Data.CategoryID == "C2W" ||

@@ -49,6 +49,24 @@ namespace LifeBuildC.Admin.SubjectData {
         protected global::System.Web.UI.WebControls.TextBox txtSubCount2;
         
         /// <summary>
+        /// Label3 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
+        
+        /// <summary>
+        /// txtlimit 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtlimit;
+        
+        /// <summary>
         /// Label9 控制項。
         /// </summary>
         /// <remarks>

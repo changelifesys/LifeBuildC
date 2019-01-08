@@ -224,7 +224,7 @@ namespace LifeBuildC.Admin.SubjectData
             string HtmlSubDesc = sb.ToString();
 
             SubjectInfo.InsSubjectInfo(SubCount, "C2", SubName, SUCondition, SubLocation,
-                                                              SubStrDate, SubEndDate, Memo, HtmlSubDesc);
+                                                              SubStrDate, SubEndDate, Memo, HtmlSubDesc, 99999);
 
             DataTable dtSubjectInfo = SubjectInfo.QueryMaxSIDBySubjectInfo("C2");
             int SID = int.Parse(dtSubjectInfo.Rows[0]["SID"].ToString());
