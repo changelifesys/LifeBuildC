@@ -241,9 +241,6 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             return dt;
         }
 
-        /// <summary>
-        /// true: 該名會友有報名資料 ; false: 該名會友沒有報名資料
-        /// </summary>
         public bool ChkChcMemberSub_TempByMID(int MID, int SID)
         {
             DataTable dt = new DataTable();
@@ -261,12 +258,34 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
 
             if (dt != null && dt.Rows.Count > 0)
             {
-                return true; //有報名資料
+                return true; //該名會友有報名資料
             }
 
-            return false; //沒有報名資料
+            return false; //該名會友沒有報名資料
 
         }
+
+        //public bool ChkChcMemberSub_TempBySID(int SID)
+        //{
+        //    DataTable dt = new DataTable();
+        //    using (SqlConnection con = new SqlConnection(condb))
+        //    {
+        //        string sql = @"SELECT * FROM " + DbSchema + @"ChcMemberSub_Temp
+        //                                   WHERE SID = @SID";
+
+        //        SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+        //        sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
+        //        sda.Fill(dt);
+        //    }
+
+        //    if (dt != null && dt.Rows.Count > 0)
+        //    {
+        //        return true; //該名會友有報名資料
+        //    }
+
+        //    return false; //該名會友沒有報名資料
+
+        //}
 
         //EXEC
 

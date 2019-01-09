@@ -287,6 +287,7 @@
     <Content Include="LogConfig\UpdSubSign.config" />
     <Content Include="LogConfig\AddSubSign.config" />
     <Content Include="LogConfig\GetMemSubData.config" />
+    <Content Include="App_Data\changelifesys\Google.Apis.Auth.OAuth2.Responses.TokenResponse-user" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

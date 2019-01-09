@@ -93,7 +93,7 @@ namespace LifeBuildC.Api
             { //C1課程沒有限制報名資格
 
                 Google_Sheet_Api = null;
-                Google_Sheet_Api = new GoogleSheetApi("1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8", "C1報名");
+                Google_Sheet_Api = new GoogleSheetApi("1VEAnTd3wfTKub_ANu9te06YGHnG1jvPsTskUJTxudCQ", "報名");
                 AddSubSignProcess();
                 Api_Data.ApiMsg = "C1 課程報名成功";
 
@@ -156,7 +156,7 @@ namespace LifeBuildC.Api
                             switch (Api_Data.CategoryID)
                             {
                                 case "C2":
-                                    Google_Sheet_Api = new GoogleSheetApi("1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs", "C2報名");
+                                    Google_Sheet_Api = new GoogleSheetApi("1x2gGzbGMC-FloPxG5FAbvF6kcB0tzWLfnQfHMzyKE8A", "報名");
                                     break;
                                 case "C2M":
                                     Google_Sheet_Api = new GoogleSheetApi("1xX-rEZCXGiR6zbxyS0LXtj9nFclgG-J19tzT-PYFRZc", "報名");
@@ -317,7 +317,7 @@ namespace LifeBuildC.Api
             }
 
             //Add Google Form Data
-            Google_Sheet_Api.AddDataByV4Sheets(
+            Google_Sheet_Api.AddV4SheetsBychangelifesys(
                 new List<object>() {
                                 DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
                                 Api_Data.Ename,

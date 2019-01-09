@@ -217,7 +217,9 @@ namespace ADO
 	                                            SELECT COUNT(*) FROM ChcMemberSub_Temp
 	                                            WHERE SID = @SID
 	                                            AND CategoryID = @CategoryID
-                                            )";
+                                            )
+                                            AND SID = @SID
+                                            AND CategoryID = @CategoryID";
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@SID", SID);
                 sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
@@ -232,8 +234,6 @@ namespace ADO
             {
                 return false;
             }
-
-
         }
 
         //EXEC

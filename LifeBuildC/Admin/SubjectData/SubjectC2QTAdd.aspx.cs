@@ -25,6 +25,7 @@ namespace LifeBuildC.Admin.SubjectData
 
         private void PageDataLoad()
         {
+            //取得預設值
             DataTable dt = Ado_Info.SubjectInfo_ADO.Get_SubjectInfo_MaxSID_WHERE_CategoryID("C2QT");
 
             if (dt != null && dt.Rows.Count > 0)
@@ -55,7 +56,6 @@ namespace LifeBuildC.Admin.SubjectData
             }
             else
             {
-
                 //第幾次上課
                 txtSubCount1.Text = DateTime.Now.Year.ToString();
                 txtSubCount2.Text = "1";
@@ -89,7 +89,7 @@ namespace LifeBuildC.Admin.SubjectData
             //第幾次上課
             string SubCount = txtSubCount1.Text.Trim() + int.Parse(txtSubCount2.Text).ToString("00").Trim();
 
-            string SubName = "C2 QT 研習營課程";
+            string SubName = "生命建造程序 C2 QT 研習營課程";
             string SUCondition = txtSUCondition.Text.Trim();
             string SubLocation = txtSubLocation.Text.Trim();
             string SubStrDate = txtSubStrDate.Text.Trim(); //txtSubStrDate

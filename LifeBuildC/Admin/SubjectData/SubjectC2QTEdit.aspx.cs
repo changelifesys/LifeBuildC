@@ -127,7 +127,6 @@ namespace LifeBuildC.Admin.SubjectData
             //08/05(日)、08/12(日) 下午 14:30~17:30
             sb.Append(txtSDate.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
                                 "(" + Api_Info.GetDayOfWeek(DateTime.Parse(txtSDate.Text.Trim())) + ") " + " ");
-
             sb.Append(dropSubTime.Text + " " + txtSubTime.Text.Trim());
 
             sb.Append("</div>");

@@ -89,22 +89,47 @@ namespace LifeBuildC.Api
             {
                 case "C1":
 
+                    //C1 可以現場報名
+
                     Google_Sheet_Api = null;
-                    Google_Sheet_Api = new GoogleSheetApi("1HCRBI2C_cVl0fH5576PEX7UULWsgcxx1sbYdRQ6FcF8", "C1報到");
+                    Google_Sheet_Api = new GoogleSheetApi("1VEAnTd3wfTKub_ANu9te06YGHnG1jvPsTskUJTxudCQ", "簽到");
                     UpdSubSignProcess();
                     Api_Data.ApiMsg = "C1 課程簽到成功";
+                    break;
+
+                case "C2QT":
+
+                    //C2 QT 不能現場報名
+                    //C2 QT 報名規則同 C1
+
+                    if (Api_Data.MID.Split(',').Count() > 1 && //MID,No
+                        Api_Data.MID.Split(',')[1] != "") //No
+                    {
+                        Google_Sheet_Api = null;
+                        Google_Sheet_Api = new GoogleSheetApi("1J0-a1pdcMHMKuIVgi1rKacOjYiLr-PrBNCye_NO6K_g", "簽到");
+                        UpdSubSignProcess();
+                        Api_Data.ApiMsg = "C2 QT研習營課程簽到成功";
+                    }
+                    else
+                    {
+                        Api_Data.IsApiError = true;
+                        Api_Data.ApiMsg = "(109)無法簽到，查詢您並沒有報名上課";
+                        Api_Data.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
+                    }
+
                     break;
 
                 case "C2":
                 case "C2M":
                 case "C2W":
-                case "C2QT":
                 case "C3N":
                 case "C3P":
 
                     if (Api_Data.MID != "")
                     {
+                        //C2 需通過 C1 才可報名
                         //C2 不能現場報名
+
                         //C2 榮耀男人&C2 幸福女人 需上完C1才可報名
 
                         if (Ado_Info.ChcMemberSub_Temp_ADO.ChkChcMemberSub_TempByMID(int.Parse(Api_Data.MID.Split(',')[0]), Api_Data.SID))
@@ -114,16 +139,13 @@ namespace LifeBuildC.Api
                             switch (Api_Data.CategoryID)
                             {
                                 case "C2":
-                                    Google_Sheet_Api = new GoogleSheetApi("1bKwnh_2XTYvR1bezOnzKEeA66Kyxlj0WAsN3LcL3FBs", "C2報到");
+                                    Google_Sheet_Api = new GoogleSheetApi("1x2gGzbGMC-FloPxG5FAbvF6kcB0tzWLfnQfHMzyKE8A", "簽到");
                                     break;
                                 case "C2M":
                                     Google_Sheet_Api = new GoogleSheetApi("1xX-rEZCXGiR6zbxyS0LXtj9nFclgG-J19tzT-PYFRZc", "簽到");
                                     break;
                                 case "C2W":
                                     Google_Sheet_Api = new GoogleSheetApi("1axSXC65UFPc-SC2lO5XQoDky5VXLXSf4Of20YVfBTmk", "簽到");
-                                    break;
-                                case "C2QT":
-                                    Google_Sheet_Api = new GoogleSheetApi("1J0-a1pdcMHMKuIVgi1rKacOjYiLr-PrBNCye_NO6K_g", "簽到");
                                     break;
                                 case "C3N":
                                     Google_Sheet_Api = new GoogleSheetApi("129gyeEaXnD9CFiT4t8PKH_m_sxDpIg8pFvJtoJjAQqQ", "簽到");
@@ -145,9 +167,6 @@ namespace LifeBuildC.Api
                                     break;
                                 case "C2W":
                                     Api_Data.ApiMsg = "C2 幸福女人課程簽到成功";
-                                    break;
-                                case "C2QT":
-                                    Api_Data.ApiMsg = "C2 QT研習營課程簽到成功";
                                     break;
                                 case "C3N":
                                     Api_Data.ApiMsg = "C3 九型人格課程簽到成功";
@@ -189,11 +208,12 @@ namespace LifeBuildC.Api
 
             string strMake = ""; //是否補課(是: 補課 ; 空值: 不用補課)
             int IsPass = 0; //是否這次通過(0: 尚有缺課; 1: 這次上完課就通過)
-            if (Api_Data.MID.Split(',').Count() > 1 && Api_Data.MID.Split(',')[1] != "")
+            if (Api_Data.MID.Split(',').Count() > 1 && //MID,No
+                Api_Data.MID.Split(',')[1] != "") //No
             { //UPDATE 報名資訊
 
                 //INSERT LOG
-                DataTable dtMem = Ado_Info.ChcMember_ADO.QueryChcMemberByMID(Api_Data.MID.Split(',')[0]);
+                DataTable dtMem = Ado_Info.ChcMember_ADO.QueryChcMemberByMID(Api_Data.MID.Split(',')[0]); //MID
                 if (dtMem != null && dtMem.Rows.Count > 0)
                 {
                     Ado_Info.ChcMember_Log_ADO.InsLogDataByChcMember_Log
@@ -694,7 +714,7 @@ namespace LifeBuildC.Api
                     break;
             }
 
-            Google_Sheet_Api.AddDataByV4Sheets(
+            Google_Sheet_Api.AddV4SheetsBychangelifesys(
                 new List<object>() {
                     DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
                     Api_Data.Ename,
