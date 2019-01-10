@@ -213,7 +213,7 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM SubjectInfo
-                                            WHERE limit >= (
+                                            WHERE limit > (
 	                                            SELECT COUNT(*) FROM ChcMemberSub_Temp
 	                                            WHERE SID = @SID
 	                                            AND CategoryID = @CategoryID

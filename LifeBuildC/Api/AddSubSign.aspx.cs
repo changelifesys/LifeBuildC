@@ -103,7 +103,8 @@ namespace LifeBuildC.Api
                 Google_Sheet_Api = null;
                 Google_Sheet_Api = new GoogleSheetApi("1J0-a1pdcMHMKuIVgi1rKacOjYiLr-PrBNCye_NO6K_g", "報名");
 
-                if (Ado_Info.SubjectInfo_ADO.ChecklimitBySubjectInfo(Api_Data.SID, Api_Data.CategoryID))
+                if ((Api_Data.MID.Split(',').Count() > 1 && Api_Data.MID.Split(',')[1] != "") ||
+                    Ado_Info.SubjectInfo_ADO.ChecklimitBySubjectInfo(Api_Data.SID, Api_Data.CategoryID))
                 {
                     AddSubSignProcess();
                     Api_Data.ApiMsg = "C2 QT研習營課程報名成功";
@@ -257,7 +258,8 @@ namespace LifeBuildC.Api
             }
 
 
-            if (Api_Data.MID.Split(',').Count() > 1 && Api_Data.MID.Split(',')[1] != "")
+            if (Api_Data.MID.Split(',').Count() > 1 && //MID, No
+                Api_Data.MID.Split(',')[1] != "") //No
             { //UPDATE 報名資訊
 
                 //api.MID.Split(',')[0] 為會友MID流水編號

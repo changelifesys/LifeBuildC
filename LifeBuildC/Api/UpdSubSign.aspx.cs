@@ -114,7 +114,7 @@ namespace LifeBuildC.Api
                     {
                         Api_Data.IsApiError = true;
                         Api_Data.ApiMsg = "(109)無法簽到，查詢您並沒有報名上課";
-                        Api_Data.GoLink = "http://changelifesys.org/MemSubQuery.aspx";
+                        Api_Data.GoLink = "https://docs.google.com/spreadsheets/d/1J0-a1pdcMHMKuIVgi1rKacOjYiLr-PrBNCye_NO6K_g/edit#gid=1606154676";
                     }
 
                     break;

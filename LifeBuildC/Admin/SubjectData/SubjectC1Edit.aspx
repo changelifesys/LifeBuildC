@@ -40,7 +40,7 @@
                         </td>
                         <td style="background-color: rgb(239,239,239); text-align: left;">
                             &nbsp;&nbsp;<asp:TextBox Enabled="false" ID="txtSubCount1" CssClass="inputStyle" runat="server" Width="50px"></asp:TextBox>年&nbsp;/
-                            &nbsp;第<asp:TextBox Enabled="false" CssClass="inputStyle" ID="txtSubCount2" runat="server" Width="50px"></asp:TextBox>次開課
+                            &nbsp;第<asp:TextBox CssClass="inputStyle" ID="txtSubCount2" runat="server" Width="50px"></asp:TextBox>次開課
                         </td>
                     </tr>
                     <!--開始簽到-->

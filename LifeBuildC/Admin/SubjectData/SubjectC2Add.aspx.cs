@@ -164,7 +164,7 @@ namespace LifeBuildC.Admin.SubjectData
             //08/05(日)、08/12(日) 下午 14:30~17:30
             if (ckbIsSub12.Checked)
             {
-                sb.Append(txtSDate12.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
+                sb.Append("C2 一、二課：" + txtSDate12.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
                 "(" + Api_Info.GetDayOfWeek(DateTime.Parse(txtSDate12.Text.Trim())) + ") " + " ");
                 sb.Append(dropSubTime12.Text + " " + txtSubTime12.Text.Trim());
             }
@@ -172,7 +172,7 @@ namespace LifeBuildC.Admin.SubjectData
             if (ckbIsSub34.Checked)
             {
                 sb.Append("<br/>");
-                sb.Append(txtSDate34.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
+                sb.Append("C2 三、四課：" + txtSDate34.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
 "(" + Api_Info.GetDayOfWeek(DateTime.Parse(txtSDate34.Text.Trim())) + ") " + " ");
                 sb.Append(dropSubTime34.Text + " " + txtSubTime34.Text.Trim());
             }
@@ -180,7 +180,7 @@ namespace LifeBuildC.Admin.SubjectData
             if (ckbIsSub5.Checked)
             {
                 sb.Append("<br/>");
-                sb.Append(txtSDate5.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
+                sb.Append("C2 第五課：" + txtSDate5.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
 "(" + Api_Info.GetDayOfWeek(DateTime.Parse(txtSDate5.Text.Trim())) + ") " + " ");
                 sb.Append(dropSubTime5.Text + " " + txtSubTime5.Text.Trim());
             }

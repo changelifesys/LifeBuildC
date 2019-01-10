@@ -98,8 +98,11 @@ namespace ADO
                 switch (CategoryID)
                 {
                     case "C1":
+                        sql += " SubjectDate.CategoryID IN ('C112','C134')";
+                        break;
+
                     case "C2":
-                        sql += " LEFT(SubjectDate.CategoryID, 2) = @CategoryID";
+                        sql += " SubjectDate.CategoryID IN ('C212','C234','C25')";
                         break;
 
                     case "C2QT":
