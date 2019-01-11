@@ -127,6 +127,9 @@ namespace LifeBuildC.Admin.SubjectData
                 //報名截止
                 txtSubEndDate.Text = DateTime.Parse(dt.Rows[0]["SubEndDate"].ToString()).ToString("yyyy/MM/dd");
 
+                //備註
+                txtMemo.Text = dt.Rows[0]["Memo"].ToString();
+
             }
         }
 

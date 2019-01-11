@@ -42,8 +42,7 @@ namespace LifeBuildC.Admin.SubjectData
 
                 //上課時間
                 txtSDate.Text = DateTime.UtcNow.AddHours(8).AddDays(7).ToString("yyyy/MM/dd");
-                dropSubTime.SelectedIndex = 1;
-                txtSubTime.Text = "14:30~17:30";
+                txtSubTime.Text = "08:30~12:30";
 
                 //地點
                 txtSubLocation.Text = dt.Rows[0]["SubLocation"].ToString();
@@ -69,8 +68,7 @@ namespace LifeBuildC.Admin.SubjectData
 
                 //上課時間
                 txtSDate.Text = DateTime.UtcNow.AddHours(8).AddDays(7).ToString("yyyy/MM/dd");
-                dropSubTime.SelectedIndex = 1;
-                txtSubTime.Text = "14:30~17:30";
+                txtSubTime.Text = "08:30~12:30";
 
                 //地點
                 txtSubLocation.Text = "江子翠行道會主會堂";
@@ -130,7 +128,8 @@ namespace LifeBuildC.Admin.SubjectData
             //08/05(日)、08/12(日) 下午 14:30~17:30
             sb.Append(txtSDate.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
                                 "(" + Api_Info.GetDayOfWeek(DateTime.Parse(txtSDate.Text.Trim())) + ") " + " ");
-            sb.Append(dropSubTime.Text + " " + txtSubTime.Text.Trim());
+
+            sb.Append(txtSubTime.Text.Trim());
 
             sb.Append("</div>");
             sb.Append("</li>");
@@ -177,7 +176,7 @@ namespace LifeBuildC.Admin.SubjectData
             int SID = int.Parse(dtSubjectInfo.Rows[0]["SID"].ToString());
 
             Ado_Info.SubjectDate_ADO.InsSubjectDate(SID, "C2QT", txtSDate.Text.Trim(),
-                                                                                              dropSubTime.Text + " " + txtSubTime.Text.Trim());
+                                                                                              txtSubTime.Text.Trim());
 
             btnSave.PostBackUrl = "~/Admin/SubjectData/SubjectList.aspx";
             ScriptManager.RegisterStartupScript(Page, GetType(), "Save", "<script>clickSave()</script>", false);

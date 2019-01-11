@@ -23,7 +23,7 @@
 </head>
 <body>
 <form role="form" runat="server">
-        <asp:HiddenField ID="CategoryID" Value="C1" runat="server" />
+        <asp:HiddenField ID="CategoryID" Value="C3P" runat="server" />
         <div>
             <center>
                 <img alt="" src="../../img/CLC_Logo.gif" />

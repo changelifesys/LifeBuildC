@@ -33,15 +33,15 @@ namespace LifeBuildC.Admin.SubjectData
                 txtSubCount1.Text = dt.Rows[0]["SubCount"].ToString().Substring(0, 4);
                 txtSubCount2.Text = (int.Parse(dt.Rows[0]["SubCount"].ToString().Substring(4, 2)) + 1).ToString();
 
+                //場地人數
+                txtlimit.Text = dt.Rows[0]["limit"].ToString();
 
                 //報名條件
                 txtSUCondition.Text = dt.Rows[0]["SUCondition"].ToString();
 
                 //上課時間
-                //C2 幸福女人
                 txtSDate.Text = DateTime.UtcNow.AddHours(8).AddDays(7).ToString("yyyy/MM/dd");
-                dropSubTime.SelectedIndex = 1;
-                txtSubTime.Text = "14:30~17:30";
+                txtSubTime.Text = "08:30~13:00";
 
                 //地點
                 txtSubLocation.Text = dt.Rows[0]["SubLocation"].ToString();
@@ -59,15 +59,16 @@ namespace LifeBuildC.Admin.SubjectData
                 txtSubCount1.Text = DateTime.Now.Year.ToString();
                 txtSubCount2.Text = "1";
 
+                //場地人數
+                txtlimit.Text = "99999";
+
                 //報名條件
                 string y = DateTime.UtcNow.AddHours(8).Year.ToString();
                 txtSUCondition.Text = y + "年1月~" + y + "年12月來的新朋友，或是還沒上過的會友。";
 
                 //上課時間
-                //C2 榮耀男人
                 txtSDate.Text = DateTime.UtcNow.AddHours(8).AddDays(7).ToString("yyyy/MM/dd");
-                dropSubTime.SelectedIndex = 1;
-                txtSubTime.Text = "14:30~17:30";
+                txtSubTime.Text = "08:30~13:00";
 
                 //地點
                 txtSubLocation.Text = "江子翠行道會主會堂";
@@ -83,13 +84,11 @@ namespace LifeBuildC.Admin.SubjectData
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            //第幾次上課
-            string SubCount = txtSubCount1.Text.Trim() + int.Parse(txtSubCount2.Text).ToString("00").Trim();
-
-            string SubName = "C2 幸福女人課程報名";
+            string SubCount = txtSubCount1.Text.Trim() + int.Parse(txtSubCount2.Text).ToString("00").Trim(); //第幾次上課
+            string SubName = "生命建造程序 C2 幸福女人課程報名";
             string SUCondition = txtSUCondition.Text.Trim();
             string SubLocation = txtSubLocation.Text.Trim();
-            string SubStrDate = txtSubStrDate.Text.Trim(); //txtSubStrDate
+            string SubStrDate = txtSubStrDate.Text.Trim();
             string SubEndDate = txtSubEndDate.Text.Trim();
             string Memo = txtMemo.Text.Trim();
 
@@ -127,7 +126,8 @@ namespace LifeBuildC.Admin.SubjectData
             //08/05(日)、08/12(日) 下午 14:30~17:30
             sb.Append(txtSDate.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
                                 "(" + Api_Info.GetDayOfWeek(DateTime.Parse(txtSDate.Text.Trim())) + ") " + " ");
-            sb.Append(dropSubTime.Text + " " + txtSubTime.Text.Trim());
+
+            sb.Append(txtSubTime.Text.Trim());
 
             sb.Append("</div>");
             sb.Append("</li>");
@@ -168,13 +168,13 @@ namespace LifeBuildC.Admin.SubjectData
             string HtmlSubDesc = sb.ToString();
 
             Ado_Info.SubjectInfo_ADO.InsSubjectInfo(SubCount, "C2W", SubName, SUCondition, SubLocation,
-                                                                                            SubStrDate, SubEndDate, Memo, HtmlSubDesc, 99999);
+                                                                                            SubStrDate, SubEndDate, Memo, HtmlSubDesc, int.Parse(txtlimit.Text));
 
             DataTable dtSubjectInfo = Ado_Info.SubjectInfo_ADO.QueryMaxSIDBySubjectInfo("C2W");
             int SID = int.Parse(dtSubjectInfo.Rows[0]["SID"].ToString());
 
             Ado_Info.SubjectDate_ADO.InsSubjectDate(SID, "C2W", txtSDate.Text.Trim(),
-                                                                                              dropSubTime.Text + " " + txtSubTime.Text.Trim());
+                                                                                              txtSubTime.Text.Trim());
 
             btnSave.PostBackUrl = "~/Admin/SubjectData/SubjectList.aspx";
             ScriptManager.RegisterStartupScript(Page, GetType(), "Save", "<script>clickSave()</script>", false);

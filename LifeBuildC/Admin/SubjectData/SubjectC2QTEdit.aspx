@@ -82,10 +82,6 @@
                         <td style="background-color: rgb(239,239,239); text-align: center;">【C2 QT 研習營】上課時間：
                             <asp:TextBox CssClass="inputStyle" ID="txtSDate" runat="server"></asp:TextBox>
                             <br />
-                            <asp:DropDownList CssClass="inputStyle" ID="dropSubTime" runat="server">
-                                <asp:ListItem>上午</asp:ListItem>
-                                <asp:ListItem>下午</asp:ListItem>
-                            </asp:DropDownList>
                             <asp:TextBox CssClass="inputStyle" ID="txtSubTime" runat="server"></asp:TextBox>
                             <br />
                             <br />

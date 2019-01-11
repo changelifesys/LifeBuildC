@@ -105,7 +105,7 @@ namespace ADO
                         sql += " SubjectDate.CategoryID IN ('C212','C234','C25')";
                         break;
 
-                    case "C2QT":
+                    default:
                         sql += " SubjectDate.CategoryID = @CategoryID";
                         break;
                 }

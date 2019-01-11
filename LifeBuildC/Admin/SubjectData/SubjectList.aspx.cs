@@ -40,6 +40,22 @@ namespace LifeBuildC.Admin.SubjectData
                             dropSubject.SelectedValue = "C2QT";
                             btnAddSubject.Text = "新增  QT 研習營課程";
                             break;
+                        case "C2M":
+                            dropSubject.SelectedValue = "C2M";
+                            btnAddSubject.Text = "新增  C2 榮耀男人課程";
+                            break;
+                        case "C2W":
+                            dropSubject.SelectedValue = "C2W";
+                            btnAddSubject.Text = "新增  C2 幸福女人課程";
+                            break;
+                        case "C3N":
+                            dropSubject.SelectedValue = "C3N";
+                            btnAddSubject.Text = "新增  C3 九型人格課程";
+                            break;
+                        case "C3P":
+                            dropSubject.SelectedValue = "C3P";
+                            btnAddSubject.Text = "新增  C3 人際關係課程";
+                            break;
                     }
 
                 }
@@ -85,6 +101,18 @@ namespace LifeBuildC.Admin.SubjectData
                     case "C2QT":
                         ((Label)e.Row.FindControl("lblCategoryID")).Text = "QT 研習營";
                         break;
+                    case "C2M":
+                        ((Label)e.Row.FindControl("lblCategoryID")).Text = "榮耀男人";
+                        break;
+                    case "C2W":
+                        ((Label)e.Row.FindControl("lblCategoryID")).Text = "幸福女人";
+                        break;
+                    case "C3N":
+                        ((Label)e.Row.FindControl("lblCategoryID")).Text = "九型人格";
+                        break;
+                    case "C3P":
+                        ((Label)e.Row.FindControl("lblCategoryID")).Text = "人際關係";
+                        break;
                 }
 
                 switch (DataBinder.Eval(e.Row.DataItem, "CategoryID").ToString())
@@ -102,6 +130,22 @@ namespace LifeBuildC.Admin.SubjectData
 
                     case "C2QT":
                         ((Button)e.Row.FindControl("btnEdit")).PostBackUrl = "SubjectC2QTEdit.aspx?id=" + DataBinder.Eval(e.Row.DataItem, "SID").ToString();
+                        break;
+
+                    case "C2M":
+                        ((Button)e.Row.FindControl("btnEdit")).PostBackUrl = "SubjectC2MEdit.aspx?id=" + DataBinder.Eval(e.Row.DataItem, "SID").ToString();
+                        break;
+
+                    case "C2W":
+                        ((Button)e.Row.FindControl("btnEdit")).PostBackUrl = "SubjectC2WEdit.aspx?id=" + DataBinder.Eval(e.Row.DataItem, "SID").ToString();
+                        break;
+
+                    case "C3N":
+                        ((Button)e.Row.FindControl("btnEdit")).PostBackUrl = "SubjectC3NEdit.aspx?id=" + DataBinder.Eval(e.Row.DataItem, "SID").ToString();
+                        break;
+
+                    case "C3P":
+                        ((Button)e.Row.FindControl("btnEdit")).PostBackUrl = "SubjectC3PEdit.aspx?id=" + DataBinder.Eval(e.Row.DataItem, "SID").ToString();
                         break;
                 }
 
@@ -164,6 +208,26 @@ namespace LifeBuildC.Admin.SubjectData
                     gvSubject.DataBind();
                     btnAddSubject.Text = "新增  QT 研習營課程";
                     break;
+                case "C2M":
+                    gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C2M");
+                    gvSubject.DataBind();
+                    btnAddSubject.Text = "新增  C2 榮耀男人課程";
+                    break;
+                case "C2W":
+                    gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C2W");
+                    gvSubject.DataBind();
+                    btnAddSubject.Text = "新增  C2 幸福女人課程";
+                    break;
+                case "C3N":
+                    gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C3N");
+                    gvSubject.DataBind();
+                    btnAddSubject.Text = "新增  C3 九型人格課程";
+                    break;
+                case "C3P":
+                    gvSubject.DataSource = SubjectDate.QueryAllBySubjectDate("C3P");
+                    gvSubject.DataBind();
+                    btnAddSubject.Text = "新增  C3 人際關係課程";
+                    break;
             }
         }
 
@@ -184,6 +248,18 @@ namespace LifeBuildC.Admin.SubjectData
                     break;
                 case "C2QT":
                     Response.Redirect("SubjectC2QTAdd.aspx");
+                    break;
+                case "C2M":
+                    Response.Redirect("SubjectC2MAdd.aspx");
+                    break;
+                case "C2W":
+                    Response.Redirect("SubjectC2WAdd.aspx");
+                    break;
+                case "C3N":
+                    Response.Redirect("SubjectC3NAdd.aspx");
+                    break;
+                case "C3P":
+                    Response.Redirect("SubjectC3PAdd.aspx");
                     break;
             }
         }

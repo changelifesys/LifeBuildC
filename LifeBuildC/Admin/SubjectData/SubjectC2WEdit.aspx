@@ -23,7 +23,7 @@
 </head>
 <body>
 <form role="form" runat="server">
-        <asp:HiddenField ID="CategoryID" Value="C1" runat="server" />
+        <asp:HiddenField ID="CategoryID" Value="C2W" runat="server" />
         <div>
             <center>
                 <img alt="" src="../../img/CLC_Logo.gif" />
@@ -41,6 +41,26 @@
                         <td style="background-color: rgb(239,239,239); text-align: left;">
                             &nbsp;&nbsp;<asp:TextBox Enabled="false" ID="txtSubCount1" CssClass="inputStyle" runat="server" Width="50px"></asp:TextBox>年&nbsp;/
                             &nbsp;第<asp:TextBox Enabled="false" CssClass="inputStyle" ID="txtSubCount2" runat="server" Width="50px"></asp:TextBox>次開課
+                        </td>
+                    </tr>
+                    <!--場地人數-->
+                    <tr style="height: 40px;">
+                        <td style="width: 150px; background-color: rgb(204,204,204)">
+                            <asp:Label ID="Label3" ForeColor="Black" Font-Bold="true" runat="server" Text="場地人數"></asp:Label>
+                        </td>
+                        <td style="background-color: rgb(239,239,239); text-align: center;">
+                            <asp:TextBox Width="95%" ID="txtlimit" runat="server"></asp:TextBox>
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+                    <!--開始簽到-->
+                    <tr style="height: 40px;">
+                        <td style="width: 150px; background-color: rgb(204,204,204)">
+                            <asp:Label ID="Label9" ForeColor="Black" Font-Bold="true" runat="server" Text="開始簽到"></asp:Label>
+                        </td>
+                        <td style="background-color: rgb(239,239,239); text-align: left;">
+                            <asp:CheckBox ID="ckbIsCheckOpen" runat="server" />&nbsp;&nbsp;打開
                         </td>
                     </tr>
                     <!--報名條件-->
@@ -62,10 +82,6 @@
                         <td style="background-color: rgb(239,239,239); text-align: center;">【C2 幸福女人】上課時間：
                             <asp:TextBox CssClass="inputStyle" ID="txtSDate" runat="server"></asp:TextBox>
                             <br />
-                            <asp:DropDownList CssClass="inputStyle" ID="dropSubTime" runat="server">
-                                <asp:ListItem>上午</asp:ListItem>
-                                <asp:ListItem>下午</asp:ListItem>
-                            </asp:DropDownList>
                             <asp:TextBox CssClass="inputStyle" ID="txtSubTime" runat="server"></asp:TextBox>
                             <br />
                             <br />

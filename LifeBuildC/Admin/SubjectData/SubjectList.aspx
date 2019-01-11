@@ -20,7 +20,11 @@
             課程類別：<asp:DropDownList ID="dropSubject" runat="server" AutoPostBack="true" OnSelectedIndexChanged="dropSubject_SelectedIndexChanged" Font-Size="14pt">
                 <asp:ListItem Value="C1">C1 課程</asp:ListItem>
                 <asp:ListItem Value="C2">C2 課程</asp:ListItem>
-                <asp:ListItem Value="C2QT">C2 QT研習營</asp:ListItem>
+                <asp:ListItem Value="C2QT">C2 QT研習營課程</asp:ListItem>
+                <asp:ListItem Value="C2M">C2 榮耀男人課程</asp:ListItem>
+                <asp:ListItem Value="C2W">C2 幸福女人課程</asp:ListItem>
+                <asp:ListItem Value="C3N">C3 九型人格課程</asp:ListItem>
+                <asp:ListItem Value="C3P">C3 人際關係課程</asp:ListItem>
             </asp:DropDownList>&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Button ID="btnAddSubject" runat="server" Text="" OnClick="btnAddSubject_Click" Font-Size="14pt" />
         </div>

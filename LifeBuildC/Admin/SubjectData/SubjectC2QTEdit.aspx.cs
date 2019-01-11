@@ -47,9 +47,7 @@ namespace LifeBuildC.Admin.SubjectData
 
                 //上課時間
                 txtSDate.Text = DateTime.Parse(dt.Select("CategoryID2='C2QT'")[0]["SDate"].ToString()).ToString("yyyy/MM/dd");
-                string[] arrDate12 = dt.Select("CategoryID2='C2QT'")[0]["SubTime"].ToString().Split(' ');
-                dropSubTime.SelectedValue = arrDate12[0];
-                txtSubTime.Text = arrDate12[1];
+                txtSubTime.Text = dt.Select("CategoryID2='C2QT'")[0]["SubTime"].ToString();
 
                 //地點
                 txtSubLocation.Text = dt.Rows[0]["SubLocation"].ToString();
@@ -127,7 +125,7 @@ namespace LifeBuildC.Admin.SubjectData
             //08/05(日)、08/12(日) 下午 14:30~17:30
             sb.Append(txtSDate.Text.Trim().Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
                                 "(" + Api_Info.GetDayOfWeek(DateTime.Parse(txtSDate.Text.Trim())) + ") " + " ");
-            sb.Append(dropSubTime.Text + " " + txtSubTime.Text.Trim());
+            sb.Append(txtSubTime.Text.Trim());
 
             sb.Append("</div>");
             sb.Append("</li>");
@@ -180,7 +178,7 @@ namespace LifeBuildC.Admin.SubjectData
                 SID,
                 "C2QT",
                 txtSDate.Text.Trim(),
-                dropSubTime.Text + " " + txtSubTime.Text.Trim()
+                txtSubTime.Text.Trim()
             );
 
             Ado_Info.SubjectInfo_ADO.sp_Delete_SubjectInfo(SID);
