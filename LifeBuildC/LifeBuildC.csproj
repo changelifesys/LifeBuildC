@@ -156,6 +156,8 @@
     <Content Include="Admin\SubjectData\SubjectC1Edit.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2Add.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2Edit.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC2InToAdd.aspx" />
+    <Content Include="Admin\SubjectData\SubjectC2IntoEdit.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2MAdd.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2MEdit.aspx" />
     <Content Include="Admin\SubjectData\SubjectC2QTAdd.aspx" />
@@ -181,6 +183,7 @@
     <Content Include="Api\GetSubjectLine.aspx" />
     <Content Include="Api\GetSubSign.aspx" />
     <Content Include="Api\SendMemSubQuestion.aspx" />
+    <Content Include="Api\SetUserInfo.aspx" />
     <Content Include="Api\UpdSubSign.aspx" />
     <Content Include="Api\UpdWitness.aspx" />
     <Content Include="bin\ADO.dll" />
@@ -288,6 +291,7 @@
     <Content Include="LogConfig\AddSubSign.config" />
     <Content Include="LogConfig\GetMemSubData.config" />
     <Content Include="App_Data\changelifesys\Google.Apis.Auth.OAuth2.Responses.TokenResponse-user" />
+    <Content Include="LogConfig\SetUserInfo.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -451,6 +455,20 @@
     </Compile>
     <Compile Include="Admin\SubjectData\SubjectC2Edit.aspx.designer.cs">
       <DependentUpon>SubjectC2Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2InToAdd.aspx.cs">
+      <DependentUpon>SubjectC2InToAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2InToAdd.aspx.designer.cs">
+      <DependentUpon>SubjectC2InToAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2IntoEdit.aspx.cs">
+      <DependentUpon>SubjectC2IntoEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubjectData\SubjectC2IntoEdit.aspx.designer.cs">
+      <DependentUpon>SubjectC2IntoEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\SubjectData\SubjectC2MAdd.aspx.cs">
       <DependentUpon>SubjectC2MAdd.aspx</DependentUpon>
@@ -661,6 +679,13 @@
     </Compile>
     <Compile Include="Api\SendMemSubQuestion.aspx.designer.cs">
       <DependentUpon>SendMemSubQuestion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Api\SetUserInfo.aspx.cs">
+      <DependentUpon>SetUserInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Api\SetUserInfo.aspx.designer.cs">
+      <DependentUpon>SetUserInfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Api\UpdSubSign.aspx.cs">
       <DependentUpon>UpdSubSign.aspx</DependentUpon>

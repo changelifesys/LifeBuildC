@@ -779,7 +779,6 @@ namespace ADO
 
         }
 
-
         public DataTable QueryChcMemberByMID(string MID)
         {
             DataTable dt = new DataTable();
@@ -792,6 +791,25 @@ namespace ADO
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@MID", MID);
+                sda.Fill(dt);
+            }
+
+            return dt;
+
+        }
+
+        public DataTable QueryChcMemberByUUID(string UUID)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM " + DbSchema + @"ChcMember
+                                           WHERE UUID = @UUID
+                                           ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@UUID", UUID);
                 sda.Fill(dt);
             }
 

@@ -82,6 +82,25 @@ namespace libLifeBuildC
             }
         }
 
+        //AA101.永健牧區-永健小組
+        public string Get_group(string GroupCName, string GroupName, string GroupClass)
+        {
+            ChcGroupADO _ChcGroupADO = new ChcGroupADO();
+            DataTable dt = _ChcGroupADO.QueryChcGroupByCondition(GroupCName, GroupName, GroupClass);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                return dt.Rows[0]["GroupID"].ToString() + "." +
+                             dt.Rows[0]["GroupCName"].ToString() + "-" +
+                             dt.Rows[0]["GroupName"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+
+
+        }
+
         #endregion
 
         #region Check

@@ -235,6 +235,10 @@ namespace libLifeBuildC
             /// 課程ID
             /// </summary>
             public int SID { get; set; }
+            /// <summary>
+            /// 報名表流水號
+            /// </summary>
+            public List<string> No = new List<string>();
         }
         /// <summary>
         /// 個人上課查詢
@@ -375,6 +379,52 @@ namespace libLifeBuildC
             public string ApiMsg { get; set; }
             /// <summary>
             /// API 有錯(true: 有錯; false: 沒有錯)
+            /// </summary>
+            public bool IsApiError = false;
+        }
+        /// <summary>
+        /// 主要資料設定
+        /// </summary>
+        public class SetUserInfo
+        {
+            /// <summary>
+            /// 會友流水號
+            /// </summary>
+            public string MID = string.Empty;
+            /// <summary>
+            /// 組別
+            /// </summary>
+            public string gcroup = string.Empty;
+            /// <summary>
+            /// 小組
+            /// </summary>
+            public string group = string.Empty;
+            /// <summary>
+            /// 姓名
+            /// </summary>
+            public string Ename = string.Empty;
+            /// <summary>
+            /// 手機
+            /// </summary>
+            public string Phone = string.Empty;
+            /// <summary>
+            /// Email
+            /// </summary>
+            public string Gmail = string.Empty;
+            /// <summary>
+            /// 奉獻編號
+            /// </summary>
+            public string TithingNo = string.Empty;
+            /// <summary>
+            /// 手機機碼
+            /// </summary>
+            public string UUID = string.Empty;
+            /// <summary>
+            /// 訊息的顯示文字
+            /// </summary>
+            public string ApiMsg = string.Empty;
+            /// <summary>
+            /// Default : IsApiError = false 表示儲存成功, 沒有重大錯誤訊息
             /// </summary>
             public bool IsApiError = false;
         }
