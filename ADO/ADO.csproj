@@ -96,6 +96,7 @@
     <Compile Include="AnswerItemADO.cs" />
     <Compile Include="ChcGroupADO.cs" />
     <Compile Include="ChcMemberADO.cs" />
+    <Compile Include="ChcMemberApp_TempADO.cs" />
     <Compile Include="ChcMemberSub_TempADO.cs" />
     <Compile Include="ChcMember_LogADO.cs" />
     <Compile Include="ClassStatusADO.cs" />

@@ -201,7 +201,7 @@ namespace libLifeBuildC
         /// <summary>
         /// 檢查會友資料變更狀況
         /// </summary>
-        public class ApiChkMember
+        public class ChkMember
         {
             /// <summary>
             /// 資料變更訊息
@@ -239,6 +239,44 @@ namespace libLifeBuildC
             /// 報名表流水號
             /// </summary>
             public List<string> No = new List<string>();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public class ChkUserInfo
+        {
+            /// <summary>
+            /// 資料變更訊息
+            /// </summary>
+            public List<string> DataChangeMsg = new List<string>();
+            /// <summary>
+            /// 小組
+            /// </summary>
+            public string group { get; set; }
+            /// <summary>
+            /// 姓名
+            /// </summary>
+            public string Ename { get; set; }
+            /// <summary>
+            /// 手機
+            /// </summary>
+            public string Phone { get; set; }
+            /// <summary>
+            /// 會友號
+            /// </summary>
+            public string MID = string.Empty;
+            /// <summary>
+            /// API Title
+            /// </summary>
+            public string ApiTitle { get; set; }
+            /// <summary>
+            /// 是否要秀出資料變更訊息(true: 要秀出來; false: 不要秀出來)
+            /// </summary>
+            public bool IsChgShow = false;
+            /// <summary>
+            /// 手機機碼
+            /// </summary>
+            public string UUID = string.Empty;
         }
         /// <summary>
         /// 個人上課查詢

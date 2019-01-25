@@ -74,7 +74,14 @@ namespace LifeBuildC.Api
 
         private void ApiProcess1()
         {
-            DataTable dt = Ado_Info.ChcMember_ADO.QueryChcMemberByUUID(Api_Data.UUID);
+            DataTable dt = new DataTable();
+            dt = Ado_Info.ChcMemberApp_Temp_ADO.QueryDataWhereUUID_uptyn(Api_Data.UUID);
+            if (!(dt != null && dt.Rows.Count > 0))
+            { //ChcMemberApp_Temp 沒有資料就查詣 ChcMember
+                dt = null;
+                dt = Ado_Info.ChcMember_ADO.QueryChcMemberByUUID(Api_Data.UUID);
+            }
+
             if (dt != null && dt.Rows.Count > 0)
             {
                 Api_Data.MID = dt.Rows[0]["MID"].ToString();
@@ -85,6 +92,7 @@ namespace LifeBuildC.Api
                 Api_Data.Gmail = dt.Rows[0]["Gmail"].ToString();
                 Api_Data.TithingNo = dt.Rows[0]["TithingNo"].ToString();
             }
+
         }
 
         private void ApiProcess2()

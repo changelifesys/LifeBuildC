@@ -173,6 +173,7 @@
     <Content Include="Api\AddSubSign.aspx" />
     <Content Include="Api\ChkFirePass.aspx" />
     <Content Include="Api\ChkMember.aspx" />
+    <Content Include="Api\ChkUserInfo.aspx" />
     <Content Include="Api\GetClassByGroup.aspx" />
     <Content Include="Api\GetGroupByEname.aspx" />
     <Content Include="Api\GetGroupItem.aspx" />
@@ -588,6 +589,13 @@
     </Compile>
     <Compile Include="Api\ChkMember.aspx.designer.cs">
       <DependentUpon>ChkMember.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Api\ChkUserInfo.aspx.cs">
+      <DependentUpon>ChkUserInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Api\ChkUserInfo.aspx.designer.cs">
+      <DependentUpon>ChkUserInfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Api\GetAnsItem.aspx.cs">
       <DependentUpon>GetAnsItem.aspx</DependentUpon>

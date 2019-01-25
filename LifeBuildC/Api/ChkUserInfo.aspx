@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ChkUserInfo.aspx.cs" Inherits="LifeBuildC.Api.ChkUserInfo" %>

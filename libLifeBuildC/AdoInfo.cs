@@ -13,6 +13,7 @@ namespace libLifeBuildC
         public ChcGroupADO ChcGroup_ADO = new ChcGroupADO();
         public ChcMember_LogADO ChcMember_Log_ADO = new ChcMember_LogADO();
         public ChcMemberADO ChcMember_ADO = new ChcMemberADO();
+        public ChcMemberApp_TempADO ChcMemberApp_Temp_ADO = new ChcMemberApp_TempADO();
         public ChcMemberSub_TempADO ChcMemberSub_Temp_ADO = new ChcMemberSub_TempADO();
         public ClassStatusADO ClassStatus_ADO = new ClassStatusADO();
         public CLC_FinancialSys_ID_Temp_1ADO CLC_FinancialSys_ID_Temp_1_ADO = new CLC_FinancialSys_ID_Temp_1ADO();
