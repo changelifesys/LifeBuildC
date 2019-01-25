@@ -288,6 +288,54 @@ namespace LifeBuildC.Admin.MemSubData
 
                 #endregion
 
+                #region C2 QT 研習營
+
+                if (grid.ID == "gvC2All")
+                {
+                    if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC2QT").ToString()))
+                    {
+                        ((Label)e.Row.FindControl("lblIsC2QT")).Text = "V";
+                    }
+                    else
+                    {
+                        ((Label)e.Row.FindControl("lblIsC2QT")).Text = "導入中...";
+                    }
+                }
+
+                #endregion
+
+                #region C2 榮耀男人&幸福女人
+
+                if (grid.ID == "gvC2All")
+                {
+                    if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC2MW").ToString()))
+                    {
+                        ((Label)e.Row.FindControl("lblIsC2MW")).Text = "V";
+                    }
+                    else
+                    {
+                        ((Label)e.Row.FindControl("lblIsC2MW")).Text = "導入中...";
+                    }
+                }
+
+                #endregion
+
+                #region C2 父母 Into
+
+                if (grid.ID == "gvC2All")
+                {
+                    if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC2InTo").ToString()))
+                    {
+                        ((Label)e.Row.FindControl("lblIsC2InTo")).Text = "V";
+                    }
+                    else
+                    {
+                        ((Label)e.Row.FindControl("lblIsC2InTo")).Text = "導入中...";
+                    }
+                }
+
+                #endregion
+
                 #region 全部判定
 
                 if (grid.ID == "gvCStatusAll")

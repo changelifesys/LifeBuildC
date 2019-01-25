@@ -88,7 +88,8 @@
         <div id="divView1" visible="false" style="text-align: center; margin: 5px; font-size: 14pt" runat="server">
             <asp:RadioButton GroupName="View1" Checked="true" ID="rdoAll" runat="server" AutoPostBack="true" OnCheckedChanged="rdoView_CheckedChanged" />&nbsp;課程判定&nbsp;&nbsp;|
             <asp:RadioButton GroupName="View1" ID="rdoC1View" runat="server" AutoPostBack="true" OnCheckedChanged="rdoView_CheckedChanged" />&nbsp;C1 詳細&nbsp;&nbsp;|
-            <asp:RadioButton GroupName="View1" ID="rdoC2View" runat="server" AutoPostBack="true" OnCheckedChanged="rdoView_CheckedChanged" />&nbsp;C2 詳細
+            <asp:RadioButton GroupName="View1" ID="rdoC2View" runat="server" AutoPostBack="true" OnCheckedChanged="rdoView_CheckedChanged" />&nbsp;C2 詳細&nbsp;&nbsp;|
+            <asp:RadioButton GroupName="View1" ID="rdoC3View" runat="server" AutoPostBack="true" OnCheckedChanged="rdoView_CheckedChanged" />&nbsp;C3 詳細&nbsp;&nbsp;|
         </div>
 
         <!--全部-->
@@ -268,6 +269,27 @@
                     <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="C2<br/>QT 研習營">
+                    <ItemTemplate>
+                        <asp:Label ID="lblIsC2QT" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="C2<br/>榮耀男人&幸福女人">
+                    <ItemTemplate>
+                        <asp:Label ID="lblIsC2MW" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="C2<br/>父母 Into">
+                    <ItemTemplate>
+                        <asp:Label ID="lblIsC2InTo" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" Width="100px" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="C2 通過判定">
                     <ItemTemplate>
                         <asp:Label ID="lblC2_Status" runat="server" Text=""></asp:Label>
@@ -279,6 +301,7 @@
         </asp:GridView>
 
         <!--Old-->
+        <!--
         <asp:GridView Visible="false" ID="gvChcMember" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvChcMember_RowDataBound" HorizontalAlign="Center">
             <Columns>
                 <asp:TemplateField>
@@ -377,6 +400,7 @@
 
             </Columns>
         </asp:GridView>
+        -->
         <br/><br/>
     </form>
 </body>
