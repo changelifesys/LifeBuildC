@@ -300,6 +300,49 @@
             </Columns>
         </asp:GridView>
 
+        <!--C3-->
+        <asp:GridView ID="gvC3All" runat="server" Visible="false" AutoGenerateColumns="False" OnRowDataBound="gvChcMember_RowDataBound" HorizontalAlign="Center">
+            <Columns>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:Button ID="btnView" runat="server" Text="檢視" />
+                    </ItemTemplate>
+                    <FooterStyle BackColor="Black" />
+                    <HeaderStyle BorderColor="Black" ForeColor="#006600" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="GroupClass" HeaderText="組&nbsp;&nbsp;&nbsp;別">
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" Font-Underline="False" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+                <asp:TemplateField HeaderText="小&nbsp;&nbsp;&nbsp;組">
+                    <ItemTemplate>
+                        <asp:Label ID="lblGroupCName" runat="server" Text=""></asp:Label>-
+                            <asp:Label ID="lblGroupName" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="200px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" Font-Underline="False" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="Ename" HeaderText="姓&nbsp;&nbsp;&nbsp;名">
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" Font-Underline="False" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:BoundField>
+                <asp:TemplateField HeaderText="C3<br/>九型人格">
+                    <ItemTemplate>
+                        <asp:Label ID="lblIsC3N" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="C3<br/>人際關係">
+                    <ItemTemplate>
+                        <asp:Label ID="lblIsC3P" runat="server" Text=""></asp:Label>
+                    </ItemTemplate>
+                    <HeaderStyle Width="100px" HorizontalAlign="Center" VerticalAlign="Middle" Font-Bold="True" ForeColor="#006600" BorderColor="Black" />
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+
         <!--Old-->
         <!--
         <asp:GridView Visible="false" ID="gvChcMember" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvChcMember_RowDataBound" HorizontalAlign="Center">

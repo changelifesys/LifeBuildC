@@ -336,6 +336,38 @@ namespace LifeBuildC.Admin.MemSubData
 
                 #endregion
 
+                #region 九型人格
+
+                if (grid.ID == "gvC3All")
+                {
+                    if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC3N").ToString()))
+                    {
+                        ((Label)e.Row.FindControl("lblIsC3N")).Text = "V";
+                    }
+                    else
+                    {
+                        ((Label)e.Row.FindControl("lblIsC3N")).Text = "導入中...";
+                    }
+                }
+
+                #endregion
+
+                #region 人際關係
+
+                if (grid.ID == "gvC3All")
+                {
+                    if (bool.Parse(DataBinder.Eval(e.Row.DataItem, "IsC3P").ToString()))
+                    {
+                        ((Label)e.Row.FindControl("lblIsC3P")).Text = "V";
+                    }
+                    else
+                    {
+                        ((Label)e.Row.FindControl("lblIsC3P")).Text = "導入中...";
+                    }
+                }
+
+                #endregion
+
                 #region 全部判定
 
                 if (grid.ID == "gvCStatusAll")
@@ -1005,6 +1037,7 @@ namespace LifeBuildC.Admin.MemSubData
                 gvCStatusAll.Visible = true;
                 gvC1All.Visible = false;
                 gvC2All.Visible = false;
+                gvC3All.Visible = false;
             }
             else if (rdoC1View.Checked)
             {
@@ -1013,6 +1046,7 @@ namespace LifeBuildC.Admin.MemSubData
                 gvCStatusAll.Visible = false;
                 gvC1All.Visible = true;
                 gvC2All.Visible = false;
+                gvC3All.Visible = false;
             }
             else if (rdoC2View.Checked)
             {
@@ -1021,6 +1055,16 @@ namespace LifeBuildC.Admin.MemSubData
                 gvCStatusAll.Visible = false;
                 gvC1All.Visible = false;
                 gvC2All.Visible = true;
+                gvC3All.Visible = false;
+            }
+            else if (rdoC3View.Checked)
+            {
+                gvC3All.DataSource = dt;
+                gvC3All.DataBind();
+                gvCStatusAll.Visible = false;
+                gvC1All.Visible = false;
+                gvC2All.Visible = false;
+                gvC3All.Visible = true;
             }
         }
 
