@@ -320,6 +320,7 @@
     <Content Include="SDPaper\生命建造-個人線上查詢\img\title.jpg" />
     <Content Include="SDPaper\生命建造-個人線上查詢\Page1.html" />
     <Content Include="SDPaper\生命建造-個人線上查詢\Page2.html" />
+    <Content Include="Tool\ChkMemberID.aspx" />
     <Content Include="Tool\UpdChcMemberSub_Temp.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -785,6 +786,13 @@
     </Compile>
     <Compile Include="SubjectSignUp.aspx.designer.cs">
       <DependentUpon>SubjectSignUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\ChkMemberID.aspx.cs">
+      <DependentUpon>ChkMemberID.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tool\ChkMemberID.aspx.designer.cs">
+      <DependentUpon>ChkMemberID.aspx</DependentUpon>
     </Compile>
     <Compile Include="Tool\UpdChcMemberSub_Temp.aspx.cs">
       <DependentUpon>UpdChcMemberSub_Temp.aspx</DependentUpon>

@@ -100,6 +100,7 @@
     <Compile Include="ChcMemberSub_TempADO.cs" />
     <Compile Include="ChcMember_LogADO.cs" />
     <Compile Include="ClassStatusADO.cs" />
+    <Compile Include="CLC_FinancialSys.cs" />
     <Compile Include="CLC_FinancialSys_ID_Temp_1ADO.cs" />
     <Compile Include="ExamQuestionsADO.cs" />
     <Compile Include="FireMemberADO.cs" />
