@@ -207,7 +207,7 @@ namespace LifeBuildC.Admin.SubjectData
             sb.Append("即日起~" +
                         SubEndDate.Replace(DateTime.UtcNow.AddHours(8).Year.ToString() + "/", "") +
                             "(" + Api_Info.GetDayOfWeek(DateTime.Parse(SubEndDate)) + ") " +
-                        "截止報名，之後請現場報名。");
+                        "截止報名。");
             sb.Append("</div>");
 
             sb.Append("<div class='class-detail-title'>");

@@ -57,11 +57,11 @@
                     <!--上課日期-->
                     <tr style="height: 40px;">
                         <td style="width: 150px; background-color: rgb(204,204,204)">
-                            <asp:Label ID="Label1" ForeColor="Black" Font-Bold="true" runat="server" Text="C1 一、二課"></asp:Label>
+                            <asp:Label ID="Label1" ForeColor="Black" Font-Bold="true" runat="server" Text="C2 一、二課"></asp:Label>
                             <asp:CheckBox ID="ckbIsSub12" runat="server" Checked="True" AutoPostBack="True" OnCheckedChanged="ckbIsSub12_CheckedChanged" />
                             有開課
                         </td>
-                        <td style="background-color: rgb(239,239,239); text-align: center;">【C1 一、二課】上課時間：
+                        <td style="background-color: rgb(239,239,239); text-align: center;">【C2 一、二課】上課時間：
                             <asp:TextBox CssClass="inputStyle" ID="txtSDate12" runat="server"></asp:TextBox>
                             <br />
                             <asp:DropDownList CssClass="inputStyle" ID="dropSubTime12" runat="server">
@@ -75,11 +75,11 @@
                     </tr>
                     <tr style="height: 40px;">
                         <td style="width: 150px; background-color: rgb(204,204,204)">
-                            <asp:Label ID="Label3" ForeColor="Black" Font-Bold="true" runat="server" Text="C1 三、四課"></asp:Label>
+                            <asp:Label ID="Label3" ForeColor="Black" Font-Bold="true" runat="server" Text="C2 三、四課"></asp:Label>
                             <asp:CheckBox ID="ckbIsSub34" runat="server" Checked="True" AutoPostBack="True" OnCheckedChanged="ckbIsSub34_CheckedChanged" />
                             有開課
                         </td>
-                        <td style="background-color: rgb(239,239,239); text-align: center;">【C1 三、四課】上課時間：
+                        <td style="background-color: rgb(239,239,239); text-align: center;">【C2 三、四課】上課時間：
                             <asp:TextBox CssClass="inputStyle" ID="txtSDate34" runat="server"></asp:TextBox>
                             <br />
                             <asp:DropDownList CssClass="inputStyle" ID="dropSubTime34" runat="server">

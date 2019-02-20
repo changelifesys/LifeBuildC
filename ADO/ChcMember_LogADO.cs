@@ -20,11 +20,21 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           " + DbSchema + @"ChcMember_Log(MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
-                                                                            IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo)
+                                           " + DbSchema + @"ChcMember_Log(MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, 
+                                                                            C1_Status, C2_Status, C2MW_Status, C2QT_Status, C3_Status,
+                                                                            IsC112, IsC134, IsC1God,
+                                                                            IsC212, IsC234, IsC25, IsC2QT, IsC2MW, IsC2L1, IsC2InTo,
+                                                                            IsC3N, IsC3P, IsExpGod,
+                                                                            C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo,
+                                                                            IsLeave, UUID, TithingNo)
                                            SELECT TOP 1 
-                                                         MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
-                                                                                                                    IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo
+                                                         MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, 
+                                                                            C1_Status, C2_Status, C2MW_Status, C2QT_Status, C3_Status,
+                                                                            IsC112, IsC134, IsC1God,
+                                                                            IsC212, IsC234, IsC25, IsC2QT, IsC2MW, IsC2L1, IsC2InTo,
+                                                                            IsC3N, IsC3P, IsExpGod,
+                                                                            C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo,
+                                                                            IsLeave, UUID, TithingNo
                                            FROM " + DbSchema + @"ChcMember
                                            WHERE GroupCName = @GroupCName
                                            AND GroupName = @GroupName
@@ -48,11 +58,22 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"INSERT INTO
-                                           " + DbSchema + @"ChcMember_Log(MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
-                                                                            IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo)
+                                           " + DbSchema + @"ChcMember_Log(MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, 
+                                                                            C1_Status, C2_Status, C2MW_Status, C2QT_Status, C3_Status,
+                                                                            IsC112, IsC134, IsC1God,
+                                                                            IsC212, IsC234, IsC25, IsC2QT, IsC2MW, IsC2L1, IsC2InTo,
+                                                                            IsC3N, IsC3P, IsExpGod,
+                                                                            C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo,
+                                                                            IsLeave, UUID, TithingNo
+                                                                            )
                                            SELECT TOP 1 
-                                                         MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, C1_Status, C2_Status,
-                                                                                                                    IsC112, IsC134, IsC212, IsC234, IsC25, C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo
+                                                         MID, GroupCName, GroupName, GroupClass, Ename, Phone, Gmail, Church, 
+                                                                            C1_Status, C2_Status, C2MW_Status, C2QT_Status, C3_Status,
+                                                                            IsC112, IsC134, IsC1God,
+                                                                            IsC212, IsC234, IsC25, IsC2QT, IsC2MW, IsC2L1, IsC2InTo,
+                                                                            IsC3N, IsC3P, IsExpGod,
+                                                                            C1_Score, C212_Score, C234_Score, witness, Iswitness, Memo,
+                                                                            IsLeave, UUID, TithingNo
                                            FROM " + DbSchema + @"ChcMember
                                            ";
 

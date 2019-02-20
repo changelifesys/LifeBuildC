@@ -54,18 +54,44 @@ namespace ADO
                 case "C112":
                     sql += " IsC112)";
                     break;
+
                 case "C134":
                     sql += " IsC134)";
                     break;
+
                 case "C212":
                     sql += " IsC212)";
                     break;
+
                 case "C234":
                     sql += " IsC234)";
                     break;
+
                 case "C25":
                     sql += " IsC25)";
                     break;
+
+                case "C2QT":
+                    sql += " IsC2QT)";
+                    break;
+
+                case "C3P":
+                    sql += " IsC3P)";
+                    break;
+
+                case "C3N":
+                    sql += " IsC3N)";
+                    break;
+
+                case "C2M":
+                case "C2W":
+                    sql += " IsC2MW)";
+                    break;
+
+                case "C2InTo":
+                    sql += " IsC2InTo)";
+                    break;
+
             }
 
             sql += " VALUES(@GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail,";
@@ -75,18 +101,44 @@ namespace ADO
                 case "C112":
                     sql += " @IsPass)";
                     break;
+
                 case "C134":
                     sql += " @IsPass)";
                     break;
+
                 case "C212":
                     sql += " @IsPass)";
                     break;
+
                 case "C234":
                     sql += " @IsPass)";
                     break;
+
                 case "C25":
                     sql += " @IsPass)";
                     break;
+
+                case "C2QT":
+                    sql += " @IsPass)";
+                    break;
+
+                case "C3P":
+                    sql += " @IsPass)";
+                    break;
+
+                case "C3N":
+                    sql += " @IsPass)";
+                    break;
+
+                case "C2M":
+                case "C2W":
+                    sql += " @IsPass)";
+                    break;
+
+                case "C2InTo":
+                    sql += " @IsPass)";
+                    break;
+
             }
 
             using (SqlConnection con = new SqlConnection(condb))
@@ -274,7 +326,9 @@ namespace ADO
             {
 
                 string sql = @"UPDATE " + DbSchema + @"ChcMember 
-                                            SET C1_Status = '不通過', C2_Status = '不通過'
+                                            SET C1_Status = '不通過', 
+                                                   C2_Status = '不通過',
+                                                   C3_Status = '導入中...'      
                                           ";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -310,10 +364,11 @@ namespace ADO
 
                 string sql = @"UPDATE " + DbSchema + @"ChcMember 
                                             SET C2_Status = '通過'
-                                            WHERE (IsC212 = 1 AND IsC234 = 1 AND IsC25 = 1
-                                            AND IsC112 = 1 AND IsC134 = 1
-                                            AND C1_Score >= 70 AND C212_Score >= 70 AND C234_Score >= 70
-                                            AND Iswitness = 1) OR IsC2L1 = 1
+                                            WHERE (((IsC112 = 1 AND IsC134 = 1) OR IsC1God = 1)
+                                            AND (IsC212 = 1 AND IsC234 = 1 AND IsC25 = 1
+                                                      AND C1_Score >= 70 AND C212_Score >= 70 AND C234_Score >= 70
+                                                      AND Iswitness = 1)) 
+                                            OR IsC2L1 = 1
                                           ";
 
                 SqlCommand com = new SqlCommand(sql, con);
@@ -405,17 +460,42 @@ namespace ADO
                 case "C112":
                     sql += " IsC112 = @IsPass";
                     break;
+
                 case "C134":
                     sql += " IsC134 = @IsPass";
                     break;
+
                 case "C212":
                     sql += " IsC212 = @IsPass";
                     break;
+
                 case "C234":
                     sql += " IsC234 = @IsPass";
                     break;
+
                 case "C25":
                     sql += " IsC25 = @IsPass";
+                    break;
+
+                case "C2QT":
+                    sql += " IsC2QT = @IsPass";
+                    break;
+
+                case "C3P":
+                    sql += " IsC3P = @IsPass";
+                    break;
+
+                case "C3N":
+                    sql += " IsC3N = @IsPass";
+                    break;
+
+                case "C2M":
+                case "C2W":
+                    sql += " IsC2MW = @IsPass";
+                    break;
+
+                case "C2InTo":
+                    sql += " IsC2InTo = @IsPass";
                     break;
             }
 
