@@ -252,7 +252,6 @@ namespace LifeBuildC.Api
                 strNo = strNo.Substring(0, strNo.Length - 1);
                 DataTable dtNo = Ado_Info.ChcMemberSub_Temp_ADO.QueryChcMemberSub_TempByNo(strNo);
 
-
                 //填寫補課資訊
                 //DataTable dtSubDate = Ado_Info.SubjectDate_ADO.GetCategoryIDBySubjectDate(Api_Data.SID);
                 DataRow[] drCategoryID = dtNo.Select("SubDate='" + DateTime.Now.ToString("yyyy-MM-dd") + "'");
@@ -532,12 +531,15 @@ namespace LifeBuildC.Api
                             break;
                     }
                 }
+                else if (Api_Data.CategoryID == "C1")
+                {
+                    InsChcMemberSub_TempByC1(IsPass, strMake, Memo);
+                }
                 else
                 {
                     strMake = "修課查詢有誤(請洽資訊同工)";
                 }
                 
-
                 //api.MID.Split(',')[0] 為會友MID流水編號
                 //api.MID.Split(',')[i] 大於0以上為No流水號
                 //故陣列索引從 1 開始
@@ -569,118 +571,7 @@ namespace LifeBuildC.Api
             else
             { //INSERT 報名資訊, 只有C1才能現場報名
 
-                DataTable dtMem = new DataTable();
-
-                if (Api_Data.MID.Split(',').Count() > 0)
-                {
-                    //INSERT LOG
-                    dtMem = Ado_Info.ChcMember_ADO.QueryChcMemberByMID(Api_Data.MID.Split(',')[0]);
-                    if (dtMem != null && dtMem.Rows.Count > 0)
-                    {
-                        Ado_Info.ChcMember_Log_ADO.InsLogDataByChcMember_Log
-                        (
-                            dtMem.Rows[0]["MID"].ToString(),
-                            dtMem.Rows[0]["GroupName"].ToString(),
-                            dtMem.Rows[0]["GroupName"].ToString(),
-                            dtMem.Rows[0]["GroupClass"].ToString(),
-                            dtMem.Rows[0]["Ename"].ToString(),
-                            dtMem.Rows[0]["Phone"].ToString(),
-                            dtMem.Rows[0]["Gmail"].ToString(),
-                            dtMem.Rows[0]["Church"].ToString(),
-                            dtMem.Rows[0]["C1_Status"].ToString(),
-                            dtMem.Rows[0]["C2_Status"].ToString(),
-                            bool.Parse(dtMem.Rows[0]["IsC112"].ToString()),
-                            bool.Parse(dtMem.Rows[0]["IsC134"].ToString()),
-                            bool.Parse(dtMem.Rows[0]["IsC212"].ToString()),
-                            bool.Parse(dtMem.Rows[0]["IsC234"].ToString()),
-                            bool.Parse(dtMem.Rows[0]["IsC25"].ToString()),
-                            int.Parse(dtMem.Rows[0]["C1_Score"].ToString()),
-                            int.Parse(dtMem.Rows[0]["C212_Score"].ToString()),
-                            int.Parse(dtMem.Rows[0]["C234_Score"].ToString()),
-                            dtMem.Rows[0]["witness"].ToString(),
-                            bool.Parse(dtMem.Rows[0]["Iswitness"].ToString()),
-                            dtMem.Rows[0]["Memo"].ToString()
-                        );
-                    }
-                }
-
-                //填寫補課資訊
-                DataTable dtCategoryID = Ado_Info.SubjectDate_ADO.GetCategoryIDBySubjectDate(Api_Data.SID);
-                if (dtCategoryID != null && dtCategoryID.Rows.Count > 0)
-                {
-                    switch (dtCategoryID.Rows[0]["CategoryID"].ToString())
-                    {
-                        case "C112":
-
-                            if (dtMem != null && dtMem.Rows.Count > 0 &&
-                                bool.Parse(dtMem.Rows[0]["IsC134"].ToString()))
-                            {
-                                if (dtMem.Rows[0]["C1_Status"].ToString() == Api_Info.ClassStatus_C001)
-                                {
-                                    IsPass = 2;
-                                }
-                                else
-                                {
-                                    IsPass = 1;
-                                }
-                            }
-                            else
-                            {
-                                strMake = "未修C1 三、四課";
-                            }
-
-                            break;
-
-                        case "C134":
-
-                            if (dtMem != null && dtMem.Rows.Count > 0 &&
-    bool.Parse(dtMem.Rows[0]["IsC112"].ToString()))
-                            {
-                                if (dtMem.Rows[0]["C1_Status"].ToString() == Api_Info.ClassStatus_C001)
-                                {
-                                    IsPass = 2;
-                                }
-                                else
-                                {
-                                    IsPass = 1;
-                                }
-                            }
-                            else
-                            {
-                                strMake = "未修C1 一、二課";
-                            }
-
-                            break;
-                    }
-
-                    DataTable dtSub = Ado_Info.SubjectInfo_ADO.GetSDateBySubjectJoin(Api_Data.SID, DateTime.Now.ToString("yyyy/MM/dd"));
-                    if (dtSub != null && dtSub.Rows.Count > 0)
-                    {
-                        Ado_Info.ChcMemberSub_Temp_ADO.InsChcMemberSub_TempByUpdSubSignToC1
-                        (
-                            Api_Data.SID,
-                            dtCategoryID.Rows[0]["CategoryID"].ToString(),
-                            Api_Info.GroupCName,
-                            Api_Info.GroupName,
-                            Api_Info.GroupClass,
-                            Api_Data.Ename,
-                            Api_Data.Phone,
-                            Api_Data.Gmail,
-                            Api_Data.Church,
-                            "1", //EStatus
-                            DateTime.Now.ToString("yyyy/MM/dd"), //SubDate
-                            Memo,
-                            Api_Data.MID.Replace(",", ""), //MID
-                            IsPass,
-                            strMake
-                        );
-
-                    }
-
-                }
-
-
-
+                InsChcMemberSub_TempByC1(IsPass, strMake, Memo);
             }
 
             Api_Data.SubDate = DateTime.Now.ToString("MM/dd");
@@ -730,7 +621,118 @@ namespace LifeBuildC.Api
 
         }
 
+        private void InsChcMemberSub_TempByC1(int IsPass, string strMake, string Memo)
+        {
+            DataTable dtMem = new DataTable();
 
+            if (Api_Data.MID.Split(',').Count() > 0)
+            {
+                //INSERT LOG
+                dtMem = Ado_Info.ChcMember_ADO.QueryChcMemberByMID(Api_Data.MID.Split(',')[0]);
+                if (dtMem != null && dtMem.Rows.Count > 0)
+                {
+                    Ado_Info.ChcMember_Log_ADO.InsLogDataByChcMember_Log
+                    (
+                        dtMem.Rows[0]["MID"].ToString(),
+                        dtMem.Rows[0]["GroupName"].ToString(),
+                        dtMem.Rows[0]["GroupName"].ToString(),
+                        dtMem.Rows[0]["GroupClass"].ToString(),
+                        dtMem.Rows[0]["Ename"].ToString(),
+                        dtMem.Rows[0]["Phone"].ToString(),
+                        dtMem.Rows[0]["Gmail"].ToString(),
+                        dtMem.Rows[0]["Church"].ToString(),
+                        dtMem.Rows[0]["C1_Status"].ToString(),
+                        dtMem.Rows[0]["C2_Status"].ToString(),
+                        bool.Parse(dtMem.Rows[0]["IsC112"].ToString()),
+                        bool.Parse(dtMem.Rows[0]["IsC134"].ToString()),
+                        bool.Parse(dtMem.Rows[0]["IsC212"].ToString()),
+                        bool.Parse(dtMem.Rows[0]["IsC234"].ToString()),
+                        bool.Parse(dtMem.Rows[0]["IsC25"].ToString()),
+                        int.Parse(dtMem.Rows[0]["C1_Score"].ToString()),
+                        int.Parse(dtMem.Rows[0]["C212_Score"].ToString()),
+                        int.Parse(dtMem.Rows[0]["C234_Score"].ToString()),
+                        dtMem.Rows[0]["witness"].ToString(),
+                        bool.Parse(dtMem.Rows[0]["Iswitness"].ToString()),
+                        dtMem.Rows[0]["Memo"].ToString()
+                    );
+                }
+            }
+
+            //填寫補課資訊
+            DataTable dtCategoryID = Ado_Info.SubjectDate_ADO.GetCategoryIDBySubjectDate(Api_Data.SID);
+            if (dtCategoryID != null && dtCategoryID.Rows.Count > 0)
+            {
+                switch (dtCategoryID.Rows[0]["CategoryID"].ToString())
+                {
+                    case "C112":
+
+                        if (dtMem != null && dtMem.Rows.Count > 0 &&
+                            bool.Parse(dtMem.Rows[0]["IsC134"].ToString()))
+                        {
+                            if (dtMem.Rows[0]["C1_Status"].ToString() == Api_Info.ClassStatus_C001)
+                            {
+                                IsPass = 2;
+                            }
+                            else
+                            {
+                                IsPass = 1;
+                            }
+                        }
+                        else
+                        {
+                            strMake = "未修C1 三、四課";
+                        }
+
+                        break;
+
+                    case "C134":
+
+                        if (dtMem != null && dtMem.Rows.Count > 0 &&
+bool.Parse(dtMem.Rows[0]["IsC112"].ToString()))
+                        {
+                            if (dtMem.Rows[0]["C1_Status"].ToString() == Api_Info.ClassStatus_C001)
+                            {
+                                IsPass = 2;
+                            }
+                            else
+                            {
+                                IsPass = 1;
+                            }
+                        }
+                        else
+                        {
+                            strMake = "未修C1 一、二課";
+                        }
+
+                        break;
+                }
+
+                DataTable dtSub = Ado_Info.SubjectInfo_ADO.GetSDateBySubjectJoin(Api_Data.SID, DateTime.Now.ToString("yyyy/MM/dd"));
+                if (dtSub != null && dtSub.Rows.Count > 0)
+                {
+                    Ado_Info.ChcMemberSub_Temp_ADO.InsChcMemberSub_TempByUpdSubSignToC1
+                    (
+                        Api_Data.SID,
+                        dtCategoryID.Rows[0]["CategoryID"].ToString(),
+                        Api_Info.GroupCName,
+                        Api_Info.GroupName,
+                        Api_Info.GroupClass,
+                        Api_Data.Ename,
+                        Api_Data.Phone,
+                        Api_Data.Gmail,
+                        Api_Data.Church,
+                        "1", //EStatus
+                        DateTime.Now.ToString("yyyy/MM/dd"), //SubDate
+                        Memo,
+                        Api_Data.MID.Replace(",", ""), //MID
+                        IsPass,
+                        strMake
+                    );
+
+                }
+
+            }
+        }
 
     }
 

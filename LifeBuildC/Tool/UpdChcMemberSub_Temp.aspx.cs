@@ -148,7 +148,7 @@ namespace LifeBuildC.Tool
 
                 //更新完畢
                 //UPDATE uptyn = 1
-                Ado_Info.ChcMemberSub_Temp_ADO.Upduptyn1ByChcMemberSub_Temp();
+                //Ado_Info.ChcMemberSub_Temp_ADO.Upduptyn1ByChcMemberSub_Temp();
 
                 //更新課程通過狀態
                 Ado_Info.ChcMember_ADO.UpdC1C2_StatusByChcMember();
