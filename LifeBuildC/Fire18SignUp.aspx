@@ -12342,7 +12342,7 @@
 <%--                                <button type="button" class="el-button el-button--default el-button--small">
                                     <span>送出</span>
                                 </button>--%>
-                                <asp:Button ID="btnSend" Width="100px" CssClass="el-button el-button--default el-button--small" runat="server" Text="成人報名" OnClick="btnSend_Click" />
+                                <asp:Button ID="btnSend" Width="100px" CssClass="el-button el-button--default el-button--small" runat="server" Text="成人&學青報名" OnClick="btnSend_Click" />
                                 <asp:Button ID="btnSend12" Width="150px" CssClass="el-button el-button--default el-button--small" runat="server" Text="12歲以下報名(含12歲)" OnClick="btnSend12_Click"  />
                             </div>
                         </div>
