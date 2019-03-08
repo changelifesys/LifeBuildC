@@ -208,7 +208,7 @@ namespace LifeBuildC.Admin.MemSubData
 
             //更新完畢
             //UPDATE uptyn = 1
-            memSub.Upduptyn1ByChcMemberSub_Temp();
+            memSub.Upduptyn1ByChcMemberSub_Temp("");
 
             //更新課程通過狀態
             chcmember.UpdC1C2_StatusByChcMember();

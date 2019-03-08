@@ -4,12 +4,7 @@
    生命建造-課程報到
 
  流程：
-   [View]SubjectCheck.aspx?id=c1 > [按鈕]報到 > [API]UpdSubSign
-
- API條件：
-   1. C1 可以現場報到. (C1 有沒有報名都沒有差別)
-   2. C2 沒有報名就不能上.
-   3. C2 若有中央同工的權限可現場報名.
+   [View] http://form.changelifesys.org/registration/c1 > [按鈕] 報到 > [API] UpdSubSign
    
  */
 using ADO;
@@ -90,6 +85,7 @@ namespace LifeBuildC.Api
                 case "C1":
 
                     //C1 可以現場報名
+                    //C1 有沒有報名都沒有差別
 
                     Google_Sheet_Api = null;
                     Google_Sheet_Api = new GoogleSheetApi("1VEAnTd3wfTKub_ANu9te06YGHnG1jvPsTskUJTxudCQ", "簽到");
@@ -100,7 +96,6 @@ namespace LifeBuildC.Api
                 case "C2QT":
 
                     //C2 QT 不能現場報名
-                    //C2 QT 報名規則同 C1
 
                     if (Api_Data.MID.Split(',').Count() > 1 && //MID,No
                         Api_Data.MID.Split(',')[1] != "") //No
@@ -129,9 +124,11 @@ namespace LifeBuildC.Api
                     {
                         //C2 需通過 C1 才可報名
                         //C2 不能現場報名
+                        //C2 若用中央同工的權限可現場報名
 
                         //C2 榮耀男人&C2 幸福女人 需上完C1才可報名
 
+                        //檢查是否有報名
                         if (Ado_Info.ChcMemberSub_Temp_ADO.ChkChcMemberSub_TempByMID(int.Parse(Api_Data.MID.Split(',')[0]), Api_Data.SID))
                         {
                             Google_Sheet_Api = null;
@@ -194,8 +191,13 @@ namespace LifeBuildC.Api
             }
         }
 
+        /// <summary>
+        /// 處理簽到
+        /// </summary>
         private void UpdSubSignProcess()
         {
+            #region 取出資料變更訊息
+
             //取出資料變更的訊息
             string Memo = string.Empty;
             if (Api_Data.DataChangeMsg != null && Api_Data.DataChangeMsg.Count > 0)
@@ -206,11 +208,15 @@ namespace LifeBuildC.Api
                 }
             }
 
+            #endregion
+
             string strMake = ""; //是否補課(是: 補課 ; 空值: 不用補課)
             int IsPass = 0; //是否這次通過(0: 尚有缺課; 1: 這次上完課就通過)
             if (Api_Data.MID.Split(',').Count() > 1 && //MID,No
                 Api_Data.MID.Split(',')[1] != "") //No
             { //UPDATE 報名資訊
+
+                #region INSERT LOG
 
                 //INSERT LOG
                 DataTable dtMem = Ado_Info.ChcMember_ADO.QueryChcMemberByMID(Api_Data.MID.Split(',')[0]); //MID
@@ -242,7 +248,11 @@ namespace LifeBuildC.Api
                     );
                 }
 
-                //處理No報名資料流水號
+                #endregion
+
+                #region 取得報名流水號 No
+
+                //取得報名流水號 No
                 string strNo = string.Empty;
                 for (int i = 1; i < Api_Data.MID.Split(',').Count(); i++)
                 {
@@ -251,6 +261,8 @@ namespace LifeBuildC.Api
 
                 strNo = strNo.Substring(0, strNo.Length - 1);
                 DataTable dtNo = Ado_Info.ChcMemberSub_Temp_ADO.QueryChcMemberSub_TempByNo(strNo);
+
+                #endregion
 
                 //填寫補課資訊
                 //DataTable dtSubDate = Ado_Info.SubjectDate_ADO.GetCategoryIDBySubjectDate(Api_Data.SID);
@@ -533,7 +545,7 @@ namespace LifeBuildC.Api
                 }
                 else if (Api_Data.CategoryID == "C1")
                 {
-                    InsChcMemberSub_TempByC1(IsPass, strMake, Memo);
+                    InsChcMemberSub_TempByC1(ref IsPass, ref strMake, ref Memo);
                 }
                 else
                 {
@@ -571,7 +583,7 @@ namespace LifeBuildC.Api
             else
             { //INSERT 報名資訊, 只有C1才能現場報名
 
-                InsChcMemberSub_TempByC1(IsPass, strMake, Memo);
+                InsChcMemberSub_TempByC1(ref IsPass, ref strMake, ref Memo);
             }
 
             Api_Data.SubDate = DateTime.Now.ToString("MM/dd");
@@ -621,7 +633,7 @@ namespace LifeBuildC.Api
 
         }
 
-        private void InsChcMemberSub_TempByC1(int IsPass, string strMake, string Memo)
+        private void InsChcMemberSub_TempByC1(ref int IsPass, ref string strMake, ref string Memo)
         {
             DataTable dtMem = new DataTable();
 
@@ -724,7 +736,7 @@ bool.Parse(dtMem.Rows[0]["IsC112"].ToString()))
                         "1", //EStatus
                         DateTime.Now.ToString("yyyy/MM/dd"), //SubDate
                         Memo,
-                        Api_Data.MID.Replace(",", ""), //MID
+                        Api_Data.MID.Split(',')[0], //MID
                         IsPass,
                         strMake
                     );

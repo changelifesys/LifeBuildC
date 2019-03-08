@@ -242,7 +242,7 @@ namespace ADO
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"EXEC " + DbSchema + @"sp_Delete_SubjectInfo @SID";
+                string sql = @"EXEC sp_Delete_SubjectInfo @SID";
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@SID", SID);

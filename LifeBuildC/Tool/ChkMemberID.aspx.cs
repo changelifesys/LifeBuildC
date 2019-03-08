@@ -1,4 +1,12 @@
-﻿using ADO;
+﻿/*
+ 
+身分證檢查
+
+每年教會電子化申報用
+ 
+ */
+
+using ADO;
 using System;
 using System.Collections.Generic;
 using System.Data;

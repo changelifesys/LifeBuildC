@@ -80,14 +80,15 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
 
         //UPDATE
 
-        public void Upduptyn1ByChcMemberSub_Temp()
+        public void Upduptyn1ByChcMemberSub_Temp(string CategoryID)
         {
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"UPDATE " + DbSchema + @"ChcMemberSub_Temp
-                                           SET uptyn = 1";
+                                           SET uptyn = 1 AND CategoryID = @CategoryID";
 
                 SqlCommand com = new SqlCommand(sql, con);
+                com.Parameters.AddWithValue("@CategoryID", CategoryID);
 
                 con.Open();
                 com.ExecuteNonQuery();
@@ -169,15 +170,16 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             return dt;
         }
 
-        public DataTable QueryEStatus1ByChcMemberSub_Temp()
+        public DataTable QueryEStatus1ByChcMemberSub_Temp(string CategoryID)
         {
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM " + DbSchema + @"ChcMemberSub_Temp
-                                           WHERE uptyn = 0 AND EStatus = 1";
+                                           WHERE uptyn = 0 AND EStatus = 1 AND CategoryID = @CategoryID";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@CategoryID", CategoryID);
                 sda.Fill(dt);
             }
 
