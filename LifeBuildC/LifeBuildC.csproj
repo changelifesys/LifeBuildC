@@ -322,6 +322,7 @@
     <Content Include="SDPaper\生命建造-個人線上查詢\Page2.html" />
     <Content Include="Tool\ChkMemberID.aspx" />
     <Content Include="Tool\UpdChcMemberSub_Temp.aspx" />
+    <Content Include="Tool\UpdUserScore.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -800,6 +801,13 @@
     </Compile>
     <Compile Include="Tool\UpdChcMemberSub_Temp.aspx.designer.cs">
       <DependentUpon>UpdChcMemberSub_Temp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\UpdUserScore.aspx.cs">
+      <DependentUpon>UpdUserScore.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tool\UpdUserScore.aspx.designer.cs">
+      <DependentUpon>UpdUserScore.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
