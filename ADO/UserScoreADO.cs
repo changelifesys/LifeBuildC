@@ -76,6 +76,8 @@ namespace ADO
             }
         }
 
+        //Query
+
         public DataTable QueryUserScore(string ExamCategory, string Egroup, string Ename, string CreateDate)
         {
 
@@ -162,6 +164,21 @@ namespace ADO
             }
 
             
+
+            return dt;
+        }
+
+        public DataTable QueryUserScore()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"SELECT * FROM " + DbSchema + @"UserScore
+                                           WHERE uptyn = 0";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.Fill(dt);
+            }
 
             return dt;
         }
