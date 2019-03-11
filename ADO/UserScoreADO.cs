@@ -15,6 +15,10 @@ namespace ADO
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
         public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
+        //INSERT
+        //DELETE
+        //UPDATE
+
         public void InsUserScore(string ExamCategory, string Egroup, string Ename, string Emobile, string EScore)
         {
             using (SqlConnection con = new SqlConnection(condb))
@@ -69,6 +73,37 @@ namespace ADO
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@USID", USID);
+
+                con.Open();
+                com.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+        public void Upduptyn1ByUserScore(string CategoryID)
+        {
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @"UPDATE " + DbSchema + @"UserScore
+                                           SET uptyn = 1
+                                           WHERE ExamCategory = ";
+
+                switch (CategoryID)
+                {
+                    case "C1_Score":
+                        sql += " 'C1'";
+                        break;
+
+                    case "C212_Score":
+                        sql += "'C212'";
+                        break;
+
+                    case "C234_Score":
+                        sql += "'C234'";
+                        break;
+                }
+
+                SqlCommand com = new SqlCommand(sql, con);
 
                 con.Open();
                 com.ExecuteNonQuery();
@@ -174,7 +209,8 @@ namespace ADO
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM " + DbSchema + @"UserScore
-                                           WHERE uptyn = 0";
+                                           WHERE uptyn = 0
+                                           ORDER BY CreateDate";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.Fill(dt);

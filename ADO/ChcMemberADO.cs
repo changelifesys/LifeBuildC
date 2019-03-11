@@ -45,11 +45,11 @@ namespace ADO
             }
         }
 
-        public void InsExcelDataByChcMember(string CategoryID, string GroupCName, string GroupName, string GroupClass, string Ename, bool IsPass, string Phone, string Gmail)
+        public void InsExcelDataByChcMember(string CategoryID, string GroupCName, string GroupName, string GroupClass, string Ename, bool IsPass, string Phone, string Gmail, string EScore)
         {
             string sql = "INSERT INTO " + DbSchema + @"ChcMember(GroupCName, GroupName, GroupClass, Ename, Phone, Gmail,";
 
-            switch (CategoryID.ToUpper())
+            switch (CategoryID)
             {
                 case "C112":
                     sql += " IsC112)";
@@ -92,11 +92,22 @@ namespace ADO
                     sql += " IsC2InTo)";
                     break;
 
+                case "C1_Score":
+                    sql += " C1_Score)";
+                    break;
+
+                case "C212_Score":
+                    sql += " C212_Score)";
+                    break;
+
+                case "C234_Score":
+                    sql += " C234_Score)";
+                    break;
             }
 
             sql += " VALUES(@GroupCName, @GroupName, @GroupClass, @Ename, @Phone, @Gmail,";
 
-            switch (CategoryID.ToUpper())
+            switch (CategoryID)
             {
                 case "C112":
                     sql += " @IsPass)";
@@ -139,6 +150,18 @@ namespace ADO
                     sql += " @IsPass)";
                     break;
 
+                case "C1_Score":
+                    sql += " @EScore)";
+                    break;
+
+                case "C212_Score":
+                    sql += " @EScore)";
+                    break;
+
+                case "C234_Score":
+                    sql += " @EScore)";
+                    break;
+
             }
 
             using (SqlConnection con = new SqlConnection(condb))
@@ -151,6 +174,7 @@ namespace ADO
                 com.Parameters.AddWithValue("@Phone", Phone);
                 com.Parameters.AddWithValue("@Gmail", Gmail);
                 com.Parameters.AddWithValue("@IsPass", IsPass);
+                com.Parameters.AddWithValue("@EScore", EScore);
 
                 con.Open();
                 com.ExecuteNonQuery();
@@ -418,7 +442,9 @@ namespace ADO
             }
         }
 
-        public void UpdChcMemberDataByMode(string Mode, string CategoryID, bool IsPass, string MID, string GroupCName, string GroupName, string Phone, string Ename, string GroupClass, string Gmail)
+        public void UpdChcMemberDataByMode(
+            string Mode, string CategoryID, bool IsPass, string MID, string GroupCName, string GroupName, 
+            string Phone, string Ename, string GroupClass, string Gmail, string EScore)
         {
             string sql = "UPDATE " + DbSchema + @"ChcMember 
                                    SET";
@@ -455,7 +481,7 @@ namespace ADO
                     break;
             }
 
-            switch (CategoryID.ToUpper())
+            switch (CategoryID)
             {
                 case "C112":
                     sql += " IsC112 = @IsPass";
@@ -497,6 +523,18 @@ namespace ADO
                 case "C2InTo":
                     sql += " IsC2InTo = @IsPass";
                     break;
+
+                case "C1_Score":
+                    sql += " C1_Score = @EScore";
+                    break;
+
+                case "C212_Score":
+                    sql += " C212_Score = @EScore";
+                    break;
+
+                case "C234_Score":
+                    sql += " C234_Score = @EScore";
+                    break;
             }
 
             using (SqlConnection con = new SqlConnection(condb))
@@ -533,6 +571,7 @@ namespace ADO
                 com.Parameters.AddWithValue("@Phone", Phone);
                 com.Parameters.AddWithValue("@Gmail", Gmail);
                 com.Parameters.AddWithValue("@IsPass", IsPass);
+                com.Parameters.AddWithValue("@EScore", EScore);
                 com.Parameters.AddWithValue("@MID", MID);
 
                 con.Open();
