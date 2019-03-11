@@ -85,7 +85,8 @@ string Ename, string Phone, string Gmail, string Church, string EStatus, string 
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"UPDATE " + DbSchema + @"ChcMemberSub_Temp
-                                           SET uptyn = 1 AND CategoryID = @CategoryID";
+                                           SET uptyn = 1
+                                           WHERE CategoryID = @CategoryID";
 
                 SqlCommand com = new SqlCommand(sql, con);
                 com.Parameters.AddWithValue("@CategoryID", CategoryID);

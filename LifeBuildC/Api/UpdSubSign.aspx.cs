@@ -212,6 +212,7 @@ namespace LifeBuildC.Api
 
             string strMake = ""; //是否補課(是: 補課 ; 空值: 不用補課)
             int IsPass = 0; //是否這次通過(0: 尚有缺課; 1: 這次上完課就通過)
+            bool IsUpdate = true; //是否為正常流程Update(true: 正常流程  false: 不正常流程)
             if (Api_Data.MID.Split(',').Count() > 1 && //MID,No
                 Api_Data.MID.Split(',')[1] != "") //No
             { //UPDATE 報名資訊
@@ -264,6 +265,8 @@ namespace LifeBuildC.Api
 
                 #endregion
 
+                #region 填寫補課資訊
+
                 //填寫補課資訊
                 //DataTable dtSubDate = Ado_Info.SubjectDate_ADO.GetCategoryIDBySubjectDate(Api_Data.SID);
                 DataRow[] drCategoryID = dtNo.Select("SubDate='" + DateTime.Now.ToString("yyyy-MM-dd") + "'");
@@ -272,6 +275,8 @@ namespace LifeBuildC.Api
                     switch (drCategoryID[0]["CategoryID"].ToString())
                     {
                         case "C112":
+
+                            #region C112
 
                             if (dtMem != null && dtMem.Rows.Count > 0 &&
                                 bool.Parse(dtMem.Rows[0]["IsC134"].ToString()))
@@ -285,7 +290,7 @@ namespace LifeBuildC.Api
                                     IsPass = 1;
                                 }
 
-                                
+
                             }
                             else if (drCategoryID != null && drCategoryID.Count() > 0 &&
                                 dtNo.Select("CategoryID='C134' AND EStatus='True'").Count() > 0)
@@ -297,8 +302,12 @@ namespace LifeBuildC.Api
                                 strMake = "未修C1 三、四課";
                             }
 
+                            #endregion
+
                             break;
                         case "C134":
+
+                            #region C134
 
                             if (dtMem != null && dtMem.Rows.Count > 0 &&
                                 bool.Parse(dtMem.Rows[0]["IsC112"].ToString()))
@@ -322,8 +331,12 @@ namespace LifeBuildC.Api
                                 strMake = "未修C1 一、二課";
                             }
 
+                            #endregion
+
                             break;
                         case "C212":
+
+                            #region C212
 
                             if (dtMem != null && dtMem.Rows.Count > 0 &&
                                 bool.Parse(dtMem.Rows[0]["IsC234"].ToString()) &&
@@ -392,10 +405,14 @@ namespace LifeBuildC.Api
                                 }
 
                             }
+
+                            #endregion
 
                             break;
                         case "C234":
 
+                            #region C234
+
                             if (dtMem != null && dtMem.Rows.Count > 0 &&
                                 bool.Parse(dtMem.Rows[0]["IsC212"].ToString()) &&
                                 bool.Parse(dtMem.Rows[0]["IsC25"].ToString()) &&
@@ -464,8 +481,12 @@ namespace LifeBuildC.Api
 
                             }
 
+                            #endregion
+
                             break;
                         case "C25":
+
+                            #region C25
 
                             if (dtMem != null && dtMem.Rows.Count > 0 &&
                                 bool.Parse(dtMem.Rows[0]["IsC212"].ToString()) &&
@@ -535,8 +556,11 @@ namespace LifeBuildC.Api
 
                             }
 
+                            #endregion
+
                             break;
 
+                        case "C2QT":
                         case "C2M":
                         case "C2W":
                             IsPass = 1;
@@ -546,37 +570,43 @@ namespace LifeBuildC.Api
                 else if (Api_Data.CategoryID == "C1")
                 {
                     InsChcMemberSub_TempByC1(ref IsPass, ref strMake, ref Memo);
+                    IsUpdate = false;
                 }
                 else
                 {
                     strMake = "修課查詢有誤(請洽資訊同工)";
                 }
-                
-                //api.MID.Split(',')[0] 為會友MID流水編號
-                //api.MID.Split(',')[i] 大於0以上為No流水號
-                //故陣列索引從 1 開始
-                for (int i = 1; i < Api_Data.MID.Split(',').Count(); i++)
-                {
-                    //UPDATE 基本資料
-                    Ado_Info.ChcMemberSub_Temp_ADO.UpdChcMemberSub_TempByNo
-                    (
-                        Api_Info.GroupCName,
-                        Api_Info.GroupName,
-                        Api_Info.GroupClass,
-                        Api_Data.Ename,
-                        Api_Data.Phone,
-                        Api_Data.Gmail, 
-                        Memo,
-                        Api_Data.MID.Split(',')[i] //No
-                    );
 
-                    //UPDATE 上課狀態
-                    Ado_Info.ChcMemberSub_Temp_ADO.UpdEStatusByChcMemberSub_Temp
-                    (
-                        Api_Data.MID.Split(',')[i], //No
-                        IsPass,
-                        strMake
-                    );
+                #endregion
+
+                if (IsUpdate)
+                {
+                    //api.MID.Split(',')[0] 為會友MID流水編號
+                    //api.MID.Split(',')[i] 大於0以上為No流水號
+                    //故陣列索引從 1 開始
+                    for (int i = 1; i < Api_Data.MID.Split(',').Count(); i++)
+                    {
+                        //UPDATE 基本資料
+                        Ado_Info.ChcMemberSub_Temp_ADO.UpdChcMemberSub_TempByNo
+                        (
+                            Api_Info.GroupCName,
+                            Api_Info.GroupName,
+                            Api_Info.GroupClass,
+                            Api_Data.Ename,
+                            Api_Data.Phone,
+                            Api_Data.Gmail,
+                            Memo,
+                            Api_Data.MID.Split(',')[i] //No
+                        );
+
+                        //UPDATE 上課狀態
+                        Ado_Info.ChcMemberSub_Temp_ADO.UpdEStatusByChcMemberSub_Temp
+                        (
+                            Api_Data.MID.Split(',')[i], //No
+                            IsPass,
+                            strMake
+                        );
+                    }
                 }
 
             }

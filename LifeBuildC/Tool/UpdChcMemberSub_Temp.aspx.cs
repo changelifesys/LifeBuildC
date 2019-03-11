@@ -15,7 +15,7 @@ namespace LifeBuildC.Tool
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (false && Request.QueryString["CategoryID"] != null && 
+            if (true && Request.QueryString["CategoryID"] != null && 
 
                 (Request.QueryString["CategoryID"].ToString() == "C112" ||
                  Request.QueryString["CategoryID"].ToString() == "C134" ||
@@ -165,10 +165,14 @@ namespace LifeBuildC.Tool
                 //UPDATE uptyn = 1
                 Ado_Info.ChcMemberSub_Temp_ADO.Upduptyn1ByChcMemberSub_Temp(CategoryID);
 
-                //更新課程通過狀態
-                Ado_Info.ChcMember_ADO.UpdC1C2_StatusByChcMember();
-                Ado_Info.ChcMember_ADO.UpdC1_StatusByChcMember();
-                Ado_Info.ChcMember_ADO.UpdC2_StatusByChcMember();
+                if (CategoryID != "C2QT")
+                {
+                    //更新課程通過狀態
+                    Ado_Info.ChcMember_ADO.UpdC1C2_StatusByChcMember();
+                    Ado_Info.ChcMember_ADO.UpdC1_StatusByChcMember();
+                    Ado_Info.ChcMember_ADO.UpdC2_StatusByChcMember();
+                }
+
                 Response.Write("<script>alert('成功匯入');</script>");
             }
 
