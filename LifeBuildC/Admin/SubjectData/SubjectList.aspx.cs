@@ -22,9 +22,17 @@ namespace LifeBuildC.Admin.SubjectData
                 string CategoryID = string.Empty;
 
                 //判斷並取得 HTTP POST CategoryID 的值
-                if (Request.Form["CategoryID"] != null && Request.Form["CategoryID"].ToString() != "")
+                if ((Request.Form["CategoryID"] != null && Request.Form["CategoryID"].ToString() != "") ||
+                    (Request.QueryString["cid"] != null && Request.QueryString["cid"].ToString() != ""))
                 {
-                    CategoryID = Request.Form["CategoryID"].ToString();
+                    if (Request.Form["CategoryID"] != null && Request.Form["CategoryID"].ToString() != "")
+                    {
+                        CategoryID = Request.Form["CategoryID"].ToString();
+                    }
+                    else
+                    {
+                        CategoryID = Request.QueryString["cid"].ToString();
+                    }
 
                     switch(CategoryID)
                     {
@@ -153,7 +161,8 @@ namespace LifeBuildC.Admin.SubjectData
                 ((Label)e.Row.FindControl("lblSubDate")).Text = DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SubStrDate").ToString()).ToString("yyyy/MM/dd") + "~" + 
                     DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SubEndDate").ToString()).ToString("yyyy/MM/dd");
 
-                if (DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SubStrDate").ToString()) < DateTime.UtcNow.AddHours(8))
+                if (DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SubStrDate").ToString()) <= DateTime.UtcNow.AddHours(8) &&
+                    DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SubEndDate").ToString()) >= DateTime.UtcNow.AddHours(8))
                 {
                     ((Label)e.Row.FindControl("lblSubject")).Text = "開始報名中";
                     ((Button)e.Row.FindControl("btnEdit")).Visible = true; //隱藏編輯鈕
@@ -170,9 +179,22 @@ namespace LifeBuildC.Admin.SubjectData
                 }
                 else if (DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SDate").ToString()) < DateTime.UtcNow.AddHours(8))
                 {
-                    ((Label)e.Row.FindControl("lblSubject")).Text = "已結束";
+                    ((Label)e.Row.FindControl("lblSubject")).Text = "課程已結束";
                     ((Button)e.Row.FindControl("btnEdit")).Visible = false; //隱藏編輯鈕
                     ((Button)e.Row.FindControl("btnDel")).Visible = false; //隱藏刪除鈕
+                }
+                else if (DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SDate").ToString()) >= DateTime.UtcNow.AddHours(8) &&
+                             DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SubEndDate").ToString()) < DateTime.UtcNow.AddHours(8))
+                {
+                    ((Label)e.Row.FindControl("lblSubject")).Text = "報名已截止";
+                    ((Button)e.Row.FindControl("btnEdit")).Visible = true; //隱藏編輯鈕
+                    ((Button)e.Row.FindControl("btnDel")).Visible = false; //隱藏刪除鈕
+                }
+                else
+                {
+                    ((Label)e.Row.FindControl("lblSubject")).Text = "尚未開始報名";
+                    ((Button)e.Row.FindControl("btnEdit")).Visible = true; //隱藏編輯鈕
+                    ((Button)e.Row.FindControl("btnDel")).Visible = true; //隱藏刪除鈕
                 }
 
             }

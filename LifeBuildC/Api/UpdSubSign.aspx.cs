@@ -268,7 +268,7 @@ namespace LifeBuildC.Api
                 #region 填寫補課資訊
 
                 //填寫補課資訊
-                //DataTable dtSubDate = Ado_Info.SubjectDate_ADO.GetCategoryIDBySubjectDate(Api_Data.SID);
+                //DataRow[] drCategoryID = dtNo.Select("SubDate='2019-03-22'");
                 DataRow[] drCategoryID = dtNo.Select("SubDate='" + DateTime.Now.ToString("yyyy-MM-dd") + "'");
                 if (drCategoryID.Count() > 0)
                 {
@@ -571,10 +571,11 @@ namespace LifeBuildC.Api
                 {
                     InsChcMemberSub_TempByC1(ref IsPass, ref strMake, ref Memo);
                     IsUpdate = false;
+                    strMake = "(2)現場報名";
                 }
                 else
                 {
-                    strMake = "修課查詢有誤(請洽資訊同工)";
+                    strMake = "系統對應有誤，待資訊同工處理";
                 }
 
                 #endregion
@@ -614,6 +615,7 @@ namespace LifeBuildC.Api
             { //INSERT 報名資訊, 只有C1才能現場報名
 
                 InsChcMemberSub_TempByC1(ref IsPass, ref strMake, ref Memo);
+                strMake = "現場報名";
             }
 
             Api_Data.SubDate = DateTime.Now.ToString("MM/dd");

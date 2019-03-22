@@ -811,6 +811,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ApiSpecial\" />
     <Folder Include="aspnet_client\system_web\4_0_30319\" />
     <Folder Include="Log\" />
     <Folder Include="Models\" />
