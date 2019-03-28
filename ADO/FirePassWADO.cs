@@ -14,17 +14,19 @@ namespace ADO
         public string condb = ConfigurationManager.ConnectionStrings["LifeDBConnectionString"].ConnectionString;
         public string DbSchema = ConfigurationManager.AppSettings.Get("DbSchema");
 
-        public bool CheckPassKey(string PassKey)
+        public bool CheckPassKey(string PassKey, string GroupClass)
         {
             DataTable dt = new DataTable();
 
             using (SqlConnection con = new SqlConnection(condb))
             {
                 string sql = @"SELECT * FROM " + DbSchema + @"FirePassW
-                                           WHERE PassKey = @PassKey";
+                                           WHERE PassKey = @PassKey
+                                           AND GroupClass = @GroupClass";
 
                 SqlDataAdapter sda = new SqlDataAdapter(sql, con);
                 sda.SelectCommand.Parameters.AddWithValue("@PassKey", PassKey);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupClass", GroupClass);
                 sda.Fill(dt);
             }
 

@@ -12316,7 +12316,7 @@
         <div>
 
             <div style="text-align: center; margin: 5px;">
-                <h1>2019 烈火特會報名</h1>
+                <h1>2020 烈火特會報名</h1>
             </div>
 
             <div class="el-row" style="margin-left: -10px; margin-right: -10px;">
@@ -12339,11 +12339,9 @@
                         </div>
                         <div class="el-form-item">
                             <div class="el-form-item__content" style="margin-left: 80px;">
-<%--                                <button type="button" class="el-button el-button--default el-button--small">
-                                    <span>送出</span>
-                                </button>--%>
-                                <asp:Button ID="btnSend" Width="100px" CssClass="el-button el-button--default el-button--small" runat="server" Text="成人&學青報名" OnClick="btnSend_Click" />
-                                <asp:Button ID="btnSend12" Width="150px" CssClass="el-button el-button--default el-button--small" runat="server" Text="12歲以下報名(含12歲)" OnClick="btnSend12_Click"  />
+                                <asp:Button ID="btnSend" Visible="false" Width="100px" CssClass="el-button el-button--default el-button--small" runat="server" Text="成人報名" OnClick="btnSend_Click" />
+                                <asp:Button ID="btnStudent" Visible="false" Width="100px" CssClass="el-button el-button--default el-button--small" runat="server" Text="學青報名" OnClick="btnStudent_Click" />
+                                <asp:Button ID="btnSend12" Visible="false" Width="150px" CssClass="el-button el-button--default el-button--small" runat="server" Text="12歲以下報名(含12歲)" OnClick="btnSend12_Click"  />
                             </div>
                         </div>
                     </form>
