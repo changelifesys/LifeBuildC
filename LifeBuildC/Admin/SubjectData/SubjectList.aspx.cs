@@ -180,7 +180,7 @@ namespace LifeBuildC.Admin.SubjectData
                 else if (DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SDate").ToString()) < DateTime.UtcNow.AddHours(8))
                 {
                     ((Label)e.Row.FindControl("lblSubject")).Text = "課程已結束";
-                    ((Button)e.Row.FindControl("btnEdit")).Visible = false; //隱藏編輯鈕
+                    ((Button)e.Row.FindControl("btnEdit")).Visible = true; //隱藏編輯鈕
                     ((Button)e.Row.FindControl("btnDel")).Visible = false; //隱藏刪除鈕
                 }
                 else if (DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "SDate").ToString()) >= DateTime.UtcNow.AddHours(8) &&

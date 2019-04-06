@@ -21,7 +21,7 @@ namespace LifeBuildC
                 if (Session["PassKey"] != null)
                 //if (Session["PassKey"] != null && firePass.CheckPassKey(Session["PassKey"].ToString()))
                 {
-                    bool Is12 = firePass.CheckPassKey(Session["PassKey"].ToString());
+                    bool Is12 = firePass.CheckPassKey(Session["PassKey"].ToString(), "");
 
                     DataTable dt = fireMem.GetFireMemberWherePassKey(Session["PassKey"].ToString());
                     if (dt != null && dt.Rows.Count > 0)

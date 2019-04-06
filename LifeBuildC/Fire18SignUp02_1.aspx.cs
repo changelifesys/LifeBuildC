@@ -30,7 +30,7 @@ namespace LifeBuildC
         {
             if (!IsPostBack)
             {
-                if (Session["PassKey"] != null && firePass.CheckPassKey(Session["PassKey"].ToString()))
+                if (Session["PassKey"] != null && firePass.CheckPassKey(Session["PassKey"].ToString(), ""))
                 {
                     DataTable dt = fireMem.GetFireMemberWherePassKey(Session["PassKey"].ToString());
                     if (dt != null && dt.Rows.Count > 0)

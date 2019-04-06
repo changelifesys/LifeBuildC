@@ -42,7 +42,7 @@ namespace LifeBuildC.Api
 
                 PageData PageData = JsonConvert.DeserializeObject<PageData>(strChkFirePass);
 
-                if (firePass.CheckPassKey(PageData.FirePass))
+                if (firePass.CheckPassKey(PageData.FirePass, ""))
                 {
                     #region 密碼輸入正確
 
