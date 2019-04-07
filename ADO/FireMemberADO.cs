@@ -145,7 +145,7 @@ namespace ADO
 	                                             AND GroupName = FireMember.GroupName)+'.'+GroupCName+'-'+GroupName group2
 
                                             FROM " + DbSchema + @"FireMember
-                                            WHERE CreateTime > '2019-1-23'
+                                            WHERE CreateTime > '2019-04-07'
                                             --ORDER BY CreateTime DESC
                                             ORDER BY group2
                                          ";

@@ -74,13 +74,13 @@
                 $("#imgclass").css('width', $(window).width() - 60);
             }
 
-            $("#btnSend,#btnSave,#btnSaveMail").click(function () {
+            //$("#btnSend,#btnSave,#btnSaveMail").click(function () {
 
-                if ($('#txtGmail').val() != "") {
-                    displayDiv('divLoading');
-                }
+            //    if ($('#txtGmail').val() != "") {
+            //        displayDiv('divLoading');
+            //    }
 
-            });
+            //});
 
         });
 
