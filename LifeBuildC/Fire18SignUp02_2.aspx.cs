@@ -22,7 +22,6 @@ namespace LifeBuildC
         ChcGroupADO group = new ChcGroupADO();
         FirePassWADO firePass = new FirePassWADO();
         FireMemberADO fireMem = new FireMemberADO();
-        string PassKey = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,7 +31,7 @@ namespace LifeBuildC
                    Request.Form["txtPassKey"] != null && Request.Form["txtPassKey"].ToString() != "" &&
                    firePass.CheckPassKey(Request.Form["txtPassKey"].ToString(), Request.QueryString["gc"].ToString()))
                 {
-                    PassKey = Request.Form["txtPassKey"].ToString();
+                    hidPassKey.Value = Request.Form["txtPassKey"].ToString();
                 }
                 else
                 {
@@ -100,17 +99,17 @@ namespace LifeBuildC
                     try
                     {
                         fireMem.InsFireMember(GroupCName, GroupName, GroupClass, Ename, "",
-    "", true, "", true, PassKey, Birthday);
+    "", true, "", true, hidPassKey.Value, Birthday);
 
                         SendGoogleExcel();
                         SendGoogleExcelByClass();
 
-                        Response.Write("<script>location.href='Fire18SignUp03.aspx?pk='" + PassKey + "&gc=" + Request.QueryString["gc"].ToString() + "</script>");
+                        Response.Write("<script>location.href='Fire18SignUp03.aspx?pk=" + hidPassKey.Value + "&gc=" + Request.QueryString["gc"].ToString() + "'</script>");
 
                     }
                     catch
                     {
-                        Response.Write("<script>alert('已經報名過了，不得重覆報名');location.href='Fire18SignUp.aspx'</script>");
+                        Response.Write("<script>alert('已經報名過了，不得重覆報名');location.href='Fire18SignUp.aspx?gc=" + Request.QueryString["gc"].ToString() + "';</script>");
                     }
 
                 }

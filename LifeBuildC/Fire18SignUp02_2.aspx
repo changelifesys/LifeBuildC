@@ -98,6 +98,7 @@
 
     <form id="form1" runat="server">
 <%--        <img id="mainBg" src="/js/fire/main.jpg?f4ffa9d7f2bec29dabd0859458678983" alt="烈火特會-禱告與復興">--%>
+        <asp:HiddenField ID="hidPassKey" runat="server" />
         <div>
             <div style="text-align: center; margin: 5px;">
                 <h2 class="center">2020 烈火特會報名</h2>

@@ -45,7 +45,7 @@ namespace LifeBuildC
                 }
                 else
                 {
-                    Response.Write("<script>alert('請重新掃QRCode');</script>");
+                    Response.Write("<script>alert('請重新掃QRCode報名');</script>");
                 }
             }
         }

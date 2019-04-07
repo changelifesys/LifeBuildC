@@ -286,7 +286,7 @@ namespace LifeBuildC
 
                     }
                     catch {
-                        Response.Write("<script>alert('您可能會在Mail收不到報名資訊，請重掃QRCode輸入密碼後檢查您的Mail是否輸入正確');location.href='Fire18SignUp03.aspx';</script>");
+                        Response.Write("<script>alert('您可能會在Mail收不到報名資訊，請重掃QRCode輸入密碼後檢查您的Mail是否輸入正確');location.href='Fire18SignUp03.aspx?pk=" + hidPassKey.Value + "&gc=" + Request.QueryString["gc"].ToString() + "';</script>");
                     }
 
                 }
@@ -298,8 +298,6 @@ namespace LifeBuildC
             catch (Exception ex)
             {
                 Response.Write("<script>alert('無法報名，請洽櫃檯重新領取一組密碼輸入');location.href='Fire18SignUp.aspx?gc=" + Request.QueryString["gc"].ToString() + "';</script>");
-                //Response.Write("<script>alert('無法報名，請洽櫃檯重新領取一組密碼輸入');</script>");
-                //Response.Redirect("Fire18SignUp.aspx");
             }
 
 
@@ -385,18 +383,16 @@ namespace LifeBuildC
                         {
                             SendEmail(Email);
 
-                            //Response.Redirect("Fire18SignUp03.aspx");
-                            //Server.Transfer("Fire18SignUp03.aspx");
-                            Response.Write("<script>location.href='Fire18SignUp03.aspx?pk='" + hidPassKey.Value + "&gc=" + Request.QueryString["gc"].ToString() + ";</script>");
+                            Response.Write("<script>location.href='Fire18SignUp03.aspx?pk=" + hidPassKey.Value + "&gc=" + Request.QueryString["gc"].ToString() + "';</script>");
                         }
                         catch
                         {
-                            Response.Write("<script>alert('您可能會在Mail收不到報名資訊，請重掃QRCode輸入密碼後檢查您的Mail是否輸入正確');location.href='Fire18SignUp03.aspx';</script>");
+                            Response.Write("<script>alert('您可能會在Mail收不到報名資訊，請重掃QRCode輸入密碼後檢查您的Mail是否輸入正確');location.href='Fire18SignUp03.aspx?pk=" + hidPassKey.Value + "&gc=" + Request.QueryString["gc"].ToString() + "';</script>");
                         }
                     }
                     else
                     {
-                        Response.Write("<script>location.href='Fire18SignUp03.aspx';</script>");
+                        Response.Write("<script>location.href='Fire18SignUp03.aspx?pk=" + hidPassKey.Value + "&gc=" + Request.QueryString["gc"].ToString() + "';</script>");
                     }
 
                 }
@@ -581,12 +577,12 @@ namespace LifeBuildC
                                            特會流程及資訊請等候通知。<p/>
                                            行前通知將於開始前一週發送。<p/>
                                            如有問題請與<font style='color: blue;'>信豪傳道聯繫</font><p/>
-                                           <font style='color: blue;'>hsinhao.huang@twclc.org</font><p/>
-                                           時間：2019/04/03（星期三晚上）～04/06（星期六中午）<p/>
+                                           <font style='color: blue;'>changelifesys@gmail.com</font><p/>
+                                           時間：2020/06/24（三）～06/27（六）<p/>
                                            地點：台北和平籃球館（台北市大安區敦南街76巷28號）<p/>
                                            <p/>
-                                           <font style='color: red;'>該mail為CLC資訊系統所發，請勿直接回覆</font>";
-
+                                           ";
+            
             using (MailMessage mail = new MailMessage())
             {
                 mail.From = new MailAddress(emailFrom);
