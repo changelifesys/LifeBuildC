@@ -22,11 +22,30 @@ namespace LifeBuildC
         ChcGroupADO group = new ChcGroupADO();
         FirePassWADO firePass = new FirePassWADO();
         FireMemberADO fireMem = new FireMemberADO();
+        string PassKey = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                if (Request.QueryString["gc"] != null && Request.QueryString["gc"].ToString() != "" &&
+                   Request.Form["txtPassKey"] != null && Request.Form["txtPassKey"].ToString() != "" &&
+                   firePass.CheckPassKey(Request.Form["txtPassKey"].ToString(), Request.QueryString["gc"].ToString()))
+                {
+                    PassKey = Request.Form["txtPassKey"].ToString();
+                }
+                else
+                {
+                    if (Request.QueryString["gc"] != null && Request.QueryString["gc"].ToString() != "")
+                    {
+                        Response.Write("<script>alert('密碼錯誤');location.href='Fire18SignUp.aspx?gc=" + Request.QueryString["gc"].ToString() + "';</script>");
+                    }
+                    else
+                    {
+                        Response.Redirect("Fire18SignUp.aspx");
+                    }
+                }
+
 
             }
         }
@@ -75,8 +94,7 @@ namespace LifeBuildC
                     //姓名
                     string Ename = txtEname1.Text.Trim() + "-" + txtEname2.Text.Trim();
 
-                    string PassKey = Ename;
-                    Session["PassKey"] = Ename;
+                    //string PassKey = Ename;
                     string Birthday = txtBirthday.Text.Trim();
 
                     try
@@ -87,7 +105,8 @@ namespace LifeBuildC
                         SendGoogleExcel();
                         SendGoogleExcelByClass();
 
-                        Response.Write("<script>location.href='Fire18SignUp03.aspx'</script>");
+                        Response.Write("<script>location.href='Fire18SignUp03.aspx?pk='" + PassKey + "&gc=" + Request.QueryString["gc"].ToString() + "</script>");
+
                     }
                     catch
                     {

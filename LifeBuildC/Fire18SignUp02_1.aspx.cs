@@ -30,11 +30,17 @@ namespace LifeBuildC
         {
             if (!IsPostBack)
             {
-                if (Session["PassKey"] != null && firePass.CheckPassKey(Session["PassKey"].ToString(), ""))
+
+                if (Request.QueryString["gc"] != null && Request.QueryString["gc"].ToString() != "" &&
+                    Request.Form["txtPassKey"] != null && Request.Form["txtPassKey"].ToString() != "" &&
+                    firePass.CheckPassKey(Request.Form["txtPassKey"].ToString(), Request.QueryString["gc"].ToString()))
                 {
-                    DataTable dt = fireMem.GetFireMemberWherePassKey(Session["PassKey"].ToString());
+                    hidPassKey.Value = Request.Form["txtPassKey"].ToString();
+                    DataTable dt = fireMem.GetFireMemberWherePassKey(Request.Form["txtPassKey"].ToString());
+
                     if (dt != null && dt.Rows.Count > 0)
                     { //修改表單
+
                         btnSend.Visible = false;
                         btnSave.Visible = true;
                         btnSaveMail.Visible = true;
@@ -80,7 +86,7 @@ namespace LifeBuildC
                         }
 
                         txtBirthday.Text = DateTime.Parse(dt.Rows[0]["Birthday"].ToString()).ToString("yyyy/MM/dd");
-                        
+
                         #region 大會T恤尺寸
 
                         dropClothesSize.Items.Clear();
@@ -179,8 +185,18 @@ namespace LifeBuildC
                 }
                 else
                 {
-                    Response.Redirect("Fire18SignUp.aspx");
+                    if (Request.QueryString["gc"] != null && Request.QueryString["gc"].ToString() != "")
+                    {
+                        Response.Write("<script>alert('密碼錯誤');location.href='Fire18SignUp.aspx?gc=" + Request.QueryString["gc"].ToString() + "';</script>");
+                    }
+                    else
+                    {
+                        Response.Redirect("Fire18SignUp.aspx");
+                    }
+
+                    
                 }
+
             }
         }
 
@@ -250,11 +266,11 @@ namespace LifeBuildC
                     }
                     */
 
-                    string PassKey = Session["PassKey"].ToString();
+                    //string PassKey = Request.Form["txtPassKey"].ToString();
                     string Birthday = txtBirthday.Text.Trim();
 
                     fireMem.InsFireMember(GroupCName, GroupName, GroupClass, Ename, Phone,
-                        Email, gender, ClothesSize, Course, PassKey, Birthday);
+                        Email, gender, ClothesSize, Course, hidPassKey.Value, Birthday);
 
                     SendGoogleExcel();
                     SendGoogleExcelByClass();
@@ -266,13 +282,11 @@ namespace LifeBuildC
                             SendEmail(Email);
                         }
 
-                        //Response.Redirect("Fire18SignUp03.aspx");
-                        //Server.Transfer("Fire18SignUp03.aspx");
-                        Response.Write("<script>location.href='Fire18SignUp03.aspx'</script>");
+                        Response.Write("<script>location.href='Fire18SignUp03.aspx?pk=" + hidPassKey.Value + "&gc=" + Request.QueryString["gc"].ToString() + "';</script>");
 
                     }
                     catch {
-                        Response.Write("<script>alert('您可能會在Mail收不到報名資訊，請重掃QRCode輸入密碼後檢查您的Mail是否輸入正確');location.href='Fire18SignUp03.aspx'</script>");
+                        Response.Write("<script>alert('您可能會在Mail收不到報名資訊，請重掃QRCode輸入密碼後檢查您的Mail是否輸入正確');location.href='Fire18SignUp03.aspx';</script>");
                     }
 
                 }
@@ -283,8 +297,9 @@ namespace LifeBuildC
             }
             catch (Exception ex)
             {
-                Response.Write("<script>alert('無法報名，請洽櫃檯重新領取一組密碼輸入');</script>");
-                Response.Redirect("Fire18SignUp.aspx");
+                Response.Write("<script>alert('無法報名，請洽櫃檯重新領取一組密碼輸入');location.href='Fire18SignUp.aspx?gc=" + Request.QueryString["gc"].ToString() + "';</script>");
+                //Response.Write("<script>alert('無法報名，請洽櫃檯重新領取一組密碼輸入');</script>");
+                //Response.Redirect("Fire18SignUp.aspx");
             }
 
 
@@ -358,11 +373,11 @@ namespace LifeBuildC
                     }
                     */
 
-                    string PassKey = Session["PassKey"].ToString();
+                    //string PassKey = Request.Form["txtPassKey"].ToString();
                     string Birthday = txtBirthday.Text.Trim();
 
                     fireMem.UpdFireMember(Phone,
-                    Email, gender, ClothesSize, Course, Birthday, PassKey);
+                    Email, gender, ClothesSize, Course, Birthday, hidPassKey.Value);
 
                     if (IsSendMail)
                     {
@@ -372,16 +387,16 @@ namespace LifeBuildC
 
                             //Response.Redirect("Fire18SignUp03.aspx");
                             //Server.Transfer("Fire18SignUp03.aspx");
-                            Response.Write("<script>location.href='Fire18SignUp03.aspx'</script>");
+                            Response.Write("<script>location.href='Fire18SignUp03.aspx?pk='" + hidPassKey.Value + "&gc=" + Request.QueryString["gc"].ToString() + ";</script>");
                         }
                         catch
                         {
-                            Response.Write("<script>alert('您可能會在Mail收不到報名資訊，請重掃QRCode輸入密碼後檢查您的Mail是否輸入正確');location.href='Fire18SignUp03.aspx'</script>");
+                            Response.Write("<script>alert('您可能會在Mail收不到報名資訊，請重掃QRCode輸入密碼後檢查您的Mail是否輸入正確');location.href='Fire18SignUp03.aspx';</script>");
                         }
                     }
                     else
                     {
-                        Response.Write("<script>location.href='Fire18SignUp03.aspx'</script>");
+                        Response.Write("<script>location.href='Fire18SignUp03.aspx';</script>");
                     }
 
                 }
@@ -554,7 +569,7 @@ namespace LifeBuildC
             //收信方email
             //string emailTo = "dennis866@gmail.com";
             //主旨
-            string subject = "2019 烈火特會報名成功";
+            string subject = "2020 烈火特會報名成功";
             //內容
             //string body = @"恭喜您完成烈火特會報名。<p/>
             //                               特會流程及資訊請參見附檔。<p/>

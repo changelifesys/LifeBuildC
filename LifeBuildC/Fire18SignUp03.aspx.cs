@@ -18,12 +18,15 @@ namespace LifeBuildC
         {
             if (!IsPostBack)
             {
-                if (Session["PassKey"] != null)
-                //if (Session["PassKey"] != null && firePass.CheckPassKey(Session["PassKey"].ToString()))
-                {
-                    bool Is12 = firePass.CheckPassKey(Session["PassKey"].ToString(), "");
 
-                    DataTable dt = fireMem.GetFireMemberWherePassKey(Session["PassKey"].ToString());
+                if (Request.QueryString["gc"] != null && Request.QueryString["gc"].ToString() != "" &&
+                    Request.QueryString["pk"] != null && Request.QueryString["pk"].ToString() != "")
+                {
+                    string PassKey = Request.QueryString["pk"].ToString();
+
+                    bool Is12 = firePass.CheckPassKey(PassKey, Request.QueryString["gc"].ToString());
+
+                    DataTable dt = fireMem.GetFireMemberWherePassKey(PassKey);
                     if (dt != null && dt.Rows.Count > 0)
                     {
                         //小組

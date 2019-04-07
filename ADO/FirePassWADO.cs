@@ -20,7 +20,7 @@ namespace ADO
 
             using (SqlConnection con = new SqlConnection(condb))
             {
-                string sql = @"SELECT * FROM " + DbSchema + @"FirePassW
+                string sql = @"SELECT * FROM [chclife].[FirePassW]
                                            WHERE PassKey = @PassKey
                                            AND GroupClass = @GroupClass";
 

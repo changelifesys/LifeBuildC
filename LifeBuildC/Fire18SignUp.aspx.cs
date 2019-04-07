@@ -1,7 +1,10 @@
 ﻿using ADO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -18,55 +21,34 @@ namespace LifeBuildC
             {
                 if (Request.QueryString["gc"] != null && Request.QueryString["gc"].ToString() != "")
                 {
+
                     string GroupClass = Request.QueryString["gc"].ToString();
                     switch (GroupClass)
                     {
                         case "L": //成人報名
                             btnSend.Visible = true;
-                            btnSend12.Visible = true;
+                            btnStudent.Visible = false;
+                            btnChild.Visible = false;
                             break;
                         case "S": //學青報名
+                            btnSend.Visible = false;
                             btnStudent.Visible = true;
+                            btnChild.Visible = false;
+                            break;
+                        case "C": //12歲以下報名(含12歲)
+                            btnSend.Visible = false;
+                            btnStudent.Visible = false;
+                            btnChild.Visible = true;
                             break;
                     }
 
                 }
+                else
+                {
+                    Response.Write("<script>alert('請重新掃QRCode');</script>");
+                }
             }
         }
-
-        protected void btnSend_Click(object sender, EventArgs e)
-        {
-            string PassKey = txtPassKey.Value.Trim().ToUpper();
-            if (firePass.CheckPassKey(PassKey, "L"))
-            {
-                Session["PassKey"] = PassKey;
-                Response.Redirect("Fire18SignUp02_1.aspx");
-            }
-            else
-            {
-                Response.Write("<script>alert('密碼錯誤');</script>");
-            }
-        }
-
-        protected void btnStudent_Click(object sender, EventArgs e)
-        {
-            string PassKey = txtPassKey.Value.Trim().ToUpper();
-            if (firePass.CheckPassKey(PassKey, "M"))
-            {
-                Session["PassKey"] = PassKey;
-                Response.Redirect("Fire18SignUp02_1.aspx");
-            }
-            else
-            {
-                Response.Write("<script>alert('密碼錯誤');</script>");
-            }
-        }
-
-        protected void btnSend12_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Fire18SignUp02_2.aspx");
-        }
-
 
     }
 }
