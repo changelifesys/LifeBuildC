@@ -57,19 +57,24 @@ namespace LifeBuildC
                             lblGmail2.Text = "特會資訊已發送至您的Mail   " + dt.Rows[0]["Gmail"].ToString();
                         }
 
-                        if (Is12)
+                        if (GroupClass == "C")
                         {
-                            if (bool.Parse(dt.Rows[0]["gender"].ToString()))
+                            lblgender.Text = "";
+                        }
+                        else
+                        {
+                            if (Is12)
                             {
-                                lblgender.Text = "男生";
-                            }
-                            else
-                            {
-                                lblgender.Text = "女生";
+                                if (bool.Parse(dt.Rows[0]["gender"].ToString()))
+                                {
+                                    lblgender.Text = "男生";
+                                }
+                                else
+                                {
+                                    lblgender.Text = "女生";
+                                }
                             }
                         }
-
-
 
 
                         lblBirthday.Text = DateTime.Parse(dt.Rows[0]["Birthday"].ToString()).ToString("yyyy/MM/dd");
@@ -77,7 +82,7 @@ namespace LifeBuildC
 
                         if (Is12)
                         {
-                            lblCourse.Text = "待大會通知";
+                            //lblCourse.Text = "待大會通知";
                             /*
                             if (bool.Parse(dt.Rows[0]["Course"].ToString()))
                             {

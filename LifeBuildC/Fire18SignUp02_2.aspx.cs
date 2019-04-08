@@ -57,6 +57,8 @@ namespace LifeBuildC
 
                         dropGroupClass.Enabled = false;
                         dropGroupName.Enabled = false;
+                        txtEname1.Enabled = false;
+                        txtEname2.Enabled = false;
 
                         ListItem li = new ListItem();
 

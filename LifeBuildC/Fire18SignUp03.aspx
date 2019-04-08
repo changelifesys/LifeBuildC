@@ -12382,7 +12382,7 @@
                     <p class="user">性別：<asp:Label ID="lblgender" runat="server" Text=""></asp:Label></p>
                     <p class="user">生日：<asp:Label ID="lblBirthday" runat="server" Text=""></asp:Label></p>
                     <p class="user">尺寸：<asp:Label ID="lblClothesSize" runat="server" Text=""></asp:Label></p>
-                    <p class="user">講座：<asp:Label ID="lblCourse" runat="server" Text=""></asp:Label></p>
+<%--                    <p class="user">講座：<asp:Label ID="lblCourse" runat="server" Text=""></asp:Label></p>--%>
                 </div>
             </div>
         </div>

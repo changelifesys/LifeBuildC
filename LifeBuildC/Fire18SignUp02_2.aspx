@@ -58,6 +58,44 @@
             display: none;
         }
     </style>
+        <style type="text/css">
+        .tanchuang_wrap {
+            width: 100%;
+            height: 400px;
+            /*position: absolute;*/
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            z-index: 100;
+            display: none;
+        }
+
+        .lightbox {
+            width: 100%;
+            z-index: 101;
+            height: 400px;
+            background-color: black;
+            filter: alpha(Opacity=20);
+            -moz-opacity: 0.2;
+            opacity: 0.2;
+            /*position: absolute;*/
+            position: fixed;
+            top: 0px;
+            left: 0px;
+        }
+
+        .tanchuang_neirong {
+            width: 100%;
+            height: 153px;
+            /*border: solid 1px #f7dd8c;*/
+            background-color: #FFF;
+            /*position: absolute;*/
+            position: fixed;
+            z-index: 105;
+            left: 30px;
+            top: 50px;
+        }
+    </style>
     <script>
 
         $(function () {
@@ -73,6 +111,12 @@
                 $("#imgclothSize").css('width', $(window).width() - 60);
                 $("#imgclass").css('width', $(window).width() - 60);
             }
+
+            $(".lightbox").css('width', $(window).width());
+            $(".lightbox").css('height', $(window).height());
+
+            $(".tanchuang_neirong").css('width', $(window).width() - 60);
+            $(".tanchuang_neirong").css('height', $(window).height() - 100);
 
             //$("#btnSend,#btnSave,#btnSaveMail").click(function () {
 
