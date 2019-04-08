@@ -29,16 +29,19 @@ namespace LifeBuildC
                             btnSend.Visible = true;
                             btnStudent.Visible = false;
                             btnChild.Visible = false;
+                            lblTitle.Text = "2020 烈火特會成人報名";
                             break;
                         case "S": //學青報名
                             btnSend.Visible = false;
                             btnStudent.Visible = true;
                             btnChild.Visible = false;
+                            lblTitle.Text = "2020 烈火特會學青報名";
                             break;
                         case "C": //12歲以下報名(含12歲)
                             btnSend.Visible = false;
                             btnStudent.Visible = false;
                             btnChild.Visible = true;
+                            lblTitle.Text = "2020 烈火特會兒童報名";
                             break;
                     }
 

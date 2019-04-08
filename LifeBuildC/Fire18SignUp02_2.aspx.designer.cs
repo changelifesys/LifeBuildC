@@ -31,6 +31,15 @@ namespace LifeBuildC {
         protected global::System.Web.UI.WebControls.HiddenField hidPassKey;
         
         /// <summary>
+        /// lblTitle 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTitle;
+        
+        /// <summary>
         /// dropGroupClass 控制項。
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace LifeBuildC {
         protected global::System.Web.UI.WebControls.TextBox txtBirthday;
         
         /// <summary>
+        /// dropClothesSize 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList dropClothesSize;
+        
+        /// <summary>
         /// btnSend 控制項。
         /// </summary>
         /// <remarks>
@@ -83,5 +101,14 @@ namespace LifeBuildC {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSend;
+        
+        /// <summary>
+        /// btnSave 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
     }
 }

@@ -32,6 +32,156 @@ namespace LifeBuildC
                    firePass.CheckPassKey(Request.Form["txtPassKey"].ToString(), Request.QueryString["gc"].ToString()))
                 {
                     hidPassKey.Value = Request.Form["txtPassKey"].ToString();
+
+                    string GroupClass = Request.QueryString["gc"].ToString();
+                    switch (GroupClass)
+                    {
+                        case "L": //成人報名
+                            lblTitle.Text = "2020 烈火特會成人報名";
+                            break;
+                        case "S": //學青報名
+                            lblTitle.Text = "2020 烈火特會學青報名";
+                            break;
+                        case "C": //12歲以下報名(含12歲)
+                            lblTitle.Text = "2020 烈火特會兒童報名";
+                            break;
+                    }
+
+                    DataTable dt = fireMem.GetFireMemberWherePassKey(Request.Form["txtPassKey"].ToString());
+
+                    if (dt != null && dt.Rows.Count > 0)
+                    { //修改表單
+
+                        btnSend.Visible = false;
+                        btnSave.Visible = true;
+
+                        dropGroupClass.Enabled = false;
+                        dropGroupName.Enabled = false;
+
+                        ListItem li = new ListItem();
+
+                        dropGroupClass.Items.Clear();
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = dt.Rows[0]["GroupClass"].ToString();
+                        li.Value = "0";
+                        dropGroupClass.Items.Add(li);
+                        dropGroupClass.SelectedIndex = 0;
+
+
+                        //出輸格式
+                        //AA101.永健牧區-永健小組
+                        dropGroupName.Items.Clear();
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = dt.Rows[0]["group2"].ToString();
+                        li.Value = "0";
+                        dropGroupName.Items.Add(li);
+                        dropGroupName.SelectedIndex = 0;
+
+                        txtEname1.Text = dt.Rows[0]["Ename"].ToString().Split('-')[0];
+                        txtEname2.Text = dt.Rows[0]["Ename"].ToString().Split('-')[1];
+
+                        txtBirthday.Text = DateTime.Parse(dt.Rows[0]["Birthday"].ToString()).ToString("yyyy/MM/dd");
+
+                        #region 大會T恤尺寸
+
+                        dropClothesSize.Items.Clear();
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "S";
+                        li.Value = "0";
+                        dropClothesSize.Items.Add(li);
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "M";
+                        li.Value = "1";
+                        dropClothesSize.Items.Add(li);
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "L";
+                        li.Value = "2";
+                        dropClothesSize.Items.Add(li);
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "XL";
+                        li.Value = "3";
+                        dropClothesSize.Items.Add(li);
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "XXL";
+                        li.Value = "4";
+                        dropClothesSize.Items.Add(li);
+
+                        switch (dt.Rows[0]["ClothesSize"].ToString())
+                        {
+                            case "S":
+                                dropClothesSize.SelectedIndex = 0;
+                                break;
+                            case "M":
+                                dropClothesSize.SelectedIndex = 1;
+                                break;
+                            case "L":
+                                dropClothesSize.SelectedIndex = 2;
+                                break;
+                            case "XL":
+                                dropClothesSize.SelectedIndex = 3;
+                                break;
+                            case "XXL":
+                                dropClothesSize.SelectedIndex = 4;
+                                break;
+                        }
+
+                        //dropClothesSize.SelectedItem.Text = dt.Rows[0]["ClothesSize"].ToString();
+
+                        #endregion
+
+                        #region 下午場講座
+
+                        /*
+                        dropCourse.Items.Clear();
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "生命突破";
+                        li.Value = "0";
+                        dropCourse.Items.Add(li);
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "教會突破";
+                        li.Value = "1";
+                        dropCourse.Items.Add(li);
+
+                        if (bool.Parse(dt.Rows[0]["Course"].ToString()))
+                        {
+                            //dropCourse.SelectedItem.Text = "教會突破";
+                            dropCourse.SelectedIndex = 1;
+                        }
+                        else
+                        {
+                            //dropCourse.SelectedItem.Text = "生命突破";
+                            dropCourse.SelectedIndex = 0;
+                        }
+                        */
+
+                        #endregion
+
+                    }
+                    else
+                    { //新表單
+                        btnSend.Visible = true;
+                        btnSave.Visible = false;
+                    }
+
+
                 }
                 else
                 {
@@ -91,15 +241,18 @@ namespace LifeBuildC
                     string GroupName = arrg[1].Split('-')[1];
 
                     //姓名
-                    string Ename = txtEname1.Text.Trim() + "-" + txtEname2.Text.Trim();
+                    string Ename = txtEname1.Text.Trim().Replace("-", "") + "-" + txtEname2.Text.Trim().Replace("-", "");
 
                     //string PassKey = Ename;
                     string Birthday = txtBirthday.Text.Trim();
 
+                    //大會T恤尺寸
+                    string ClothesSize = dropClothesSize.SelectedItem.Text;
+
                     try
                     {
                         fireMem.InsFireMember(GroupCName, GroupName, GroupClass, Ename, "",
-    "", true, "", true, hidPassKey.Value, Birthday);
+    "", true, ClothesSize, true, hidPassKey.Value, Birthday);
 
                         SendGoogleExcel();
                         SendGoogleExcelByClass();
@@ -125,6 +278,63 @@ namespace LifeBuildC
             }
 
 
+        }
+
+        /// <summary>
+        /// 儲存
+        /// </summary>
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool IsCheck = true;
+                string ErrMsg = string.Empty;
+                ChkPageData(ref IsCheck, ref ErrMsg);
+
+                if (IsCheck)
+                {
+
+                    //組別
+                    string GroupClass = dropGroupClass.SelectedItem.Text;
+
+                    //小組
+                    string[] arrg = dropGroupName.SelectedItem.Text.Split('.');
+                    string GroupCName = arrg[1].Split('-')[0];
+                    string GroupName = arrg[1].Split('-')[1];
+
+                    //姓名
+                    string Ename = txtEname1.Text.Trim().Replace("-", "") + "-" + txtEname2.Text.Trim().Replace("-", "");
+
+                    //大會T恤尺寸
+                    string ClothesSize = dropClothesSize.SelectedItem.Text;
+
+                    bool Course = false; //生命突破
+                    /*
+                    if (dropCourse.SelectedItem.Text == "教會突破")
+                    {
+                        Course = true;
+                    }
+                    */
+
+                    //string PassKey = Request.Form["txtPassKey"].ToString();
+                    string Birthday = txtBirthday.Text.Trim();
+
+                    fireMem.UpdFireMember("",
+                    "", true, ClothesSize, Course, Birthday, hidPassKey.Value);
+
+                    Response.Write("<script>location.href='Fire18SignUp03.aspx?pk=" + hidPassKey.Value + "&gc=" + Request.QueryString["gc"].ToString() + "';</script>");
+
+                }
+                else
+                {
+                    Response.Write("<script>alert('" + ErrMsg + "');</script>");
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('資料錯誤導致報名失敗，請洽櫃檯咨詢');</script>");
+                Response.Redirect("Fire18SignUp.aspx");
+            }
         }
 
         /// <summary>
@@ -165,6 +375,13 @@ namespace LifeBuildC
             {
                 IsCheck = false;
                 ErrMsg = "小孩姓名";
+                return;
+            }
+
+            if (dropClothesSize.SelectedValue == "")
+            {
+                IsCheck = false;
+                ErrMsg = "請選擇大會T恤尺寸";
                 return;
             }
 

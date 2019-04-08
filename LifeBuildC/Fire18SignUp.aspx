@@ -12316,7 +12316,9 @@
         <div>
 
             <div style="text-align: center; margin: 5px;">
-                <h1>2020 烈火特會報名</h1>
+                <h1>
+                    <asp:Label ID="lblTitle" runat="server" Text=""></asp:Label>
+                </h1>
             </div>
 
             <div class="el-row" style="margin-left: -10px; margin-right: -10px;">

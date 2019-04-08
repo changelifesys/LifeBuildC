@@ -35,6 +35,20 @@ namespace LifeBuildC
                     Request.Form["txtPassKey"] != null && Request.Form["txtPassKey"].ToString() != "" &&
                     firePass.CheckPassKey(Request.Form["txtPassKey"].ToString(), Request.QueryString["gc"].ToString()))
                 {
+                    string GroupClass = Request.QueryString["gc"].ToString();
+                    switch (GroupClass)
+                    {
+                        case "L": //成人報名
+                            lblTitle.Text = "2020 烈火特會成人報名";
+                            break;
+                        case "S": //學青報名
+                            lblTitle.Text = "2020 烈火特會學青報名";
+                            break;
+                        case "C": //12歲以下報名(含12歲)
+                            lblTitle.Text = "2020 烈火特會兒童報名";
+                            break;
+                    }
+
                     hidPassKey.Value = Request.Form["txtPassKey"].ToString();
                     DataTable dt = fireMem.GetFireMemberWherePassKey(Request.Form["txtPassKey"].ToString());
 

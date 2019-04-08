@@ -149,7 +149,9 @@
         <asp:HiddenField ID="hidPassKey" runat="server" />
         <div>
             <div style="text-align: center; margin: 5px;">
-                <h2 class="center">2020 烈火特會報名</h2>
+                <h2 class="center">
+                    <asp:Label ID="lblTitle" runat="server" Text=""></asp:Label>
+                </h2>
             </div>
 
             <!--組別-->

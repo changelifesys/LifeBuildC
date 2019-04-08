@@ -101,7 +101,9 @@
         <asp:HiddenField ID="hidPassKey" runat="server" />
         <div>
             <div style="text-align: center; margin: 5px;">
-                <h2 class="center">2020 烈火特會報名</h2>
+                <h2 class="center">
+                    <asp:Label ID="lblTitle" runat="server" Text=""></asp:Label>
+                </h2>
             </div>
 
             <!--組別-->
@@ -178,9 +180,49 @@
             </div>
 
 
+            <!--大會T恤尺寸-->
+            <div class="cssField">
+                <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">大會T恤尺寸</font>&nbsp;
+            </div>
+            <div style="text-align: center; margin: 5px;">
+
+                <span class="cssField800">
+                    <font style="color: #fa5555;">*</font>&nbsp;<font style="color: #5a5e66;">大會T恤尺寸</font>&nbsp;&nbsp;&nbsp;
+                </span>
+
+                <asp:DropDownList CssClass="cssA" ID="dropClothesSize" runat="server">
+                    <asp:ListItem Value="" disabled Selected hidden>請選擇尺寸</asp:ListItem>
+                    <asp:ListItem Value="0">S</asp:ListItem>
+                    <asp:ListItem Value="1">M</asp:ListItem>
+                    <asp:ListItem Value="2">L</asp:ListItem>
+                    <asp:ListItem Value="3">XL</asp:ListItem>
+                    <asp:ListItem Value="4">XXL</asp:ListItem>
+                </asp:DropDownList>
+                <p />
+
+                <div class="tanchuang_wrap" id="divCSize">
+                    <div class="lightbox"></div>
+                    <div class="tanchuang_neirong">
+                        <p>
+                            <span onclick="closeDiv('divCSize')" style="cursor: pointer;">
+                                <img alt="" style="width: 40px;" src="img/close.jfif" />
+                            </span>
+                        </p>
+                        <img id="imgclothSize" src="js/fire/clothSize.jpg" />
+                    </div>
+                </div>
+
+                <span onclick="displayDiv('divCSize')" style="cursor: pointer;">
+                    <input id="Button1" class="cssA" style="width: 95%; background-color: yellow; font-size: 14px;" type="button" value="尺寸示意圖" />
+                </span>
+
+                <br />
+            </div>
+
             <hr />
             <div style="text-align: center; margin: 5px;">
                 <asp:Button ID="btnSend" CssClass="cssC" runat="server" Width="100px" Text="報名" OnClick="btnSend_Click" />
+                <asp:Button ID="btnSave" CssClass="cssC" runat="server" Width="100px" Text="儲存" OnClick="btnSave_Click" />
             </div>
         </div>
     </form>

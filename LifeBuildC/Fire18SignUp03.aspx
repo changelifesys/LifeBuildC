@@ -12358,7 +12358,9 @@
         <div>
 <%--            <img id="mainBg" src="/js/fire/main.jpg?f4ffa9d7f2bec29dabd0859458678983" alt="烈火特會-禱告與復興">--%>
             <div style="text-align: center; margin: 5px;">
-                <h2 class="center">2020 烈火特會報名</h2>
+                <h2 class="center">
+                    <asp:Label ID="lblTitle" runat="server" Text=""></asp:Label>
+                </h2>
             </div>
 
             <div class="el-row" style="margin-left: -10px; margin-right: -10px;">
