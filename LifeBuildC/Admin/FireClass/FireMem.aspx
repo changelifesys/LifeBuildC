@@ -33,7 +33,8 @@
             <label id="lblSend" style="display: none;">資料匯出到雲端中，請稍後...</label>
             <p />
             密碼：<asp:TextBox ID="txtPassKey" runat="server"></asp:TextBox>
-            <asp:Button ID="btnEditData" runat="server" Text="修改" OnClick="btnEditData_Click" />
+            <asp:Button ID="btnEditData" runat="server" Text="修改" OnClick="btnEditData_Click" />&nbsp;&nbsp;&nbsp;
+            <asp:Button ID="btnQuery" runat="server" Text="查詢" OnClick="btnQuery_Click" />
             <br/>
                         <br/>
             <asp:Label ForeColor="Red" ID="lblCount" runat="server" Text=""></asp:Label>

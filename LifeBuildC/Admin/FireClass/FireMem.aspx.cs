@@ -27,11 +27,13 @@ namespace LifeBuildC.Admin.FireClass
         {
             if (!IsPostBack)
             {
-                DataTable dt = firemem.QueryFireMember();
-                gvExcel.DataSource = dt;
-                gvExcel.DataBind();
+                //DataTable dt = firemem.QueryFireMember();
+                //gvExcel.DataSource = dt;
+                //gvExcel.DataBind();
 
-                lblCount.Text = "查詢共 " + dt.Rows.Count.ToString() + " 筆資料";
+                //lblCount.Text = "查詢共 " + dt.Rows.Count.ToString() + " 筆資料";
+                btnQuery_Click(null, null);
+
             }
         }
 
@@ -361,6 +363,15 @@ namespace LifeBuildC.Admin.FireClass
 
             Response.Redirect("https://docs.google.com/spreadsheets/d/1IzuEudxNvaO44mTZgXbvcxAfQ21FfxnPeW12PB3jW2M/edit#gid=0");
 
+        }
+
+        protected void btnQuery_Click(object sender, EventArgs e)
+        {
+            DataTable dt = firemem.QueryFireMember();
+            gvExcel.DataSource = dt;
+            gvExcel.DataBind();
+
+            lblCount.Text = "查詢共 " + dt.Rows.Count.ToString() + " 筆資料";
         }
     }
 }
