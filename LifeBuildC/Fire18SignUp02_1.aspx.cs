@@ -589,7 +589,7 @@ namespace LifeBuildC
             //                               <font style='color: red;'>該mail為CLC資訊系統所發，請勿直接回覆</font>";
             string body = @"恭喜您完成烈火特會報名。<p/>
                                            特會流程及資訊請等候通知。<p/>
-                                           行前通知將於開始前一週發送。<p/>
+                                           行前通知將於開始前幾週發送。<p/>
                                            如有問題請與<font style='color: blue;'>信豪傳道聯繫</font><p/>
                                            <font style='color: blue;'>changelifesys@gmail.com</font><p/>
                                            時間：2020/06/24（三）～06/27（六）<p/>

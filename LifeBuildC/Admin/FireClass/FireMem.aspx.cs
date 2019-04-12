@@ -294,12 +294,14 @@ namespace LifeBuildC.Admin.FireClass
 
             firemem.DelFireMember(PassKey);
 
+            //DataTable dt = firemem.QueryFireMember();
+            //gvExcel.DataSource = dt;
+            //gvExcel.DataBind();
 
-            DataTable dt = firemem.QueryFireMember();
-            gvExcel.DataSource = dt;
-            gvExcel.DataBind();
+            //lblCount.Text = "查詢共 " + dt.Rows.Count.ToString() + " 筆資料";
 
-            lblCount.Text = "查詢共 " + dt.Rows.Count.ToString() + " 筆資料";
+            Response.Redirect("FireMem.aspx");
+
         }
 
         protected void btnExcelClass_Click(object sender, EventArgs e)
