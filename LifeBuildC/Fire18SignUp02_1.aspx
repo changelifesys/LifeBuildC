@@ -276,11 +276,13 @@
                 
                 <asp:DropDownList CssClass="cssA" ID="dropClothesSize" runat="server">
                     <asp:ListItem Value="" disabled Selected hidden>請選擇尺寸</asp:ListItem>
-                    <asp:ListItem Value="0">S</asp:ListItem>
-                    <asp:ListItem Value="1">M</asp:ListItem>
-                    <asp:ListItem Value="2">L</asp:ListItem>
-                    <asp:ListItem Value="3">XL</asp:ListItem>
-                    <asp:ListItem Value="4">XXL</asp:ListItem>
+                    <asp:ListItem Value="0">XS</asp:ListItem>
+                    <asp:ListItem Value="1">S</asp:ListItem>
+                    <asp:ListItem Value="2">M</asp:ListItem>
+                    <asp:ListItem Value="3">L</asp:ListItem>
+                    <asp:ListItem Value="4">XL</asp:ListItem>
+                    <asp:ListItem Value="5">2L</asp:ListItem>
+                    <asp:ListItem Value="6">3L</asp:ListItem>
                 </asp:DropDownList>
                 <p />
 

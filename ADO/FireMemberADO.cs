@@ -157,6 +157,36 @@ namespace ADO
             return dt;
         }
 
+        public DataTable QueryFireMemberWhereGC(string GroupClass)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(condb))
+            {
+                string sql = @" SELECT *,
+	                                            LEFT(Phone, 4)+'-'+RIGHT(Phone, 6) Phone2,
+	                                            CASE WHEN gender = 1 THEN '男' ELSE '女' END gender2,
+                                                '待大會通知' AS Course2,
+
+	                                            (SELECT TOP 1 GroupID FROM [chclife].[ChcGroup]
+	                                             WHERE GroupCName = FM.GroupCName 
+	                                             AND GroupName = FM.GroupName)+'.'+GroupCName+'-'+GroupName group2
+
+                                            FROM [chclife].[FireMember]  FM
+                                            LEFT JOIN [chclife].[FirePassW] FW ON FM.PassKey = FW.PassKey
+                                            WHERE CreateTime > '2019-04-07'
+                                            AND FW.GroupClass = @GroupClass
+                                            ORDER BY group2
+                                         ";
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, con);
+                sda.SelectCommand.Parameters.AddWithValue("@GroupClass", GroupClass);
+                sda.Fill(dt);
+            }
+
+            return dt;
+        }
+
         public DataTable GetFireMemberWherePassKey(string PassKey)
         {
             DataTable dt = new DataTable();

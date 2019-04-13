@@ -35,8 +35,12 @@
             密碼：<asp:TextBox ID="txtPassKey" runat="server"></asp:TextBox>
             <asp:Button ID="btnEditData" runat="server" Text="修改" OnClick="btnEditData_Click" />&nbsp;&nbsp;&nbsp;
             <asp:Button ID="btnQuery" runat="server" Text="查詢" OnClick="btnQuery_Click" />
-            <br/>
-                        <br/>
+            <p/>
+            <asp:RadioButton ID="rdoAll" GroupName="gc" Checked="true" runat="server" Text="全部" AutoPostBack="true" OnCheckedChanged="rdoAll_CheckedChanged" />&nbsp;&nbsp;|&nbsp;&nbsp;
+            <asp:RadioButton ID="rdoL" GroupName="gc" runat="server" Text="成人" AutoPostBack="true" OnCheckedChanged="rdoAll_CheckedChanged" />&nbsp;&nbsp;|&nbsp;&nbsp;
+            <asp:RadioButton ID="rdoS" GroupName="gc" runat="server" Text="學生" AutoPostBack="true" OnCheckedChanged="rdoAll_CheckedChanged" />&nbsp;&nbsp;|&nbsp;&nbsp;
+            <asp:RadioButton ID="rdoC" GroupName="gc" runat="server" Text="兒童" AutoPostBack="true" OnCheckedChanged="rdoAll_CheckedChanged" />&nbsp;&nbsp;|&nbsp;&nbsp;
+            <p/>
             <asp:Label ForeColor="Red" ID="lblCount" runat="server" Text=""></asp:Label>
             <asp:GridView ID="gvExcel" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvExcel_RowDataBound" OnRowDeleting="gvExcel_RowDeleting">
                 <Columns>

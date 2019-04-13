@@ -107,50 +107,68 @@ namespace LifeBuildC
 
                         li = null;
                         li = new ListItem();
-                        li.Text = "S";
+                        li.Text = "XS";
                         li.Value = "0";
                         dropClothesSize.Items.Add(li);
 
                         li = null;
                         li = new ListItem();
-                        li.Text = "M";
+                        li.Text = "S";
                         li.Value = "1";
                         dropClothesSize.Items.Add(li);
 
                         li = null;
                         li = new ListItem();
-                        li.Text = "L";
+                        li.Text = "M";
                         li.Value = "2";
                         dropClothesSize.Items.Add(li);
 
                         li = null;
                         li = new ListItem();
-                        li.Text = "XL";
+                        li.Text = "L";
                         li.Value = "3";
                         dropClothesSize.Items.Add(li);
 
                         li = null;
                         li = new ListItem();
-                        li.Text = "XXL";
+                        li.Text = "XL";
                         li.Value = "4";
+                        dropClothesSize.Items.Add(li);
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "2L";
+                        li.Value = "5";
+                        dropClothesSize.Items.Add(li);
+
+                        li = null;
+                        li = new ListItem();
+                        li.Text = "3L";
+                        li.Value = "6";
                         dropClothesSize.Items.Add(li);
 
                         switch (dt.Rows[0]["ClothesSize"].ToString())
                         {
-                            case "S":
+                            case "XS":
                                 dropClothesSize.SelectedIndex = 0;
                                 break;
-                            case "M":
+                            case "S":
                                 dropClothesSize.SelectedIndex = 1;
                                 break;
-                            case "L":
+                            case "M":
                                 dropClothesSize.SelectedIndex = 2;
                                 break;
-                            case "XL":
+                            case "L":
                                 dropClothesSize.SelectedIndex = 3;
                                 break;
-                            case "XXL":
+                            case "XL":
                                 dropClothesSize.SelectedIndex = 4;
+                                break;
+                            case "2L":
+                                dropClothesSize.SelectedIndex = 5;
+                                break;
+                            case "3L":
+                                dropClothesSize.SelectedIndex = 6;
                                 break;
                         }
 

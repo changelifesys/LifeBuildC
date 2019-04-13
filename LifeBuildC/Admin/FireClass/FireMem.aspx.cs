@@ -375,5 +375,36 @@ namespace LifeBuildC.Admin.FireClass
 
             lblCount.Text = "查詢共 " + dt.Rows.Count.ToString() + " 筆資料";
         }
+
+        protected void rdoAll_CheckedChanged(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+
+            if (rdoAll.Checked)
+            {
+                dt = firemem.QueryFireMember();
+            }
+
+            if (rdoL.Checked)
+            {
+                dt = firemem.QueryFireMemberWhereGC("L");
+            }
+
+            if (rdoS.Checked)
+            {
+                dt = firemem.QueryFireMemberWhereGC("S");
+            }
+
+            if (rdoC.Checked)
+            {
+                dt = firemem.QueryFireMemberWhereGC("C");
+            }
+
+            gvExcel.DataSource = dt;
+            gvExcel.DataBind();
+
+            lblCount.Text = "查詢共 " + dt.Rows.Count.ToString() + " 筆資料";
+
+        }
     }
 }
