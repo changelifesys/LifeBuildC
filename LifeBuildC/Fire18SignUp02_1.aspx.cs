@@ -684,7 +684,7 @@ namespace LifeBuildC
                 rdogender0.Checked ? "女" : "男", //男生
                 dropClothesSize.SelectedItem.Text, //S
                 //dropCourse.SelectedItem.Text //生命突破
-                "待大會通知"
+                ""
             };
 
             valueRange.Values = new List<IList<object>> { oblist };
@@ -746,7 +746,7 @@ namespace LifeBuildC
                 txtBirthday.Text.Trim(),
                 dropClothesSize.SelectedItem.Text, //S
                 //dropCourse.SelectedItem.Text //生命突破
-                "待大會通知"
+                ""
             };
 
             valueRange.Values = new List<IList<object>> { oblist };
